@@ -28,15 +28,5 @@ export const baseOptions: BaseLayoutProps = {
       </div>
     ),
   },
-  links: [
-    {
-      text: "Home",
-      url: "/",
-    },
-    {
-      text: "GitHub",
-      url: githubUrl,
-      external: true,
-    },
-  ],
+  links: [],
 };

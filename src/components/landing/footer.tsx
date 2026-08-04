@@ -17,6 +17,16 @@ const community = [
     href: "https://discord.gg/4kMng8XVcm",
     description: "Join the community for support and discussions.",
   },
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/company/babelize",
+    description: "Connect with us on LinkedIn.",
+  },
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/babelizeapp/",
+    description: "Follow us on Instagram.",
+  },
 ];
 
 const resources = [
@@ -33,8 +43,11 @@ const babelize = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/[0.06] py-16">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <footer className="relative border-t border-white/[0.06] bg-[#030303] py-16">
+      {/* Gradient overlay at top */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-emerald-500/[0.03] to-transparent" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-4">
           <div className="md:col-span-2">
             <Link href="/" className="flex items-center gap-2.5">

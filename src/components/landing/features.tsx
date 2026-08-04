@@ -1,80 +1,188 @@
-import { Copy, Globe2, Accessibility } from "lucide-react";
+"use client";
+
+import { motion } from "motion/react";
+import { Globe, Flag, ArrowLeftRight, Braces, Box, Puzzle, Users, Shield, Copy, ChevronDown, CheckCircle2 } from "lucide-react";
 import { Reveal } from "./reveal";
 
-function GithubIcon({ size = 18 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      aria-hidden="true"
-    >
-      <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
-    </svg>
-  );
-}
-
-const features = [
+const FEATURES = [
   {
-    icon: Copy,
-    title: "Copy & Paste",
-    description:
-      "No installs, no lock-in. Copy the code into your project and ship — full source control, always.",
+    title: "Language Switchers",
+    description: "Drop-in switchers with dropdowns, pills, flags, and full RTL support.",
+    icon: Globe,
+    gradient: "from-emerald-500/20 to-transparent",
+    iconColor: "text-emerald-400",
   },
   {
-    icon: Globe2,
-    title: "Localization-first",
-    description:
-      "Pluralization, RTL, and locale data built into every component. Localized by default, not as an afterthought.",
+    title: "Locale Pickers",
+    description: "Searchable locale pickers with native names and flags.",
+    icon: Flag,
+    gradient: "from-blue-500/20 to-transparent",
+    iconColor: "text-blue-400",
   },
   {
-    icon: Accessibility,
-    title: "Accessible",
-    description:
-      "Keyboard support, ARIA labels, and WCAG-aware markup. Localized UIs that work for everyone.",
+    title: "RTL Layout Support",
+    description: "Automatic RTL detection and layout direction handling.",
+    icon: ArrowLeftRight,
+    gradient: "from-purple-500/20 to-transparent",
+    iconColor: "text-purple-400",
   },
   {
-    icon: GithubIcon,
-    title: "Community-built",
-    description:
-      "MIT-licensed and free forever. Components are built by contributors and reviewed by maintainers.",
+    title: "i18n Integration",
+    description: "Works with react-intl, next-intl, i18next, LinguiJS, and more.",
+    icon: Braces,
+    gradient: "from-yellow-500/20 to-transparent",
+    iconColor: "text-yellow-400",
   },
 ];
 
 export function Features() {
   return (
-    <section className="relative border-t border-white/[0.06] py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <Reveal>
-          <div className="max-w-2xl">
-            <h2 className="text-balance text-3xl font-semibold tracking-tight text-white md:text-4xl">
-              Every localized app needs these. Build them once, share them forever.
-            </h2>
-            <p className="mt-4 text-lg text-white/60">
-              Babelize Elements turns the repetitive work of building localized
-              interfaces into a shared, open-source toolbox.
-            </p>
-          </div>
-        </Reveal>
+    <section className="relative w-full overflow-hidden bg-black py-32 font-sans selection:bg-emerald-500/30">
+      
+      {/* Ultra-premium Spotlights */}
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-40">
+        <div className="absolute top-0 h-[600px] w-[800px] -translate-y-1/2 rounded-full bg-emerald-500/20 blur-[120px]" />
+        <div className="absolute top-1/4 -left-1/4 h-[400px] w-[400px] rounded-full bg-blue-500/10 blur-[100px]" />
+      </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {features.map((feature, i) => (
-            <Reveal key={feature.title} delay={i * 0.08}>
-              <div className="group flex h-full flex-col rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6 transition-colors hover:border-emerald-500/30 hover:bg-emerald-500/[0.04]">
-                <div className="inline-flex size-10 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-400">
-                  <feature.icon size={18} strokeWidth={1.5} />
-                </div>
-                <h3 className="mt-5 text-base font-semibold text-white">
-                  {feature.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/60">
-                  {feature.description}
-                </p>
-              </div>
-            </Reveal>
-          ))}
+      <div className="container relative z-10 mx-auto max-w-[1400px] px-6 lg:px-12">
+        
+        {/* Hero-style Header */}
+        <div className="mb-24 max-w-3xl">
+          <Reveal>
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1 text-xs font-medium uppercase tracking-widest text-neutral-400 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)] backdrop-blur-md">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+              </span>
+              Powerful by default
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <h2 className="mb-6 text-5xl font-medium tracking-tight md:text-6xl lg:text-7xl">
+              <span className="bg-gradient-to-b from-white to-white/60 bg-clip-text text-transparent">
+                Everything you need <br />
+              </span>
+              <span className="bg-gradient-to-r from-emerald-300 to-emerald-600 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(52,211,153,0.2)]">
+                to localize.
+              </span>
+            </h2>
+          </Reveal>
+
+          <Reveal delay={0.2}>
+            <p className="text-xl text-neutral-400">
+              Built for modern React apps. Copy, paste, and ship globally.
+            </p>
+          </Reveal>
         </div>
+
+        {/* Main Split Layout */}
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20 items-center">
+          
+          {/* Left: Bento Grid */}
+          <Reveal delay={0.3}>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {FEATURES.map((feature, i) => (
+                <div
+                  key={feature.title}
+                  className="group relative overflow-hidden rounded-3xl border border-white/[0.05] bg-white/[0.01] p-6 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)] transition-all hover:bg-white/[0.03]"
+                >
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 transition-opacity duration-500 group-hover:opacity-100`}
+                  />
+                  <div className="relative z-10">
+                    <div className="mb-6 inline-flex rounded-2xl border border-white/[0.08] bg-white/[0.04] p-3 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)]">
+                      <feature.icon className={`size-6 ${feature.iconColor}`} />
+                    </div>
+                    <h3 className="mb-2 text-base font-semibold text-white tracking-tight">
+                      {feature.title}
+                    </h3>
+                    <p className="text-sm text-neutral-400 leading-relaxed">
+                      {feature.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+
+          {/* Right: Hyper-modern IDE */}
+          <Reveal delay={0.4} className="relative w-full">
+            
+            {/* Ambient Backlight for IDE */}
+            <div className="absolute inset-0 -z-10 translate-y-10 scale-[0.8] bg-emerald-500/20 blur-[100px]" />
+
+            <div className="relative overflow-hidden rounded-3xl border border-white/[0.1] bg-[#050505] shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_30px_60px_rgba(0,0,0,0.5)]">
+              
+              {/* macOS Top Bar */}
+              <div className="flex h-12 items-center justify-between border-b border-white/[0.05] bg-white/[0.01] px-5">
+                <div className="flex items-center gap-2">
+                  <div className="size-3 rounded-full bg-white/20" />
+                  <div className="size-3 rounded-full bg-white/20" />
+                  <div className="size-3 rounded-full bg-white/20" />
+                  <span className="ml-4 font-mono text-xs font-medium text-neutral-500">app.tsx</span>
+                </div>
+                <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-xs font-medium text-neutral-400 transition-colors hover:bg-white/[0.05] hover:text-white">
+                  <Copy className="size-3.5" />
+                  Copy
+                </button>
+              </div>
+
+              {/* Code Area */}
+              <div className="p-8">
+                <pre className="font-mono text-sm leading-[1.8]">
+                  <code>
+                    <span className="text-neutral-600 mr-6 select-none">1</span>
+                    <span className="text-[#ff7b72]">import</span>
+                    <span className="text-[#c9d1d9]"> {"{ "}</span>
+                    <span className="text-[#34d399]">LanguageSwitcher</span>
+                    <span className="text-[#c9d1d9]">{" } "}</span>
+                    <span className="text-[#ff7b72]">from</span>
+                    <span className="text-[#a5d6ff]"> &quot;@babelize/elements&quot;</span>
+                    <span className="text-[#c9d1d9]">;</span>
+                    {"\n"}
+                    <span className="text-neutral-600 mr-6 select-none">2</span>
+                    {"\n"}
+                    <span className="text-neutral-600 mr-6 select-none">3</span>
+                    <span className="text-[#ff7b72]">export default function</span>
+                    <span className="text-[#d2a8ff]"> App</span>
+                    <span className="text-[#c9d1d9]">() {"{"}</span>
+                    {"\n"}
+                    <span className="text-neutral-600 mr-6 select-none">4</span>
+                    <span className="text-[#c9d1d9]">  </span>
+                    <span className="text-[#ff7b72]">return</span>
+                    <span className="text-[#c9d1d9]"> (</span>
+                    {"\n"}
+                    <span className="text-neutral-600 mr-6 select-none">5</span>
+                    <span className="text-[#c9d1d9]">    &lt;</span>
+                    <span className="text-[#7ee787]">div</span>
+                    <span className="text-[#c9d1d9]">&gt;</span>
+                    {"\n"}
+                    <span className="text-neutral-600 mr-6 select-none">6</span>
+                    <span className="text-[#c9d1d9]">      &lt;</span>
+                    <span className="text-[#34d399]">LanguageSwitcher</span>
+                    <span className="text-[#c9d1d9]"> /&gt;</span>
+                    {"\n"}
+                    <span className="text-neutral-600 mr-6 select-none">7</span>
+                    <span className="text-[#c9d1d9]">    &lt;/</span>
+                    <span className="text-[#7ee787]">div</span>
+                    <span className="text-[#c9d1d9]">&gt;</span>
+                    {"\n"}
+                    <span className="text-neutral-600 mr-6 select-none">8</span>
+                    <span className="text-[#c9d1d9]">  );</span>
+                    {"\n"}
+                    <span className="text-neutral-600 mr-6 select-none">9</span>
+                    <span className="text-[#c9d1d9]">{"}"}</span>
+                  </code>
+                </pre>
+              </div>
+
+              {/* Floating Elements removed */}
+            </div>
+          </Reveal>
+        </div>
+
       </div>
     </section>
   );

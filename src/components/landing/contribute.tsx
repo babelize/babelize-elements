@@ -8,18 +8,31 @@ export function Contribute() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <div className="relative overflow-hidden rounded-3xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/[0.12] via-white/[0.02] to-transparent p-10 md:p-16">
+            {/* Background glow */}
             <div className="pointer-events-none absolute -right-20 -top-20 size-72 rounded-full bg-emerald-500/10 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-20 -left-20 size-72 rounded-full bg-emerald-500/5 blur-3xl" />
+
+            {/* Dot field pattern */}
+            <div
+              className="pointer-events-none absolute inset-0 opacity-[0.04]"
+              style={{
+                backgroundImage:
+                  "radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)",
+                backgroundSize: "20px 20px",
+              }}
+            />
+
             <div className="relative max-w-2xl">
               <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-xs font-medium text-emerald-400">
                 <Sparkles size={14} />
                 Contribute
               </div>
               <h2 className="mt-6 text-balance text-3xl font-semibold tracking-tight text-white md:text-5xl">
-                Built by the community, for every localized app.
+                Built by the <span className="text-emerald-400">community</span>, for every localized app.
               </h2>
-              <p className="mt-4 text-lg text-white/70">
-                Join the Babelize Elements contributors. Pick an open issue,
-                build a component, and ship it to developers around the world.
+              <p className="mt-4 text-lg text-white/60">
+                Join the Babelize Elements open-source contributors. Pick an issue,
+                build a React i18n component, and ship it to developers worldwide.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link

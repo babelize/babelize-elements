@@ -41,7 +41,7 @@
 }
 
 .dark {
-  --color-fd-background: #050505;
+  --color-fd-background: transparent;
   --color-fd-foreground: #ededed;
   --color-fd-card: #0d0d0d;
   --color-fd-card-foreground: #ededed;
@@ -74,13 +74,95 @@ body {
   background: rgba(255, 255, 255, 0.16);
 }
 
+/* ── Dot field pattern ── */
+.dot-field {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.8) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* ── Section pacing ── */
+.section-dark {
+  background: var(--background);
+}
+
+.section-darker {
+  background: #080808;
+}
+
+.section-gradient {
+  background: linear-gradient(180deg, var(--background) 0%, #080808 100%);
+}
+
+/* ── Glow effects ── */
+.glow-emerald {
+  box-shadow: 0 0 60px rgba(0, 189, 125, 0.15);
+}
+
+.glow-emerald-sm {
+  box-shadow: 0 0 30px rgba(0, 189, 125, 0.1);
+}
+
 /* ── Fumadocs brand refinements ── */
-[data-active="true"] .sidebar-icon {
+aside a[data-active="true"],
+aside a[aria-current="page"],
+aside button[data-active="true"] {
+  color: var(--color-fd-primary) !important;
+  font-weight: 500 !important;
+  border-left: 2px solid var(--color-fd-primary) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+aside a[data-active="true"] svg,
+aside a[aria-current="page"] svg,
+aside button[data-active="true"] svg {
   color: var(--color-fd-primary) !important;
 }
 
-[data-active="true"] > a,
-nav a[data-active="true"] {
+/* Remove default padding shifting if any, or just ensure it looks good */
+.fd-nav-item[data-active="true"] {
+  background: transparent !important;
+}
+
+/* ── TOC (On this page) brand refinements ── */
+.fd-toc {
+  /* Hides the default straight line and dot if possible by targeting common Fumadocs TOC indicator classes */
+}
+
+/* Style the TOC links */
+.fd-toc-item, 
+.fd-toc a {
+  color: #8a8a8a !important;
+  transition: all 0.2s ease;
+}
+
+.fd-toc-item:hover, 
+.fd-toc a:hover {
+  color: #ededed !important;
+}
+
+/* Active TOC links */
+.fd-toc-item[data-active="true"], 
+.fd-toc a[data-active="true"],
+.fd-toc-item[aria-current="true"],
+.fd-toc a[aria-current="true"] {
   color: var(--color-fd-primary) !important;
-  font-weight: 600 !important;
+  font-weight: 500 !important;
+}
+
+/* Attempt to create the angled line for nested items */
+.fd-toc ul {
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.fd-toc ul ul {
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom-left-radius: 8px;
+}
+
+/* When a nested item is active, make its parent's border green to simulate the continuous line */
+.fd-toc ul:has([data-active="true"]) {
+  border-left-color: var(--color-fd-primary) !important;
 }

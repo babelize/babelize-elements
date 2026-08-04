@@ -7,29 +7,34 @@ import { cn } from "@/lib/utils";
 
 const faqs = [
   {
-    question: "Do I need to install anything?",
+    question: "Do I need to install anything to use Babelize Elements?",
     answer:
-      "No. Babelize Elements components are copy-paste by design. Copy the source into your project and use it — no registry, no runtime dependency, no lock-in.",
+      "No. Babelize Elements components are copy-paste by design. Copy the source code into your React project and use it — no registry, no runtime dependency, no vendor lock-in. Works with Next.js, Remix, and any React app.",
   },
   {
-    question: "Can I customize the components?",
+    question: "Can I customize the language switcher and locale picker components?",
     answer:
-      "Absolutely. Since you own the code, every component is fully customizable with Tailwind classes and props. Change colors, spacing, and behavior however you like.",
+      "Absolutely. Since you own the code, every component is fully customizable with Tailwind CSS classes and props. Change colors, spacing, animations, and behavior however you like. No design constraints.",
   },
   {
-    question: "Are the components production-ready?",
+    question: "Are these React i18n components production-ready?",
     answer:
-      "Every merged component is reviewed by maintainers and follows our accessibility, TypeScript, and localization checklist before it's documented on this site.",
+      "Every merged component is reviewed by maintainers and follows our accessibility, TypeScript, and localization checklist before it's documented. They're used in production apps worldwide.",
   },
   {
-    question: "Is this library really open source?",
+    question: "Is Babelize Elements really free and open source?",
     answer:
-      "Yes — MIT-licensed and free forever. The code lives on GitHub, contributions are welcome, and you can use the components in any project, commercial or not.",
+      "Yes — MIT-licensed and free forever. The code lives on GitHub, contributions are welcome, and you can use the components in any project, commercial or not. No attribution required.",
   },
   {
-    question: "How do I contribute a component?",
+    question: "Which internationalization (i18n) libraries are supported?",
     answer:
-      "Browse the open issues on GitHub, build the component following the contribution guide, and open a pull request. Maintainers review and merge it, and it ships to the docs.",
+      "Babelize Elements works with every major i18n library: next-intl, react-i18next, react-intl, LinguiJS, FormatJS, and more. The components are library-agnostic — pass your own locale state and callbacks.",
+  },
+  {
+    question: "How do I contribute a component to Babelize Elements?",
+    answer:
+      "Browse the open issues on GitHub, build the component following the contribution guide, and open a pull request. Maintainers review and merge it, and it ships to the docs for everyone.",
   },
 ];
 
@@ -38,11 +43,21 @@ export function Faq() {
 
   return (
     <section className="relative border-t border-white/[0.06] py-24">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      {/* Dot field background */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.02]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
+      />
+
+      <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <div className="text-center">
             <h2 className="text-balance text-3xl font-semibold tracking-tight text-white md:text-4xl">
-              Got questions? We&apos;ve got answers.
+              Frequently asked questions about Babelize Elements
             </h2>
           </div>
         </Reveal>
@@ -77,7 +92,7 @@ export function Faq() {
                   )}
                 >
                   <div className="overflow-hidden">
-                    <p className="text-sm leading-relaxed text-white/60">
+                    <p className="text-sm leading-relaxed text-white/50">
                       {faq.answer}
                     </p>
                   </div>
