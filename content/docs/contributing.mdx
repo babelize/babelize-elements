@@ -1,0 +1,68 @@
+---
+title: Contributing
+description: How to contribute a component to Babelize Elements — from opening an issue to shipping a pull request.
+icon: Github
+---
+
+# Contributing
+
+Babelize Elements is an open-source, community-driven library. The components you see here were built by contributors — and the next one could be yours.
+
+## How it works
+
+1. **Pick an issue** — browse the [GitHub issues](https://github.com/babelize/babelize-elements/issues) for a component request marked `good first issue` or `help wanted`.
+2. **Build the component** — implement it in `src/registry/components/` following the [component template](#component-template) below.
+3. **Open a pull request** — our maintainers review it, request changes if needed, and merge it.
+4. **It ships** — merged components are documented on this site and available to every Babelize Elements user.
+
+No component exists yet? Open an issue proposing one. Great candidates: language switchers, locale pickers, translation widgets, RTL utilities, pluralization helpers, and locale-aware formatters.
+
+## Component template
+
+```tsx
+"use client";
+
+import { cn } from "@/lib/utils";
+import type { ComponentProps } from "react";
+
+export interface LanguageSwitcherProps extends ComponentProps<"select"> {
+  locales: { code: string; label: string }[];
+  onLocaleChange?: (code: string) => void;
+}
+
+export function LanguageSwitcher({
+  locales,
+  onLocaleChange,
+  className,
+  ...props
+}: LanguageSwitcherProps) {
+  return (
+    <select
+      className={cn(
+        "h-10 rounded-md border border-white/10 bg-white/5 px-3 text-sm text-foreground outline-none transition-colors focus:border-emerald-500",
+        className,
+      )}
+      onChange={(e) => onLocaleChange?.(e.target.value)}
+      {...props}
+    >
+      {locales.map((locale) => (
+        <option key={locale.code} value={locale.code}>
+          {locale.label}
+        </option>
+      ))}
+    </select>
+  );
+}
+```
+
+## Contribution checklist
+
+- [ ] TypeScript-first with exported interfaces for all props
+- [ ] Localization-aware: handles locale codes, pluralization, or RTL as applicable
+- [ ] Accessible: keyboard support, ARIA labels, focus states
+- [ ] Styled with Tailwind CSS using design tokens
+- [ ] A short demo or usage example for the docs
+
+## Need help?
+
+Open a discussion on GitHub or join the [Babelize community](https://discord.gg/4kMng8XVcm). We're friendly.

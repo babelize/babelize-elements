@@ -1,0 +1,65 @@
+<p align="center">
+  <img src="./public/dark_logo.svg" width="96" height="96" alt="Babelize logo" />
+</p>
+
+<h1 align="center">Babelize Elements</h1>
+
+<p align="center">
+  Open-source Localization UI components for React and Tailwind CSS.
+  <br />
+  Copy-paste components for language switchers, locale pickers, translation widgets, and more — built by the community.
+</p>
+
+<p align="center">
+  <a href="https://elements.babelize.co">elements.babelize.co</a>
+  ·
+  <a href="https://github.com/babelize/babelize-elements/issues">Issues</a>
+  ·
+  <a href="https://github.com/babelize/babelize-elements/blob/main/CONTRIBUTING.md">Contributing</a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/babelize/babelize-elements/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT" /></a>
+  <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome" />
+</p>
+
+## What is Babelize Elements?
+
+**Babelize Elements** is a community-built library of copy-paste **Localization UI components** for React and Tailwind CSS. Every localized app needs a language switcher, a locale picker, RTL-aware layouts, and pluralization UI — Elements turns that repetitive work into a shared, open-source toolbox.
+
+- **Copy & paste** — grab the code, drop it in your project. No installs, no registry lock-in.
+- **Localization-first** — pluralization, RTL, and locale data built into every component.
+- **Accessible** — keyboard support, ARIA labels, and WCAG-aware markup.
+- **Open source** — MIT-licensed, free forever, built by contributors like you.
+
+## Docs & Website
+
+The landing page and component documentation live at [elements.babelize.co](https://elements.babelize.co), built with Next.js and [Fumadocs](https://fumadocs.dev).
+
+```bash
+bun install
+bun run dev
+```
+
+## Contributing a component
+
+Components are contributed by the community. The typical flow:
+
+1. Pick an open [issue](https://github.com/babelize/babelize-elements/issues) — look for `good first issue` or `help wanted`.
+2. Build the component in `src/registry/components/`.
+3. Open a pull request following our [contributing guide](https://github.com/babelize/babelize-elements/blob/main/CONTRIBUTING.md).
+4. Maintainers review it, and merged components ship to the docs for everyone.
+
+Great component candidates:
+
+- Language switchers (dropdowns, pills, searchable)
+- Locale pickers (regions, currencies, date formats)
+- Translation widgets and inline editors
+- RTL-aware layout primitives
+- Locale-aware date/time pickers
+- Pluralization helpers and CLDR plural-rule UI
+- Locale-aware currency inputs
+
+## License
+
+[MIT](https://github.com/babelize/babelize-elements/blob/main/LICENSE) © [Babelize](https://babelize.co)

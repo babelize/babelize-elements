@@ -1,0 +1,47 @@
+name: Component Request
+description: Propose a new localization UI component for Babelize Elements
+title: "[Component]: "
+labels: ["component", "good first issue"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for proposing a component! Babelize Elements is built by contributors — if you'd like to build this yourself, mention that in the comments and we'll assign it to you.
+  - type: input
+    id: component
+    attributes:
+      label: Component name
+      description: e.g. "Language Switcher (Dropdown)"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What does it do?
+      description: Describe the component's purpose and behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: usage
+    attributes:
+      label: Example usage
+      description: Sketch the expected API (props) and a short usage snippet.
+      render: tsx
+  - type: checkboxes
+    id: localization
+    attributes:
+      label: Localization aspects
+      description: Select all that apply
+      options:
+        - label: Locale / language data
+        - label: Pluralization support
+        - label: RTL layout support
+        - label: Locale-aware formatting (dates, numbers, currency)
+  - type: dropdown
+    id: willingness
+    attributes:
+      label: Would you like to build it?
+      options:
+        - "Yes, assign me!"
+        - "No, just proposing"
+        - "I can help review"

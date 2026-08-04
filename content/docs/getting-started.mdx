@@ -1,0 +1,54 @@
+---
+title: Getting Started
+description: Install Babelize Elements in your project and start using localization UI components in minutes.
+icon: Rocket
+---
+
+# Getting Started
+
+Babelize Elements is designed to drop into any React + Tailwind CSS project with zero configuration. Because components are **copy-paste**, you control the code — no registry lock-in, no runtime dependencies.
+
+## Prerequisites
+
+- A React project (Next.js, Vite, Remix, or any React bundler)
+- Tailwind CSS v4 installed and configured
+- Node.js 18+
+
+## Installation
+
+There is nothing to install. Browse the component you need in the docs or the repository, copy the source file into `components/elements/`, and import it:
+
+```bash
+# components live in your own project
+mkdir -p components/elements
+cp path/to/language-switcher.tsx components/elements/
+```
+
+## Add to your project
+
+```tsx
+import { LanguageSwitcher } from "@/components/elements/language-switcher";
+
+export function App() {
+  return (
+    <LanguageSwitcher
+      locales={[
+        { code: "en", label: "English" },
+        { code: "fr", label: "Français" },
+        { code: "es", label: "Español" },
+      ]}
+      onLocaleChange={(code) => console.log("changed to", code)}
+    />
+  );
+}
+```
+
+Every component is TypeScript-first, ships its own props, and works with your existing `next-intl`, `react-i18next`, or custom i18n setup.
+
+## What's available now
+
+Components are added continuously as contributors complete them. Keep an eye on the [components roadmap](https://github.com/babelize/babelize-elements/issues) in GitHub.
+
+## Contribute
+
+This library is built by its community. If a component doesn't exist yet, check the open issues — or [read the contributing guide](/docs/contributing) and build the first version yourself.
