@@ -39,15 +39,12 @@ export function Footer() {
           <div className="md:col-span-2">
             <Link href="/" className="flex items-center gap-2.5">
               <Image
-                src="/dark_logo.svg"
-                alt="Babelize"
-                width={32}
-                height={32}
+                src="/elements_logo.svg"
+                alt="Babelize Elements"
+                width={160}
+                height={30}
                 style={{ objectFit: "contain" }}
               />
-              <span className="text-[15px] font-semibold tracking-tight text-white">
-                Babelize Elements
-              </span>
             </Link>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/50">
               Open-source localization UI components for React and Tailwind CSS.

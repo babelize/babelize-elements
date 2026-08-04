@@ -19,22 +19,12 @@ export const baseOptions: BaseLayoutProps = {
         }}
       >
         <Image
-          src="/light_logo.svg"
-          alt="Babelize"
-          width={32}
-          height={32}
-          className="block dark:hidden"
+          src="/elements_logo.svg"
+          alt="Babelize Elements"
+          width={160}
+          height={30}
           style={{ objectFit: "contain" }}
         />
-        <Image
-          src="/dark_logo.svg"
-          alt="Babelize"
-          width={32}
-          height={32}
-          className="hidden dark:block"
-          style={{ objectFit: "contain" }}
-        />
-        <span>Elements</span>
       </div>
     ),
   },

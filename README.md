@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./public/dark_logo.svg" width="96" height="96" alt="Babelize logo" />
+  <img src="./public/elements_logo.svg" width="341" height="64" alt="Babelize Elements logo" />
 </p>
 
 <h1 align="center">Babelize Elements</h1>

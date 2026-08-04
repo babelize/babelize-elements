@@ -20,15 +20,12 @@ export function Navbar() {
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2.5">
           <Image
-            src="/dark_logo.svg"
-            alt="Babelize"
-            width={32}
-            height={32}
+            src="/elements_logo.svg"
+            alt="Babelize Elements"
+            width={160}
+            height={30}
             style={{ objectFit: "contain" }}
           />
-          <span className="text-[15px] font-semibold tracking-tight text-white">
-            Elements
-          </span>
         </Link>
 
         <div className="hidden items-center gap-7 md:flex">
