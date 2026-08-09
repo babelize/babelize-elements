@@ -1,10 +1,7 @@
 import { Navbar } from "@/components/landing/navbar";
 import { Hero } from "@/components/landing/hero";
 import { Features } from "@/components/landing/features";
-import { ComponentShowcase } from "@/components/landing/components";
-import { InContextEditing } from "@/components/landing/editing";
-import { GettingStarted } from "@/components/landing/getting-started";
-import { Contribute } from "@/components/landing/contribute";
+import { Community } from "@/components/landing/community";
 import { Faq } from "@/components/landing/faq";
 import { Footer } from "@/components/landing/footer";
 
@@ -15,10 +12,8 @@ export default function Home() {
       <main>
         <Hero />
         <Features />
-        <ComponentShowcase />
-        <InContextEditing />
-        <GettingStarted />
-        <Contribute />
+
+        <Community />
         <Faq />
       </main>
       <Footer />

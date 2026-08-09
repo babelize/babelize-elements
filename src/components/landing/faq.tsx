@@ -42,64 +42,92 @@ export function Faq() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="relative border-t border-white/[0.06] py-24">
-      {/* Dot field background */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.02]"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
-        }}
-      />
-
-      <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <Reveal>
-          <div className="text-center">
-            <h2 className="text-balance text-3xl font-semibold tracking-tight text-white md:text-4xl">
-              Frequently asked questions about Babelize Elements
-            </h2>
+    <section className="relative overflow-hidden py-24 md:py-32">
+      <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-12 lg:gap-16">
+          
+          {/* Header */}
+          <div className="flex flex-col items-center text-center">
+            <Reveal>
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1 text-xs font-medium uppercase tracking-widest text-neutral-400">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+                </span>
+                Support
+              </div>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <h2 className="text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+                Frequently asked{" "}
+                <span className="bg-gradient-to-r from-emerald-300 to-emerald-600 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(52,211,153,0.2)]">
+                  questions
+                </span>
+              </h2>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <p className="mt-5 max-w-xl text-base leading-relaxed text-white/50">
+                Everything you need to know about using Babelize Elements in your React projects.
+                Can't find what you're looking for? Check out our GitHub discussions.
+              </p>
+            </Reveal>
           </div>
-        </Reveal>
 
-        <div className="mt-12 divide-y divide-white/[0.06] border-y border-white/[0.06]">
-          {faqs.map((faq, i) => {
-            const isOpen = openIndex === i;
-            return (
-              <Reveal key={faq.question} delay={i * 0.04}>
-                <button
-                  className="flex w-full items-center justify-between gap-4 py-5 text-left"
-                  onClick={() => setOpenIndex(isOpen ? null : i)}
-                  aria-expanded={isOpen}
-                >
-                  <span className="text-base font-medium text-white">
-                    {faq.question}
-                  </span>
-                  <Plus
-                    size={18}
+          {/* Accordion */}
+          <div className="flex flex-col gap-4">
+            {faqs.map((faq, i) => {
+              const isOpen = openIndex === i;
+              return (
+                <Reveal key={faq.question} delay={i * 0.1}>
+                  <div
                     className={cn(
-                      "shrink-0 text-white/40 transition-transform duration-300",
-                      isOpen && "rotate-45",
+                      "group relative overflow-hidden rounded-2xl border transition-colors duration-300",
+                      isOpen
+                        ? "border-emerald-500/20 bg-emerald-500/[0.02]"
+                        : "border-white/[0.06] bg-white/[0.01] hover:bg-white/[0.03]"
                     )}
-                  />
-                </button>
-                <div
-                  className={cn(
-                    "grid transition-all duration-300 ease-out",
-                    isOpen
-                      ? "grid-rows-[1fr] pb-5 opacity-100"
-                      : "grid-rows-[0fr] opacity-0",
-                  )}
-                >
-                  <div className="overflow-hidden">
-                    <p className="text-sm leading-relaxed text-white/50">
-                      {faq.answer}
-                    </p>
+                  >
+                    <button
+                      className="flex w-full items-center justify-between gap-4 px-6 py-6 text-left"
+                      onClick={() => setOpenIndex(isOpen ? null : i)}
+                      aria-expanded={isOpen}
+                    >
+                      <span
+                        className={cn(
+                          "text-base font-medium transition-colors duration-300",
+                          isOpen ? "text-emerald-400" : "text-white group-hover:text-white/80"
+                        )}
+                      >
+                        {faq.question}
+                      </span>
+                      <div
+                        className={cn(
+                          "flex size-8 shrink-0 items-center justify-center rounded-full border transition-all duration-300",
+                          isOpen
+                            ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-400 rotate-45"
+                            : "border-white/[0.08] bg-white/[0.02] text-white/50 group-hover:bg-white/[0.06] group-hover:text-white"
+                        )}
+                      >
+                        <Plus size={16} />
+                      </div>
+                    </button>
+                    <div
+                      className={cn(
+                        "grid transition-all duration-300 ease-out",
+                        isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                      )}
+                    >
+                      <div className="overflow-hidden">
+                        <p className="px-6 pb-6 text-sm leading-relaxed text-white/50">
+                          {faq.answer}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </Reveal>
-            );
-          })}
+                </Reveal>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

@@ -183,9 +183,6 @@ function EditingDemo() {
 
   return (
     <div className="relative w-full">
-      {/* soft glow behind the console */}
-      <div className="pointer-events-none absolute -inset-x-8 -top-10 -bottom-12 -z-10 rounded-[3rem] bg-emerald-500/[0.07] blur-[90px]" />
-
       <div className="relative mx-auto w-full overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0A0A0A] shadow-[0_40px_100px_rgba(0,0,0,0.5)]">
         {/* Window chrome */}
         <div className="flex items-center justify-between rounded-t-2xl border-b border-white/[0.06] bg-white/[0.02] px-4 py-2.5">
@@ -263,17 +260,12 @@ function EditingDemo() {
 
 export function InContextEditing() {
   return (
-    <section className="relative overflow-hidden border-t border-white/[0.06] bg-black py-20 md:py-28">
-      {/* Subtle ambient glow */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-center">
-        <div className="h-72 w-[720px] rounded-full bg-emerald-500/[0.05] blur-[120px]" />
-      </div>
-
+    <section className="relative overflow-hidden py-20 md:py-28">
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid items-center gap-12 lg:grid-cols-[0.85fr_1.3fr] lg:gap-16">
+        <div className="flex flex-col gap-12 lg:gap-16">
           {/* Text column */}
           <Reveal>
-            <div className="max-w-md">
+            <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
               <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1 text-xs font-medium uppercase tracking-widest text-neutral-400">
                 <span className="relative flex h-1.5 w-1.5">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />

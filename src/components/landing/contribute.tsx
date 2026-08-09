@@ -4,23 +4,10 @@ import { Reveal } from "./reveal";
 
 export function Contribute() {
   return (
-    <section className="relative border-t border-white/[0.06] py-24">
+    <section className="relative py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
-          <div className="relative overflow-hidden rounded-3xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/[0.12] via-white/[0.02] to-transparent p-10 md:p-16">
-            {/* Background glow */}
-            <div className="pointer-events-none absolute -right-20 -top-20 size-72 rounded-full bg-emerald-500/10 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-20 -left-20 size-72 rounded-full bg-emerald-500/5 blur-3xl" />
-
-            {/* Dot field pattern */}
-            <div
-              className="pointer-events-none absolute inset-0 opacity-[0.04]"
-              style={{
-                backgroundImage:
-                  "radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)",
-                backgroundSize: "20px 20px",
-              }}
-            />
+          <div className="relative overflow-hidden rounded-3xl border border-white/[0.08] bg-white/[0.02] p-10 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)] md:p-16">
 
             <div className="relative max-w-2xl">
               <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-xs font-medium text-emerald-400">

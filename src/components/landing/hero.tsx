@@ -22,54 +22,7 @@ export function Hero() {
 
   return (
     <main className="relative w-full overflow-hidden">
-      <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden pt-24 pb-24 md:pt-32 bg-[#000000]">
-
-        {/* Advanced "Shader-like" Background */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-
-          {/* Animated Mesh Gradients (Aurora) */}
-          <div className="absolute inset-0 opacity-50 mix-blend-screen">
-            <motion.div
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.3, 0.6, 0.3],
-                rotate: [0, 45, 0],
-              }}
-              transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute left-1/2 top-1/4 h-[800px] w-[800px] -translate-x-1/2 rounded-full bg-emerald-500/20 blur-[140px]"
-            />
-            <motion.div
-              animate={{
-                scale: [1.2, 1, 1.2],
-                opacity: [0.2, 0.4, 0.2],
-                rotate: [0, -45, 0],
-              }}
-              transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-              className="absolute left-[40%] top-1/3 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-blue-500/10 blur-[120px]"
-            />
-          </div>
-
-          {/* Perspective Grid */}
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.15), transparent 70%), linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px)`,
-              backgroundSize: '100% 100%, 40px 40px, 40px 40px',
-              backgroundPosition: 'center, center, center',
-              maskImage: 'linear-gradient(to bottom, transparent, black 20%, black 70%, transparent)',
-              WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 20%, black 70%, transparent)'
-            }}
-          />
-
-          {/* Cinematic Grain / Noise Filter */}
-          <div
-            className="absolute inset-0 opacity-[0.04] mix-blend-plus-lighter"
-            style={{
-              backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")'
-            }}
-          />
-        </div>
-
+      <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden pt-24 pb-24 md:pt-32">
         {/* Content */}
         <div className="relative z-10 w-full px-4 sm:px-6">
           <div className="mx-auto w-full max-w-7xl">
@@ -78,9 +31,9 @@ export function Hero() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="mx-auto mb-10 flex w-fit items-center justify-center gap-2.5 rounded-full border border-emerald-500/20 bg-[#052e16]/30 px-4 py-1.5 text-xs sm:text-sm font-medium text-emerald-400 backdrop-blur-md shadow-[0_0_15px_rgba(16,185,129,0.1)]"
+              className="mx-auto mb-6 flex w-fit items-center justify-center gap-2.5 rounded-full border border-emerald-500/20 bg-[#052e16]/30 px-4 py-1.5 text-xs sm:text-sm font-medium text-emerald-400 backdrop-blur-md shadow-[0_0_15px_rgba(16,185,129,0.1)]"
             >
-              <span className="relative flex h-2 w-2">
+              <span className="relative flex h-2 w-2 mt-[1px]">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
@@ -103,7 +56,7 @@ export function Hero() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="mx-auto mt-6 max-w-2xl text-[1.1rem] leading-relaxed text-neutral-400"
+                className="mx-auto mt-6 max-w-3xl text-[1.1rem] leading-relaxed text-neutral-400"
               >
                 Open-source, copy-paste React components for internationalization (i18n).
                 Build language switchers, locale pickers, and RTL layouts in minutes —
@@ -197,7 +150,6 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Floating Mockups removed */}
       </div>
     </main>
   );

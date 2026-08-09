@@ -37,21 +37,14 @@ const FEATURES = [
 
 export function Features() {
   return (
-    <section className="relative w-full overflow-hidden bg-black py-32 font-sans selection:bg-emerald-500/30">
-      
-      {/* Ultra-premium Spotlights */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-40">
-        <div className="absolute top-0 h-[600px] w-[800px] -translate-y-1/2 rounded-full bg-emerald-500/20 blur-[120px]" />
-        <div className="absolute top-1/4 -left-1/4 h-[400px] w-[400px] rounded-full bg-blue-500/10 blur-[100px]" />
-      </div>
-
+    <section className="relative w-full overflow-hidden py-32 font-sans selection:bg-emerald-500/30">
       <div className="container relative z-10 mx-auto max-w-[1400px] px-6 lg:px-12">
         
         {/* Hero-style Header */}
-        <div className="mb-24 max-w-3xl">
+        <div className="mx-auto mb-24 flex max-w-3xl flex-col items-center text-center">
           <Reveal>
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1 text-xs font-medium uppercase tracking-widest text-neutral-400 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)] backdrop-blur-md">
-              <span className="relative flex h-1.5 w-1.5">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-medium uppercase tracking-widest text-emerald-400 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)] backdrop-blur-md">
+              <span className="relative flex h-1.5 w-1.5 mt-[1px]">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
               </span>
@@ -60,9 +53,9 @@ export function Features() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <h2 className="mb-6 text-5xl font-medium tracking-tight md:text-6xl lg:text-7xl">
-              <span className="bg-gradient-to-b from-white to-white/60 bg-clip-text text-transparent">
-                Everything you need <br />
+            <h2 className="mb-6 text-balance text-5xl font-semibold tracking-tight md:text-6xl lg:text-7xl">
+              <span className="text-white">
+                Everything you need{" "}
               </span>
               <span className="bg-gradient-to-r from-emerald-300 to-emerald-600 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(52,211,153,0.2)]">
                 to localize.
@@ -71,7 +64,7 @@ export function Features() {
           </Reveal>
 
           <Reveal delay={0.2}>
-            <p className="text-xl text-neutral-400">
+            <p className="mt-6 text-lg text-white/50">
               Built for modern React apps. Copy, paste, and ship globally.
             </p>
           </Reveal>
@@ -109,11 +102,7 @@ export function Features() {
 
           {/* Right: Hyper-modern IDE */}
           <Reveal delay={0.4} className="relative w-full">
-            
-            {/* Ambient Backlight for IDE */}
-            <div className="absolute inset-0 -z-10 translate-y-10 scale-[0.8] bg-emerald-500/20 blur-[100px]" />
-
-            <div className="relative overflow-hidden rounded-3xl border border-white/[0.1] bg-[#050505] shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_30px_60px_rgba(0,0,0,0.5)]">
+            <div className="relative overflow-hidden rounded-3xl border border-white/[0.08] bg-[#0A0A0A] shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_40px_100px_rgba(0,0,0,0.5)]">
               
               {/* macOS Top Bar */}
               <div className="flex h-12 items-center justify-between border-b border-white/[0.05] bg-white/[0.01] px-5">
@@ -178,7 +167,6 @@ export function Features() {
                 </pre>
               </div>
 
-              {/* Floating Elements removed */}
             </div>
           </Reveal>
         </div>

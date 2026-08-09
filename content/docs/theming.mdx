@@ -1,0 +1,59 @@
+---
+title: Theming
+description: Customize Babelize Elements by modifying CSS variables
+icon: Palette
+---
+
+## How to Change Themes
+
+Babelize Elements is built on top of Tailwind CSS and uses CSS variables for theming. To change the theme of your components, simply modify the CSS variables in your `globals.css` file. 
+
+This approach gives you complete control over colors, spacing, and styling without needing to dig into component code.
+
+### Modifying Global Variables
+
+By default, Babelize Elements uses the following structure for its color tokens. You can adjust these hex codes or HSL values to perfectly match your brand guidelines.
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #000000;
+    --foreground: #ededed;
+    
+    /* Primary brand colors */
+    --primary: #10b981;
+    --primary-foreground: #000000;
+    
+    /* Component surface colors */
+    --card: #050505;
+    --card-foreground: #ededed;
+    
+    /* Borders and dividers */
+    --border: rgba(255, 255, 255, 0.08);
+    
+    /* Accent colors */
+    --accent: rgba(255, 255, 255, 0.02);
+    --accent-foreground: #ffffff;
+  }
+}
+```
+
+### Component-level overrides
+
+Because every Babelize component is copy-pasted into your repository, you aren't constrained by our design system. If you want to change a specific interaction, border radius, or font size, simply open the component's `.tsx` file and edit the Tailwind classes directly.
+
+```tsx
+// Before
+<div className="rounded-3xl border border-white/[0.08] bg-[#050505]">
+
+// After (Customized to your app)
+<div className="rounded-lg shadow-sm border border-neutral-200 bg-white">
+```
+
+### Dark Mode
+
+Babelize Elements are designed dark-mode first for the landing page, but they can easily adapt to light mode or respect system preferences. To support multiple themes, add a `.dark` class block in your `globals.css` and define the dark-mode specific variables there.

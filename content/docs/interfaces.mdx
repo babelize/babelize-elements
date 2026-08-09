@@ -1,0 +1,71 @@
+---
+title: TypeScript Interfaces
+description: Core TypeScript interfaces used across Babelize Elements
+icon: FileCode
+---
+
+## Overview
+
+Babelize Elements is built with full TypeScript support to ensure type safety and developer productivity. Most components share common interfaces for languages, locales, and translation objects.
+
+This page documents the core interfaces that you will interact with when passing data into the components.
+
+### Language
+
+The `Language` interface represents a language option in components like the `LanguageSwitcher` and `LocalePicker`.
+
+```ts
+export interface Language {
+  /**
+   * The ISO 639-1 code of the language (e.g., 'en', 'fr', 'ar').
+   */
+  code: string;
+  
+  /**
+   * The name of the language in English (e.g., 'English', 'French').
+   */
+  name: string;
+  
+  /**
+   * The name of the language in its native script (e.g., 'English', 'Français', 'العربية').
+   */
+  nativeName?: string;
+  
+  /**
+   * Whether the language is written right-to-left.
+   */
+  isRtl?: boolean;
+  
+  /**
+   * Optional URL or React component for a country/language flag.
+   */
+  flag?: React.ReactNode | string;
+}
+```
+
+### Translation
+
+The `Translation` interface is often used when working with In-Context Editing or viewing raw localization keys.
+
+```ts
+export interface Translation {
+  /**
+   * The unique key used to identify the string (e.g., 'hero.title').
+   */
+  key: string;
+  
+  /**
+   * The translated string value.
+   */
+  value: string;
+  
+  /**
+   * An optional namespace if you split your translations into multiple files/domains.
+   */
+  namespace?: string;
+}
+```
+
+### Extending Interfaces
+
+Because Babelize Elements components are fully owned by you once you copy them into your project, you can easily extend these interfaces directly in the component files. For example, if you need to pass a specific `currency` along with the `Language` object, simply add `currency?: string` to the interface in your local copy of the component!

@@ -101,11 +101,8 @@ const micros = [BuildFasterMicro, StayConsistentMicro, ShipGloballyMicro];
 
 export function GettingStarted() {
   return (
-    <section className="relative overflow-hidden border-t border-white/[0.06] bg-black py-20 md:py-28">
-      {/* Subtle ambient glow */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-center">
-        <div className="h-72 w-[720px] rounded-full bg-emerald-500/[0.06] blur-[120px]" />
-      </div>
+    <section className="relative overflow-hidden py-20 md:py-28">
+
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Statement */}

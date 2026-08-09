@@ -20,7 +20,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           </a>
         ),
         footer: (
-          <div className="flex flex-col gap-1 border-t border-white/[0.05] pt-4 mt-4">
+          <div className="flex flex-col gap-1 pt-4 mt-4">
             <a
               href="https://discord.gg/4kMng8XVcm"
               target="_blank"

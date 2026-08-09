@@ -515,12 +515,7 @@ export function ComponentShowcase() {
   };
 
   return (
-    <section id="components" className="relative overflow-hidden bg-black py-20 md:py-28">
-      {/* Soft ambient glow */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-center">
-        <div className="h-64 w-[700px] rounded-full bg-emerald-500/[0.07] blur-[120px]" />
-      </div>
-
+    <section id="components" className="relative overflow-hidden py-20 md:py-28">
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <Reveal>
@@ -609,7 +604,6 @@ export function ComponentShowcase() {
 
               {/* Stage */}
               <div className="relative flex min-h-[420px] items-center overflow-hidden rounded-xl border border-white/[0.06] bg-black/60 p-4 sm:p-6">
-                <div className="pointer-events-none absolute left-1/2 top-0 h-40 w-[80%] -translate-x-1/2 rounded-full bg-emerald-500/[0.05] blur-[80px]" />
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.div
                     key={active.id}
