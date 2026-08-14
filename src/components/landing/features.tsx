@@ -1,7 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
-import { Globe, Flag, ArrowLeftRight, Braces, Box, Puzzle, Users, Shield, Copy, ChevronDown, CheckCircle2 } from "lucide-react";
+import { Globe, Flag, ArrowLeftRight, Braces, Copy } from "lucide-react";
 import { Reveal } from "./reveal";
 
 const FEATURES = [
@@ -76,7 +75,7 @@ export function Features() {
           {/* Left: Bento Grid */}
           <Reveal delay={0.3}>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {FEATURES.map((feature, i) => (
+              {FEATURES.map((feature) => (
                 <div
                   key={feature.title}
                   className="group relative overflow-hidden rounded-3xl border border-white/[0.05] bg-white/[0.01] p-6 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)] transition-all hover:bg-white/[0.03]"

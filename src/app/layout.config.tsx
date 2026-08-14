@@ -1,8 +1,6 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
 import Image from "next/image";
 
-const githubUrl = "https://github.com/babelize/babelize-elements";
-
 export const baseOptions: BaseLayoutProps = {
   themeSwitch: {
     enabled: false,

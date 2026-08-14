@@ -68,7 +68,7 @@ export function Faq() {
             <Reveal delay={0.2}>
               <p className="mt-5 max-w-xl text-base leading-relaxed text-white/50">
                 Everything you need to know about using Babelize Elements in your React projects.
-                Can't find what you're looking for? Check out our GitHub discussions.
+                Can&apos;t find what you&apos;re looking for? Check out our GitHub discussions.
               </p>
             </Reveal>
           </div>

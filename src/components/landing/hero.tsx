@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
-import { ArrowRight, Check, Globe, LayoutTemplate, Zap, Shield, ChevronDown, Copy, CornerDownLeft } from "lucide-react";
+import { Copy, CornerDownLeft } from "lucide-react";
 
 export function Hero() {
   const router = useRouter();
