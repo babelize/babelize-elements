@@ -14,9 +14,9 @@ export interface ThemeDefinition {
 }
 
 const previewLocales: Locale[] = [
-  { code: "en", label: "English", flag: "\u{1F1FA}\u{1F1F8}" },
-  { code: "fr", label: "Fran\u00e7ais", flag: "\u{1F1EB}\u{1F1F7}" },
-  { code: "es", label: "Espa\u00f1ol", flag: "\u{1F1EA}\u{1F1F8}" },
+  { code: "en" },
+  { code: "fr" },
+  { code: "es" },
 ];
 
 export function ThemePreview({
@@ -209,9 +209,9 @@ export function ThemePreview({
           {/* Language Switcher */}
           <div className="pt-1">
             <LanguageSwitcher
-              locale={locale}
               locales={previewLocales}
-              onLocaleChange={setLocale}
+              defaultValue="en"
+              onValueChange={setLocale}
             />
           </div>
         </div>

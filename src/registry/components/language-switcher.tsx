@@ -6,8 +6,8 @@ import { cn } from "@/lib/utils";
 export interface Locale {
   /** ISO 639-1 / BCP 47 code (e.g. "en", "fr-FR", "ar-SA") */
   code: string;
-  /** Display name in its native language */
-  label: string;
+  /** Override display name (auto-resolved from built-in mapping if omitted) */
+  label?: string;
   /** Override flag emoji (auto-detected from code if omitted) */
   flag?: string;
   /** Override RTL (auto-detected from code if omitted) */
@@ -50,14 +50,16 @@ export interface LanguageSwitcherThemeColors {
 }
 
 export interface LanguageSwitcherProps {
-  /** Current active locale code */
-  locale: string;
-  /** Array of available locales */
+  /** Array of available locales — only `code` is required */
   locales: Locale[];
+  /** Initial selected locale code (default: first locale's code) */
+  defaultValue?: string;
   /** Callback when locale changes */
-  onLocaleChange: (code: string) => void;
-  /** Show flag emojis next to locale names (default: true) */
+  onValueChange?: (code: string) => void;
+  /** Show flag emojis next to locale names (default: false) */
   showFlags?: boolean;
+  /** Display labels in native language or English (default: "english") */
+  label?: "native" | "english";
   /** Additional CSS classes */
   className?: string;
   /** Theme colors — when provided, component uses inline styles instead of Tailwind dark: variants */
@@ -115,48 +117,104 @@ function getFlag(code: string): string {
 }
 
 /**
+ * Built-in language names: native form and English form.
+ * Used to auto-resolve display labels from just a language code.
+ */
+const LANG_NAMES: Record<string, [native: string, english: string]> = {
+  en: ["English", "English"], fr: ["Français", "French"], es: ["Español", "Spanish"],
+  de: ["Deutsch", "German"], ja: ["日本語", "Japanese"], ko: ["한국어", "Korean"],
+  zh: ["中文", "Chinese"], ar: ["العربية", "Arabic"], pt: ["Português", "Portuguese"],
+  it: ["Italiano", "Italian"], nl: ["Nederlands", "Dutch"], ru: ["Русский", "Russian"],
+  pl: ["Polski", "Polish"], tr: ["Türkçe", "Turkish"], vi: ["Tiếng Việt", "Vietnamese"],
+  th: ["ไทย", "Thai"], id: ["Bahasa Indonesia", "Indonesian"], hi: ["हिन्दी", "Hindi"],
+  bn: ["বাংলা", "Bengali"], uk: ["Українська", "Ukrainian"], cs: ["Čeština", "Czech"],
+  sv: ["Svenska", "Swedish"], da: ["Dansk", "Danish"], fi: ["Suomi", "Finnish"],
+  no: ["Norsk", "Norwegian"], nb: ["Norsk bokmål", "Norwegian Bokmål"],
+  nn: ["Nynorsk", "Norwegian Nynorsk"], el: ["Ελληνικά", "Greek"],
+  he: ["עברית", "Hebrew"], fa: ["فارسی", "Persian"], ro: ["Română", "Romanian"],
+  hu: ["Magyar", "Hungarian"], sk: ["Slovenčina", "Slovak"],
+  bg: ["Български", "Bulgarian"], hr: ["Hrvatski", "Croatian"],
+  sr: ["Српски", "Serbian"], sl: ["Slovenščina", "Slovenian"],
+  lt: ["Lietuvių", "Lithuanian"], lv: ["Latviešu", "Latvian"],
+  et: ["Eesti", "Estonian"], ga: ["Gaeilge", "Irish"], mt: ["Malti", "Maltese"],
+  ca: ["Català", "Catalan"], eu: ["Euskara", "Basque"], gl: ["Galego", "Galician"],
+  cy: ["Cymraeg", "Welsh"], mk: ["Македонски", "Macedonian"],
+  sq: ["Shqip", "Albanian"], bs: ["Bosanski", "Bosnian"],
+  is: ["Íslenska", "Icelandic"], fo: ["Føroyskt", "Faroese"],
+  sw: ["Kiswahili", "Swahili"], am: ["አማርኛ", "Amharic"],
+  ne: ["नेपाली", "Nepali"], si: ["සිංහල", "Sinhala"],
+  my: ["မြန်မာ", "Burmese"], km: ["ខ្មែរ", "Khmer"], lo: ["ລາວ", "Lao"],
+  ka: ["ქართული", "Georgian"], hy: ["Հայերեն", "Armenian"],
+  kk: ["Қазақ", "Kazakh"], uz: ["Oʻzbek", "Uzbek"],
+  mn: ["Монгол", "Mongolian"], ps: ["پښتو", "Pashto"],
+  ur: ["اردو", "Urdu"], sd: ["سنڌي", "Sindhi"],
+  ml: ["മലയാളം", "Malayalam"], ta: ["தமிழ்", "Tamil"],
+  te: ["తెలుగు", "Telugu"], kn: ["ಕನ್ನಡ", "Kannada"],
+  mr: ["मराठी", "Marathi"], gu: ["ગુજરાતી", "Gujarati"],
+  pa: ["ਪੰਜਾਬੀ", "Punjabi"], or: ["ଓଡ଼ିଆ", "Odia"],
+  as: ["অসমীয়া", "Assamese"], yi: ["ייִדיש", "Yiddish"],
+  yo: ["Yorùbá", "Yoruba"], ig: ["Igbo", "Igbo"],
+  zu: ["isiZulu", "Zulu"], af: ["Afrikaans", "Afrikaans"],
+  ha: ["Hausa", "Hausa"], tl: ["Filipino", "Filipino"],
+  mg: ["Malagasy", "Malagasy"], mi: ["Te Reo Māori", "Māori"],
+  sm: ["Gagana Samoa", "Samoan"], to: ["Lea Faka-Tonga", "Tongan"],
+  fj: ["Na Vosa Vakaviti", "Fijian"], haw: ["ʻŌlelo Hawaiʻi", "Hawaiian"],
+  la: ["Latina", "Latin"], eo: ["Esperanto", "Esperanto"],
+};
+
+/**
+ * Get the display label for a locale.
+ * Falls back to `code` if no mapping found.
+ */
+function getLabel(code: string, mode: "native" | "english"): string {
+  const lang = code.split("-")[0].toLowerCase();
+  const names = LANG_NAMES[lang];
+  if (!names) return code;
+  return mode === "native" ? names[0] : names[1];
+}
+
+/**
  * Dropdown language switcher with searchable locale list.
  *
  * @example
  * ```tsx
- * // Simple — flags auto-detected from language code
+ * // Simplest — just pass codes
  * <LanguageSwitcher
- *   locale="en"
- *   locales={[
- *     { code: "en", label: "English" },
- *     { code: "fr", label: "Français" },
- *     { code: "ar", label: "العربية" },
- *   ]}
- *   onLocaleChange={(code) => router.push(`/${code}`)}
+ *   locales={[{ code: "en" }, { code: "fr" }, { code: "ar" }]}
+ *   defaultValue="en"
+ *   onValueChange={(code) => router.push(`/${code}`)}
  * />
  *
- * // No flags
+ * // Native labels + flags
  * <LanguageSwitcher
- *   locale="en"
- *   locales={[{ code: "en", label: "English" }]}
- *   onLocaleChange={setLocale}
- *   showFlags={false}
+ *   locales={[{ code: "en" }, { code: "fr" }]}
+ *   label="native"
+ *   showFlags
  * />
  * ```
  */
 export function LanguageSwitcher({
-  locale,
   locales,
-  onLocaleChange,
-  showFlags = true,
+  defaultValue,
+  onValueChange,
+  showFlags = false,
+  label: labelMode = "english",
   className,
   themeColors,
 }: LanguageSwitcherProps) {
+  const [locale, setLocale] = React.useState(defaultValue ?? locales[0]?.code ?? "");
   const [open, setOpen] = React.useState(false);
   const [search, setSearch] = React.useState("");
   const ref = React.useRef<HTMLDivElement>(null);
   const inputRef = React.useRef<HTMLInputElement>(null);
 
+  const resolveLabel = (l: Locale) => l.label ?? getLabel(l.code, labelMode);
+
   const activeLocale = locales.find((l) => l.code === locale);
 
   const filtered = locales.filter(
     (l) =>
-      l.label.toLowerCase().includes(search.toLowerCase()) ||
+      resolveLabel(l).toLowerCase().includes(search.toLowerCase()) ||
       l.code.toLowerCase().includes(search.toLowerCase()),
   );
 
@@ -205,10 +263,10 @@ export function LanguageSwitcher({
         style={hasTheme ? { background: tc!.btnBg, borderColor: tc!.btnBorder, color: tc!.btnText } : undefined}
         aria-expanded={open}
         aria-haspopup="listbox"
-        aria-label={`Current language: ${activeLocale?.label ?? locale}`}
+        aria-label={`Current language: ${activeLocale ? resolveLabel(activeLocale) : locale}`}
       >
         {showFlags && <span className="text-base">{activeLocale?.flag ?? getFlag(locale)}</span>}
-        <span>{activeLocale?.label ?? locale}</span>
+        <span>{activeLocale ? resolveLabel(activeLocale) : locale}</span>
         <svg
           className={cn(
             "size-4 transition-transform",
@@ -264,7 +322,8 @@ export function LanguageSwitcher({
                   aria-selected={isActive}
                   dir={itemDir}
                   onClick={() => {
-                    onLocaleChange(l.code);
+                    setLocale(l.code);
+                    onValueChange?.(l.code);
                     setOpen(false);
                     setSearch("");
                   }}
@@ -293,7 +352,7 @@ export function LanguageSwitcher({
                   }}
                 >
                   {showFlags && <span className="text-base">{l.flag ?? getFlag(l.code)}</span>}
-                  <span className="flex-1">{l.label}</span>
+                  <span className="flex-1">{resolveLabel(l)}</span>
                   {isActive && (
                     <svg
                       className="size-4"

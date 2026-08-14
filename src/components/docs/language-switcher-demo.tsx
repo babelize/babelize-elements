@@ -5,12 +5,12 @@ import { cn } from "@/lib/utils";
 import { LanguageSwitcher, type Locale, type LanguageSwitcherThemeColors } from "@/registry/components/language-switcher";
 
 const locales: Locale[] = [
-  { code: "en", label: "English", flag: "\u{1F1FA}\u{1F1F8}" },
-  { code: "fr", label: "Fran\u00e7ais", flag: "\u{1F1EB}\u{1F1F7}" },
-  { code: "es", label: "Espa\u00f1ol", flag: "\u{1F1EA}\u{1F1F8}" },
-  { code: "de", label: "Deutsch", flag: "\u{1F1E9}\u{1F1EA}" },
-  { code: "ja", label: "\u65E5\u672C\u8A9E", flag: "\u{1F1EF}\u{1F1F5}" },
-  { code: "ar", label: "\u0627\u0644\u0639\u0631\u0628\u064A\u0629", flag: "\u{1F1F8}\u{1F1E6}", rtl: true },
+  { code: "en" },
+  { code: "fr" },
+  { code: "es" },
+  { code: "de" },
+  { code: "ja" },
+  { code: "ar" },
 ];
 
 const greetings: Record<string, string> = {
@@ -274,6 +274,29 @@ const themes: Record<ThemeName, { light: ThemeColors; dark: ThemeColors }> = {
   },
 };
 
+const CODE_SNIPPET = `"use client";
+
+import { LanguageSwitcher } from "@babelize/elements";
+
+const locales = [
+  { code: "en" },
+  { code: "fr" },
+  { code: "es" },
+  { code: "de" },
+  { code: "ja" },
+  { code: "ar" },
+];
+
+export default function App() {
+  return (
+    <LanguageSwitcher
+      locales={locales}
+      defaultValue="en"
+      onValueChange={(code) => console.log(code)}
+    />
+  );
+}`;
+
 function ThemeDropdown({
   value,
   onChange,
@@ -288,9 +311,9 @@ function ThemeDropdown({
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="inline-flex items-center gap-1.5 rounded-lg border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-3 py-1.5 text-xs font-medium capitalize text-black/50 dark:text-white/50 transition-colors hover:bg-black/10 dark:hover:bg-white/10 hover:text-black dark:hover:text-white"
+        className="inline-flex items-center gap-1.5 rounded-lg border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-2.5 py-1.5 text-xs font-medium capitalize text-black/50 dark:text-white/50 transition-colors hover:bg-black/10 dark:hover:bg-white/10 hover:text-black dark:hover:text-white"
       >
-        <div className="size-3 rounded-full" style={{ background: themes[value].dark.comp.btnBg === themes[value].dark.comp.btnBg ? themes[value].dark.comp.activeText : themes[value].dark.comp.activeText }} />
+        <div className="size-2.5 rounded-full" style={{ background: themes[value].dark.comp.activeText }} />
         {value}
         <svg className={cn("size-3 transition-transform", open && "rotate-180")} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
@@ -311,7 +334,7 @@ function ThemeDropdown({
                     : "text-black/60 dark:text-white/70 hover:bg-black/5 dark:hover:bg-white/5",
                 )}
               >
-                <div className="size-3 rounded-full" style={{ background: themes[name].dark.comp.activeText }} />
+                <div className="size-2.5 rounded-full" style={{ background: themes[name].dark.comp.activeText }} />
                 {name}
                 {name === value && (
                   <svg className="ml-auto size-3 text-emerald-600 dark:text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -331,11 +354,12 @@ export function LanguageSwitcherDemo() {
   const [locale, setLocale] = useState("en");
   const [previewDark, setPreviewDark] = useState(true);
   const [theme, setTheme] = useState<ThemeName>("emerald");
+  const [tab, setTab] = useState<"preview" | "code">("preview");
   const t = themes[theme][previewDark ? "dark" : "light"];
   const isRetro = theme === "retro";
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-0">
       {/* Retro font */}
       {isRetro && (
         <style
@@ -348,95 +372,136 @@ export function LanguageSwitcherDemo() {
           }}
         />
       )}
-      {/* Controls — only affect preview */}
-      <div className="flex items-center justify-end gap-2">
-        <ThemeDropdown value={theme} onChange={setTheme} />
-        <button
-          type="button"
-          onClick={() => setPreviewDark(!previewDark)}
-          className="inline-flex items-center gap-1.5 rounded-lg border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-3 py-1.5 text-xs font-medium text-black/50 dark:text-white/50 transition-colors hover:bg-black/10 dark:hover:bg-white/10 hover:text-black dark:hover:text-white"
-        >
-          {previewDark ? (
-            <svg className="size-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
-            </svg>
-          ) : (
-            <svg className="size-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
-            </svg>
-          )}
-          {previewDark ? "Light" : "Dark"}
-        </button>
-      </div>
 
-      {/* Preview container */}
-      <div
-        className={cn(
-          "relative overflow-visible rounded-2xl border shadow-2xl transition-colors",
-          isRetro && "retro-preview",
-        )}
-        style={{ background: t.bg, borderColor: t.border }}
-      >
-        {/* Browser chrome */}
-        <div
-          className="flex items-center justify-between border-b px-4 py-3"
-          style={{ borderColor: t.border, background: t.chrome }}
-        >
-          <div className="flex items-center gap-2">
-            <span className="size-3 rounded-full bg-[#ff5f57]" />
-            <span className="size-3 rounded-full bg-[#febc2e]" />
-            <span className="size-3 rounded-full bg-[#28c840]" />
-          </div>
-          <div
-            className="flex items-center gap-2 rounded-lg border px-3 py-1"
-            style={{ borderColor: t.border, background: t.code }}
+      {/* Toolbar — all controls in one line */}
+      <div className="flex items-center justify-between rounded-t-2xl border border-b-0 border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02] px-3 py-2">
+        {/* Left: Preview / Code tabs */}
+        <div className="flex items-center gap-0.5 rounded-lg bg-black/5 dark:bg-white/5 p-0.5">
+          <button
+            type="button"
+            onClick={() => setTab("preview")}
+            className={cn(
+              "rounded-md px-3 py-1 text-xs font-medium transition-colors",
+              tab === "preview"
+                ? "bg-white dark:bg-[#111] text-black/80 dark:text-white/80 shadow-sm"
+                : "text-black/40 dark:text-white/40 hover:text-black/60 dark:hover:text-white/60",
+            )}
           >
-            <svg className="size-3" style={{ color: t.muted }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5a17.92 17.92 0 0 1-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
-            </svg>
-            <span className="text-xs" style={{ color: t.muted }}>elements.babelize.co/docs/language-switcher</span>
-          </div>
-          <div className="w-16" />
+            Preview
+          </button>
+          <button
+            type="button"
+            onClick={() => setTab("code")}
+            className={cn(
+              "rounded-md px-3 py-1 text-xs font-medium transition-colors",
+              tab === "code"
+                ? "bg-white dark:bg-[#111] text-black/80 dark:text-white/80 shadow-sm"
+                : "text-black/40 dark:text-white/40 hover:text-black/60 dark:hover:text-white/60",
+            )}
+          >
+            Code
+          </button>
         </div>
 
-        {/* Preview content */}
-        <div className="relative flex flex-col items-center justify-center gap-8 px-6 py-16 sm:px-12">
-          {/* Grid */}
-          <div
-            className="pointer-events-none absolute inset-0 opacity-[0.02]"
-            style={{
-              backgroundImage: `radial-gradient(circle, ${t.dot} 1px, transparent 1px)`,
-              backgroundSize: "24px 24px",
-            }}
-          />
-
-          {/* Glow */}
-          <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-64 w-64 rounded-full blur-[100px]" style={{ background: `${themes[theme][previewDark ? "dark" : "light"].comp.activeText}15` }} />
-
-          {/* Component — receives theme colors */}
-          <div className="relative z-50">
-            <LanguageSwitcher
-              locale={locale}
-              locales={locales}
-              onLocaleChange={setLocale}
-              themeColors={t.comp}
-            />
-          </div>
-
-          {/* Greeting */}
-          <div className="relative z-10 text-center">
-            <p className="text-4xl font-bold tracking-tight sm:text-5xl" style={{ color: t.text }}>
-              {greetings[locale] ?? "Hello, world!"}
-            </p>
-            <p className="mt-3 text-sm" style={{ color: t.muted }}>
-              locale:{" "}
-              <code className="rounded px-1.5 py-0.5 font-mono" style={{ background: t.code, color: t.codeText }}>
-                {locale}
-              </code>
-            </p>
-          </div>
+        {/* Right: Theme + Light/Dark */}
+        <div className="flex items-center gap-1.5">
+          <ThemeDropdown value={theme} onChange={setTheme} />
+          <button
+            type="button"
+            onClick={() => setPreviewDark(!previewDark)}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-2.5 py-1.5 text-xs font-medium text-black/50 dark:text-white/50 transition-colors hover:bg-black/10 dark:hover:bg-white/10 hover:text-black dark:hover:text-white"
+          >
+            {previewDark ? (
+              <svg className="size-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+              </svg>
+            ) : (
+              <svg className="size-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+              </svg>
+            )}
+            {previewDark ? "Light" : "Dark"}
+          </button>
         </div>
       </div>
+
+      {/* Content */}
+      {tab === "preview" ? (
+        <div
+          className={cn(
+            "relative overflow-visible rounded-b-2xl border border-t-0 border-black/10 dark:border-white/10 shadow-2xl transition-colors",
+            isRetro && "retro-preview",
+          )}
+          style={{ background: t.bg, borderColor: t.border }}
+        >
+          {/* Browser chrome */}
+          <div
+            className="flex items-center justify-between border-b px-4 py-3"
+            style={{ borderColor: t.border, background: t.chrome }}
+          >
+            <div className="flex items-center gap-2">
+              <span className="size-3 rounded-full bg-[#ff5f57]" />
+              <span className="size-3 rounded-full bg-[#febc2e]" />
+              <span className="size-3 rounded-full bg-[#28c840]" />
+            </div>
+            <div
+              className="flex items-center gap-2 rounded-lg border px-3 py-1"
+              style={{ borderColor: t.border, background: t.code }}
+            >
+              <svg className="size-3" style={{ color: t.muted }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5a17.92 17.92 0 0 1-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+              </svg>
+              <span className="text-xs" style={{ color: t.muted }}>elements.babelize.co/docs/language-switcher</span>
+            </div>
+            <div className="w-16" />
+          </div>
+
+          {/* Preview content */}
+          <div className="relative flex flex-col items-center justify-center gap-8 px-6 py-16 sm:px-12">
+            {/* Grid */}
+            <div
+              className="pointer-events-none absolute inset-0 opacity-[0.02]"
+              style={{
+                backgroundImage: `radial-gradient(circle, ${t.dot} 1px, transparent 1px)`,
+                backgroundSize: "24px 24px",
+              }}
+            />
+
+            {/* Glow */}
+            <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-64 w-64 rounded-full blur-[100px]" style={{ background: `${themes[theme][previewDark ? "dark" : "light"].comp.activeText}15` }} />
+
+            {/* Component */}
+            <div className="relative z-50">
+              <LanguageSwitcher
+                locales={locales}
+                defaultValue="en"
+                onValueChange={setLocale}
+                showFlags
+                themeColors={t.comp}
+              />
+            </div>
+
+            {/* Greeting */}
+            <div className="relative z-10 text-center">
+              <p className="text-4xl font-bold tracking-tight sm:text-5xl" style={{ color: t.text }}>
+                {greetings[locale] ?? "Hello, world!"}
+              </p>
+              <p className="mt-3 text-sm" style={{ color: t.muted }}>
+                locale:{" "}
+                <code className="rounded px-1.5 py-0.5 font-mono" style={{ background: t.code, color: t.codeText }}>
+                  {locale}
+                </code>
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="overflow-hidden rounded-b-2xl border border-t-0 border-black/10 dark:border-white/10 bg-[#1e1e1e]">
+          <pre className="overflow-x-auto p-4 text-sm leading-relaxed">
+            <code className="text-[#d4d4d4]">{CODE_SNIPPET}</code>
+          </pre>
+        </div>
+      )}
     </div>
   );
 }

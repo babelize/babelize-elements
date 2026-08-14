@@ -140,8 +140,6 @@ aside a[aria-current="page"],
 aside button[data-active="true"] {
   color: var(--color-fd-primary) !important;
   font-weight: 500 !important;
-  border-left: 2px solid var(--color-fd-primary) !important;
-  border-radius: 0 !important;
   background: transparent !important;
 }
 

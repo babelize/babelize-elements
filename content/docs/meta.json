@@ -1,16 +1,8 @@
 {
   "pages": [
-    "---Introduction---",
-    "index",
-    "---Getting Started---",
     "getting-started",
-    "shadcn-cli",
-    "---Components---",
-    "components/language-switcher",
-    "---Contributing---",
-    "contributing",
-    "---Configuration---",
-    "theming",
-    "interfaces"
-  ]
+    "components",
+    "customization"
+  ],
+  "collapsible": false
 }
