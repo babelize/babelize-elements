@@ -25,7 +25,7 @@ export function LanguageSwitcherDemo() {
   const [locale, setLocale] = useState("en");
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-[#09090b] shadow-2xl">
+    <div className="relative overflow-visible rounded-2xl border border-white/[0.08] bg-[#09090b] shadow-2xl">
       {/* Browser chrome */}
       <div className="flex items-center justify-between border-b border-white/[0.06] bg-white/[0.02] px-4 py-3">
         <div className="flex items-center gap-2">
