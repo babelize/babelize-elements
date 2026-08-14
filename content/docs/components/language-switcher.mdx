@@ -1,26 +1,63 @@
 ---
 title: Language Switcher
-description: Copy-paste language switcher components for React with dropdown, pill, and segmented variants.
+description: Copy-paste language switcher component for React with dropdown, search, RTL support, and full accessibility. Works with next-intl, react-i18next, and any i18n setup.
 icon: Globe
 ---
 
-# Language Switcher
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
 
-Language switcher components let users change the active locale in your application. Babelize Elements provides multiple variants, each copy-paste ready.
-
-## Variants
-
-### Dropdown
-
-A searchable dropdown with native language names and optional flag icons.
-
+<Tabs items={["Preview", "Code"]}>
+  <Tab value="Preview">
+    <LanguageSwitcherDemo />
+  </Tab>
+  <Tab value="Code">
 ```tsx
-import { LanguageSwitcher } from "@/components/babelize/language-switcher";
+import { LanguageSwitcher } from "@babelize/elements";
+
+const locales = [
+  { code: "en", label: "English", flag: "🇺🇸" },
+  { code: "fr", label: "Français", flag: "🇫🇷" },
+  { code: "es", label: "Español", flag: "🇪🇸" },
+  { code: "ar", label: "العربية", flag: "🇸🇦", rtl: true },
+];
 
 export default function App() {
+  const [locale, setLocale] = useState("en");
+
   return (
     <LanguageSwitcher
-      locale="en"
+      locale={locale}
+      locales={locales}
+      onLocaleChange={setLocale}
+    />
+  );
+}
+```
+  </Tab>
+</Tabs>
+
+## Installation
+
+```bash
+npm install @babelize/elements
+```
+
+```bash
+# or with bun
+bun add @babelize/elements
+```
+
+## Usage
+
+```tsx
+import { LanguageSwitcher } from "@babelize/elements";
+
+export default function App() {
+  const [locale, setLocale] = useState("en");
+
+  return (
+    <LanguageSwitcher
+      locale={locale}
       locales={[
         { code: "en", label: "English", flag: "🇺🇸" },
         { code: "fr", label: "Français", flag: "🇫🇷" },
@@ -29,29 +66,12 @@ export default function App() {
         { code: "ja", label: "日本語", flag: "🇯🇵" },
         { code: "ar", label: "العربية", flag: "🇸🇦", rtl: true },
       ]}
-      onLocaleChange={(code) => console.log("locale:", code)}
-    />
-  );
-}
-```
-
-### Pill Selector
-
-A horizontal pill selector for navigation bars.
-
-```tsx
-import { LanguageSwitcherPill } from "@/components/babelize/language-switcher-pill";
-
-export default function Nav() {
-  return (
-    <LanguageSwitcherPill
-      locale="en"
-      locales={[
-        { code: "en", label: "English" },
-        { code: "fr", label: "Français" },
-        { code: "es", label: "Español" },
-      ]}
-      onLocaleChange={(code) => setLocale(code)}
+      onLocaleChange={(code) => {
+        // next-intl
+        router.push(`/${code}`);
+        // react-i18next
+        i18n.changeLanguage(code);
+      }}
     />
   );
 }
@@ -59,35 +79,133 @@ export default function Nav() {
 
 ## Props
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `locale` | `string` | Current active locale code |
-| `locales` | `Locale[]` | Array of available locales |
-| `onLocaleChange` | `(code: string) => void` | Callback when locale changes |
+| Prop | Type | Required | Description |
+|------|------|----------|-------------|
+| `locale` | `string` | Yes | Current active locale code |
+| `locales` | `Locale[]` | Yes | Array of available locales |
+| `onLocaleChange` | `(code: string) => void` | Yes | Callback when locale changes |
+| `className` | `string` | No | Additional CSS classes |
 
-### Locale object
+### Locale Object
 
-```ts
-interface Locale {
-  code: string;        // ISO 639-1 / BCP 47 code (e.g. "en", "fr-FR", "ar-SA")
-  label: string;       // Display name in its native language
-  flag?: string;       // Optional flag emoji
-  rtl?: boolean;       // Set true for RTL locales
+| Property | Type | Description |
+|----------|------|-------------|
+| `code` | `string` | ISO 639-1 / BCP 47 code (e.g. `"en"`, `"fr-FR"`, `"ar-SA"`) |
+| `label` | `string` | Display name in its native language |
+| `flag` | `string` | Optional flag emoji |
+| `rtl` | `boolean` | Set `true` for RTL locales (auto-detected from code if omitted) |
+
+## Examples
+
+### With next-intl
+
+```tsx
+"use client";
+
+import { useRouter } from "next/navigation";
+import { LanguageSwitcher } from "@babelize/elements";
+
+export function LocaleSwitcher() {
+  const router = useRouter();
+  const [locale, setLocale] = useState("en");
+
+  return (
+    <LanguageSwitcher
+      locale={locale}
+      locales={[
+        { code: "en", label: "English", flag: "🇺🇸" },
+        { code: "fr", label: "Français", flag: "🇫🇷" },
+      ]}
+      onLocaleChange={(code) => {
+        setLocale(code);
+        router.push(`/${code}`);
+      }}
+    />
+  );
 }
 ```
 
-## Accessibility
+### With react-i18next
 
-- Full keyboard navigation (arrow keys, Enter, Escape)
-- ARIA labels on all interactive elements
-- Focus management
-- Screen reader announcements on locale change
+```tsx
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "@babelize/elements";
 
-## i18n Library Compatibility
+export function LocaleSwitcher() {
+  const { i18n } = useTranslation();
 
-Works with any i18n setup:
+  return (
+    <LanguageSwitcher
+      locale={i18n.language}
+      locales={[
+        { code: "en", label: "English", flag: "🇺🇸" },
+        { code: "fr", label: "Français", flag: "🇫🇷" },
+      ]}
+      onLocaleChange={(code) => i18n.changeLanguage(code)}
+    />
+  );
+}
+```
 
-- **next-intl**: Pass `` router.push(`/${code}`) `` as the change handler
-- **react-i18next**: Use `i18n.changeLanguage(code)`
-- **react-intl**: Use `intl.locale = code`
-- **Custom**: Just pass your own `onLocaleChange` callback
+### With React Intl
+
+```tsx
+import { useIntl } from "react-intl";
+import { LanguageSwitcher } from "@babelize/elements";
+
+export function LocaleSwitcher() {
+  const intl = useIntl();
+
+  return (
+    <LanguageSwitcher
+      locale={intl.locale}
+      locales={[
+        { code: "en", label: "English", flag: "🇺🇸" },
+        { code: "fr", label: "Français", flag: "🇫🇷" },
+      ]}
+      onLocaleChange={(code) => {
+        // React Intl doesn't have a built-in locale setter
+        // You'll need to manage this via context or state
+        setLocale(code);
+      }}
+    />
+  );
+}
+```
+
+### Minimal (No Flags)
+
+```tsx
+<LanguageSwitcher
+  locale={locale}
+  locales={[
+    { code: "en", label: "English" },
+    { code: "fr", label: "Français" },
+    { code: "es", label: "Español" },
+  ]}
+  onLocaleChange={setLocale}
+/>
+```
+
+## Features
+
+- **Dropdown with search** — filter locales by name or code
+- **RTL-aware** — auto-detects RTL locales (ar, he, fa, ur) and adjusts layout
+- **Keyboard accessible** — arrow keys, Enter, Escape, Tab navigation
+- **ARIA labels** — proper `aria-expanded`, `aria-haspopup`, `aria-selected`
+- **Dark mode** — built with Tailwind CSS, dark-mode compatible
+- **Library agnostic** — works with any i18n setup via simple callback
+
+## Dependencies
+
+This component uses:
+- `clsx` and `tailwind-merge` (bundled as dependencies)
+
+Peer dependencies:
+- `react` >= 18
+- `react-dom` >= 18
+- `tailwindcss` >= 3
+
+## Credits
+
+Created by the [Babelize](https://babelize.co) community.
