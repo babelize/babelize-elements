@@ -40,5 +40,12 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# library build output
+/dist
+
 # fumadocs generated source
 /.source
+src/lib/utils.js
+src/lib/utils.d.ts
+src/lib/utils.js.map
+src/lib/utils.d.ts.map

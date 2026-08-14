@@ -1,43 +1,69 @@
 {
-  "name": "babelize-elements",
+  "name": "@babelize/elements",
   "version": "0.1.0",
-  "private": true,
+  "description": "Open-source copy-paste Localization UI components for React and Tailwind CSS",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:lib": "tsc --project tsconfig.lib.json",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "release": "changeset publish",
+    "version": "changeset version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/babelize/babelize-elements.git"
+  },
+  "keywords": [
+    "react",
+    "i18n",
+    "localization",
+    "internationalization",
+    "tailwindcss",
+    "components",
+    "language-switcher",
+    "locale-picker",
+    "rtl",
+    "nextjs"
+  ],
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18",
+    "tailwindcss": ">=3"
   },
   "dependencies": {
     "clsx": "^2.1.1",
-    "fumadocs-core": "^16.14.0",
-    "fumadocs-mdx": "^15.2.2",
-    "fumadocs-ui": "^16.14.0",
-    "geist": "^1.7.2",
-    "lucide-react": "^1.28.0",
-    "motion": "^12.43.0",
-    "next": "16.3.0",
-    "react": "19.2.8",
-    "react-dom": "19.2.8",
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
+    "@changesets/cli": "^3.0.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.3.0",
-    "tailwindcss": "^4",
     "typescript": "^5"
   },
-  "packageManager": "bun@1.3.14",
-  "ignoreScripts": [
-    "sharp",
-    "unrs-resolver"
-  ],
-  "trustedDependencies": [
-    "sharp",
-    "unrs-resolver"
-  ]
+  "packageManager": "bun@1.3.14"
 }
