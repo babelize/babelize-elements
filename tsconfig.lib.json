@@ -10,6 +10,7 @@
     "declarationMap": true,
     "sourceMap": true,
     "outDir": "./dist",
+    "rootDir": "./src",
     "baseUrl": ".",
     "esModuleInterop": true,
     "module": "esnext",
