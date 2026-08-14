@@ -186,6 +186,94 @@ export function LocaleSwitcher() {
 - **Dark mode** — built with Tailwind CSS, dark-mode compatible
 - **Library agnostic** — works with any i18n setup via simple callback
 
+## Supported Languages
+
+Flags are auto-detected from the language code. Pass just the code and label — no need to provide flags.
+
+| Code | Language | Flag | RTL |
+|------|----------|------|-----|
+| `en` | English | 🇺🇸 | |
+| `fr` | Français | 🇫🇷 | |
+| `es` | Español | 🇪🇸 | |
+| `de` | Deutsch | 🇩🇪 | |
+| `ja` | 日本語 | 🇯🇵 | |
+| `ko` | 한국어 | 🇰🇷 | |
+| `zh` | 中文 | 🇨🇳 | |
+| `ar` | العربية | 🇸🇦 | ✓ |
+| `pt` | Português | 🇧🇷 | |
+| `it` | Italiano | 🇮🇹 | |
+| `nl` | Nederlands | 🇳🇱 | |
+| `ru` | Русский | 🇷🇺 | |
+| `pl` | Polski | 🇵🇱 | |
+| `tr` | Türkçe | 🇹🇷 | |
+| `vi` | Tiếng Việt | 🇻🇳 | |
+| `th` | ไทย | 🇹🇭 | |
+| `id` | Bahasa Indonesia | 🇮🇩 | |
+| `hi` | हिन्दी | 🇮🇳 | |
+| `bn` | বাংলা | 🇧🇩 | |
+| `uk` | Українська | 🇺🇦 | |
+| `cs` | Čeština | 🇨🇿 | |
+| `sv` | Svenska | 🇸🇪 | |
+| `da` | Dansk | 🇩🇰 | |
+| `fi` | Suomi | 🇫🇮 | |
+| `no` | Norsk | 🇳🇴 | |
+| `el` | Ελληνικά | 🇬🇷 | |
+| `he` | עברית | 🇮🇱 | ✓ |
+| `fa` | فارسی | 🇮🇷 | ✓ |
+| `ro` | Română | 🇷🇴 | |
+| `hu` | Magyar | 🇭🇺 | |
+| `sk` | Slovenčina | 🇸🇰 | |
+| `bg` | Български | 🇧🇬 | |
+| `hr` | Hrvatski | 🇭🇷 | |
+| `sr` | Српски | 🇷🇸 | |
+| `sl` | Slovenščina | 🇸🇮 | |
+| `lt` | Lietuvių | 🇱🇹 | |
+| `lv` | Latviešu | 🇱🇻 | |
+| `et` | Eesti | 🇪🇪 | |
+| `ga` | Gaeilge | 🇮🇪 | |
+| `ca` | Català | 🇦🇩 | |
+| `is` | Íslenska | 🇮🇸 | |
+| `sw` | Kiswahili | 🇹🇿 | |
+| `am` | አማርኛ | 🇪🇹 | |
+| `ne` | नेपाली | 🇳🇵 | |
+| `si` | සිංහල | 🇱🇰 | |
+| `my` | မြန်မာ | 🇲🇲 | |
+| `km` | ខ្មែរ | 🇰🇭 | |
+| `lo` | ລາວ | 🇱🇦 | |
+| `ka` | ქართული | 🇬🇪 | |
+| `hy` | Հայերեն | 🇦🇲 | |
+| `kk` | Қазақ | 🇰🇿 | |
+| `uz` | Oʻzbek | 🇺🇿 | |
+| `mn` | Монгол | 🇲🇳 | |
+| `ur` | اردو | 🇵🇰 | ✓ |
+| `ml` | മലയാളം | 🇮🇳 | |
+| `ta` | தமிழ் | 🇮🇳 | |
+| `te` | తెలుగు | 🇮🇳 | |
+| `kn` | ಕನ್ನಡ | 🇮🇳 | |
+| `mr` | मराठी | 🇮🇳 | |
+| `gu` | ગુજરાતી | 🇮🇳 | |
+| `pa` | ਪੰਜਾਬੀ | 🇮🇳 | |
+| `yo` | Yorùbá | 🇳🇬 | |
+| `ig` | Igbo | 🇳🇬 | |
+| `zu` | isiZulu | 🇿🇦 | |
+| `af` | Afrikaans | 🇿🇦 | |
+| `ha` | Hausa | 🇳🇬 | |
+| `tl` | Filipino | 🇵🇭 | |
+| `mi` | Te Reo Māori | 🇳🇿 | |
+| `sm` | Gagana Samoa | 🇼🇸 | |
+| `to` | Lea Faka-Tonga | 🇹🇴 | |
+| `eo` | Esperanto | 🌐 | |
+
+Need a language not listed? Pass a custom `flag` prop to override:
+
+```tsx
+<LanguageSwitcher
+  locale="xyz"
+  locales={[{ code: "xyz", label: "My Language", flag: "🏴" }]}
+  onLocaleChange={setLocale}
+/>
+```
+
 ## Dependencies
 
 This component uses:
