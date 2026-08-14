@@ -15,5 +15,6 @@ jobs:
           bun-version: 1.3.14
       - run: bun install
       - run: bun run lint
+      - run: bunx fumadocs-mdx postinstall
       - run: bunx tsc --noEmit
       - run: bun run build
