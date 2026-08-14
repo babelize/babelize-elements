@@ -8,44 +8,60 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
 
 <Tabs items={["Preview", "Code"]}>
   <Tab value="Preview">
-    <LanguageSwitcherDemo />
+    <div className="mt-4">
+      <LanguageSwitcherDemo />
+    </div>
   </Tab>
   <Tab value="Code">
-```tsx
-import { LanguageSwitcher } from "@babelize/elements";
+    ```tsx
+    import { LanguageSwitcher } from "@babelize/elements";
 
-const locales = [
-  { code: "en", label: "English", flag: "🇺🇸" },
-  { code: "fr", label: "Français", flag: "🇫🇷" },
-  { code: "es", label: "Español", flag: "🇪🇸" },
-  { code: "ar", label: "العربية", flag: "🇸🇦", rtl: true },
-];
+    const locales = [
+      { code: "en", label: "English", flag: "🇺🇸" },
+      { code: "fr", label: "Français", flag: "🇫🇷" },
+      { code: "es", label: "Español", flag: "🇪🇸" },
+      { code: "ar", label: "العربية", flag: "🇸🇦", rtl: true },
+    ];
 
-export default function App() {
-  const [locale, setLocale] = useState("en");
+    export default function App() {
+      const [locale, setLocale] = useState("en");
 
-  return (
-    <LanguageSwitcher
-      locale={locale}
-      locales={locales}
-      onLocaleChange={setLocale}
-    />
-  );
-}
-```
+      return (
+        <LanguageSwitcher
+          locale={locale}
+          locales={locales}
+          onLocaleChange={setLocale}
+        />
+      );
+    }
+    ```
   </Tab>
 </Tabs>
 
 ## Installation
 
-```bash
-npm install @babelize/elements
-```
-
-```bash
-# or with bun
-bun add @babelize/elements
-```
+<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
+  <Tab value="npm">
+    ```bash
+    npm install @babelize/elements
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```bash
+    pnpm add @babelize/elements
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```bash
+    yarn add @babelize/elements
+    ```
+  </Tab>
+  <Tab value="bun">
+    ```bash
+    bun add @babelize/elements
+    ```
+  </Tab>
+</Tabs>
 
 ## Usage
 
@@ -142,32 +158,6 @@ export function LocaleSwitcher() {
         { code: "fr", label: "Français", flag: "🇫🇷" },
       ]}
       onLocaleChange={(code) => i18n.changeLanguage(code)}
-    />
-  );
-}
-```
-
-### With React Intl
-
-```tsx
-import { useIntl } from "react-intl";
-import { LanguageSwitcher } from "@babelize/elements";
-
-export function LocaleSwitcher() {
-  const intl = useIntl();
-
-  return (
-    <LanguageSwitcher
-      locale={intl.locale}
-      locales={[
-        { code: "en", label: "English", flag: "🇺🇸" },
-        { code: "fr", label: "Français", flag: "🇫🇷" },
-      ]}
-      onLocaleChange={(code) => {
-        // React Intl doesn't have a built-in locale setter
-        // You'll need to manage this via context or state
-        setLocale(code);
-      }}
     />
   );
 }

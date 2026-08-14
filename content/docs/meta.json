@@ -5,11 +5,12 @@
     "---Getting Started---",
     "getting-started",
     "shadcn-cli",
-    "theming",
-    "interfaces",
     "---Components---",
     "components/language-switcher",
     "---Contributing---",
-    "contributing"
+    "contributing",
+    "---Configuration---",
+    "theming",
+    "interfaces"
   ]
 }
