@@ -57,7 +57,7 @@ export function LanguageSwitcherDemo() {
         <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-64 w-64 rounded-full bg-emerald-500/10 blur-[100px]" />
 
         {/* The component */}
-        <div className="relative z-10">
+        <div className="relative z-50">
           <LanguageSwitcher
             locale={locale}
             locales={locales}

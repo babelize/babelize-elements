@@ -98,7 +98,7 @@ export function LanguageSwitcher({
   }, [open]);
 
   return (
-    <div ref={ref} className={cn("relative inline-block text-sm", className)}>
+    <div ref={ref} className={cn("relative inline-block text-sm z-50", className)}>
       <button
         type="button"
         onClick={() => setOpen(!open)}
