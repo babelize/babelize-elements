@@ -1,35 +1,39 @@
 ## Description
 
-<!-- Brief summary of what this PR does. -->
+<!-- Briefly describe what this PR does and why. -->
 
 Closes #
 
 ## Type of change
 
-- [ ] Bug fix
-- [ ] New component
-- [ ] Enhancement to existing component
-- [ ] Documentation / website
-- [ ] CI / infrastructure
+* [ ] Bug fix
+* [ ] New component
+* [ ] Enhancement
+* [ ] Documentation / website
+* [ ] CI / infrastructure
+
+## Screenshots / Recording
+
+<!-- For UI or component changes, add screenshots or a short screen recording. -->
+
+<!-- Drag and drop images/videos below. -->
 
 ## Checklist
 
-Before submitting, confirm:
+* [ ] Dark mode / responsive styles considered
+* [ ] `npm ci` passes
+* [ ] `bun run lint` passes
+* [ ] `bun run build` passes
+* [ ] CI checks pass
 
-- [ ] TypeScript-first — exported interfaces for all props
-- [ ] Localization-aware — handles locale codes, pluralization, or RTL as applicable
-- [ ] Accessible — keyboard support, ARIA labels, focus states
-- [ ] Tailwind CSS — uses design tokens, dark-mode compatible
-- [ ] Demo / usage example included (for docs)
-- [ ] `bun run lint` passes
-- [ ] `bun run build` passes
+## Usage
 
-## Usage snippet
+<!-- Add a minimal usage example for new or changed components. -->
 
 ```tsx
-// Paste a minimal usage example here
+// Example
 ```
 
 ## Notes
 
-<!-- Any design decisions, trade-offs, or follow-ups? -->
+<!-- Anything reviewers should know? Design decisions, limitations, follow-ups, etc. -->
