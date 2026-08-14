@@ -1,0 +1,9 @@
+# Default code owners for the repository
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# All files require review from a maintainer
+* @babelize/maintainers
+
+# Documentation changes require review
+*.md @babelize/maintainers
+docs/ @babelize/maintainers

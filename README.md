@@ -20,7 +20,9 @@
 
 <p align="center">
   <a href="https://github.com/babelize/babelize-elements/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT" /></a>
+  <a href="https://github.com/babelize/babelize-elements/blob/main/CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-Keep%20a%20Changelog-blueviolet.svg" alt="Changelog" /></a>
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome" />
+  <a href="https://github.com/babelize/babelize-elements/discussions"><img src="https://img.shields.io/badge/discussions-Join%20us-blue.svg" alt="Discussions" /></a>
 </p>
 
 ## What is Babelize Elements?

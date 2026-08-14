@@ -1,0 +1,93 @@
+---
+title: Language Switcher
+description: Copy-paste language switcher components for React with dropdown, pill, and segmented variants.
+icon: Globe
+---
+
+# Language Switcher
+
+Language switcher components let users change the active locale in your application. Babelize Elements provides multiple variants, each copy-paste ready.
+
+## Variants
+
+### Dropdown
+
+A searchable dropdown with native language names and optional flag icons.
+
+```tsx
+import { LanguageSwitcher } from "@/components/babelize/language-switcher";
+
+export default function App() {
+  return (
+    <LanguageSwitcher
+      locale="en"
+      locales={[
+        { code: "en", label: "English", flag: "🇺🇸" },
+        { code: "fr", label: "Français", flag: "🇫🇷" },
+        { code: "es", label: "Español", flag: "🇪🇸" },
+        { code: "de", label: "Deutsch", flag: "🇩🇪" },
+        { code: "ja", label: "日本語", flag: "🇯🇵" },
+        { code: "ar", label: "العربية", flag: "🇸🇦", rtl: true },
+      ]}
+      onLocaleChange={(code) => console.log("locale:", code)}
+    />
+  );
+}
+```
+
+### Pill Selector
+
+A horizontal pill selector for navigation bars.
+
+```tsx
+import { LanguageSwitcherPill } from "@/components/babelize/language-switcher-pill";
+
+export default function Nav() {
+  return (
+    <LanguageSwitcherPill
+      locale="en"
+      locales={[
+        { code: "en", label: "English" },
+        { code: "fr", label: "Français" },
+        { code: "es", label: "Español" },
+      ]}
+      onLocaleChange={(code) => setLocale(code)}
+    />
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `locale` | `string` | Current active locale code |
+| `locales` | `Locale[]` | Array of available locales |
+| `onLocaleChange` | `(code: string) => void` | Callback when locale changes |
+
+### Locale object
+
+```ts
+interface Locale {
+  code: string;        // ISO 639-1 / BCP 47 code (e.g. "en", "fr-FR", "ar-SA")
+  label: string;       // Display name in its native language
+  flag?: string;       // Optional flag emoji
+  rtl?: boolean;       // Set true for RTL locales
+}
+```
+
+## Accessibility
+
+- Full keyboard navigation (arrow keys, Enter, Escape)
+- ARIA labels on all interactive elements
+- Focus management
+- Screen reader announcements on locale change
+
+## i18n Library Compatibility
+
+Works with any i18n setup:
+
+- **next-intl**: Pass `` router.push(`/${code}`) `` as the change handler
+- **react-i18next**: Use `i18n.changeLanguage(code)`
+- **react-intl**: Use `intl.locale = code`
+- **Custom**: Just pass your own `onLocaleChange` callback
