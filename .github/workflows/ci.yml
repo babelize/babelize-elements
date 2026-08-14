@@ -15,4 +15,5 @@ jobs:
           bun-version: 1.3.14
       - run: bun install
       - run: bun run lint
+      - run: bunx tsc --noEmit
       - run: bun run build

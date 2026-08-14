@@ -6,7 +6,17 @@ Thanks for your interest in contributing! Babelize Elements is a community-built
 
 We need **Localization UI components**: language switchers, locale pickers, translation widgets, RTL-aware layouts, pluralization UI, locale-aware date/time and currency inputs, and anything else localized apps need.
 
-Browse [open issues](https://github.com/babelize/babelize-elements/issues) — issues labeled `good first issue` and `help wanted` are great starting points. No matching issue? Open one to propose the component before building it.
+Browse [open issues](https://github.com/babelize/babelize-elements/issues) — issues labeled `good first issue` and `help wanted` are great starting points. No matching issue? Open one to propose the component before building it. Use the [Component Request template](https://github.com/babelize/babelize-elements/issues/new?template=component_request.yml) to propose new components.
+
+### Label guide
+
+When opening or triaging issues, use these labels:
+
+- **`component`** + a category label (`language-switcher`, `locale-picker`, `rtl-layout`, `translation-widget`, `date-time`, `currency`, `pluralization`, `accessibility`)
+- **`needs-triage`** on new issues until classified
+- **`needs-review`** on PRs awaiting maintainer review
+- **`priority: high`** / **`priority: medium`** / **`priority: low`** for urgency
+- **`status: blocked`** if external dependency or decision is needed
 
 ## Getting started
 
@@ -33,13 +43,20 @@ Before opening a pull request, make sure your component:
 
 ## Opening a pull request
 
+Use the [PR template](https://github.com/babelize/babelize-elements/pulls/new) — it walks you through the component checklist and asks for a usage snippet. Branch protection requires **1 approving review** before merge.
+
 - Keep changes focused on a single component.
 - Reference the issue your PR closes (e.g. `Closes #42`).
 - In the PR description, include a brief usage snippet and any notes on design decisions.
+- Label your PR with `component` and the relevant category.
 
 ## Code of conduct
 
-Be respectful and constructive. Harassment or exclusionary behavior is not tolerated. Focus on the work and help each other.
+This project follows the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). By participating, you agree to uphold it.
+
+## Security
+
+If you discover a security issue, please report it privately via [email](mailto:security@babelize.co) or [Discord](https://discord.gg/babelize). See [SECURITY.md](SECURITY.md) for details.
 
 ## Questions?
 

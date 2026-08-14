@@ -60,6 +60,12 @@ Great component candidates:
 - Pluralization helpers and CLDR plural-rule UI
 - Locale-aware currency inputs
 
+## Community
+
+- [Code of Conduct](https://github.com/babelize/babelize-elements/blob/main/CODE_OF_CONDUCT.md)
+- [Security Policy](https://github.com/babelize/babelize-elements/blob/main/SECURITY.md)
+- [Contributing](https://github.com/babelize/babelize-elements/blob/main/CONTRIBUTING.md)
+
 ## License
 
 [MIT](https://github.com/babelize/babelize-elements/blob/main/LICENSE) © [Babelize](https://babelize.co)
