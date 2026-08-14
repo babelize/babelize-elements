@@ -103,7 +103,7 @@ export function LanguageSwitcher({
         type="button"
         onClick={() => setOpen(!open)}
         className={cn(
-          "inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-emerald-500/50",
+          "inline-flex items-center gap-2 rounded-lg border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-3 py-2 text-sm font-medium text-black/80 dark:text-white/80 transition-colors hover:bg-black/10 dark:hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-emerald-500/50",
           dir === "rtl" && "flex-row-reverse",
         )}
         aria-expanded={open}
@@ -114,7 +114,7 @@ export function LanguageSwitcher({
         <span>{activeLocale?.label ?? locale}</span>
         <svg
           className={cn(
-            "size-4 text-white/40 transition-transform",
+            "size-4 text-black/40 dark:text-white/40 transition-transform",
             open && "rotate-180",
           )}
           fill="none"
@@ -128,18 +128,18 @@ export function LanguageSwitcher({
 
       {open && (
         <div
-          className="absolute z-50 mt-1 min-w-[200px] overflow-hidden rounded-xl border border-white/10 bg-[#111] shadow-xl"
+          className="absolute z-50 mt-1 min-w-[200px] overflow-hidden rounded-xl border border-black/10 dark:border-white/10 bg-white dark:bg-[#111] shadow-xl"
           role="listbox"
           aria-label="Select language"
         >
-          <div className="border-b border-white/5 p-2">
+          <div className="border-b border-black/5 dark:border-white/5 p-2">
             <input
               ref={inputRef}
               type="text"
               placeholder="Search..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-lg bg-white/5 px-3 py-1.5 text-sm text-white placeholder-white/30 outline-none focus:ring-1 focus:ring-emerald-500/50"
+              className="w-full rounded-lg bg-black/5 dark:bg-white/5 px-3 py-1.5 text-sm text-black dark:text-white placeholder-black/30 dark:placeholder-white/30 outline-none focus:ring-1 focus:ring-emerald-500/50"
             />
           </div>
           <div className="max-h-60 overflow-y-auto p-1">
@@ -162,14 +162,14 @@ export function LanguageSwitcher({
                     "flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm transition-colors",
                     itemDir === "rtl" && "flex-row-reverse text-right",
                     isActive
-                      ? "bg-emerald-500/10 text-emerald-400"
-                      : "text-white/70 hover:bg-white/5 hover:text-white",
+                      ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                      : "text-black/60 dark:text-white/70 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white",
                   )}
                 >
                   {l.flag && <span className="text-base">{l.flag}</span>}
                   <span className="flex-1">{l.label}</span>
                   {isActive && (
-                    <svg className="size-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <svg className="size-4 text-emerald-600 dark:text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                   )}
@@ -177,7 +177,7 @@ export function LanguageSwitcher({
               );
             })}
             {filtered.length === 0 && (
-              <div className="px-3 py-2 text-sm text-white/30">No results</div>
+              <div className="px-3 py-2 text-sm text-black/30 dark:text-white/30">No results</div>
             )}
           </div>
         </div>

@@ -7,7 +7,7 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* ── Babelize brand: emerald accent on dark ── */
+/* ── Babelize brand: emerald accent ── */
 @theme {
   --color-emerald-50: #e6faf3;
   --color-emerald-100: #b3f2dc;
@@ -22,25 +22,37 @@
   --color-emerald-950: #00120c;
 }
 
+/* ── Light mode (default) ── */
 :root {
-  --background: #000000;
-  --foreground: #ededed;
+  --background: #ffffff;
+  --foreground: #111111;
+  --card: #f9f9f9;
+  --card-foreground: #111111;
+  --border: rgba(0, 0, 0, 0.08);
+  --muted: #f5f5f5;
+  --muted-foreground: #666666;
 }
 
-/* ── Fumadocs emerald theming (dark-first, matches brand) ── */
+/* ── Fumadocs theming ── */
 :root {
   --color-fd-primary: hsl(160, 84%, 39%);
   --color-fd-primary-foreground: hsl(0, 0%, 100%);
   --color-fd-ring: hsl(160, 84%, 39%);
 }
 
+/* ── Dark mode ── */
 .dark {
+  --background: #000000;
+  --foreground: #ededed;
+  --card: #0d0d0d;
+  --card-foreground: #ededed;
+  --border: rgba(255, 255, 255, 0.08);
+  --muted: #131313;
+  --muted-foreground: #8a8a8a;
+
   --color-fd-primary: hsl(160, 84%, 48%);
   --color-fd-primary-foreground: hsl(0, 0%, 0%);
   --color-fd-ring: hsl(160, 84%, 48%);
-}
-
-.dark {
   --color-fd-background: transparent;
   --color-fd-foreground: #ededed;
   --color-fd-card: #0d0d0d;
@@ -55,7 +67,14 @@
 }
 
 html {
+  color-scheme: light;
+}
+
+.dark {
   color-scheme: dark;
+}
+
+html, body {
   scroll-behavior: smooth;
 }
 
@@ -68,13 +87,21 @@ body {
 }
 
 ::selection {
+  background: rgba(0, 189, 125, 0.2);
+}
+
+.dark ::selection {
   background: rgba(255, 255, 255, 0.16);
 }
 
 /* ── Dot field pattern ── */
 .dot-field {
-  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.8) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.4) 1px, transparent 1px);
   background-size: 24px 24px;
+}
+
+.dark .dot-field {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.8) 1px, transparent 1px);
 }
 
 /* ── Section pacing ── */
@@ -83,10 +110,18 @@ body {
 }
 
 .section-darker {
+  background: var(--muted);
+}
+
+.dark .section-darker {
   background: #080808;
 }
 
 .section-gradient {
+  background: linear-gradient(180deg, var(--background) 0%, var(--muted) 100%);
+}
+
+.dark .section-gradient {
   background: linear-gradient(180deg, var(--background) 0%, #080808 100%);
 }
 
@@ -129,13 +164,13 @@ aside button[data-active="true"] svg {
 /* Style the TOC links */
 .fd-toc-item, 
 .fd-toc a {
-  color: #8a8a8a !important;
+  color: var(--muted-foreground) !important;
   transition: all 0.2s ease;
 }
 
 .fd-toc-item:hover, 
 .fd-toc a:hover {
-  color: #ededed !important;
+  color: var(--foreground) !important;
 }
 
 /* Active TOC links */
@@ -149,13 +184,13 @@ aside button[data-active="true"] svg {
 
 /* Attempt to create the angled line for nested items */
 .fd-toc ul {
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 1px solid var(--border);
   margin-left: 0.5rem;
   padding-left: 0.5rem;
 }
 
 .fd-toc ul ul {
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 1px solid var(--border);
   border-bottom-left-radius: 8px;
 }
 

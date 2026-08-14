@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { RootProvider } from "fumadocs-ui/provider/next";
+import { ThemeProvider } from "next-themes";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -58,7 +59,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <RootProvider>{children}</RootProvider>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <RootProvider>{children}</RootProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
