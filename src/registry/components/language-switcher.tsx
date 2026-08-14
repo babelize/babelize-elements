@@ -8,9 +8,9 @@ export interface Locale {
   code: string;
   /** Display name in its native language */
   label: string;
-  /** Optional flag emoji */
+  /** Override flag emoji (auto-detected from code if omitted) */
   flag?: string;
-  /** Set true for RTL locales */
+  /** Override RTL (auto-detected from code if omitted) */
   rtl?: boolean;
 }
 
@@ -56,6 +56,8 @@ export interface LanguageSwitcherProps {
   locales: Locale[];
   /** Callback when locale changes */
   onLocaleChange: (code: string) => void;
+  /** Show flag emojis next to locale names (default: true) */
+  showFlags?: boolean;
   /** Additional CSS classes */
   className?: string;
   /** Theme colors — when provided, component uses inline styles instead of Tailwind dark: variants */
@@ -70,18 +72,70 @@ function isRtl(code: string): boolean {
 }
 
 /**
+ * Maps ISO 639-1 language codes to flag emojis via regional indicator symbols.
+ * Covers 80+ common languages. Override per-locale with the `flag` prop.
+ */
+const LANG_TO_FLAG: Record<string, string> = {
+  en: "\u{1F1FA}\u{1F1F8}", fr: "\u{1F1EB}\u{1F1F7}", es: "\u{1F1EA}\u{1F1F8}",
+  de: "\u{1F1E9}\u{1F1EA}", ja: "\u{1F1EF}\u{1F1F5}", ko: "\u{1F1F0}\u{1F1F7}",
+  zh: "\u{1F1E8}\u{1F1F3}", ar: "\u{1F1F8}\u{1F1E6}", pt: "\u{1F1E7}\u{1F1F7}",
+  it: "\u{1F1EE}\u{1F1F9}", nl: "\u{1F1F3}\u{1F1F1}", ru: "\u{1F1F7}\u{1F1FA}",
+  pl: "\u{1F1F5}\u{1F1F1}", tr: "\u{1F1F9}\u{1F1F7}", vi: "\u{1F1FB}\u{1F1F3}",
+  th: "\u{1F1F9}\u{1F1ED}", id: "\u{1F1EE}\u{1F1E9}", hi: "\u{1F1EE}\u{1F1F3}",
+  bn: "\u{1F1E7}\u{1F1E9}", uk: "\u{1F1FA}\u{1F1E6}", cs: "\u{1F1E8}\u{1F1FF}",
+  sv: "\u{1F1F8}\u{1F1EA}", da: "\u{1F1E9}\u{1F1F0}", fi: "\u{1F1EB}\u{1F1EE}",
+  no: "\u{1F1F3}\u{1F1F4}", nb: "\u{1F1F3}\u{1F1F4}", nn: "\u{1F1F3}\u{1F1F4}",
+  el: "\u{1F1EC}\u{1F1F7}", he: "\u{1F1EE}\u{1F1F1}", fa: "\u{1F1EE}\u{1F1F7}",
+  ro: "\u{1F1F7}\u{1F1F4}", hu: "\u{1F1ED}\u{1F1FA}", sk: "\u{1F1F8}\u{1F1F0}",
+  bg: "\u{1F1E7}\u{1F1EC}", hr: "\u{1F1ED}\u{1F1F7}", sr: "\u{1F1F7}\u{1F1F8}",
+  sl: "\u{1F1F8}\u{1F1EE}", lt: "\u{1F1F1}\u{1F1F9}", lv: "\u{1F1F1}\u{1F1FB}",
+  et: "\u{1F1EA}\u{1F1EA}", ga: "\u{1F1EE}\u{1F1EA}", mt: "\u{1F1F2}\u{1F1F9}",
+  ca: "\u{1F1E6}\u{1F1F8}", eu: "\u{1F1E6}\u{1F1F7}", gl: "\u{1F1E6}\u{1F1F7}",
+  cy: "\u{1F1FF}\u{1F1F4}", mk: "\u{1F1F2}\u{1F1F0}", sq: "\u{1F1E6}\u{1F1F1}",
+  bs: "\u{1F1E7}\u{1F1F8}", is: "\u{1F1EE}\u{1F1F8}", fo: "\u{1F1EB}\u{1F1F4}",
+  sw: "\u{1F1F9}\u{1F1FF}", am: "\u{1F1E6}\u{1F1F2}", ne: "\u{1F1F3}\u{1F1F5}",
+  si: "\u{1F1F8}\u{1F1F0}", my: "\u{1F1F2}\u{1F1E2}", km: "\u{1F1F0}\u{1F1ED}",
+  lo: "\u{1F1F1}\u{1F1E6}", ka: "\u{1F1EC}\u{1F1EA}", hy: "\u{1F1E6}\u{1F1F2}",
+  kk: "\u{1F1F0}\u{1F1F0}", uz: "\u{1F1FA}\u{1F1FF}", mn: "\u{1F1F2}\u{1F1F3}",
+  ps: "\u{1F1F5}\u{1F1F8}", ur: "\u{1F1FA}\u{1F1F2}", sd: "\u{1F1F8}\u{1F1E6}",
+  ml: "\u{1F1F2}\u{1F1F1}", ta: "\u{1F1F9}\u{1F1F1}", te: "\u{1F1F9}\u{1F1EF}",
+  kn: "\u{1F1EE}\u{1F1F3}", mr: "\u{1F1F2}\u{1F1F7}", gu: "\u{1F1EC}\u{1F1A9}",
+  pa: "\u{1F1F5}\u{1F1E6}", or: "\u{1F1F3}\u{1F1F4}", as: "\u{1F1E6}\u{1F1F8}",
+  yi: "\u{1F1FE}\u{1F1EA}", yo: "\u{1F1FE}\u{1F1F3}", ig: "\u{1F1EE}\u{1F1EC}",
+  zu: "\u{1F1FF}\u{1F1F3}", af: "\u{1F1E6}\u{1F1FF}",
+  ha: "\u{1F1ED}\u{1F1F2}", tl: "\u{1F1F5}\u{1F1ED}", mg: "\u{1F1F2}\u{1F1EC}",
+  mi: "\u{1F1F3}\u{1F1FF}", sm: "\u{1F1F8}\u{1F1F4}", fj: "\u{1F1EB}\u{1F1EF}",
+  to: "\u{1F1F9}\u{1F1F4}", haw: "\u{1F1ED}\u{1F1FC}", la: "\u{1F1F1}\u{1F1E6}",
+  eo: "\u{1F1EA}\u{1F1F7}",
+};
+
+function getFlag(code: string): string {
+  const lang = code.split("-")[0].toLowerCase();
+  return LANG_TO_FLAG[lang] ?? "\u{1F310}"; // 🌐 globe as fallback
+}
+
+/**
  * Dropdown language switcher with searchable locale list.
  *
  * @example
  * ```tsx
+ * // Simple — flags auto-detected from language code
  * <LanguageSwitcher
  *   locale="en"
  *   locales={[
- *     { code: "en", label: "English", flag: "🇺🇸" },
- *     { code: "fr", label: "Français", flag: "🇫🇷" },
- *     { code: "ar", label: "العربية", flag: "🇸🇦", rtl: true },
+ *     { code: "en", label: "English" },
+ *     { code: "fr", label: "Français" },
+ *     { code: "ar", label: "العربية" },
  *   ]}
  *   onLocaleChange={(code) => router.push(`/${code}`)}
+ * />
+ *
+ * // No flags
+ * <LanguageSwitcher
+ *   locale="en"
+ *   locales={[{ code: "en", label: "English" }]}
+ *   onLocaleChange={setLocale}
+ *   showFlags={false}
  * />
  * ```
  */
@@ -89,6 +143,7 @@ export function LanguageSwitcher({
   locale,
   locales,
   onLocaleChange,
+  showFlags = true,
   className,
   themeColors,
 }: LanguageSwitcherProps) {
@@ -152,7 +207,7 @@ export function LanguageSwitcher({
         aria-haspopup="listbox"
         aria-label={`Current language: ${activeLocale?.label ?? locale}`}
       >
-        {activeLocale?.flag && <span className="text-base">{activeLocale.flag}</span>}
+        {showFlags && <span className="text-base">{activeLocale?.flag ?? getFlag(locale)}</span>}
         <span>{activeLocale?.label ?? locale}</span>
         <svg
           className={cn(
@@ -237,7 +292,7 @@ export function LanguageSwitcher({
                     if (hasTheme && !isActive) e.currentTarget.style.background = "transparent";
                   }}
                 >
-                  {l.flag && <span className="text-base">{l.flag}</span>}
+                  {showFlags && <span className="text-base">{l.flag ?? getFlag(l.code)}</span>}
                   <span className="flex-1">{l.label}</span>
                   {isActive && (
                     <svg
