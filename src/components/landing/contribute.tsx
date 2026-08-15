@@ -23,7 +23,7 @@ export function Contribute() {
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link
-                  href="/docs/contributing"
+                  href="/docs/getting-started/contributing"
                   className="inline-flex h-11 items-center gap-2 rounded-full bg-emerald-500 px-6 text-sm font-medium text-black transition-all hover:bg-emerald-400 active:scale-[0.98]"
                 >
                   Read the contribution guide

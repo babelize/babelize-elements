@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     template: "%s | Babelize Elements",
   },
   description:
-    "Open-source, copy-paste Localization UI components for React and Tailwind CSS. Language switchers, locale pickers, translation widgets, and more — built by the community.",
+    "Open-source Localization UI components for React and Tailwind CSS. Language switchers, locale pickers, translation widgets, and more — built by the community.",
   keywords: [
     "localization",
     "i18n",
@@ -41,13 +41,13 @@ export const metadata: Metadata = {
     siteName: "Babelize Elements",
     title: "Babelize Elements - Open Source Localization UI Components",
     description:
-      "Open-source, copy-paste Localization UI components for React and Tailwind CSS. Built by the community.",
+      "Open-source Localization UI components for React and Tailwind CSS. Built by the community.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Babelize Elements - Open Source Localization UI Components",
     description:
-      "Open-source, copy-paste Localization UI components for React and Tailwind CSS. Built by the community.",
+      "Open-source Localization UI components for React and Tailwind CSS. Built by the community.",
   },
 };
 

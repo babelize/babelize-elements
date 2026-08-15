@@ -7,9 +7,9 @@ import { cn } from "@/lib/utils";
 
 const faqs = [
   {
-    question: "Do I need to install anything to use Babelize Elements?",
+    question: "How do I install Babelize Elements?",
     answer:
-      "No. Babelize Elements components are copy-paste by design. Copy the source code into your React project and use it — no registry, no runtime dependency, no vendor lock-in. Works with Next.js, Remix, and any React app.",
+      "Install via npm: `npm install @babelize/elements`. Works with Next.js, Remix, and any React app. Import components directly from the package.",
   },
   {
     question: "Can I customize the language switcher and locale picker components?",

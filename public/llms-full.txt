@@ -1,6 +1,6 @@
 # Babelize Elements
 
-Babelize Elements is an open-source library of copy-paste Localization UI components for React and Tailwind CSS.
+Babelize Elements is an open-source library of Localization UI components for React and Tailwind CSS.
 
 It is the community home for the building blocks every localized app needs — language switchers, locale pickers, translation widgets, RTL-aware layouts, and more. Built by the Babelize community, for the Babelize community.
 
@@ -8,14 +8,14 @@ It is the community home for the building blocks every localized app needs — l
 
 Building a localized app means repeating the same UI work in every project: a language dropdown here, a locale-aware date there, an RTL-safe nav everywhere. Elements turns that work into a shared, open-source toolbox.
 
-- **Copy & paste** — grab the code, drop it in your project, done. No installs, no lock-in.
+- **Easy to install** — `npm install @babelize/elements` and start using components immediately.
 - **Localization-first** — every component ships with pluralization, RTL, and locale-data support built in.
 - **Accessible** — keyboard support, ARIA labels, and WCAG-aware markup out of the box.
 - **Open source** — MIT-licensed, free forever, and built by contributors like you.
 
 ## Getting Started
 
-Babelize Elements is designed to drop into any React + Tailwind CSS project with zero configuration. Because components are copy-paste, you control the code — no registry lock-in, no runtime dependencies.
+Babelize Elements is designed to drop into any React + Tailwind CSS project with zero configuration.
 
 ### Prerequisites
 
@@ -25,18 +25,14 @@ Babelize Elements is designed to drop into any React + Tailwind CSS project with
 
 ### Installation
 
-There is nothing to install. Browse the component you need in the docs or the repository, copy the source file into `components/elements/`, and import it:
-
 ```bash
-# components live in your own project
-mkdir -p components/elements
-cp path/to/language-switcher.tsx components/elements/
+npm install @babelize/elements
 ```
 
 ### Add to your project
 
 ```tsx
-import { LanguageSwitcher } from "@/components/elements/language-switcher";
+import { LanguageSwitcher } from "@babelize/elements";
 
 export function App() {
   return (
@@ -115,5 +111,5 @@ MIT — free forever, use in any project, commercial or not.
 ## Links
 
 - GitHub: https://github.com/babelize/babelize-elements
-- Documentation: https://elements.babelize.org
+- Documentation: https://elements.babelize.co
 - Issues: https://github.com/babelize/babelize-elements/issues

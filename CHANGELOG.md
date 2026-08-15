@@ -1,19 +1,41 @@
 # Changelog
 
-## 0.2.0
-
-### Minor Changes
-
-- Add installation page and fix sidebar icons in getting-started docs
-
 All notable changes to Babelize Elements will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.0] - 2026-08-15
 
 ### Added
+
+- Initial stable release of `@babelize/elements` npm package
+- LanguageSwitcher component with dropdown, search, RTL support, and full accessibility
+- TypeScript-first with exported interfaces for all props
+- Works with next-intl, react-i18next, react-intl, and custom i18n setups
+- Dark mode support built-in with Tailwind CSS
+- 60+ supported languages with auto-detected labels and flags
+- Documentation site at elements.babelize.co
+- Installation guide with npm, pnpm, yarn, and bun instructions
+- Theming guide with CSS variables and theme gallery
+- Contributing guide for community contributors
+- Auto-publish workflow for continuous releases
+
+## [0.2.0] - 2026-08-15
+
+### Minor Changes
+
+- Add installation page and fix sidebar icons in getting-started docs
+
+## [0.1.0] - 2026-08-04
+
+### Added
+
+- Initial repository setup
+- Next.js 16.3.0 + Fumadocs 16
+- Tailwind CSS v4
+- MIT License
+- Contributing guide and Code of Conduct
 - Landing page with billingsdk.com-inspired design
 - Fumadocs documentation site with getting-started and contributing guides
 - Component showcase with live demos (Pill Switcher, Dropdown Picker, RTL Layout, Date Formatter, Translation Widget)
@@ -24,16 +46,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - JSON-LD structured data support
 
 ### Fixed
+
 - Favicon SVG convention for Next.js 16
 - Hydration mismatch from `next-themes`
 - ESLint errors across all landing page components
 - TypeScript errors in CI (LayoutProps import, fumadocs virtual module resolution)
-
-## [0.1.0] - 2026-08-04
-
-### Added
-- Initial repository setup
-- Next.js 16.3.0 + Fumadocs 16
-- Tailwind CSS v4
-- MIT License
-- Contributing guide and Code of Conduct

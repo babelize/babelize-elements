@@ -64,7 +64,7 @@ export function Features() {
 
           <Reveal delay={0.2}>
             <p className="mt-6 text-lg text-white/50">
-              Built for modern React apps. Copy, paste, and ship globally.
+              Built for modern React apps. Install and ship globally.
             </p>
           </Reveal>
         </div>

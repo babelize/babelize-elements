@@ -1,23 +1,22 @@
 # Babelize Elements
 
-Open-source copy-paste Localization UI components for React and Tailwind CSS.
+Open-source Localization UI components for React and Tailwind CSS.
 
 ## Features
 
 - Language switchers, locale pickers, RTL layouts
-- Copy-paste — no installs, no lock-in
+- Install via npm — `npm install @babelize/elements`
 - TypeScript-first, accessible, MIT-licensed
 - Works with next-intl, react-i18next, react-intl, and more
 
 ## Quick Start
 
 ```bash
-mkdir -p components/elements
-cp path/to/language-switcher.tsx components/elements/
+npm install @babelize/elements
 ```
 
 ```tsx
-import { LanguageSwitcher } from "@/components/elements/language-switcher";
+import { LanguageSwitcher } from "@babelize/elements";
 
 export function App() {
   return (
@@ -35,4 +34,4 @@ export function App() {
 ## Links
 
 - GitHub: https://github.com/babelize/babelize-elements
-- Docs: https://elements.babelize.org
+- Docs: https://elements.babelize.co

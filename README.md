@@ -7,7 +7,7 @@
 <p align="center">
   Open-source Localization UI components for React and Tailwind CSS.
   <br />
-  Copy-paste components for language switchers, locale pickers, translation widgets, and more — built by the community.
+  Ready-to-use components for language switchers, locale pickers, translation widgets, and more — built by the community.
 </p>
 
 <p align="center">
@@ -27,16 +27,24 @@
 
 ## What is Babelize Elements?
 
-**Babelize Elements** is a community-built library of copy-paste **Localization UI components** for React and Tailwind CSS. Every localized app needs a language switcher, a locale picker, RTL-aware layouts, and pluralization UI — Elements turns that repetitive work into a shared, open-source toolbox.
+**Babelize Elements** is a community-built library of **Localization UI components** for React and Tailwind CSS. Every localized app needs a language switcher, a locale picker, RTL-aware layouts, and pluralization UI — Elements turns that repetitive work into a shared, open-source toolbox.
 
-- **Copy & paste** — grab the code, drop it in your project. No installs, no registry lock-in.
+- **Easy to install** — `npm install @babelize/elements` and start using components immediately.
 - **Localization-first** — pluralization, RTL, and locale data built into every component.
 - **Accessible** — keyboard support, ARIA labels, and WCAG-aware markup.
 - **Open source** — MIT-licensed, free forever, built by contributors like you.
 
+## Installation
+
+```bash
+npm install @babelize/elements
+```
+
 ## Docs & Website
 
 The landing page and component documentation live at [elements.babelize.co](https://elements.babelize.co), built with Next.js and [Fumadocs](https://fumadocs.dev).
+
+### Local Development
 
 ```bash
 bun install

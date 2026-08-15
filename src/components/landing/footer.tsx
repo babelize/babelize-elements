@@ -5,14 +5,14 @@ import Image from "next/image";
 const resources = [
   { name: "Documentation", href: "/docs" },
   { name: "Getting Started", href: "/docs/getting-started" },
-  { name: "Theming Guide", href: "/docs/theming" },
+  { name: "Theming Guide", href: "/docs/customization/theming" },
   { name: "Babelize App", href: "https://app.babelize.co" },
 ];
 
 const communityLinks = [
   { name: "GitHub Issues", href: "https://github.com/babelize/babelize-elements/issues" },
   { name: "Discord Server", href: "https://discord.gg/4kMng8XVcm" },
-  { name: "Contributing", href: "/docs/contributing" },
+  { name: "Contributing", href: "/docs/getting-started/contributing" },
   { name: "Babelize GitHub", href: "https://github.com/babelize" },
 ];
 

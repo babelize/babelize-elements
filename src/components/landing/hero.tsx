@@ -58,7 +58,7 @@ export function Hero() {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="mx-auto mt-6 max-w-3xl text-[1.1rem] leading-relaxed text-neutral-400"
               >
-                Open-source, copy-paste React components for internationalization (i18n).
+                Open-source React components for internationalization (i18n).
                 Build language switchers, locale pickers, and RTL layouts in minutes —
                 MIT licensed, community-driven.
               </motion.p>
@@ -120,7 +120,7 @@ export function Hero() {
                       <span className="text-emerald-400">LanguageSwitcher</span>
                       <span className="text-[#abb2bf]">{" } "}</span>
                       <span className="text-[#c678dd]">from</span>
-                      <span className="text-[#98c379]"> &apos;@components/babelize/language-switcher&apos;</span>
+                      <span className="text-[#98c379]"> &apos;@babelize/elements&apos;</span>
                       <span className="text-[#abb2bf]">;</span>
                       {"\n\n"}
                       <span className="text-[#c678dd]">export default function</span>
