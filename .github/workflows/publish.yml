@@ -23,6 +23,6 @@ jobs:
           registry-url: "https://registry.npmjs.org"
       - run: bun install
       - run: bun run build:lib
-      - run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+          npm publish --provenance --access public
