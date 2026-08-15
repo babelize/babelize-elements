@@ -60,7 +60,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add package.json bun.lock
-          git commit -m "chore: bump version to ${{ steps.bump.outputs.version }}"
+          git commit -m "chore: bump version to ${{ steps.bump.outputs.version }} [skip ci]"
           git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}.git main
 
       - name: Create tag
