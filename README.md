@@ -40,6 +40,10 @@
 npm install @babelize/elements
 ```
 
+## Documentation
+
+Visit [elements.babelize.co](https://elements.babelize.co) for full documentation, guides, and component demos.
+
 ## Docs & Website
 
 The landing page and component documentation live at [elements.babelize.co](https://elements.babelize.co), built with Next.js and [Fumadocs](https://fumadocs.dev).
