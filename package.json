@@ -1,6 +1,6 @@
 {
   "name": "@babelize/elements",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Open-source Localization UI components for React and Tailwind CSS.",
   "license": "MIT",
   "type": "module",
