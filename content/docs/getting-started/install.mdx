@@ -1,0 +1,80 @@
+---
+title: Installation
+description: Install @babelize/elements in your project with your preferred package manager.
+icon: Download
+---
+
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+# Installation
+
+Add Babelize Elements to your project with a single command. The package ships TypeScript types, tree-shakeable ESM, and zero runtime dependencies beyond React and Tailwind CSS.
+
+## Package Manager
+
+<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
+  <Tab value="npm">
+    ```bash
+    npm install @babelize/elements
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```bash
+    pnpm add @babelize/elements
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```bash
+    yarn add @babelize/elements
+    ```
+  </Tab>
+  <Tab value="bun">
+    ```bash
+    bun add @babelize/elements
+    ```
+  </Tab>
+</Tabs>
+
+## Prerequisites
+
+| Dependency | Minimum Version |
+|------------|----------------|
+| React      | `>=18`         |
+| React DOM  | `>=18`         |
+| Tailwind CSS | `>=3`        |
+| Node.js    | `>=18`         |
+
+## Verify Installation
+
+Import a component to confirm everything is wired up:
+
+```tsx
+import { LanguageSwitcher } from "@babelize/elements";
+
+export function App() {
+  return (
+    <LanguageSwitcher
+      locales={[
+        { code: "en", label: "English" },
+        { code: "fr", label: "Français" },
+        { code: "es", label: "Español" },
+      ]}
+      defaultValue="en"
+    />
+  );
+}
+```
+
+## Next Steps
+
+<Cards>
+  <Card title="Quick Start" href="/docs/getting-started/installation">
+    Build your first localized UI with Babelize Elements.
+  </Card>
+  <Card title="Components" href="/docs/components">
+    Browse all available components and their documentation.
+  </Card>
+  <Card title="Theming" href="/docs/customization/theming">
+    Customize colors, dark mode, and design tokens.
+  </Card>
+</Cards>

@@ -2,6 +2,7 @@
   "title": "Getting Started",
   "pages": [
     "index",
+    "install",
     "installation",
     "shadcn-cli",
     "contributing"

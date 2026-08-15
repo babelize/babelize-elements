@@ -1,6 +1,6 @@
 {
   "name": "@babelize/elements",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Open-source copy-paste Localization UI components for React and Tailwind CSS",
   "license": "MIT",
   "type": "module",
