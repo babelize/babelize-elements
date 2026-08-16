@@ -2,53 +2,25 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { LanguageSwitcher, type Locale } from "@/registry/components/language-switcher";
+import { PhoneInput } from "@/registry/components/phone-input";
 import { CodeBlock } from "./code-block";
 import { ThemeDropdown, type ThemeName } from "./theme-dropdown";
 
-const locales: Locale[] = [
-  { code: "en" },
-  { code: "fr" },
-  { code: "es" },
-  { code: "de" },
-  { code: "ja" },
-  { code: "ar" },
-];
-
-const greetings: Record<string, string> = {
-  en: "Hello, world!",
-  fr: "Bonjour, le monde !",
-  es: "\u00a1Hola, mundo!",
-  de: "Hallo, Welt!",
-  ja: "\u4eca\u65e5\u306f\u4e16\u754c\uff01",
-  ar: "\u0645\u0631\u062d\u0628\u0627 \u0628\u0627\u0644\u0639\u0627\u0644\u0645!",
-};
-
 const CODE_SNIPPET = `"use client";
 
-import { LanguageSwitcher } from "@babelize/elements";
-
-const locales = [
-  { code: "en" },
-  { code: "fr" },
-  { code: "es" },
-  { code: "de" },
-  { code: "ja" },
-  { code: "ar" },
-];
+import { PhoneInput } from "@babelize/elements";
 
 export default function App() {
   return (
-    <LanguageSwitcher
-      locales={locales}
-      defaultValue="en"
-      onValueChange={(code) => console.log(code)}
+    <PhoneInput
+      defaultCountry="US"
+      placeholder="Enter phone number"
+      onChange={(phone, country) => console.log(phone, country.dialCode)}
     />
   );
 }`;
 
-export function LanguageSwitcherDemo() {
-  const [locale, setLocale] = useState("en");
+export function PhoneInputDemo() {
   const [previewDark, setPreviewDark] = useState(true);
   const [theme, setTheme] = useState<ThemeName>("emerald");
   const [tab, setTab] = useState<"preview" | "code">("preview");
@@ -115,23 +87,15 @@ export function LanguageSwitcherDemo() {
         >
           <div className="relative flex flex-col items-center justify-center gap-8 px-6 py-16 sm:px-12">
             <div className="relative z-50">
-              <LanguageSwitcher
-                locales={locales}
-                defaultValue="en"
-                onValueChange={setLocale}
-                showFlags
+              <PhoneInput
+                defaultCountry="US"
+                placeholder="Enter phone number"
               />
             </div>
 
             <div className="relative z-10 text-center">
-              <p className="text-4xl font-bold tracking-tight sm:text-5xl text-foreground">
-                {greetings[locale] ?? "Hello, world!"}
-              </p>
-              <p className="mt-3 text-sm text-muted-foreground">
-                locale:{" "}
-                <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-foreground">
-                  {locale}
-                </code>
+              <p className="text-sm text-muted-foreground">
+                Enter your phone number with country code
               </p>
             </div>
           </div>

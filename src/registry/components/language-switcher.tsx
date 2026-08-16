@@ -14,41 +14,6 @@ export interface Locale {
   rtl?: boolean;
 }
 
-export interface LanguageSwitcherThemeColors {
-  /** Button background */
-  btnBg: string;
-  /** Button border */
-  btnBorder: string;
-  /** Button text */
-  btnText: string;
-  /** Chevron and muted icon color */
-  iconColor: string;
-  /** Dropdown background */
-  dropdownBg: string;
-  /** Dropdown border */
-  dropdownBorder: string;
-  /** Dropdown item text */
-  itemText: string;
-  /** Dropdown item hover background */
-  itemHoverBg: string;
-  /** Dropdown item hover text */
-  itemHoverText: string;
-  /** Active item background */
-  activeBg: string;
-  /** Active item text */
-  activeText: string;
-  /** Search input background */
-  inputBg: string;
-  /** Search input text */
-  inputText: string;
-  /** Search input placeholder */
-  inputPlaceholder: string;
-  /** Search border */
-  inputBorder: string;
-  /** No results text */
-  noResultsText: string;
-}
-
 export interface LanguageSwitcherProps {
   /** Array of available locales — only `code` is required */
   locales: Locale[];
@@ -62,8 +27,6 @@ export interface LanguageSwitcherProps {
   label?: "native" | "english";
   /** Additional CSS classes */
   className?: string;
-  /** Theme colors — when provided, component uses inline styles instead of Tailwind dark: variants */
-  themeColors?: LanguageSwitcherThemeColors;
 }
 
 const RTL_LOCALES = new Set(["ar", "he", "fa", "ur", "ps", "sd", "yi"]);
@@ -113,59 +76,54 @@ const LANG_TO_FLAG: Record<string, string> = {
 
 function getFlag(code: string): string {
   const lang = code.split("-")[0].toLowerCase();
-  return LANG_TO_FLAG[lang] ?? "\u{1F310}"; // 🌐 globe as fallback
+  return LANG_TO_FLAG[lang] ?? "\u{1F310}";
 }
 
 /**
  * Built-in language names: native form and English form.
- * Used to auto-resolve display labels from just a language code.
  */
 const LANG_NAMES: Record<string, [native: string, english: string]> = {
-  en: ["English", "English"], fr: ["Français", "French"], es: ["Español", "Spanish"],
-  de: ["Deutsch", "German"], ja: ["日本語", "Japanese"], ko: ["한국어", "Korean"],
-  zh: ["中文", "Chinese"], ar: ["العربية", "Arabic"], pt: ["Português", "Portuguese"],
-  it: ["Italiano", "Italian"], nl: ["Nederlands", "Dutch"], ru: ["Русский", "Russian"],
-  pl: ["Polski", "Polish"], tr: ["Türkçe", "Turkish"], vi: ["Tiếng Việt", "Vietnamese"],
-  th: ["ไทย", "Thai"], id: ["Bahasa Indonesia", "Indonesian"], hi: ["हिन्दी", "Hindi"],
-  bn: ["বাংলা", "Bengali"], uk: ["Українська", "Ukrainian"], cs: ["Čeština", "Czech"],
+  en: ["English", "English"], fr: ["Fran\u00e7ais", "French"], es: ["Espa\u00f1ol", "Spanish"],
+  de: ["Deutsch", "German"], ja: ["\u65e5\u672c\u8a9e", "Japanese"], ko: ["\ud55c\uad6d\uc5b4", "Korean"],
+  zh: ["\u4e2d\u6587", "Chinese"], ar: ["\u0627\u0644\u0639\u0631\u0628\u064a\u0629", "Arabic"], pt: ["Portugu\u00eas", "Portuguese"],
+  it: ["Italiano", "Italian"], nl: ["Nederlands", "Dutch"], ru: ["\u0420\u0443\u0441\u0441\u043a\u0438\u0439", "Russian"],
+  pl: ["Polski", "Polish"], tr: ["T\u00fcrk\u00e7e", "Turkish"], vi: ["Ti\u1ebfng Vi\u1ec7t", "Vietnamese"],
+  th: ["\u0e44\u0e17\u0e22", "Thai"], id: ["Bahasa Indonesia", "Indonesian"], hi: ["\u0939\u093f\u0928\u094d\u0926\u0940", "Hindi"],
+  bn: ["\u09ac\u09be\u0982\u09b2\u09be", "Bengali"], uk: ["\u0423\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430", "Ukrainian"], cs: ["\u010ce\u0161tina", "Czech"],
   sv: ["Svenska", "Swedish"], da: ["Dansk", "Danish"], fi: ["Suomi", "Finnish"],
-  no: ["Norsk", "Norwegian"], nb: ["Norsk bokmål", "Norwegian Bokmål"],
-  nn: ["Nynorsk", "Norwegian Nynorsk"], el: ["Ελληνικά", "Greek"],
-  he: ["עברית", "Hebrew"], fa: ["فارسی", "Persian"], ro: ["Română", "Romanian"],
-  hu: ["Magyar", "Hungarian"], sk: ["Slovenčina", "Slovak"],
-  bg: ["Български", "Bulgarian"], hr: ["Hrvatski", "Croatian"],
-  sr: ["Српски", "Serbian"], sl: ["Slovenščina", "Slovenian"],
-  lt: ["Lietuvių", "Lithuanian"], lv: ["Latviešu", "Latvian"],
+  no: ["Norsk", "Norwegian"], nb: ["Norsk bokm\u00e5l", "Norwegian Bokm\u00e5l"],
+  nn: ["Nynorsk", "Norwegian Nynorsk"], el: ["\u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac", "Greek"],
+  he: ["\u05e2\u05d1\u05e8\u05d9\u05ea", "Hebrew"], fa: ["\u0641\u0627\u0631\u0633\u06cc", "Persian"], ro: ["Rom\u00e2n\u0103", "Romanian"],
+  hu: ["Magyar", "Hungarian"], sk: ["Sloven\u010dina", "Slovak"],
+  bg: ["\u0411\u044a\u043b\u0433\u0430\u0440\u0441\u043a\u0438", "Bulgarian"], hr: ["Hrvatski", "Croatian"],
+  sr: ["\u0421\u0440\u043f\u0441\u043a\u0438", "Serbian"], sl: ["Sloven\u0161\u010dina", "Slovenian"],
+  lt: ["Lietuvi\u0173", "Lithuanian"], lv: ["Latvie\u0161u", "Latvian"],
   et: ["Eesti", "Estonian"], ga: ["Gaeilge", "Irish"], mt: ["Malti", "Maltese"],
-  ca: ["Català", "Catalan"], eu: ["Euskara", "Basque"], gl: ["Galego", "Galician"],
-  cy: ["Cymraeg", "Welsh"], mk: ["Македонски", "Macedonian"],
+  ca: ["Catal\u00e0", "Catalan"], eu: ["Euskara", "Basque"], gl: ["Galego", "Galician"],
+  cy: ["Cymraeg", "Welsh"], mk: ["\u041c\u0430\u043a\u0435\u0434\u043e\u043d\u0441\u043a\u0438", "Macedonian"],
   sq: ["Shqip", "Albanian"], bs: ["Bosanski", "Bosnian"],
-  is: ["Íslenska", "Icelandic"], fo: ["Føroyskt", "Faroese"],
-  sw: ["Kiswahili", "Swahili"], am: ["አማርኛ", "Amharic"],
-  ne: ["नेपाली", "Nepali"], si: ["සිංහල", "Sinhala"],
-  my: ["မြန်မာ", "Burmese"], km: ["ខ្មែរ", "Khmer"], lo: ["ລາວ", "Lao"],
-  ka: ["ქართული", "Georgian"], hy: ["Հայերեն", "Armenian"],
-  kk: ["Қазақ", "Kazakh"], uz: ["Oʻzbek", "Uzbek"],
-  mn: ["Монгол", "Mongolian"], ps: ["پښتو", "Pashto"],
-  ur: ["اردو", "Urdu"], sd: ["سنڌي", "Sindhi"],
-  ml: ["മലയാളം", "Malayalam"], ta: ["தமிழ்", "Tamil"],
-  te: ["తెలుగు", "Telugu"], kn: ["ಕನ್ನಡ", "Kannada"],
-  mr: ["मराठी", "Marathi"], gu: ["ગુજરાતી", "Gujarati"],
-  pa: ["ਪੰਜਾਬੀ", "Punjabi"], or: ["ଓଡ଼ିଆ", "Odia"],
-  as: ["অসমীয়া", "Assamese"], yi: ["ייִדיש", "Yiddish"],
-  yo: ["Yorùbá", "Yoruba"], ig: ["Igbo", "Igbo"],
+  is: ["\u00cdslenska", "Icelandic"], fo: ["F\u00f8royskt", "Faroese"],
+  sw: ["Kiswahili", "Swahili"], am: ["\u12a0\u12cd\u1295\u1348", "Amharic"],
+  ne: ["\u0928\u0947\u092a\u093e\u0932\u0940", "Nepali"], si: ["\u0dc3\u0dd2\u0d82\u0dc4\u0dbd", "Sinhala"],
+  my: ["\u1019\u103c\u1014\u103a\u1019\u102c", "Burmese"], km: ["\u1780\u1798\u17d2\u1796\u17c7\u1798", "Khmer"], lo: ["\u0ea5\u0e27", "Lao"],
+  ka: ["\u10e5\u10d0\u10e0\u10d7\u10e3\u10da\u10d8", "Georgian"], hy: ["\u0540\u0561\u0575\u0565\u10e0\u0565\u0576", "Armenian"],
+  kk: ["\u049a\u0430\u0437\u0430\u049b", "Kazakh"], uz: ["O\u2019zbek", "Uzbek"],
+  mn: ["\u041c\u043e\u043d\u0433\u043e\u043b", "Mongolian"], ps: ["\u067e\u069a\u062a\u0648", "Pashto"],
+  ur: ["\u0627\u0631\u062f\u0648", "Urdu"], sd: ["\u0773\u0647\u0646\u068c\u064a", "Sindhi"],
+  ml: ["\u0d2e\u0d32\u0d2f\u0d3e\u0d33\u0d02", "Malayalam"], ta: ["\u0ba4\u0bae\u0bbf\u0bb4\u0bcd", "Tamil"],
+  te: ["\u0c24\u0c46\u0c32\u0c41\u0c17\u0c41", "Telugu"], kn: ["\u0c95\u0ca8\u0ccd\u0ca8\u0ca1", "Kannada"],
+  mr: ["\u092e\u0930\u093e\u0920\u0940", "Marathi"], gu: ["\u0a97\u0ac1\u0a9c\u0ab0\u0abe\u0aa4\u0ac0", "Gujarati"],
+  pa: ["\u0a2a\u0a70\u0a1c\u0a3e\u0a2c\u0a40", "Punjabi"], or: ["\u0b13\u0b21\u0b3c\u0b3f\u0b06", "Odia"],
+  as: ["\u0985\u09b8\u09ae\u09c0\u09af\u09bc\u09be", "Assamese"], yi: ["\u05d9\u05d9\u05b4\u05d3\u05d9\u05e9", "Yiddish"],
+  yo: ["Yor\u00f9b\u00e1", "Yoruba"], ig: ["Igbo", "Igbo"],
   zu: ["isiZulu", "Zulu"], af: ["Afrikaans", "Afrikaans"],
   ha: ["Hausa", "Hausa"], tl: ["Filipino", "Filipino"],
-  mg: ["Malagasy", "Malagasy"], mi: ["Te Reo Māori", "Māori"],
+  mg: ["Malagasy", "Malagasy"], mi: ["Te Reo M\u0101ori", "M\u0101ori"],
   sm: ["Gagana Samoa", "Samoan"], to: ["Lea Faka-Tonga", "Tongan"],
-  fj: ["Na Vosa Vakaviti", "Fijian"], haw: ["ʻŌlelo Hawaiʻi", "Hawaiian"],
+  fj: ["Na Vosa Vakaviti", "Fijian"], haw: ["\u02bb\u014clelo Hawai\u02bbi", "Hawaiian"],
   la: ["Latina", "Latin"], eo: ["Esperanto", "Esperanto"],
 };
 
-/**
- * Get the display label for a locale.
- * Falls back to `code` if no mapping found.
- */
 function getLabel(code: string, mode: "native" | "english"): string {
   const lang = code.split("-")[0].toLowerCase();
   const names = LANG_NAMES[lang];
@@ -173,26 +131,6 @@ function getLabel(code: string, mode: "native" | "english"): string {
   return mode === "native" ? names[0] : names[1];
 }
 
-/**
- * Dropdown language switcher with searchable locale list.
- *
- * @example
- * ```tsx
- * // Simplest — just pass codes
- * <LanguageSwitcher
- *   locales={[{ code: "en" }, { code: "fr" }, { code: "ar" }]}
- *   defaultValue="en"
- *   onValueChange={(code) => router.push(`/${code}`)}
- * />
- *
- * // Native labels + flags
- * <LanguageSwitcher
- *   locales={[{ code: "en" }, { code: "fr" }]}
- *   label="native"
- *   showFlags
- * />
- * ```
- */
 export function LanguageSwitcher({
   locales,
   defaultValue,
@@ -200,7 +138,6 @@ export function LanguageSwitcher({
   showFlags = false,
   label: labelMode = "english",
   className,
-  themeColors,
 }: LanguageSwitcherProps) {
   const [locale, setLocale] = React.useState(defaultValue ?? locales[0]?.code ?? "");
   const [open, setOpen] = React.useState(false);
@@ -209,7 +146,6 @@ export function LanguageSwitcher({
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const resolveLabel = (l: Locale) => l.label ?? getLabel(l.code, labelMode);
-
   const activeLocale = locales.find((l) => l.code === locale);
 
   const filtered = locales.filter(
@@ -219,8 +155,6 @@ export function LanguageSwitcher({
   );
 
   const dir = isRtl(locale) ? "rtl" : "ltr";
-  const hasTheme = !!themeColors;
-  const tc = themeColors;
 
   React.useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -256,11 +190,9 @@ export function LanguageSwitcher({
         type="button"
         onClick={() => setOpen(!open)}
         className={cn(
-          "inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500/50",
+          "inline-flex items-center gap-2 rounded-lg border border-border bg-secondary px-3 py-2 text-sm font-medium text-secondary-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-ring/50",
           dir === "rtl" && "flex-row-reverse",
-          !hasTheme && "border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 text-black/80 dark:text-white/80 hover:bg-black/10 dark:hover:bg-white/10",
         )}
-        style={hasTheme ? { background: tc!.btnBg, borderColor: tc!.btnBorder, color: tc!.btnText } : undefined}
         aria-expanded={open}
         aria-haspopup="listbox"
         aria-label={`Current language: ${activeLocale ? resolveLabel(activeLocale) : locale}`}
@@ -269,11 +201,9 @@ export function LanguageSwitcher({
         <span>{activeLocale ? resolveLabel(activeLocale) : locale}</span>
         <svg
           className={cn(
-            "size-4 transition-transform",
+            "size-4 text-muted-foreground transition-transform",
             open && "rotate-180",
-            !hasTheme && "text-black/40 dark:text-white/40",
           )}
-          style={hasTheme ? { color: tc!.iconColor } : undefined}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -285,29 +215,18 @@ export function LanguageSwitcher({
 
       {open && (
         <div
-          className={cn(
-            "absolute z-50 mt-1 min-w-[200px] overflow-hidden rounded-xl shadow-xl",
-            !hasTheme && "border border-black/10 dark:border-white/10 bg-white dark:bg-[#111]",
-          )}
-          style={hasTheme ? { background: tc!.dropdownBg, borderColor: tc!.dropdownBorder } : undefined}
+          className="absolute z-50 mt-1 min-w-[200px] overflow-hidden rounded-xl border border-border bg-popover shadow-xl"
           role="listbox"
           aria-label="Select language"
         >
-          <div
-            className={cn("p-2", !hasTheme && "border-b border-black/5 dark:border-white/5")}
-            style={hasTheme ? { borderBottom: `1px solid ${tc!.inputBorder}` } : undefined}
-          >
+          <div className="border-b border-border p-2">
             <input
               ref={inputRef}
               type="text"
               placeholder="Search..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className={cn(
-                "w-full rounded-lg px-3 py-1.5 text-sm outline-none focus:ring-1 focus:ring-emerald-500/50",
-                !hasTheme && "bg-black/5 dark:bg-white/5 text-black dark:text-white placeholder-black/30 dark:placeholder-white/30",
-              )}
-              style={hasTheme ? { background: tc!.inputBg, color: tc!.inputText } : undefined}
+              className="w-full rounded-lg bg-secondary px-3 py-1.5 text-sm text-secondary-foreground outline-none placeholder:text-muted-foreground focus:ring-1 focus:ring-ring/50"
             />
           </div>
           <div className="max-h-60 overflow-y-auto p-1">
@@ -330,33 +249,16 @@ export function LanguageSwitcher({
                   className={cn(
                     "flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm transition-colors",
                     itemDir === "rtl" && "flex-row-reverse text-right",
-                    !hasTheme && (
-                      isActive
-                        ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                        : "text-black/60 dark:text-white/70 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white"
-                    ),
+                    isActive
+                      ? "bg-primary/10 text-primary font-medium"
+                      : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                   )}
-                  style={
-                    hasTheme
-                      ? {
-                          background: isActive ? tc!.activeBg : undefined,
-                          color: isActive ? tc!.activeText : tc!.itemText,
-                        }
-                      : undefined
-                  }
-                  onMouseEnter={(e) => {
-                    if (hasTheme && !isActive) e.currentTarget.style.background = tc!.itemHoverBg;
-                  }}
-                  onMouseLeave={(e) => {
-                    if (hasTheme && !isActive) e.currentTarget.style.background = "transparent";
-                  }}
                 >
                   {showFlags && <span className="text-base">{l.flag ?? getFlag(l.code)}</span>}
                   <span className="flex-1">{resolveLabel(l)}</span>
                   {isActive && (
                     <svg
-                      className="size-4"
-                      style={{ color: tc?.activeText }}
+                      className="size-4 text-primary"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -369,10 +271,7 @@ export function LanguageSwitcher({
               );
             })}
             {filtered.length === 0 && (
-              <div
-                className={cn("px-3 py-2 text-sm", !hasTheme && "text-black/30 dark:text-white/30")}
-                style={hasTheme ? { color: tc!.noResultsText } : undefined}
-              >
+              <div className="px-3 py-2 text-sm text-muted-foreground">
                 No results
               </div>
             )}

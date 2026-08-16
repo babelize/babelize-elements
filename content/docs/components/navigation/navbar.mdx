@@ -1,0 +1,251 @@
+---
+title: Navbar
+description: Full-featured navigation bar with built-in language selector, mobile menu, CTA button, and GitHub link. Supports theming via CSS variables.
+---
+
+import { NavBarDemo } from "@/components/docs/navbar-demo";
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+<NavBarDemo />
+
+## Installation
+
+<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
+  <Tab value="npm">
+    ```bash
+    npm install @babelize/elements
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```bash
+    pnpm add @babelize/elements
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```bash
+    yarn add @babelize/elements
+    ```
+  </Tab>
+  <Tab value="bun">
+    ```bash
+    bun add @babelize/elements
+    ```
+  </Tab>
+</Tabs>
+
+## Usage
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { NavBar } from "@babelize/elements";
+
+export default function App() {
+  const [locale, setLocale] = useState("en");
+
+  return (
+    <NavBar
+      logo={<span className="font-bold text-lg">MyApp</span>}
+      links={[
+        { label: "Home", href: "/" },
+        { label: "Docs", href: "/docs" },
+        { label: "Pricing", href: "/pricing" },
+      ]}
+      locales={[
+        { code: "en" },
+        { code: "fr" },
+        { code: "es" },
+      ]}
+      currentLocale={locale}
+      onLocaleChange={(code) => {
+        setLocale(code);
+        // router.push(`/${code}`);
+      }}
+      cta={{ label: "Get Started", href: "/signup" }}
+      showGitHub
+    />
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Required | Description |
+|------|------|----------|-------------|
+| `logo` | `React.ReactNode` | No | Logo element (renders before nav links) |
+| `links` | `NavLink[]` | No | Navigation links |
+| `locales` | `Locale[]` | No | Available locales for language selector |
+| `currentLocale` | `string` | No | Currently selected locale code |
+| `onLocaleChange` | `(code: string) => void` | No | Callback when locale changes |
+| `cta` | `{ label: string; href: string }` | No | CTA button |
+| `showGitHub` | `boolean` | No | Show GitHub icon button |
+| `githubUrl` | `string` | No | GitHub repository URL |
+| `sticky` | `boolean` | No | Make navbar sticky at top (default: `true`) |
+| `showFlags` | `boolean` | No | Show flags in language selector (default: `true`) |
+| `className` | `string` | No | Additional CSS classes |
+
+### NavLink Object
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `label` | `string` | Link text — **required** |
+| `href` | `string` | Link URL — **required** |
+
+### Locale Object
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `code` | `string` | ISO 639-1 / BCP 47 code (e.g. `"en"`, `"fr-FR"`) — **required** |
+| `label` | `string` | Override display name (auto-resolved if omitted) |
+| `flag` | `string` | Override flag emoji (auto-detected if omitted) |
+
+## Examples
+
+### With Babelize SDK
+
+Pair NavBar with the [Babelize SDK](https://babelize.co) for automatic locale routing:
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { NavBar } from "@babelize/elements";
+import { useBabelize } from "@babelize/sdk/react";
+
+const links = [
+  { label: "Home", href: "/" },
+  { label: "Docs", href: "/docs" },
+  { label: "Pricing", href: "/pricing" },
+];
+
+const locales = [
+  { code: "en" },
+  { label: "English", flag: "🇺🇸" },
+  { label: "Français", flag: "🇫🇷" },
+  { label: "Español", flag: "🇪🇸" },
+  { label: "Deutsch", flag: "🇩🇪" },
+  { label: "日本語", flag: "🇯🇵" },
+  { label: "العربية", flag: "🇸🇦" },
+];
+
+export default function App() {
+  const router = useRouter();
+  const { locale, setLocale } = useBabelize();
+
+  return (
+    <NavBar
+      logo={<span className="font-bold">MyApp</span>}
+      links={links}
+      locales={locales}
+      currentLocale={locale}
+      onLocaleChange={(code) => {
+        setLocale(code);
+        router.push(`/${code}`);
+      }}
+      cta={{ label: "Get Started", href: "/signup" }}
+      showGitHub
+    />
+  );
+}
+```
+
+### With next-intl
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { NavBar } from "@babelize/elements";
+
+export function AppNavBar() {
+  const router = useRouter();
+  const [locale, setLocale] = useState("en");
+
+  return (
+    <NavBar
+      logo={<span className="font-bold">MyApp</span>}
+      links={[
+        { label: "Home", href: "/" },
+        { label: "About", href: "/about" },
+      ]}
+      locales={[{ code: "en" }, { code: "fr" }]}
+      currentLocale={locale}
+      onLocaleChange={(code) => {
+        setLocale(code);
+        router.push(`/${code}`);
+      }}
+    />
+  );
+}
+```
+
+### With react-i18next
+
+```tsx
+"use client";
+
+import { useTranslation } from "react-i18next";
+import { NavBar } from "@babelize/elements";
+
+export function AppNavBar() {
+  const { i18n } = useTranslation();
+
+  return (
+    <NavBar
+      logo={<span className="font-bold">MyApp</span>}
+      links={[{ label: "Home", href: "/" }]}
+      locales={[{ code: "en" }, { code: "fr" }]}
+      currentLocale={i18n.language}
+      onLocaleChange={(code) => i18n.changeLanguage(code)}
+    />
+  );
+}
+```
+
+### Non-sticky
+
+```tsx
+"use client";
+
+import { NavBar } from "@babelize/elements";
+
+export default function App() {
+  return (
+    <NavBar
+      logo={<span className="font-bold">MyApp</span>}
+      links={[{ label: "Home", href: "/" }]}
+      sticky={false}
+    />
+  );
+}
+```
+
+## Features
+
+- **Responsive** — hamburger menu on mobile, full layout on desktop
+- **Built-in language selector** — same dropdown component as LanguageSwitcher
+- **RTL-aware** — auto-detects RTL locales and adjusts layout
+- **CTA button** — optional call-to-action with customizable text and href
+- **GitHub link** — optional icon button linking to your repo
+- **Sticky/non-sticky** — toggle top-of-page stickiness
+- **Keyboard accessible** — arrow keys, Enter, Escape, Tab navigation
+- **ARIA labels** — proper `aria-expanded`, `aria-haspopup`, `aria-label`
+- **Dark mode** — built with Tailwind CSS, dark-mode compatible
+- **Theming** — styled via CSS custom properties (oklch color system)
+- **Next.js Link** — uses `next/link` for client-side navigation
+
+## Dependencies
+
+Peer dependencies:
+- `react` >= 18
+- `react-dom` >= 18
+- `tailwindcss` >= 3
+- `next` >= 13 (uses `next/link`)
+
+## Credits
+
+Created by [sapatmohit](https://github.com/sapatmohit).

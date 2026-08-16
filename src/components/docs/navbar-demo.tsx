@@ -2,9 +2,50 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { LanguageSwitcher, type Locale } from "@/registry/components/language-switcher";
+import { NavBar, type Locale } from "@/registry/components/navbar";
 import { CodeBlock } from "./code-block";
 import { ThemeDropdown, type ThemeName } from "./theme-dropdown";
+
+const CODE_SNIPPET = `"use client";
+
+import { useState } from "react";
+import { NavBar } from "@babelize/elements";
+
+const translations = {
+  en: { home: "Home", docs: "Docs", pricing: "Pricing", cta: "Get Started" },
+  fr: { home: "Accueil", docs: "Docs", pricing: "Tarifs", cta: "Commencer" },
+  es: { home: "Inicio", docs: "Docs", pricing: "Precios", cta: "Empezar" },
+};
+
+const locales = [
+  { code: "en" },
+  { code: "fr" },
+  { code: "es" },
+];
+
+export default function App() {
+  const [locale, setLocale] = useState("en");
+  const tr = translations[locale] ?? translations.en;
+
+  return (
+    <NavBar
+      logo={<span className="font-bold">MyApp</span>}
+      links={[
+        { label: tr.home, href: "/" },
+        { label: tr.docs, href: "/docs" },
+        { label: tr.pricing, href: "/pricing" },
+      ]}
+      locales={locales}
+      currentLocale={locale}
+      onLocaleChange={(code) => {
+        setLocale(code);
+        // e.g. router.push(\`/\${code}\`);
+      }}
+      cta={{ label: tr.cta, href: "/signup" }}
+      showGitHub
+    />
+  );
+}`;
 
 const locales: Locale[] = [
   { code: "en" },
@@ -15,43 +56,28 @@ const locales: Locale[] = [
   { code: "ar" },
 ];
 
-const greetings: Record<string, string> = {
-  en: "Hello, world!",
-  fr: "Bonjour, le monde !",
-  es: "\u00a1Hola, mundo!",
-  de: "Hallo, Welt!",
-  ja: "\u4eca\u65e5\u306f\u4e16\u754c\uff01",
-  ar: "\u0645\u0631\u062d\u0628\u0627 \u0628\u0627\u0644\u0639\u0627\u0644\u0645!",
+const translations: Record<string, { home: string; docs: string; pricing: string; blog: string; cta: string }> = {
+  en: { home: "Home", docs: "Docs", pricing: "Pricing", blog: "Blog", cta: "Get Started" },
+  fr: { home: "Accueil", docs: "Docs", pricing: "Tarifs", blog: "Blog", cta: "Commencer" },
+  es: { home: "Inicio", docs: "Docs", pricing: "Precios", blog: "Blog", cta: "Empezar" },
+  de: { home: "Startseite", docs: "Docs", pricing: "Preise", blog: "Blog", cta: "Loslegen" },
+  ja: { home: "\u30db\u30fc\u30e0", docs: "\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8", pricing: "\u6599\u91d1", blog: "\u30d6\u30ed\u30b0", cta: "\u59cb\u3081\u308b" },
+  ar: { home: "\u0627\u0644\u0631\u0626\u064a\u0633\u064a\u0629", docs: "\u0627\u0644\u062a\u0648\u062b\u064a\u0642", pricing: "\u0627\u0644\u0623\u0633\u0639\u0627\u0631", blog: "\u0627\u0644\u0645\u062f\u0648\u0646\u0629", cta: "\u0627\u0628\u062f\u0623" },
 };
 
-const CODE_SNIPPET = `"use client";
-
-import { LanguageSwitcher } from "@babelize/elements";
-
-const locales = [
-  { code: "en" },
-  { code: "fr" },
-  { code: "es" },
-  { code: "de" },
-  { code: "ja" },
-  { code: "ar" },
-];
-
-export default function App() {
-  return (
-    <LanguageSwitcher
-      locales={locales}
-      defaultValue="en"
-      onValueChange={(code) => console.log(code)}
-    />
-  );
-}`;
-
-export function LanguageSwitcherDemo() {
+export function NavBarDemo() {
   const [locale, setLocale] = useState("en");
   const [previewDark, setPreviewDark] = useState(true);
   const [theme, setTheme] = useState<ThemeName>("emerald");
   const [tab, setTab] = useState<"preview" | "code">("preview");
+  const tr = translations[locale] ?? translations.en;
+
+  const links = [
+    { label: tr.home, href: "/" },
+    { label: tr.docs, href: "/docs" },
+    { label: tr.pricing, href: "/pricing" },
+    { label: tr.blog, href: "/blog" },
+  ];
 
   return (
     <div className="space-y-0">
@@ -113,25 +139,25 @@ export function LanguageSwitcherDemo() {
             "bg-background text-foreground border-border"
           )}
         >
-          <div className="relative flex flex-col items-center justify-center gap-8 px-6 py-16 sm:px-12">
-            <div className="relative z-50">
-              <LanguageSwitcher
-                locales={locales}
-                defaultValue="en"
-                onValueChange={setLocale}
-                showFlags
-              />
-            </div>
+          <div className="relative">
+            <NavBar
+              logo={
+                <span className="text-lg font-bold text-foreground">
+                  MyApp
+                </span>
+              }
+              links={links}
+              locales={locales}
+              currentLocale={locale}
+              onLocaleChange={setLocale}
+              cta={{ label: tr.cta, href: "/signup" }}
+              showGitHub
+              sticky={false}
+            />
 
-            <div className="relative z-10 text-center">
-              <p className="text-4xl font-bold tracking-tight sm:text-5xl text-foreground">
-                {greetings[locale] ?? "Hello, world!"}
-              </p>
-              <p className="mt-3 text-sm text-muted-foreground">
-                locale:{" "}
-                <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-foreground">
-                  {locale}
-                </code>
+            <div className="px-6 py-16 text-center">
+              <p className="text-sm text-muted-foreground">
+                Current locale: <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-foreground">{locale}</code>
               </p>
             </div>
           </div>

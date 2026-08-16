@@ -1,0 +1,8 @@
+{
+  "title": "Navigation",
+  "icon": "Menu",
+  "pages": [
+    "navbar"
+  ],
+  "collapsible": false
+}

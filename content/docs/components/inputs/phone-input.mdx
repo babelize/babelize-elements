@@ -1,0 +1,216 @@
+---
+title: Phone Input
+description: International phone number input with country selector, flag emojis, and dial code search. Supports 50 countries with built-in formatting and validation.
+---
+
+import { PhoneInputDemo } from "@/components/docs/phone-input-demo";
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+<PhoneInputDemo />
+
+## Installation
+
+<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
+  <Tab value="npm">
+    ```bash
+    npm install @babelize/elements
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```bash
+    pnpm add @babelize/elements
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```bash
+    yarn add @babelize/elements
+    ```
+  </Tab>
+  <Tab value="bun">
+    ```bash
+    bun add @babelize/elements
+    ```
+  </Tab>
+</Tabs>
+
+## Usage
+
+```tsx
+"use client";
+
+import { PhoneInput } from "@babelize/elements";
+
+export default function App() {
+  const [phone, setPhone] = useState("");
+  const [country, setCountry] = useState(null);
+
+  return (
+    <PhoneInput
+      value={phone}
+      onChange={(value, country) => {
+        setPhone(value);
+        setCountry(country);
+      }}
+      defaultCountry="US"
+      placeholder="Enter phone number"
+    />
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Required | Description |
+|------|------|----------|-------------|
+| `value` | `string` | No | Phone number value |
+| `onChange` | `(phone: string, country: Country) => void` | No | Callback when phone number or country changes |
+| `defaultCountry` | `string` | No | Default country code (ISO 3166-1 alpha-2, e.g. `"US"`, `"GB"`, `"IN"`) |
+| `placeholder` | `string` | No | Placeholder text |
+| `disabled` | `boolean` | No | Disable the input |
+| `showFlag` | `boolean` | No | Show country flag next to dial code (default: `true`) |
+| `label` | `string` | No | Accessible label for the input |
+| `className` | `string` | No | Additional CSS classes |
+
+### Country Object
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `code` | `string` | ISO 3166-1 alpha-2 code (e.g. `"US"`, `"GB"`, `"IN"`) |
+| `dialCode` | `string` | Dial code (e.g. `"+1"`, `"+44"`, `"+91"`) |
+| `name` | `string` | Country name |
+| `flag` | `string` | Flag emoji |
+
+## Examples
+
+### With Babelize SDK
+
+Pair Phone Input with the [Babelize SDK](https://babelize.co) for locale-aware validation:
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { PhoneInput } from "@babelize/elements";
+import { useBabelize } from "@babelize/sdk/react";
+
+export function ContactPhone() {
+  const { locale } = useBabelize();
+  const [phone, setPhone] = useState("");
+
+  return (
+    <PhoneInput
+      value={phone}
+      onChange={(value, country) => {
+        setPhone(value);
+        // Validate against locale-specific rules
+      }}
+      defaultCountry={locale === "en" ? "US" : locale === "de" ? "DE" : "GB"}
+      placeholder="Enter phone number"
+    />
+  );
+}
+```
+
+### With Form Validation
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { PhoneInput } from "@babelize/elements";
+
+export default function CheckoutForm() {
+  const [phone, setPhone] = useState("");
+  const [error, setError] = useState("");
+
+  const validate = (value: string) => {
+    if (value.length < 10) {
+      setError("Phone number is too short");
+    } else {
+      setError("");
+    }
+  };
+
+  return (
+    <div>
+      <PhoneInput
+        value={phone}
+        onChange={(value) => {
+          setPhone(value);
+          validate(value);
+        }}
+        defaultCountry="US"
+        placeholder="Enter phone number"
+      />
+      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+    </div>
+  );
+}
+```
+
+### With Country Filter
+
+```tsx
+"use client";
+
+import { PhoneInput } from "@babelize/elements";
+
+const COUNTRIES = [
+  { code: "US", dialCode: "+1", name: "United States", flag: "🇺🇸" },
+  { code: "GB", dialCode: "+44", name: "United Kingdom", flag: "🇬🇧" },
+  { code: "CA", dialCode: "+1", name: "Canada", flag: "🇨🇦" },
+  { code: "AU", dialCode: "+61", name: "Australia", flag: "🇦🇺" },
+];
+
+export default function App() {
+  return (
+    <PhoneInput
+      defaultCountry="US"
+      onChange={(phone, country) => console.log(phone, country)}
+    />
+  );
+}
+```
+
+## Features
+
+- **50 countries** — pre-loaded with dial codes, flags, and names
+- **Dropdown search** — filter countries by name or dial code
+- **Flag emojis** — auto-detected from country code, with `showFlag` toggle
+- **Keyboard accessible** — arrow keys, Enter, Escape, Tab navigation
+- **ARIA labels** — proper `aria-expanded`, `aria-haspopup`, `aria-label`
+- **Dark mode** — built with Tailwind CSS, dark-mode compatible
+- **Theming** — styled via CSS custom properties (oklch color system)
+- **Controlled/uncontrolled** — works with or without `value` prop
+
+## Supported Countries
+
+The input ships with 50 countries pre-loaded. Use the dropdown search to find any country by name or dial code. The full list includes:
+
+| Country | Code | Dial Code | Flag |
+|---------|------|-----------|------|
+| United States | `US` | `+1` | 🇺🇸 |
+| United Kingdom | `GB` | `+44` | 🇬🇧 |
+| Canada | `CA` | `+1` | 🇨🇦 |
+| Australia | `AU` | `+61` | 🇦🇺 |
+| India | `IN` | `+91` | 🇮🇳 |
+| Germany | `DE` | `+49` | 🇩🇪 |
+| France | `FR` | `+33` | 🇫🇷 |
+| Japan | `JP` | `+81` | 🇯🇵 |
+| Brazil | `BR` | `+55` | 🇧🇷 |
+| South Korea | `KR` | `+82` | 🇰🇷 |
+| ...and 40 more via the dropdown search |
+
+## Dependencies
+
+This component uses:
+- `clsx` and `tailwind-merge` (bundled as dependencies)
+
+Peer dependencies:
+- `react` >= 18
+- `react-dom` >= 18
+- `tailwindcss` >= 3
+
+## Credits
+
+Created by [sapatmohit](https://github.com/sapatmohit).

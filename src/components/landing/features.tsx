@@ -121,46 +121,102 @@ export function Features() {
               <div className="p-8">
                 <pre className="font-mono text-sm leading-[1.8]">
                   <code>
-                    <span className="text-neutral-600 mr-6 select-none">1</span>
+                    <span className="text-[#a5d6ff]">&quot;use client&quot;</span>
+                    <span className="text-[#c9d1d9]">;</span>
+                    {"\n\n"}
                     <span className="text-[#ff7b72]">import</span>
                     <span className="text-[#c9d1d9]"> {"{ "}</span>
-                    <span className="text-[#34d399]">LanguageSwitcher</span>
+                    <span className="text-[#c9d1d9]">LanguageSwitcher</span>
                     <span className="text-[#c9d1d9]">{" } "}</span>
                     <span className="text-[#ff7b72]">from</span>
                     <span className="text-[#a5d6ff]"> &quot;@babelize/elements&quot;</span>
                     <span className="text-[#c9d1d9]">;</span>
-                    {"\n"}
-                    <span className="text-neutral-600 mr-6 select-none">2</span>
-                    {"\n"}
-                    <span className="text-neutral-600 mr-6 select-none">3</span>
+                    {"\n\n"}
                     <span className="text-[#ff7b72]">export default function</span>
                     <span className="text-[#d2a8ff]"> App</span>
                     <span className="text-[#c9d1d9]">() {"{"}</span>
                     {"\n"}
-                    <span className="text-neutral-600 mr-6 select-none">4</span>
                     <span className="text-[#c9d1d9]">  </span>
                     <span className="text-[#ff7b72]">return</span>
                     <span className="text-[#c9d1d9]"> (</span>
                     {"\n"}
-                    <span className="text-neutral-600 mr-6 select-none">5</span>
                     <span className="text-[#c9d1d9]">    &lt;</span>
-                    <span className="text-[#7ee787]">div</span>
-                    <span className="text-[#c9d1d9]">&gt;</span>
+                    <span className="text-[#a5d6ff]">LanguageSwitcher</span>
                     {"\n"}
-                    <span className="text-neutral-600 mr-6 select-none">6</span>
-                    <span className="text-[#c9d1d9]">      &lt;</span>
-                    <span className="text-[#34d399]">LanguageSwitcher</span>
-                    <span className="text-[#c9d1d9]"> /&gt;</span>
+                    <span className="text-[#d2a8ff]">      locales</span>
+                    <span className="text-[#ff7b72]">=</span>
+                    <span className="text-[#c9d1d9]">{"{["}</span>
                     {"\n"}
-                    <span className="text-neutral-600 mr-6 select-none">7</span>
-                    <span className="text-[#c9d1d9]">    &lt;/</span>
-                    <span className="text-[#7ee787]">div</span>
-                    <span className="text-[#c9d1d9]">&gt;</span>
+                    <span className="text-[#c9d1d9]">        {"{ "}</span>
+                    <span className="text-[#c9d1d9]">code:</span>
+                    <span className="text-[#a5d6ff]"> &quot;en&quot;</span>
+                    <span className="text-[#c9d1d9]">{" },"}</span>
                     {"\n"}
-                    <span className="text-neutral-600 mr-6 select-none">8</span>
+                    <span className="text-[#c9d1d9]">        {"{ "}</span>
+                    <span className="text-[#c9d1d9]">code:</span>
+                    <span className="text-[#a5d6ff]"> &quot;fr&quot;</span>
+                    <span className="text-[#c9d1d9]">{" },"}</span>
+                    {"\n"}
+                    <span className="text-[#c9d1d9]">        {"{ "}</span>
+                    <span className="text-[#c9d1d9]">code:</span>
+                    <span className="text-[#a5d6ff]"> &quot;es&quot;</span>
+                    <span className="text-[#c9d1d9]">{" },"}</span>
+                    {"\n"}
+                    <span className="text-[#c9d1d9]">        {"{ "}</span>
+                    <span className="text-[#c9d1d9]">code:</span>
+                    <span className="text-[#a5d6ff]"> &quot;de&quot;</span>
+                    <span className="text-[#c9d1d9]">{" },"}</span>
+                    {"\n"}
+                    <span className="text-[#c9d1d9]">        {"{ "}</span>
+                    <span className="text-[#c9d1d9]">code:</span>
+                    <span className="text-[#a5d6ff]"> &quot;ja&quot;</span>
+                    <span className="text-[#c9d1d9]">{" },"}</span>
+                    {"\n"}
+                    <span className="text-[#c9d1d9]">        {"{ "}</span>
+                    <span className="text-[#c9d1d9]">code:</span>
+                    <span className="text-[#a5d6ff]"> &quot;ar&quot;</span>
+                    <span className="text-[#c9d1d9]">{" },"}</span>
+                    {"\n"}
+                    <span className="text-[#c9d1d9]">      {"]}"}</span>
+                    {"\n"}
+                    <span className="text-[#d2a8ff]">      defaultValue</span>
+                    <span className="text-[#ff7b72]">=</span>
+                    <span className="text-[#a5d6ff]">&quot;en&quot;</span>
+                    {"\n"}
+                    <span className="text-[#d2a8ff]">      onValueChange</span>
+                    <span className="text-[#ff7b72]">=</span>
+                    <span className="text-[#c9d1d9]">{"{("}</span>
+                    <span className="text-[#ffa657]">code</span>
+                    <span className="text-[#c9d1d9]">) </span>
+                    <span className="text-[#ff7b72]">=&gt;</span>
+                    <span className="text-[#c9d1d9]"> {"{"}</span>
+                    {"\n"}
+                    <span className="text-[#8b949e]">        // next-intl</span>
+                    {"\n"}
+                    <span className="text-[#c9d1d9]">        router.</span>
+                    <span className="text-[#d2a8ff]">push</span>
+                    <span className="text-[#c9d1d9]">(</span>
+                    <span className="text-[#a5d6ff]">`/$</span>
+                    <span className="text-[#c9d1d9]">{"{"}</span>
+                    <span className="text-[#c9d1d9]">code</span>
+                    <span className="text-[#c9d1d9]">{"}"}</span>
+                    <span className="text-[#a5d6ff]">`</span>
+                    <span className="text-[#c9d1d9]">);</span>
+                    {"\n"}
+                    <span className="text-[#8b949e]">        // react-i18next</span>
+                    {"\n"}
+                    <span className="text-[#c9d1d9]">        i18n.</span>
+                    <span className="text-[#d2a8ff]">changeLanguage</span>
+                    <span className="text-[#c9d1d9]">(</span>
+                    <span className="text-[#c9d1d9]">code</span>
+                    <span className="text-[#c9d1d9]">);</span>
+                    {"\n"}
+                    <span className="text-[#c9d1d9]">      {"}}"}</span>
+                    {"\n"}
+                    <span className="text-[#c9d1d9]">    /&gt;</span>
+                    {"\n"}
                     <span className="text-[#c9d1d9]">  );</span>
                     {"\n"}
-                    <span className="text-neutral-600 mr-6 select-none">9</span>
                     <span className="text-[#c9d1d9]">{"}"}</span>
                   </code>
                 </pre>

@@ -1,7 +1,6 @@
 ---
 title: Language Switcher
 description: Copy-paste language switcher component for React with dropdown, search, RTL support, and full accessibility. Works with next-intl, react-i18next, and any i18n setup.
-icon: Globe
 ---
 
 import { LanguageSwitcherDemo } from "@/components/docs/language-switcher-demo";
@@ -74,7 +73,6 @@ export default function App() {
 | `label` | `"native" \| "english"` | No | Display labels in native or English (default: `"english"`) |
 | `showFlags` | `boolean` | No | Show flag emojis (default: `false`) |
 | `className` | `string` | No | Additional CSS classes |
-| `themeColors` | `LanguageSwitcherThemeColors` | No | Inline-style color overrides for button/dropdown theming |
 
 ### Locale Object
 
@@ -86,6 +84,44 @@ export default function App() {
 | `rtl` | `boolean` | Override RTL (auto-detected from code if omitted) |
 
 ## Examples
+
+### With Babelize SDK
+
+Pair Language Switcher with the [Babelize SDK](https://babelize.co) for automatic translations:
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { LanguageSwitcher } from "@babelize/elements";
+import { useBabelize } from "@babelize/sdk/react";
+
+const locales = [
+  { code: "en", label: "English", flag: "🇺🇸" },
+  { code: "fr", label: "Français", flag: "🇫🇷" },
+  { code: "es", label: "Español", flag: "🇪🇸" },
+  { code: "de", label: "Deutsch", flag: "🇩🇪" },
+  { code: "ja", label: "日本語", flag: "🇯🇵" },
+  { code: "ar", label: "العربية", flag: "🇸🇦" },
+];
+
+export function LocaleSwitcher() {
+  const router = useRouter();
+  const { locale, setLocale } = useBabelize();
+
+  return (
+    <LanguageSwitcher
+      locales={locales}
+      defaultValue={locale}
+      onValueChange={(code) => {
+        setLocale(code);
+        router.push(`/${code}`);
+      }}
+    />
+  );
+}
+```
 
 ### With next-intl
 
@@ -157,7 +193,7 @@ export default function App() {
 - **ARIA labels** — proper `aria-expanded`, `aria-haspopup`, `aria-selected`
 - **Dark mode** — built with Tailwind CSS, dark-mode compatible
 - **Library agnostic** — works with any i18n setup via callback
-- **Theming** — override colors with the `themeColors` prop
+- **Theming** — styled via CSS custom properties (oklch color system)
 
 ## Supported Languages
 
