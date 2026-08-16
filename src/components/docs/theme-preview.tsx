@@ -109,17 +109,18 @@ export function ThemePreview({
   }
 
   return (
-    <div className="space-y-3">
-      <div className="flex items-center justify-between">
+    <div className="group relative overflow-hidden rounded-2xl border border-black/10 dark:border-white/10 bg-white dark:bg-neutral-900 shadow-sm transition-all duration-300 hover:shadow-lg hover:border-black/20 dark:hover:border-white/20">
+      {/* Header */}
+      <div className="flex items-center justify-between px-5 py-4 border-b border-black/5 dark:border-white/5">
         <div>
           <h4 className="text-sm font-semibold text-black/80 dark:text-white/80">{theme.name}</h4>
-          <p className="text-xs text-black/40 dark:text-white/40">{theme.description}</p>
+          <p className="text-xs text-black/40 dark:text-white/40 mt-0.5">{theme.description}</p>
         </div>
         {showToggle && (
           <button
             type="button"
             onClick={() => setIsDark(!isDark)}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-2.5 py-1 text-xs text-black/50 dark:text-white/50 transition-colors hover:bg-black/10 dark:hover:bg-white/10"
+            className="inline-flex items-center gap-1.5 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-3 py-1.5 text-xs text-black/50 dark:text-white/50 transition-all hover:bg-black/10 dark:hover:bg-white/10 hover:text-black/70 dark:hover:text-white/70"
           >
             {isDark ? (
               <svg className="size-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -134,87 +135,80 @@ export function ThemePreview({
           </button>
         )}
       </div>
+
+      {/* Preview */}
       <div
-        className="rounded-2xl border overflow-hidden"
+        className="p-6 transition-colors duration-300"
         style={{
           background: vars["--background"],
           color: vars["--foreground"],
-          borderColor: vars["--border"],
         }}
       >
-        {/* Browser chrome */}
-        <div
-          className="flex items-center justify-between px-4 py-2.5 border-b"
-          style={{ borderColor: vars["--border"] }}
-        >
-          <div className="flex items-center gap-1.5">
-            <span className="size-2 rounded-full bg-[#ff5f57]" />
-            <span className="size-2 rounded-full bg-[#febc2e]" />
-            <span className="size-2 rounded-full bg-[#28c840]" />
-          </div>
-          <div className="flex items-center gap-1.5 rounded-md px-2 py-0.5" style={{ background: vars["--muted"] }}>
-            <svg className="size-2.5" style={{ color: vars["--muted-foreground"] }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5a17.92 17.92 0 0 1-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
-            </svg>
-            <span className="text-[10px]" style={{ color: vars["--muted-foreground"] }}>app.example.com</span>
-          </div>
-          <div className="w-12" />
-        </div>
-
-        {/* Content */}
-        <div className="p-6 space-y-5">
-          {/* Nav */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div
-                className="size-8 rounded-lg flex items-center justify-center text-xs font-bold"
-                style={{ background: vars["--primary"], color: vars["--primary-foreground"] }}
-              >
-                B
-              </div>
-              <div className="space-y-1">
-                <div className="h-2 w-20 rounded" style={{ background: vars["--foreground"] }} />
-                <div className="h-1.5 w-14 rounded" style={{ background: vars["--muted-foreground"] }} />
-              </div>
-            </div>
+        {/* Mini nav */}
+        <div className="flex items-center justify-between mb-5">
+          <div className="flex items-center gap-2.5">
             <div
-              className="h-7 px-3 rounded-lg text-[10px] font-medium flex items-center"
+              className="size-7 rounded-lg flex items-center justify-center text-[10px] font-bold"
               style={{ background: vars["--primary"], color: vars["--primary-foreground"] }}
             >
-              Get Started
+              B
+            </div>
+            <div className="space-y-1">
+              <div className="h-2 w-16 rounded" style={{ background: vars["--foreground"] }} />
+              <div className="h-1.5 w-10 rounded" style={{ background: vars["--muted-foreground"] }} />
             </div>
           </div>
-
-          {/* Hero */}
-          <div className="space-y-2 py-2">
-            <div className="h-3 w-48 rounded" style={{ background: vars["--foreground"] }} />
-            <div className="h-2 w-36 rounded" style={{ background: vars["--muted-foreground"] }} />
-          </div>
-
-          {/* Cards */}
-          <div className="grid grid-cols-2 gap-3">
-            {["Feature 1", "Feature 2"].map((f) => (
-              <div
-                key={f}
-                className="rounded-xl p-3 border space-y-2"
-                style={{ background: vars["--card"], borderColor: vars["--border"] }}
-              >
-                <div className="size-6 rounded-md" style={{ background: vars["--primary"] }} />
-                <div className="h-2 w-16 rounded" style={{ background: vars["--foreground"] }} />
-                <div className="h-1.5 w-20 rounded" style={{ background: vars["--muted-foreground"] }} />
-              </div>
-            ))}
-          </div>
-
-          {/* Language Switcher */}
-          <div className="pt-1">
-            <LanguageSwitcher
-              locales={previewLocales}
-              defaultValue="en"
-              onValueChange={setLocale}
-            />
+          <div
+            className="h-6 px-2.5 rounded-md text-[9px] font-medium flex items-center"
+            style={{ background: vars["--primary"], color: vars["--primary-foreground"] }}
+          >
+            Get Started
           </div>
         </div>
+
+        {/* Hero text */}
+        <div className="mb-5 space-y-2">
+          <div className="h-3 w-40 rounded" style={{ background: vars["--foreground"] }} />
+          <div className="h-2 w-28 rounded" style={{ background: vars["--muted-foreground"] }} />
+        </div>
+
+        {/* Cards */}
+        <div className="grid grid-cols-2 gap-2.5 mb-5">
+          {["Feature 1", "Feature 2"].map((f) => (
+            <div
+              key={f}
+              className="rounded-xl p-3 border space-y-2"
+              style={{ background: vars["--card"], borderColor: vars["--border"] }}
+            >
+              <div className="size-5 rounded-md" style={{ background: vars["--primary"] }} />
+              <div className="h-2 w-14 rounded" style={{ background: vars["--foreground"] }} />
+              <div className="h-1.5 w-18 rounded" style={{ background: vars["--muted-foreground"] }} />
+            </div>
+          ))}
+        </div>
+
+        {/* Language Switcher */}
+        <div className="flex justify-center">
+          <LanguageSwitcher
+            locales={previewLocales}
+            defaultValue="en"
+            onValueChange={setLocale}
+          />
+        </div>
+      </div>
+
+      {/* Color palette footer */}
+      <div className="flex items-center gap-2 px-5 py-3 border-t border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02]">
+        <div className="flex gap-1.5">
+          <div className="size-4 rounded-full border border-black/10 dark:border-white/10" style={{ background: vars["--primary"] }} />
+          <div className="size-4 rounded-full border border-black/10 dark:border-white/10" style={{ background: vars["--secondary"] }} />
+          <div className="size-4 rounded-full border border-black/10 dark:border-white/10" style={{ background: vars["--accent"] }} />
+          <div className="size-4 rounded-full border border-black/10 dark:border-white/10" style={{ background: vars["--muted"] }} />
+          <div className="size-4 rounded-full border border-black/10 dark:border-white/10" style={{ background: vars["--destructive"] }} />
+        </div>
+        <span className="text-[10px] text-black/30 dark:text-white/30 ml-auto">
+          {isDark ? "Dark" : "Light"} mode
+        </span>
       </div>
     </div>
   );
