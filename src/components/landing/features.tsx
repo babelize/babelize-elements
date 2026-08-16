@@ -191,7 +191,7 @@ export function Features() {
                     <span className="text-[#ff7b72]">=&gt;</span>
                     <span className="text-[#c9d1d9]"> {"{"}</span>
                     {"\n"}
-                    <span className="text-[#8b949e]">        // next-intl</span>
+                    <span className="text-[#8b949e]">{"// next-intl"}</span>
                     {"\n"}
                     <span className="text-[#c9d1d9]">        router.</span>
                     <span className="text-[#d2a8ff]">push</span>
@@ -203,7 +203,7 @@ export function Features() {
                     <span className="text-[#a5d6ff]">`</span>
                     <span className="text-[#c9d1d9]">);</span>
                     {"\n"}
-                    <span className="text-[#8b949e]">        // react-i18next</span>
+                    <span className="text-[#8b949e]">{"// react-i18next"}</span>
                     {"\n"}
                     <span className="text-[#c9d1d9]">        i18n.</span>
                     <span className="text-[#d2a8ff]">changeLanguage</span>

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { cn } from "@/lib/utils";
 import { LanguageSwitcher, type Locale } from "@/registry/components/language-switcher";
 
 export interface ThemeDefinition {
@@ -31,7 +30,7 @@ export function ThemePreview({
   compact?: boolean;
 }) {
   const [isDark, setIsDark] = useState(defaultDark);
-  const [locale, setLocale] = useState("en");
+  const [, setLocale] = useState("en");
   const vars = isDark ? theme.colors.dark : theme.colors.light;
 
   if (compact) {
