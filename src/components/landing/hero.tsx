@@ -1,24 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import { Copy, CornerDownLeft } from "lucide-react";
 
 export function Hero() {
-  const router = useRouter();
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
-      if (e.key.toLowerCase() === 'b' || e.key === 'Enter') {
-        router.push('/docs/getting-started');
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [router]);
 
   return (
     <main className="relative w-full overflow-hidden">
@@ -79,7 +65,7 @@ export function Hero() {
                   </span>
                 </Link>
                 <Link
-                  href="#components"
+                  href="/docs/components"
                   className="group flex h-11 items-center gap-3 rounded-xl border border-white/[0.08] bg-[#1a1a1a] px-5 font-medium text-white backdrop-blur-md transition-all hover:bg-white/[0.1]"
                 >
                   Browse Components

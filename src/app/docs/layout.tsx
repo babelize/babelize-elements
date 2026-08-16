@@ -12,6 +12,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       sidebar={{
         banner: (
           <a
+            key="llms-txt"
             href="/llms-full.txt"
             className="flex items-center gap-2 rounded-lg p-2 text-sm text-fd-muted-foreground transition-colors hover:bg-fd-accent/50 hover:text-fd-accent-foreground"
           >
@@ -20,7 +21,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           </a>
         ),
         footer: (
-          <div className="flex flex-col gap-1 pt-4 mt-4">
+          <div key="sidebar-footer" className="flex flex-col gap-1 pt-4 mt-4">
             <a
               href="https://discord.gg/4kMng8XVcm"
               target="_blank"
