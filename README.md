@@ -80,6 +80,32 @@ Great component candidates:
 - [Security Policy](https://github.com/babelize/babelize-elements/blob/main/SECURITY.md)
 - [Contributing](https://github.com/babelize/babelize-elements/blob/main/CONTRIBUTING.md)
 
+## Contributors
+
+<p align="center">
+  Babelize Elements is built by an amazing community of designers,
+  developers, and translators. A huge thank-you to everyone who contributes
+  code, reviews, docs, or ideas.
+</p>
+
+<p align="center">
+  <a href="https://github.com/babelize/babelize-elements/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=babelize/babelize-elements" alt="All Babelize Elements contributors" />
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/babelize/babelize-elements/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/babelize/babelize-elements?color=05A46C&logo=github" alt="GitHub contributors" />
+  </a>
+  <a href="https://github.com/babelize/babelize-elements/issues">
+    <img src="https://img.shields.io/github/issues/babelize/babelize-elements?color=05A46C&label=open%20issues" alt="Open issues" />
+  </a>
+  <a href="https://github.com/babelize/babelize-elements/discussions">
+    <img src="https://img.shields.io/badge/start%20here-Join%20the%20community-05A46C" alt="Join the community" />
+  </a>
+</p>
+
 ## License
 
 [MIT](https://github.com/babelize/babelize-elements/blob/main/LICENSE) © [Babelize](https://babelize.co)
