@@ -151,7 +151,7 @@ export function PhoneInput({
       <div
         className={cn(
           "flex items-center overflow-hidden rounded-lg border transition-colors",
-          "bg-card border-border",
+          "bg-white border-zinc-200 dark:bg-zinc-900 dark:border-zinc-800",
           disabled && "opacity-50 cursor-not-allowed"
         )}
       >
@@ -161,7 +161,7 @@ export function PhoneInput({
           disabled={disabled}
           className={cn(
             "flex items-center gap-1.5 border-r px-3 py-2.5 text-sm transition-colors",
-            "border-border text-card-foreground hover:bg-accent hover:text-accent-foreground",
+            "border-zinc-200 text-zinc-900 hover:bg-zinc-100 hover:text-zinc-900 dark:border-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-100",
             disabled && "cursor-not-allowed"
           )}
           aria-label="Select country"
@@ -171,7 +171,7 @@ export function PhoneInput({
           {showFlag && <span className="text-base leading-none">{selectedCountry.flag}</span>}
           <span className="font-mono text-xs">{selectedCountry.dialCode}</span>
           <svg
-            className={cn("size-3 text-muted-foreground transition-transform", open && "rotate-180")}
+            className={cn("size-3 text-zinc-500 transition-transform dark:text-zinc-400", open && "rotate-180")}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -189,9 +189,9 @@ export function PhoneInput({
           placeholder={placeholder}
           disabled={disabled}
           className={cn(
-            "flex-1 bg-transparent px-3 py-2.5 text-sm outline-none placeholder:text-muted-foreground",
-            "text-foreground",
-            "focus:ring-1 focus:ring-ring/50",
+            "flex-1 bg-transparent px-3 py-2.5 text-sm outline-none placeholder:text-zinc-400 dark:placeholder:text-zinc-500",
+            "text-zinc-900 dark:text-zinc-100",
+            "focus:ring-1 focus:ring-emerald-500/50",
             disabled && "cursor-not-allowed"
           )}
           aria-label={label}
@@ -200,18 +200,18 @@ export function PhoneInput({
 
       {open && (
         <div
-          className="absolute z-50 mt-1 min-w-[280px] overflow-hidden rounded-xl border border-border bg-popover shadow-xl"
+          className="absolute z-50 mt-1 min-w-[280px] overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-xl dark:border-zinc-800 dark:bg-zinc-950"
           role="listbox"
           aria-label="Select country"
         >
-          <div className="border-b border-border p-2">
+          <div className="border-b border-zinc-200 p-2 dark:border-zinc-800">
             <input
               ref={inputRef}
               type="text"
               placeholder="Search countries..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-lg bg-secondary px-3 py-1.5 text-sm text-secondary-foreground outline-none placeholder:text-muted-foreground focus:ring-1 focus:ring-ring/50"
+              className="w-full rounded-lg bg-zinc-100 px-3 py-1.5 text-sm text-zinc-900 outline-none placeholder:text-zinc-400 focus:ring-1 focus:ring-emerald-500/50 dark:bg-zinc-800 dark:text-zinc-100 dark:placeholder:text-zinc-500"
             />
           </div>
 
@@ -228,16 +228,16 @@ export function PhoneInput({
                   className={cn(
                     "flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition-colors",
                     isActive
-                      ? "bg-primary/10 text-primary font-medium"
-                      : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                      ? "bg-emerald-500/10 text-emerald-600 font-medium dark:text-emerald-400"
+                      : "text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
                   )}
                 >
                   <span className="text-base leading-none">{country.flag}</span>
                   <span className="flex-1">{country.name}</span>
-                  <span className="font-mono text-xs text-muted-foreground">{country.dialCode}</span>
+                  <span className="font-mono text-xs text-zinc-500 dark:text-zinc-400">{country.dialCode}</span>
                   {isActive && (
                     <svg
-                      className="size-4 text-primary"
+                      className="size-4 text-emerald-600 dark:text-emerald-400"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -250,7 +250,7 @@ export function PhoneInput({
               );
             })}
             {filtered.length === 0 && (
-              <div className="px-3 py-2 text-sm text-muted-foreground">
+              <div className="px-3 py-2 text-sm text-zinc-500 dark:text-zinc-400">
                 No countries found
               </div>
             )}

@@ -30,6 +30,7 @@ export function Navbar() {
                 className="h-6 w-auto sm:h-7"
                 style={{ objectFit: "contain" }}
                 priority
+                loading="eager"
               />
             </div>
           </Link>

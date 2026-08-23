@@ -117,7 +117,7 @@ export function NavBar({
     <button
       type="button"
       onClick={() => setLangOpen(!langOpen)}
-      className="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+      className="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
       aria-expanded={langOpen}
       aria-haspopup="listbox"
       aria-label={`Current language: ${currentLocaleInfo.label}`}
@@ -125,7 +125,7 @@ export function NavBar({
       {showFlags && <span className="text-sm leading-none">{currentLocaleInfo.flag}</span>}
       <span className="hidden sm:inline">{currentLocaleInfo.label}</span>
       <svg
-        className={cn("size-3 text-muted-foreground transition-transform", langOpen && "rotate-180")}
+        className={cn("size-3 text-zinc-500 transition-transform dark:text-zinc-400", langOpen && "rotate-180")}
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -138,7 +138,7 @@ export function NavBar({
 
   const langDropdown = (
     <div
-      className="absolute right-0 top-full z-50 mt-1.5 min-w-[170px] rounded-xl border border-border bg-popover py-1.5 shadow-xl"
+      className="absolute right-0 top-full z-50 mt-1.5 min-w-[170px] rounded-xl border border-zinc-200 bg-white py-1.5 shadow-xl dark:border-zinc-800 dark:bg-zinc-950"
       role="listbox"
       aria-label="Select language"
     >
@@ -158,15 +158,15 @@ export function NavBar({
             className={cn(
               "flex w-full items-center gap-2.5 px-3 py-2 text-sm rounded-lg mx-1.5 w-[calc(100%-12px)] transition-colors",
               isActive
-                ? "bg-primary/10 text-primary font-medium"
-                : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                ? "bg-emerald-500/10 text-emerald-600 font-medium dark:text-emerald-400"
+                : "text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
             )}
           >
             {showFlags && <span className="text-base leading-none">{info.flag}</span>}
             <span className="flex-1">{locale.label ?? info.label}</span>
             {isActive && (
               <svg
-                className="size-4 shrink-0 text-primary"
+                className="size-4 shrink-0 text-emerald-600 dark:text-emerald-400"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -184,7 +184,7 @@ export function NavBar({
   return (
     <nav
       className={cn(
-        "z-50 w-full border-b border-border bg-card",
+        "z-50 w-full border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900",
         sticky && "sticky top-0",
         className
       )}
@@ -198,7 +198,7 @@ export function NavBar({
             <Link
               key={link.href}
               href={link.href}
-              className="px-3 py-1.5 text-sm transition-colors rounded-md no-underline text-muted-foreground hover:text-foreground"
+              className="px-3 py-1.5 text-sm transition-colors rounded-md no-underline text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
             >
               {link.label}
             </Link>
@@ -218,7 +218,7 @@ export function NavBar({
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex size-8 items-center justify-center rounded-md transition-colors no-underline text-muted-foreground hover:text-foreground"
+              className="inline-flex size-8 items-center justify-center rounded-md transition-colors no-underline text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
               aria-label="GitHub"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -230,7 +230,7 @@ export function NavBar({
           {cta && (
             <Link
               href={cta.href}
-              className="rounded-md px-3.5 py-1.5 text-sm font-medium transition-colors no-underline bg-primary text-primary-foreground hover:opacity-90"
+              className="rounded-md px-3.5 py-1.5 text-sm font-medium transition-colors no-underline bg-emerald-500 text-white hover:opacity-90"
             >
               {cta.label}
             </Link>
@@ -248,7 +248,7 @@ export function NavBar({
               <button
                 type="button"
                 onClick={() => setLangOpen(!langOpen)}
-                className="inline-flex size-8 items-center justify-center rounded-md transition-colors text-muted-foreground hover:text-foreground"
+                className="inline-flex size-8 items-center justify-center rounded-md transition-colors text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
                 aria-label={`Current language: ${currentLocaleInfo.label}`}
               >
                 {showFlags && <span className="text-base leading-none">{currentLocaleInfo.flag}</span>}
@@ -258,7 +258,7 @@ export function NavBar({
           )}
 
           <button
-            className="inline-flex size-8 items-center justify-center rounded-md transition-colors text-muted-foreground hover:text-foreground"
+            className="inline-flex size-8 items-center justify-center rounded-md transition-colors text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
@@ -277,13 +277,13 @@ export function NavBar({
 
       {/* Mobile menu panel */}
       {mobileOpen && (
-        <div className="border-t border-border bg-card px-4 py-3 md:hidden">
+        <div className="border-t border-zinc-200 bg-white px-4 py-3 md:hidden dark:border-zinc-800 dark:bg-zinc-900">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={() => setMobileOpen(false)}
-              className="block py-2.5 text-sm transition-colors no-underline text-muted-foreground hover:text-foreground"
+              className="block py-2.5 text-sm transition-colors no-underline text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
             >
               {link.label}
             </Link>
@@ -292,7 +292,7 @@ export function NavBar({
             <Link
               href={cta.href}
               onClick={() => setMobileOpen(false)}
-              className="mt-2 block rounded-md px-3.5 py-2 text-center text-sm font-medium transition-colors no-underline bg-primary text-primary-foreground hover:opacity-90"
+              className="mt-2 block rounded-md px-3.5 py-2 text-center text-sm font-medium transition-colors no-underline bg-emerald-500 text-white hover:opacity-90"
             >
               {cta.label}
             </Link>

@@ -12,6 +12,8 @@ Add Babelize Elements to your project with a single command. The package ships T
 
 ## Package Manager
 
+Install the full library with your preferred package manager:
+
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
   <Tab value="npm">
     ```bash
@@ -34,6 +36,21 @@ Add Babelize Elements to your project with a single command. The package ships T
     ```
   </Tab>
 </Tabs>
+
+## Install individual components
+
+Prefer installing components one at a time, straight into your codebase? Use the [shadcn CLI](/docs/getting-started/shadcn-cli):
+
+```bash
+npx shadcn@latest registry add @elements=https://elements.babelize.co/r/{name}.json
+npx shadcn@latest add @elements/language-switcher
+```
+
+Or use the CLI that ships inside the package:
+
+```bash
+npx @babelize/elements add language-switcher
+```
 
 ## Prerequisites
 
@@ -74,7 +91,7 @@ export function App() {
   <Card title="Components" href="/docs/components">
     Browse all available components and their documentation.
   </Card>
-  <Card title="Theming" href="/docs/customization/theming">
-    Customize colors, dark mode, and design tokens.
+  <Card title="ShadCN CLI" href="/docs/getting-started/shadcn-cli">
+    Install components individually with the shadcn CLI.
   </Card>
 </Cards>

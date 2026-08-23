@@ -1,71 +1,165 @@
 ---
 title: TypeScript Interfaces
-description: Core TypeScript interfaces used across Babelize Elements
+description: Core TypeScript interfaces exported by Babelize Elements components.
 icon: FileCode
 ---
 
 ## Overview
 
-Babelize Elements is built with full TypeScript support to ensure type safety and developer productivity. Most components share common interfaces for languages, locales, and translation objects.
+Babelize Elements is built with full TypeScript support. Every component exports its own props and data interfaces, so you get complete type safety and IntelliSense.
 
-This page documents the core interfaces that you will interact with when passing data into the components.
-
-### Language
-
-The `Language` interface represents a language option in components like the `LanguageSwitcher` and `LocalePicker`.
+Install the library or a component, then import the types you need:
 
 ```ts
-export interface Language {
-  /**
-   * The ISO 639-1 code of the language (e.g., 'en', 'fr', 'ar').
-   */
+import { LanguageSwitcher, type Locale } from "@/components/ui/language-switcher";
+import { PhoneInput, type Country } from "@/components/ui/phone-input";
+import { NavBar, type NavLink, type NavBarLocale } from "@/components/ui/navbar";
+```
+
+## Language Switcher
+
+### Locale
+
+```ts
+export interface Locale {
+  /** ISO 639-1 / BCP 47 code (e.g. "en", "fr-FR", "ar-SA") — required */
   code: string;
-  
-  /**
-   * The name of the language in English (e.g., 'English', 'French').
-   */
-  name: string;
-  
-  /**
-   * The name of the language in its native script (e.g., 'English', 'Français', 'العربية').
-   */
-  nativeName?: string;
-  
-  /**
-   * Whether the language is written right-to-left.
-   */
-  isRtl?: boolean;
-  
-  /**
-   * Optional URL or React component for a country/language flag.
-   */
-  flag?: React.ReactNode | string;
+  /** Override display name (auto-resolved from built-in mapping if omitted) */
+  label?: string;
+  /** Override flag emoji (auto-detected from code if omitted) */
+  flag?: string;
+  /** Override RTL (auto-detected from code if omitted) */
+  rtl?: boolean;
 }
 ```
 
-### Translation
-
-The `Translation` interface is often used when working with In-Context Editing or viewing raw localization keys.
+### LanguageSwitcherProps
 
 ```ts
-export interface Translation {
-  /**
-   * The unique key used to identify the string (e.g., 'hero.title').
-   */
-  key: string;
-  
-  /**
-   * The translated string value.
-   */
-  value: string;
-  
-  /**
-   * An optional namespace if you split your translations into multiple files/domains.
-   */
-  namespace?: string;
+export interface LanguageSwitcherProps {
+  /** Array of available locales — only `code` is required */
+  locales: Locale[];
+  /** Initial selected locale code (default: first locale's code) */
+  defaultValue?: string;
+  /** Callback when locale changes */
+  onValueChange?: (code: string) => void;
+  /** Show flag emojis next to locale names (default: false) */
+  showFlags?: boolean;
+  /** Display labels in native language or English (default: "english") */
+  label?: "native" | "english";
+  /** Additional CSS classes */
+  className?: string;
 }
 ```
 
-### Extending Interfaces
+## Phone Input
 
-Because Babelize Elements components are fully owned by you once you copy them into your project, you can easily extend these interfaces directly in the component files. For example, if you need to pass a specific `currency` along with the `Language` object, simply add `currency?: string` to the interface in your local copy of the component!
+### Country
+
+```ts
+export interface Country {
+  /** ISO 3166-1 alpha-2 code (e.g. "US", "GB", "IN") */
+  code: string;
+  /** Dial code (e.g. "+1", "+44", "+91") */
+  dialCode: string;
+  /** Country name */
+  name: string;
+  /** Flag emoji */
+  flag: string;
+}
+```
+
+### PhoneInputProps
+
+```ts
+export interface PhoneInputProps {
+  /** Phone number value */
+  value?: string;
+  /** Callback when phone number or country changes */
+  onChange?: (phone: string, country: Country) => void;
+  /** Default country code (default: "US") */
+  defaultCountry?: string;
+  /** Placeholder text */
+  placeholder?: string;
+  /** Disable the input */
+  disabled?: boolean;
+  /** Additional CSS classes */
+  className?: string;
+  /** Show country flag next to dial code (default: true) */
+  showFlag?: boolean;
+  /** Accessible label for the input */
+  label?: string;
+}
+```
+
+## NavBar
+
+### NavLink
+
+```ts
+export interface NavLink {
+  /** Link text — required */
+  label: string;
+  /** Link URL — required */
+  href: string;
+}
+```
+
+### NavBarLocale
+
+The navbar exports its own `Locale` interface as `NavBarLocale`:
+
+```ts
+export interface Locale {
+  /** ISO 639-1 / BCP 47 code — required */
+  code: string;
+  /** Override display name (auto-resolved if omitted) */
+  label?: string;
+  /** Override flag emoji (auto-detected if omitted) */
+  flag?: string;
+}
+```
+
+### NavBarProps
+
+```ts
+export interface NavBarProps {
+  /** Logo element (renders before nav links) */
+  logo?: React.ReactNode;
+  /** Navigation links */
+  links?: NavLink[];
+  /** Available locales for language selector */
+  locales?: Locale[];
+  /** Currently selected locale code */
+  currentLocale?: string;
+  /** Callback when locale changes */
+  onLocaleChange?: (code: string) => void;
+  /** CTA button */
+  cta?: { label: string; href: string };
+  /** Show GitHub icon button */
+  showGitHub?: boolean;
+  /** GitHub repository URL */
+  githubUrl?: string;
+  /** Make navbar sticky at top (default: true) */
+  sticky?: boolean;
+  /** Show flags in language selector (default: true) */
+  showFlags?: boolean;
+  /** Additional CSS classes */
+  className?: string;
+}
+```
+
+## Extending Interfaces
+
+Because Babelize Elements components are fully owned by you once installed, you can extend these interfaces directly in the component files. For example, to add a custom `meta` field to each locale, add it to the `Locale` interface in your local copy:
+
+```ts
+export interface Locale {
+  code: string;
+  label?: string;
+  flag?: string;
+  rtl?: boolean;
+  /** Your custom field */
+  meta?: Record<string, string>;
+}
+```

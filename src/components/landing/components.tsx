@@ -393,7 +393,7 @@ export function LanguageSwitcher({
   return (
     <select
       className={cn(
-        "h-10 rounded-md border border-white/10 bg-white/5 px-3 text-sm text-foreground outline-none transition-colors focus:border-emerald-500",
+        "h-10 rounded-md border border-white/10 bg-white/5 px-3 text-sm text-zinc-900 outline-none transition-colors focus:border-emerald-500 dark:text-zinc-50",
         className,
       )}
       onChange={(e) => onLocaleChange?.(e.target.value)}

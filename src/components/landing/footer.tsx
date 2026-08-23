@@ -5,7 +5,7 @@ import Image from "next/image";
 const resources = [
   { name: "Documentation", href: "/docs" },
   { name: "Getting Started", href: "/docs/getting-started" },
-  { name: "Theming Guide", href: "/docs/customization/theming" },
+  { name: "ShadCN CLI", href: "/docs/getting-started/shadcn-cli" },
   { name: "Babelize App", href: "https://app.babelize.co" },
 ];
 

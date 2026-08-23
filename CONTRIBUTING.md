@@ -37,7 +37,7 @@ Before opening a pull request, make sure your component:
 - [ ] Is TypeScript-first, with exported interfaces for all props
 - [ ] Is localization-aware — handles locale codes, pluralization, or RTL as applicable
 - [ ] Is accessible — keyboard support, ARIA labels, focus states
-- [ ] Uses Tailwind CSS with design tokens (dark-mode compatible)
+- [ ] Uses Tailwind CSS (dark-mode compatible)
 - [ ] Includes a short demo or usage example for the docs
 - [ ] Runs clean through `bun run lint` and `bun run build`
 

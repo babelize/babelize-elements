@@ -29,15 +29,32 @@
 
 **Babelize Elements** is a community-built library of **Localization UI components** for React and Tailwind CSS. Every localized app needs a language switcher, a locale picker, RTL-aware layouts, and pluralization UI — Elements turns that repetitive work into a shared, open-source toolbox.
 
-- **Easy to install** — `npm install @babelize/elements` and start using components immediately.
+- **Easy to install** — `npm install @babelize/elements` for the full library, or add components one at a time with `npx shadcn@latest add @elements/<component>`.
 - **Localization-first** — pluralization, RTL, and locale data built into every component.
 - **Accessible** — keyboard support, ARIA labels, and WCAG-aware markup.
 - **Open source** — MIT-licensed, free forever, built by contributors like you.
 
 ## Installation
 
+### Full library
+
 ```bash
 npm install @babelize/elements
+```
+
+### Individual components
+
+Install a component with the shadcn CLI (register the registry once):
+
+```bash
+npx shadcn@latest registry add @elements=https://elements.babelize.co/r/{name}.json
+npx shadcn@latest add @elements/language-switcher
+```
+
+Or with the CLI bundled in `@babelize/elements`:
+
+```bash
+npx @babelize/elements add language-switcher
 ```
 
 ## Documentation

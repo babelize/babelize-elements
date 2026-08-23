@@ -6,7 +6,7 @@ icon: Rocket
 
 # Getting Started
 
-Babelize Elements is designed to drop into any React + Tailwind CSS project with zero configuration. Because components are fully owned by you, you control the code — no registry lock-in, no runtime dependencies.
+Babelize Elements is designed to drop into any React + Tailwind CSS project. Install individual components with one command, or pull in the full library — you own the code either way, so there's no registry lock-in.
 
 ## Prerequisites
 
@@ -16,18 +16,25 @@ Babelize Elements is designed to drop into any React + Tailwind CSS project with
 
 ## Installation
 
-There is nothing to install. Browse the component you need in the docs or the repository, copy the source file into `components/elements/`, and import it:
+Install a component with the shadcn CLI:
 
 ```bash
-# components live in your own project
-mkdir -p components/elements
-cp path/to/language-switcher.tsx components/elements/
+npx shadcn@latest registry add @elements=https://elements.babelize.co/r/{name}.json
+npx shadcn@latest add @elements/language-switcher
 ```
+
+Or use the CLI that ships inside the `@babelize/elements` package:
+
+```bash
+npx @babelize/elements add language-switcher
+```
+
+Either way, the component (plus its `cn` utility and dependencies) is written into your `components/ui/` directory.
 
 ## Add to your project
 
 ```tsx
-import { LanguageSwitcher } from "@/components/elements/language-switcher";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
 
 export function App() {
   return (

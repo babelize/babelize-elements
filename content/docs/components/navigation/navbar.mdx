@@ -1,73 +1,93 @@
 ---
 title: Navbar
-description: Full-featured navigation bar with built-in language selector, mobile menu, CTA button, and GitHub link. Supports theming via CSS variables.
+description: Full-featured navigation bar with built-in language selector, mobile menu, CTA button, and GitHub link.
 ---
 
+import { PreviewComponents } from "@/components/docs/preview-components";
 import { NavBarDemo } from "@/components/docs/navbar-demo";
 import { Tabs, Tab } from "fumadocs-ui/components/tabs";
 
-<NavBarDemo />
+<PreviewComponents registryName="navbar">
+  <NavBarDemo />
+</PreviewComponents>
 
 ## Installation
 
-<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
-  <Tab value="npm">
-    ```bash
-    npm install @babelize/elements
-    ```
+<Tabs items={["shadcn", "Elements CLI"]} defaultValue="shadcn" className="bg-transparent border-none">
+  <Tab value="shadcn" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="installation-tabs">
+      <Tab value="npx">
+        ```bash
+        npx shadcn@latest add @elements/navbar
+        ```
+      </Tab>
+      <Tab value="pnpm">
+        ```bash
+        pnpm dlx shadcn@latest add @elements/navbar
+        ```
+      </Tab>
+      <Tab value="yarn">
+        ```bash
+        yarn dlx shadcn@latest add @elements/navbar
+        ```
+      </Tab>
+      <Tab value="bun">
+        ```bash
+        bunx shadcn@latest add @elements/navbar
+        ```
+      </Tab>
+    </Tabs>
   </Tab>
-  <Tab value="pnpm">
-    ```bash
-    pnpm add @babelize/elements
-    ```
-  </Tab>
-  <Tab value="yarn">
-    ```bash
-    yarn add @babelize/elements
-    ```
-  </Tab>
-  <Tab value="bun">
-    ```bash
-    bun add @babelize/elements
-    ```
+  <Tab value="Elements CLI" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="elements-cli-tabs">
+      <Tab value="npx">
+        ```bash
+        npx @babelize/elements add navbar
+        ```
+      </Tab>
+      <Tab value="pnpm">
+        ```bash
+        pnpm dlx @babelize/elements add navbar
+        ```
+      </Tab>
+      <Tab value="yarn">
+        ```bash
+        yarn dlx @babelize/elements add navbar
+        ```
+      </Tab>
+      <Tab value="bun">
+        ```bash
+        bunx @babelize/elements add navbar
+        ```
+      </Tab>
+    </Tabs>
   </Tab>
 </Tabs>
 
 ## Usage
 
 ```tsx
-"use client";
+import { NavBar } from "@/components/ui/navbar";
+```
 
-import { useState } from "react";
-import Link from "next/link";
-import { NavBar } from "@babelize/elements";
-
-export default function App() {
-  const [locale, setLocale] = useState("en");
-
-  return (
-    <NavBar
-      logo={<span className="font-bold text-lg">MyApp</span>}
-      links={[
-        { label: "Home", href: "/" },
-        { label: "Docs", href: "/docs" },
-        { label: "Pricing", href: "/pricing" },
-      ]}
-      locales={[
-        { code: "en" },
-        { code: "fr" },
-        { code: "es" },
-      ]}
-      currentLocale={locale}
-      onLocaleChange={(code) => {
-        setLocale(code);
-        // router.push(`/${code}`);
-      }}
-      cta={{ label: "Get Started", href: "/signup" }}
-      showGitHub
-    />
-  );
-}
+```tsx
+<NavBar
+  logo={<span className="font-bold text-lg">MyApp</span>}
+  links={[
+    { label: "Home", href: "/" },
+    { label: "Docs", href: "/docs" },
+    { label: "Pricing", href: "/pricing" },
+  ]}
+  locales={[
+    { code: "en" },
+    { code: "fr" },
+    { code: "es" },
+  ]}
+  currentLocale="en"
+  onLocaleChange={(code) => console.log(code)}
+  cta={{ label: "Get Started", href: "/signup" }}
+  showGitHub
+/>
 ```
 
 ## Props
@@ -112,7 +132,7 @@ Pair NavBar with the [Babelize SDK](https://babelize.co) for automatic locale ro
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { NavBar } from "@babelize/elements";
+import { NavBar } from "@/components/ui/navbar";
 import { useBabelize } from "@babelize/sdk/react";
 
 const links = [
@@ -159,7 +179,7 @@ export default function App() {
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { NavBar } from "@babelize/elements";
+import { NavBar } from "@/components/ui/navbar";
 
 export function AppNavBar() {
   const router = useRouter();
@@ -189,7 +209,7 @@ export function AppNavBar() {
 "use client";
 
 import { useTranslation } from "react-i18next";
-import { NavBar } from "@babelize/elements";
+import { NavBar } from "@/components/ui/navbar";
 
 export function AppNavBar() {
   const { i18n } = useTranslation();
@@ -211,7 +231,7 @@ export function AppNavBar() {
 ```tsx
 "use client";
 
-import { NavBar } from "@babelize/elements";
+import { NavBar } from "@/components/ui/navbar";
 
 export default function App() {
   return (
@@ -235,7 +255,6 @@ export default function App() {
 - **Keyboard accessible** — arrow keys, Enter, Escape, Tab navigation
 - **ARIA labels** — proper `aria-expanded`, `aria-haspopup`, `aria-label`
 - **Dark mode** — built with Tailwind CSS, dark-mode compatible
-- **Theming** — styled via CSS custom properties (oklch color system)
 - **Next.js Link** — uses `next/link` for client-side navigation
 
 ## Dependencies

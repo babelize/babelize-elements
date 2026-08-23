@@ -21,6 +21,7 @@ export const baseOptions: BaseLayoutProps = {
           alt="Babelize Elements"
           width={160}
           height={30}
+          priority
           style={{ objectFit: "contain" }}
         />
       </div>

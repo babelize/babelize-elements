@@ -9,7 +9,7 @@ const faqs = [
   {
     question: "How do I install Babelize Elements?",
     answer:
-      "Install via npm: `npm install @babelize/elements`. Works with Next.js, Remix, and any React app. Import components directly from the package.",
+      "Install the full library with `npm install @babelize/elements`, or add individual components with `npx shadcn@latest add @elements/language-switcher` (or `npx @babelize/elements add language-switcher`). Works with Next.js, Remix, and any React app.",
   },
   {
     question: "Can I customize the language switcher and locale picker components?",

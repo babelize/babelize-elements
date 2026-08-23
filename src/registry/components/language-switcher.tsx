@@ -190,7 +190,7 @@ export function LanguageSwitcher({
         type="button"
         onClick={() => setOpen(!open)}
         className={cn(
-          "inline-flex items-center gap-2 rounded-lg border border-border bg-secondary px-3 py-2 text-sm font-medium text-secondary-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-ring/50",
+          "inline-flex items-center gap-2 rounded-lg border border-zinc-200 bg-zinc-100 px-3 py-2 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-100 hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 dark:border-zinc-800 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-zinc-50",
           dir === "rtl" && "flex-row-reverse",
         )}
         aria-expanded={open}
@@ -201,7 +201,7 @@ export function LanguageSwitcher({
         <span>{activeLocale ? resolveLabel(activeLocale) : locale}</span>
         <svg
           className={cn(
-            "size-4 text-muted-foreground transition-transform",
+            "size-4 text-zinc-500 transition-transform dark:text-zinc-400",
             open && "rotate-180",
           )}
           fill="none"
@@ -215,18 +215,18 @@ export function LanguageSwitcher({
 
       {open && (
         <div
-          className="absolute z-50 mt-1 min-w-[200px] overflow-hidden rounded-xl border border-border bg-popover shadow-xl"
+          className="absolute z-50 mt-1 min-w-[200px] overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-xl dark:border-zinc-800 dark:bg-zinc-950"
           role="listbox"
           aria-label="Select language"
         >
-          <div className="border-b border-border p-2">
+          <div className="border-b border-zinc-200 p-2 dark:border-zinc-800">
             <input
               ref={inputRef}
               type="text"
               placeholder="Search..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-lg bg-secondary px-3 py-1.5 text-sm text-secondary-foreground outline-none placeholder:text-muted-foreground focus:ring-1 focus:ring-ring/50"
+              className="w-full rounded-lg bg-zinc-100 px-3 py-1.5 text-sm text-zinc-900 outline-none placeholder:text-zinc-400 focus:ring-1 focus:ring-emerald-500/50 dark:bg-zinc-800 dark:text-zinc-100 dark:placeholder:text-zinc-500"
             />
           </div>
           <div className="max-h-60 overflow-y-auto p-1">
@@ -250,15 +250,15 @@ export function LanguageSwitcher({
                     "flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm transition-colors",
                     itemDir === "rtl" && "flex-row-reverse text-right",
                     isActive
-                      ? "bg-primary/10 text-primary font-medium"
-                      : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                      ? "bg-emerald-500/10 text-emerald-600 font-medium dark:text-emerald-400"
+                      : "text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
                   )}
                 >
                   {showFlags && <span className="text-base">{l.flag ?? getFlag(l.code)}</span>}
                   <span className="flex-1">{resolveLabel(l)}</span>
                   {isActive && (
                     <svg
-                      className="size-4 text-primary"
+                      className="size-4 text-emerald-600 dark:text-emerald-400"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -271,7 +271,7 @@ export function LanguageSwitcher({
               );
             })}
             {filtered.length === 0 && (
-              <div className="px-3 py-2 text-sm text-muted-foreground">
+              <div className="px-3 py-2 text-sm text-zinc-500 dark:text-zinc-400">
                 No results
               </div>
             )}

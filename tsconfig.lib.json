@@ -21,6 +21,11 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src/registry/components/**/*.ts", "src/registry/components/**/*.tsx", "src/lib/utils.ts"],
+  "include": [
+    "src/registry/components/**/*.ts",
+    "src/registry/components/**/*.tsx",
+    "src/lib/utils.ts",
+    "src/cli/**/*.ts"
+  ],
   "exclude": ["node_modules", "dist", "src/app", "src/components", ".next", ".source"]
 }

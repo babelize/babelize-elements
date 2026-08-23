@@ -7,6 +7,9 @@
   "main": "./dist/registry/components/index.js",
   "module": "./dist/registry/components/index.js",
   "types": "./dist/registry/components/index.d.ts",
+  "bin": {
+    "elements": "./bin.js"
+  },
   "exports": {
     ".": {
       "types": "./dist/registry/components/index.d.ts",
@@ -17,6 +20,7 @@
   },
   "files": [
     "dist",
+    "bin.js",
     "README.md",
     "LICENSE"
   ],

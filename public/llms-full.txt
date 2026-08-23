@@ -8,7 +8,7 @@ It is the community home for the building blocks every localized app needs — l
 
 Building a localized app means repeating the same UI work in every project: a language dropdown here, a locale-aware date there, an RTL-safe nav everywhere. Elements turns that work into a shared, open-source toolbox.
 
-- **Easy to install** — `npm install @babelize/elements` and start using components immediately.
+- **Easy to install** — `npm install @babelize/elements` for the full library, or `npx shadcn@latest add @elements/<component>` for individual components.
 - **Localization-first** — every component ships with pluralization, RTL, and locale-data support built in.
 - **Accessible** — keyboard support, ARIA labels, and WCAG-aware markup out of the box.
 - **Open source** — MIT-licensed, free forever, and built by contributors like you.
@@ -29,10 +29,19 @@ Babelize Elements is designed to drop into any React + Tailwind CSS project with
 npm install @babelize/elements
 ```
 
+Or install a single component with the shadcn CLI (register the registry once):
+
+```bash
+npx shadcn@latest registry add @elements=https://elements.babelize.co/r/{name}.json
+npx shadcn@latest add @elements/language-switcher
+```
+
 ### Add to your project
 
 ```tsx
-import { LanguageSwitcher } from "@babelize/elements";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+// or, with the full library:
+// import { LanguageSwitcher } from "@babelize/elements";
 
 export function App() {
   return (

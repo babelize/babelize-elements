@@ -1,21 +1,62 @@
 ---
-title: ShadCN CLI 3.0 Integration Guide
-description: Learn how to integrate Babelize Elements seamlessly using ShadCN CLI 3.0.
+title: ShadCN CLI Integration
+description: Install Babelize Elements components with the shadcn CLI.
 icon: Terminal
 ---
 
-# ShadCN CLI 3.0 Integration Guide
+# ShadCN CLI Integration
 
-We are currently working on a seamless integration with ShadCN CLI 3.0 that will allow you to add Babelize Elements directly from your terminal.
+Install individual Babelize Elements components directly into your project with the shadcn CLI.
 
-## Coming Soon
+## One-time setup
 
-In the near future, you will be able to run a simple command like:
+Register the Babelize Elements registry namespace:
 
 ```bash
-npx shadcn-ui@latest add https://babelize-elements.com/r/language-switcher
+npx shadcn@latest registry add @elements=https://elements.babelize.co/r/{name}.json
 ```
 
-This will automatically configure the component and its dependencies inside your project. 
+Alternatively, add it manually to the `registries` field of your `components.json`:
 
-Stay tuned for more updates!
+```json
+{
+  "registries": {
+    "@elements": "https://elements.babelize.co/r/{name}.json"
+  }
+}
+```
+
+## Install a component
+
+Once the namespace is registered, install any component:
+
+```bash
+npx shadcn@latest add @elements/language-switcher
+npx shadcn@latest add @elements/phone-input
+npx shadcn@latest add @elements/navbar
+```
+
+The CLI resolves each component's dependencies (including the `cn` utility) and drops the files into `components/ui/`.
+
+You can also install by direct URL:
+
+```bash
+npx shadcn@latest add https://elements.babelize.co/r/language-switcher.json
+```
+
+## Import
+
+```tsx
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+```
+
+## Using the Babelize Elements CLI
+
+Prefer a purpose-built CLI? The `@babelize/elements` package ships one:
+
+```bash
+npx @babelize/elements add language-switcher
+npx @babelize/elements list
+```
+
+It does the same job — resolve the registry item, write the component into `components/ui/`, and install its npm dependencies.

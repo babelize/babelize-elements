@@ -3,59 +3,81 @@ title: Phone Input
 description: International phone number input with country selector, flag emojis, and dial code search. Supports 50 countries with built-in formatting and validation.
 ---
 
+import { PreviewComponents } from "@/components/docs/preview-components";
 import { PhoneInputDemo } from "@/components/docs/phone-input-demo";
 import { Tabs, Tab } from "fumadocs-ui/components/tabs";
 
-<PhoneInputDemo />
+<PreviewComponents registryName="phone-input">
+  <PhoneInputDemo />
+</PreviewComponents>
 
 ## Installation
 
-<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
-  <Tab value="npm">
-    ```bash
-    npm install @babelize/elements
-    ```
+<Tabs items={["shadcn", "Elements CLI"]} defaultValue="shadcn" className="bg-transparent border-none">
+  <Tab value="shadcn" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="installation-tabs">
+      <Tab value="npx">
+        ```bash
+        npx shadcn@latest add @elements/phone-input
+        ```
+      </Tab>
+      <Tab value="pnpm">
+        ```bash
+        pnpm dlx shadcn@latest add @elements/phone-input
+        ```
+      </Tab>
+      <Tab value="yarn">
+        ```bash
+        yarn dlx shadcn@latest add @elements/phone-input
+        ```
+      </Tab>
+      <Tab value="bun">
+        ```bash
+        bunx shadcn@latest add @elements/phone-input
+        ```
+      </Tab>
+    </Tabs>
   </Tab>
-  <Tab value="pnpm">
-    ```bash
-    pnpm add @babelize/elements
-    ```
-  </Tab>
-  <Tab value="yarn">
-    ```bash
-    yarn add @babelize/elements
-    ```
-  </Tab>
-  <Tab value="bun">
-    ```bash
-    bun add @babelize/elements
-    ```
+  <Tab value="Elements CLI" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="elements-cli-tabs">
+      <Tab value="npx">
+        ```bash
+        npx @babelize/elements add phone-input
+        ```
+      </Tab>
+      <Tab value="pnpm">
+        ```bash
+        pnpm dlx @babelize/elements add phone-input
+        ```
+      </Tab>
+      <Tab value="yarn">
+        ```bash
+        yarn dlx @babelize/elements add phone-input
+        ```
+      </Tab>
+      <Tab value="bun">
+        ```bash
+        bunx @babelize/elements add phone-input
+        ```
+      </Tab>
+    </Tabs>
   </Tab>
 </Tabs>
 
 ## Usage
 
 ```tsx
-"use client";
+import { PhoneInput } from "@/components/ui/phone-input";
+```
 
-import { PhoneInput } from "@babelize/elements";
-
-export default function App() {
-  const [phone, setPhone] = useState("");
-  const [country, setCountry] = useState(null);
-
-  return (
-    <PhoneInput
-      value={phone}
-      onChange={(value, country) => {
-        setPhone(value);
-        setCountry(country);
-      }}
-      defaultCountry="US"
-      placeholder="Enter phone number"
-    />
-  );
-}
+```tsx
+<PhoneInput
+  defaultCountry="US"
+  placeholder="Enter phone number"
+  onChange={(value, country) => {
+    console.log(value, country.dialCode);
+  }}
+/>
 ```
 
 ## Props
@@ -90,7 +112,7 @@ Pair Phone Input with the [Babelize SDK](https://babelize.co) for locale-aware v
 "use client";
 
 import { useState } from "react";
-import { PhoneInput } from "@babelize/elements";
+import { PhoneInput } from "@/components/ui/phone-input";
 import { useBabelize } from "@babelize/sdk/react";
 
 export function ContactPhone() {
@@ -117,7 +139,7 @@ export function ContactPhone() {
 "use client";
 
 import { useState } from "react";
-import { PhoneInput } from "@babelize/elements";
+import { PhoneInput } from "@/components/ui/phone-input";
 
 export default function CheckoutForm() {
   const [phone, setPhone] = useState("");
@@ -153,7 +175,7 @@ export default function CheckoutForm() {
 ```tsx
 "use client";
 
-import { PhoneInput } from "@babelize/elements";
+import { PhoneInput } from "@/components/ui/phone-input";
 
 const COUNTRIES = [
   { code: "US", dialCode: "+1", name: "United States", flag: "🇺🇸" },
@@ -180,7 +202,6 @@ export default function App() {
 - **Keyboard accessible** — arrow keys, Enter, Escape, Tab navigation
 - **ARIA labels** — proper `aria-expanded`, `aria-haspopup`, `aria-label`
 - **Dark mode** — built with Tailwind CSS, dark-mode compatible
-- **Theming** — styled via CSS custom properties (oklch color system)
 - **Controlled/uncontrolled** — works with or without `value` prop
 
 ## Supported Countries

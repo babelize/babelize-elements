@@ -6,6 +6,7 @@ Open-source Localization UI components for React and Tailwind CSS.
 
 - Language switchers, locale pickers, RTL layouts
 - Install via npm — `npm install @babelize/elements`
+- Install components individually — `npx shadcn@latest add @elements/<component>`
 - TypeScript-first, accessible, MIT-licensed
 - Works with next-intl, react-i18next, react-intl, and more
 
@@ -15,8 +16,17 @@ Open-source Localization UI components for React and Tailwind CSS.
 npm install @babelize/elements
 ```
 
+Or install a single component (register the registry once):
+
+```bash
+npx shadcn@latest registry add @elements=https://elements.babelize.co/r/{name}.json
+npx shadcn@latest add @elements/language-switcher
+```
+
 ```tsx
-import { LanguageSwitcher } from "@babelize/elements";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+// or, with the full library:
+// import { LanguageSwitcher } from "@babelize/elements";
 
 export function App() {
   return (

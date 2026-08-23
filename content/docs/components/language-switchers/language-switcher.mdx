@@ -3,64 +3,86 @@ title: Language Switcher
 description: Copy-paste language switcher component for React with dropdown, search, RTL support, and full accessibility. Works with next-intl, react-i18next, and any i18n setup.
 ---
 
+import { PreviewComponents } from "@/components/docs/preview-components";
 import { LanguageSwitcherDemo } from "@/components/docs/language-switcher-demo";
 import { Tabs, Tab } from "fumadocs-ui/components/tabs";
 
-<LanguageSwitcherDemo />
+<PreviewComponents registryName="language-switcher">
+  <LanguageSwitcherDemo />
+</PreviewComponents>
 
 ## Installation
 
-<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
-  <Tab value="npm">
-    ```bash
-    npm install @babelize/elements
-    ```
+<Tabs items={["shadcn", "Elements CLI"]} defaultValue="shadcn" className="bg-transparent border-none">
+  <Tab value="shadcn" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="installation-tabs">
+      <Tab value="npx">
+        ```bash
+        npx shadcn@latest add @elements/language-switcher
+        ```
+      </Tab>
+      <Tab value="pnpm">
+        ```bash
+        pnpm dlx shadcn@latest add @elements/language-switcher
+        ```
+      </Tab>
+      <Tab value="yarn">
+        ```bash
+        yarn dlx shadcn@latest add @elements/language-switcher
+        ```
+      </Tab>
+      <Tab value="bun">
+        ```bash
+        bunx shadcn@latest add @elements/language-switcher
+        ```
+      </Tab>
+    </Tabs>
   </Tab>
-  <Tab value="pnpm">
-    ```bash
-    pnpm add @babelize/elements
-    ```
-  </Tab>
-  <Tab value="yarn">
-    ```bash
-    yarn add @babelize/elements
-    ```
-  </Tab>
-  <Tab value="bun">
-    ```bash
-    bun add @babelize/elements
-    ```
+  <Tab value="Elements CLI" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="elements-cli-tabs">
+      <Tab value="npx">
+        ```bash
+        npx @babelize/elements add language-switcher
+        ```
+      </Tab>
+      <Tab value="pnpm">
+        ```bash
+        pnpm dlx @babelize/elements add language-switcher
+        ```
+      </Tab>
+      <Tab value="yarn">
+        ```bash
+        yarn dlx @babelize/elements add language-switcher
+        ```
+      </Tab>
+      <Tab value="bun">
+        ```bash
+        bunx @babelize/elements add language-switcher
+        ```
+      </Tab>
+    </Tabs>
   </Tab>
 </Tabs>
 
 ## Usage
 
 ```tsx
-"use client";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+```
 
-import { LanguageSwitcher } from "@babelize/elements";
-
-export default function App() {
-  return (
-    <LanguageSwitcher
-      locales={[
-        { code: "en" },
-        { code: "fr" },
-        { code: "es" },
-        { code: "de" },
-        { code: "ja" },
-        { code: "ar" },
-      ]}
-      defaultValue="en"
-      onValueChange={(code) => {
-        // next-intl
-        router.push(`/${code}`);
-        // react-i18next
-        i18n.changeLanguage(code);
-      }}
-    />
-  );
-}
+```tsx
+<LanguageSwitcher
+  locales={[
+    { code: "en" },
+    { code: "fr" },
+    { code: "es" },
+    { code: "de" },
+    { code: "ja" },
+    { code: "ar" },
+  ]}
+  defaultValue="en"
+  onValueChange={(code) => console.log(code)}
+/>
 ```
 
 ## Props
@@ -94,7 +116,7 @@ Pair Language Switcher with the [Babelize SDK](https://babelize.co) for automati
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { LanguageSwitcher } from "@babelize/elements";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
 import { useBabelize } from "@babelize/sdk/react";
 
 const locales = [
@@ -129,7 +151,7 @@ export function LocaleSwitcher() {
 "use client";
 
 import { useRouter } from "next/navigation";
-import { LanguageSwitcher } from "@babelize/elements";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
 
 export function LocaleSwitcher() {
   const router = useRouter();
@@ -150,7 +172,7 @@ export function LocaleSwitcher() {
 "use client";
 
 import { useTranslation } from "react-i18next";
-import { LanguageSwitcher } from "@babelize/elements";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
 
 export function LocaleSwitcher() {
   const { i18n } = useTranslation();
@@ -170,7 +192,7 @@ export function LocaleSwitcher() {
 ```tsx
 "use client";
 
-import { LanguageSwitcher } from "@babelize/elements";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
 
 export default function App() {
   return (
@@ -193,7 +215,6 @@ export default function App() {
 - **ARIA labels** — proper `aria-expanded`, `aria-haspopup`, `aria-selected`
 - **Dark mode** — built with Tailwind CSS, dark-mode compatible
 - **Library agnostic** — works with any i18n setup via callback
-- **Theming** — styled via CSS custom properties (oklch color system)
 
 ## Supported Languages
 
