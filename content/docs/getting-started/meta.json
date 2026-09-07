@@ -1,11 +1,5 @@
 {
   "title": "Getting Started",
-  "pages": [
-    "index",
-    "install",
-    "installation",
-    "shadcn-cli",
-    "contributing"
-  ],
+  "pages": ["index", "install", "shadcn-cli", "contributing"],
   "collapsible": false
 }

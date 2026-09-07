@@ -22,38 +22,62 @@ No component exists yet? Open an issue proposing one. Great candidates: language
 ```tsx
 "use client";
 
+import * as React from "react";
 import { cn } from "@/lib/utils";
-import type { ComponentProps } from "react";
+import { useControllableState } from "@/lib/use-controllable-state";
+import type { Locale } from "./types";
 
-export interface LanguageSwitcherProps extends ComponentProps<"select"> {
-  locales: { code: string; label: string }[];
-  onLocaleChange?: (code: string) => void;
+export interface LanguageSelectProps extends Omit<
+  React.ComponentPropsWithoutRef<"select">,
+  "value" | "defaultValue" | "onChange"
+> {
+  /** Available locales — only `code` is required */
+  locales: Locale[];
+  /** Selected locale code. Provide this to control the component. */
+  value?: string;
+  /** Initial locale code when uncontrolled */
+  defaultValue?: string;
+  /** Fired once per selection */
+  onValueChange?: (code: string) => void;
 }
 
-export function LanguageSwitcher({
-  locales,
-  onLocaleChange,
-  className,
-  ...props
-}: LanguageSwitcherProps) {
-  return (
-    <select
-      className={cn(
-        "h-10 rounded-md border border-white/10 bg-white/5 px-3 text-sm text-foreground outline-none transition-colors focus:border-emerald-500",
-        className,
-      )}
-      onChange={(e) => onLocaleChange?.(e.target.value)}
-      {...props}
-    >
-      {locales.map((locale) => (
-        <option key={locale.code} value={locale.code}>
-          {locale.label}
-        </option>
-      ))}
-    </select>
-  );
-}
+export const LanguageSelect = React.forwardRef<HTMLSelectElement, LanguageSelectProps>(
+  function LanguageSelect(
+    { locales, value, defaultValue, onValueChange, className, ...rest },
+    ref,
+  ) {
+    const [locale, setLocale] = useControllableState(
+      value,
+      defaultValue ?? locales[0]?.code ?? "",
+      onValueChange,
+    );
+
+    return (
+      <select
+        ref={ref}
+        value={locale}
+        onChange={(e) => setLocale(e.target.value)}
+        className={cn(
+          "h-10 rounded-md border border-zinc-200 bg-white px-3 text-sm outline-none transition-colors focus:border-emerald-500 dark:border-zinc-800 dark:bg-zinc-900",
+          className,
+        )}
+        {...rest}
+      >
+        {locales.map((l) => (
+          <option key={l.code} value={l.code}>
+            {l.label ?? l.code}
+          </option>
+        ))}
+      </select>
+    );
+  },
+);
 ```
+
+Note the four conventions every component follows: a `value` / `defaultValue` /
+`onValueChange` trio via `useControllableState`, a forwarded ref, `...rest` spread
+onto the root element, and the shared `Locale` type from `./types` rather than a
+local copy.
 
 ## Contribution checklist
 

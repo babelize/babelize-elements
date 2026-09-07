@@ -13,53 +13,25 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
 
 ## Installation
 
-<Tabs items={["shadcn", "Elements CLI"]} defaultValue="shadcn" className="bg-transparent border-none">
+<Tabs
+  items={["shadcn", "Elements CLI"]}
+  defaultValue="shadcn"
+  className="bg-transparent border-none"
+>
   <Tab value="shadcn" className="border-none bg-transparent p-0 mt-3">
     <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="installation-tabs">
-      <Tab value="npx">
-        ```bash
-        npx shadcn@latest add @elements/navbar
-        ```
-      </Tab>
-      <Tab value="pnpm">
-        ```bash
-        pnpm dlx shadcn@latest add @elements/navbar
-        ```
-      </Tab>
-      <Tab value="yarn">
-        ```bash
-        yarn dlx shadcn@latest add @elements/navbar
-        ```
-      </Tab>
-      <Tab value="bun">
-        ```bash
-        bunx shadcn@latest add @elements/navbar
-        ```
-      </Tab>
+      <Tab value="npx">```bash npx shadcn@latest add @elements/navbar ```</Tab>
+      <Tab value="pnpm">```bash pnpm dlx shadcn@latest add @elements/navbar ```</Tab>
+      <Tab value="yarn">```bash yarn dlx shadcn@latest add @elements/navbar ```</Tab>
+      <Tab value="bun">```bash bunx shadcn@latest add @elements/navbar ```</Tab>
     </Tabs>
   </Tab>
   <Tab value="Elements CLI" className="border-none bg-transparent p-0 mt-3">
     <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="elements-cli-tabs">
-      <Tab value="npx">
-        ```bash
-        npx @babelize/elements add navbar
-        ```
-      </Tab>
-      <Tab value="pnpm">
-        ```bash
-        pnpm dlx @babelize/elements add navbar
-        ```
-      </Tab>
-      <Tab value="yarn">
-        ```bash
-        yarn dlx @babelize/elements add navbar
-        ```
-      </Tab>
-      <Tab value="bun">
-        ```bash
-        bunx @babelize/elements add navbar
-        ```
-      </Tab>
+      <Tab value="npx">```bash npx @babelize/elements add navbar ```</Tab>
+      <Tab value="pnpm">```bash pnpm dlx @babelize/elements add navbar ```</Tab>
+      <Tab value="yarn">```bash yarn dlx @babelize/elements add navbar ```</Tab>
+      <Tab value="bun">```bash bunx @babelize/elements add navbar ```</Tab>
     </Tabs>
   </Tab>
 </Tabs>
@@ -78,13 +50,9 @@ import { NavBar } from "@/components/ui/navbar";
     { label: "Docs", href: "/docs" },
     { label: "Pricing", href: "/pricing" },
   ]}
-  locales={[
-    { code: "en" },
-    { code: "fr" },
-    { code: "es" },
-  ]}
-  currentLocale="en"
-  onLocaleChange={(code) => console.log(code)}
+  locales={[{ code: "en" }, { code: "fr" }, { code: "es" }]}
+  value="en"
+  onValueChange={(code) => console.log(code)}
   cta={{ label: "Get Started", href: "/signup" }}
   showGitHub
 />
@@ -92,34 +60,51 @@ import { NavBar } from "@/components/ui/navbar";
 
 ## Props
 
-| Prop | Type | Required | Description |
-|------|------|----------|-------------|
-| `logo` | `React.ReactNode` | No | Logo element (renders before nav links) |
-| `links` | `NavLink[]` | No | Navigation links |
-| `locales` | `Locale[]` | No | Available locales for language selector |
-| `currentLocale` | `string` | No | Currently selected locale code |
-| `onLocaleChange` | `(code: string) => void` | No | Callback when locale changes |
-| `cta` | `{ label: string; href: string }` | No | CTA button |
-| `showGitHub` | `boolean` | No | Show GitHub icon button |
-| `githubUrl` | `string` | No | GitHub repository URL |
-| `sticky` | `boolean` | No | Make navbar sticky at top (default: `true`) |
-| `showFlags` | `boolean` | No | Show flags in language selector (default: `true`) |
-| `className` | `string` | No | Additional CSS classes |
+| Prop            | Type                              | Required | Description                                               |
+| --------------- | --------------------------------- | -------- | --------------------------------------------------------- |
+| `logo`          | `React.ReactNode`                 | No       | Logo element (renders before nav links)                   |
+| `links`         | `NavLink[]`                       | No       | Navigation links                                          |
+| `locales`       | `Locale[]`                        | No       | Available locales for language selector                   |
+| `value`         | `string`                          | No       | Selected locale code — pass this to control the component |
+| `defaultValue`  | `string`                          | No       | Initial locale code when uncontrolled (default: `"en"`)   |
+| `onValueChange` | `(code: string) => void`          | No       | Callback when locale changes                              |
+| `cta`           | `{ label: string; href: string }` | No       | CTA button                                                |
+| `showGitHub`    | `boolean`                         | No       | Show GitHub icon button                                   |
+| `githubUrl`     | `string`                          | No       | GitHub repository URL                                     |
+| `sticky`        | `boolean`                         | No       | Make navbar sticky at top (default: `true`)               |
+| `showFlags`     | `boolean`                         | No       | Show flags in language selector (default: `true`)         |
+| `linkComponent` | `React.ElementType`               | No       | Component used for internal links (default: `"a"`)        |
+| `className`     | `string`                          | No       | Additional CSS classes                                    |
+
+Any other prop is spread onto the underlying `<nav>` element, and the ref is
+forwarded to it.
+
+### Client-side navigation
+
+Links render as plain `<a>` elements, so `NavBar` works in any React app with no
+router installed. Pass your router's link component to opt into client-side
+navigation:
+
+```tsx
+import Link from "next/link";
+
+<NavBar links={links} linkComponent={Link} />;
+```
 
 ### NavLink Object
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `label` | `string` | Link text — **required** |
-| `href` | `string` | Link URL — **required** |
+| Property | Type     | Description              |
+| -------- | -------- | ------------------------ |
+| `label`  | `string` | Link text — **required** |
+| `href`   | `string` | Link URL — **required**  |
 
 ### Locale Object
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `code` | `string` | ISO 639-1 / BCP 47 code (e.g. `"en"`, `"fr-FR"`) — **required** |
-| `label` | `string` | Override display name (auto-resolved if omitted) |
-| `flag` | `string` | Override flag emoji (auto-detected if omitted) |
+| Property | Type     | Description                                                     |
+| -------- | -------- | --------------------------------------------------------------- |
+| `code`   | `string` | ISO 639-1 / BCP 47 code (e.g. `"en"`, `"fr-FR"`) — **required** |
+| `label`  | `string` | Override display name (auto-resolved if omitted)                |
+| `flag`   | `string` | Override flag emoji (auto-detected if omitted)                  |
 
 ## Examples
 
@@ -160,8 +145,8 @@ export default function App() {
       logo={<span className="font-bold">MyApp</span>}
       links={links}
       locales={locales}
-      currentLocale={locale}
-      onLocaleChange={(code) => {
+      value={locale}
+      onValueChange={(code) => {
         setLocale(code);
         router.push(`/${code}`);
       }}
@@ -193,8 +178,8 @@ export function AppNavBar() {
         { label: "About", href: "/about" },
       ]}
       locales={[{ code: "en" }, { code: "fr" }]}
-      currentLocale={locale}
-      onLocaleChange={(code) => {
+      value={locale}
+      onValueChange={(code) => {
         setLocale(code);
         router.push(`/${code}`);
       }}
@@ -219,8 +204,8 @@ export function AppNavBar() {
       logo={<span className="font-bold">MyApp</span>}
       links={[{ label: "Home", href: "/" }]}
       locales={[{ code: "en" }, { code: "fr" }]}
-      currentLocale={i18n.language}
-      onLocaleChange={(code) => i18n.changeLanguage(code)}
+      value={i18n.language}
+      onValueChange={(code) => i18n.changeLanguage(code)}
     />
   );
 }
@@ -260,6 +245,7 @@ export default function App() {
 ## Dependencies
 
 Peer dependencies:
+
 - `react` >= 18
 - `react-dom` >= 18
 - `tailwindcss` >= 3

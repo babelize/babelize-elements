@@ -8,33 +8,19 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
 
 # Installation
 
-Add Babelize Elements to your project with a single command. The package ships TypeScript types, tree-shakeable ESM, and zero runtime dependencies beyond React and Tailwind CSS.
+Babelize Elements drops into any React + Tailwind CSS project — Next.js, Vite, Remix,
+or anything else that bundles React. The package ships TypeScript types, both ESM and
+CJS builds, and no runtime dependencies beyond React and Tailwind CSS.
 
 ## Package Manager
 
 Install the full library with your preferred package manager:
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
-  <Tab value="npm">
-    ```bash
-    npm install @babelize/elements
-    ```
-  </Tab>
-  <Tab value="pnpm">
-    ```bash
-    pnpm add @babelize/elements
-    ```
-  </Tab>
-  <Tab value="yarn">
-    ```bash
-    yarn add @babelize/elements
-    ```
-  </Tab>
-  <Tab value="bun">
-    ```bash
-    bun add @babelize/elements
-    ```
-  </Tab>
+  <Tab value="npm">```bash npm install @babelize/elements ```</Tab>
+  <Tab value="pnpm">```bash pnpm add @babelize/elements ```</Tab>
+  <Tab value="yarn">```bash yarn add @babelize/elements ```</Tab>
+  <Tab value="bun">```bash bun add @babelize/elements ```</Tab>
 </Tabs>
 
 ## Install individual components
@@ -52,14 +38,17 @@ Or use the CLI that ships inside the package:
 npx @babelize/elements add language-switcher
 ```
 
+Either way, the component (plus its `cn` utility and dependencies) is written into
+your `components/ui/` directory, and you own the code from then on.
+
 ## Prerequisites
 
-| Dependency | Minimum Version |
-|------------|----------------|
-| React      | `>=18`         |
-| React DOM  | `>=18`         |
-| Tailwind CSS | `>=3`        |
-| Node.js    | `>=18`         |
+| Dependency   | Minimum Version |
+| ------------ | --------------- |
+| React        | `>=18`          |
+| React DOM    | `>=18`          |
+| Tailwind CSS | `>=3`           |
+| Node.js      | `>=18`          |
 
 ## Verify Installation
 
@@ -71,27 +60,27 @@ import { LanguageSwitcher } from "@babelize/elements";
 export function App() {
   return (
     <LanguageSwitcher
-      locales={[
-        { code: "en", label: "English" },
-        { code: "fr", label: "Français" },
-        { code: "es", label: "Español" },
-      ]}
+      locales={[{ code: "en" }, { code: "fr" }, { code: "es" }]}
       defaultValue="en"
+      onValueChange={(code) => console.log("changed to", code)}
     />
   );
 }
 ```
 
+Every component is TypeScript-first, exports its own props interface, and works with
+your existing `next-intl`, `react-i18next`, or custom i18n setup.
+
 ## Next Steps
 
 <Cards>
-  <Card title="Quick Start" href="/docs/getting-started/installation">
-    Build your first localized UI with Babelize Elements.
-  </Card>
   <Card title="Components" href="/docs/components">
     Browse all available components and their documentation.
   </Card>
   <Card title="ShadCN CLI" href="/docs/getting-started/shadcn-cli">
     Install components individually with the shadcn CLI.
+  </Card>
+  <Card title="Contribute" href="/docs/getting-started/contributing">
+    Missing a component? Build the first version yourself.
   </Card>
 </Cards>

@@ -38,12 +38,15 @@ Before opening a pull request, make sure your component:
 - [ ] Is localization-aware — handles locale codes, pluralization, or RTL as applicable
 - [ ] Is accessible — keyboard support, ARIA labels, focus states
 - [ ] Uses Tailwind CSS (dark-mode compatible)
+- [ ] Supports controlled and uncontrolled use (`value` / `defaultValue` / `onValueChange`)
+- [ ] Forwards a ref and spreads unknown props onto its root element
+- [ ] Has tests in `test/` covering render, interaction, and controlled mode
 - [ ] Includes a short demo or usage example for the docs
-- [ ] Runs clean through `bun run lint` and `bun run build`
+- [ ] Runs clean through `bun run lint`, `bun run typecheck`, `bun run test`, and `bun run build`
 
 ## Opening a pull request
 
-Use the [PR template](https://github.com/babelize/babelize-elements/pulls/new) — it walks you through the component checklist and asks for a usage snippet. Branch protection requires **1 approving review** before merge.
+Use the [PR template](https://github.com/babelize/babelize-elements/compare) — it walks you through the component checklist and asks for a usage snippet. Branch protection requires **1 approving review** before merge.
 
 - Keep changes focused on a single component.
 - Reference the issue your PR closes (e.g. `Closes #42`).
@@ -56,7 +59,7 @@ This project follows the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.
 
 ## Security
 
-If you discover a security issue, please report it privately via [email](mailto:security@babelize.co) or [Discord](https://discord.gg/babelize). See [SECURITY.md](SECURITY.md) for details.
+If you discover a security issue, please report it privately via [email](mailto:security@babelize.co) or [Discord](https://discord.gg/4kMng8XVcm). See [SECURITY.md](SECURITY.md) for details.
 
 ## Questions?
 

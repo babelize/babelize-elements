@@ -46,7 +46,7 @@ next-env.d.ts
 
 # fumadocs generated source
 /.source
-src/lib/utils.js
-src/lib/utils.d.ts
-src/lib/utils.js.map
-src/lib/utils.d.ts.map
+
+# local agent / tooling state
+.claude/
+.code-review-graph/

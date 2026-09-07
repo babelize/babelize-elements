@@ -13,53 +13,25 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
 
 ## Installation
 
-<Tabs items={["shadcn", "Elements CLI"]} defaultValue="shadcn" className="bg-transparent border-none">
+<Tabs
+  items={["shadcn", "Elements CLI"]}
+  defaultValue="shadcn"
+  className="bg-transparent border-none"
+>
   <Tab value="shadcn" className="border-none bg-transparent p-0 mt-3">
     <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="installation-tabs">
-      <Tab value="npx">
-        ```bash
-        npx shadcn@latest add @elements/language-switcher
-        ```
-      </Tab>
-      <Tab value="pnpm">
-        ```bash
-        pnpm dlx shadcn@latest add @elements/language-switcher
-        ```
-      </Tab>
-      <Tab value="yarn">
-        ```bash
-        yarn dlx shadcn@latest add @elements/language-switcher
-        ```
-      </Tab>
-      <Tab value="bun">
-        ```bash
-        bunx shadcn@latest add @elements/language-switcher
-        ```
-      </Tab>
+      <Tab value="npx">```bash npx shadcn@latest add @elements/language-switcher ```</Tab>
+      <Tab value="pnpm">```bash pnpm dlx shadcn@latest add @elements/language-switcher ```</Tab>
+      <Tab value="yarn">```bash yarn dlx shadcn@latest add @elements/language-switcher ```</Tab>
+      <Tab value="bun">```bash bunx shadcn@latest add @elements/language-switcher ```</Tab>
     </Tabs>
   </Tab>
   <Tab value="Elements CLI" className="border-none bg-transparent p-0 mt-3">
     <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="elements-cli-tabs">
-      <Tab value="npx">
-        ```bash
-        npx @babelize/elements add language-switcher
-        ```
-      </Tab>
-      <Tab value="pnpm">
-        ```bash
-        pnpm dlx @babelize/elements add language-switcher
-        ```
-      </Tab>
-      <Tab value="yarn">
-        ```bash
-        yarn dlx @babelize/elements add language-switcher
-        ```
-      </Tab>
-      <Tab value="bun">
-        ```bash
-        bunx @babelize/elements add language-switcher
-        ```
-      </Tab>
+      <Tab value="npx">```bash npx @babelize/elements add language-switcher ```</Tab>
+      <Tab value="pnpm">```bash pnpm dlx @babelize/elements add language-switcher ```</Tab>
+      <Tab value="yarn">```bash yarn dlx @babelize/elements add language-switcher ```</Tab>
+      <Tab value="bun">```bash bunx @babelize/elements add language-switcher ```</Tab>
     </Tabs>
   </Tab>
 </Tabs>
@@ -87,23 +59,24 @@ import { LanguageSwitcher } from "@/components/ui/language-switcher";
 
 ## Props
 
-| Prop | Type | Required | Description |
-|------|------|----------|-------------|
-| `locales` | `Locale[]` | Yes | Array of available locales — only `code` is required |
-| `defaultValue` | `string` | No | Initial selected locale code (default: first locale's code) |
-| `onValueChange` | `(code: string) => void` | No | Callback when locale changes |
-| `label` | `"native" \| "english"` | No | Display labels in native or English (default: `"english"`) |
-| `showFlags` | `boolean` | No | Show flag emojis (default: `false`) |
-| `className` | `string` | No | Additional CSS classes |
+| Prop            | Type                     | Required | Description                                                 |
+| --------------- | ------------------------ | -------- | ----------------------------------------------------------- |
+| `locales`       | `Locale[]`               | Yes      | Array of available locales — only `code` is required        |
+| `value`         | `string`                 | No       | Selected locale code — pass this to control the component   |
+| `defaultValue`  | `string`                 | No       | Initial selected locale code (default: first locale's code) |
+| `onValueChange` | `(code: string) => void` | No       | Callback when locale changes                                |
+| `label`         | `"native" \| "english"`  | No       | Display labels in native or English (default: `"english"`)  |
+| `showFlags`     | `boolean`                | No       | Show flag emojis (default: `false`)                         |
+| `className`     | `string`                 | No       | Additional CSS classes                                      |
 
 ### Locale Object
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `code` | `string` | ISO 639-1 / BCP 47 code (e.g. `"en"`, `"fr-FR"`, `"ar-SA"`) — **required** |
-| `label` | `string` | Override display name (auto-resolved from built-in mapping if omitted) |
-| `flag` | `string` | Override flag emoji (auto-detected from code if omitted) |
-| `rtl` | `boolean` | Override RTL (auto-detected from code if omitted) |
+| Property | Type      | Description                                                                |
+| -------- | --------- | -------------------------------------------------------------------------- |
+| `code`   | `string`  | ISO 639-1 / BCP 47 code (e.g. `"en"`, `"fr-FR"`, `"ar-SA"`) — **required** |
+| `label`  | `string`  | Override display name (auto-resolved from built-in mapping if omitted)     |
+| `flag`   | `string`  | Override flag emoji (auto-detected from code if omitted)                   |
+| `rtl`    | `boolean` | Override RTL (auto-detected from code if omitted)                          |
 
 ## Examples
 
@@ -135,7 +108,7 @@ export function LocaleSwitcher() {
   return (
     <LanguageSwitcher
       locales={locales}
-      defaultValue={locale}
+      value={locale}
       onValueChange={(code) => {
         setLocale(code);
         router.push(`/${code}`);
@@ -180,7 +153,7 @@ export function LocaleSwitcher() {
   return (
     <LanguageSwitcher
       locales={[{ code: "en" }, { code: "fr" }]}
-      defaultValue={i18n.language}
+      value={i18n.language}
       onValueChange={(code) => i18n.changeLanguage(code)}
     />
   );
@@ -220,79 +193,79 @@ export default function App() {
 
 Labels and flags are auto-detected from the language code. Pass just the code:
 
-| Code | Language | Flag | RTL |
-|------|----------|------|-----|
-| `en` | English | 🇺🇸 | |
-| `fr` | Français | 🇫🇷 | |
-| `es` | Español | 🇪🇸 | |
-| `de` | Deutsch | 🇩🇪 | |
-| `ja` | 日本語 | 🇯🇵 | |
-| `ko` | 한국어 | 🇰🇷 | |
-| `zh` | 中文 | 🇨🇳 | |
-| `ar` | العربية | 🇸🇦 | ✓ |
-| `pt` | Português | 🇧🇷 | |
-| `it` | Italiano | 🇮🇹 | |
-| `nl` | Nederlands | 🇳🇱 | |
-| `ru` | Русский | 🇷🇺 | |
-| `pl` | Polski | 🇵🇱 | |
-| `tr` | Türkçe | 🇹🇷 | |
-| `vi` | Tiếng Việt | 🇻🇳 | |
-| `th` | ไทย | 🇹🇭 | |
-| `id` | Bahasa Indonesia | 🇮🇩 | |
-| `hi` | हिन्दी | 🇮🇳 | |
-| `bn` | বাংলা | 🇧🇩 | |
-| `uk` | Українська | 🇺🇦 | |
-| `cs` | Čeština | 🇨🇿 | |
-| `sv` | Svenska | 🇸🇪 | |
-| `da` | Dansk | 🇩🇰 | |
-| `fi` | Suomi | 🇫🇮 | |
-| `no` | Norsk | 🇳🇴 | |
-| `el` | Ελληνικά | 🇬🇷 | |
-| `he` | עברית | 🇮🇱 | ✓ |
-| `fa` | فارسی | 🇮🇷 | ✓ |
-| `ro` | Română | 🇷🇴 | |
-| `hu` | Magyar | 🇭🇺 | |
-| `sk` | Slovenčina | 🇸🇰 | |
-| `bg` | Български | 🇧🇬 | |
-| `hr` | Hrvatski | 🇭🇷 | |
-| `sr` | Српски | 🇷🇸 | |
-| `sl` | Slovenščina | 🇸🇮 | |
-| `lt` | Lietuvių | 🇱🇹 | |
-| `lv` | Latviešu | 🇱🇻 | |
-| `et` | Eesti | 🇪🇪 | |
-| `ga` | Gaeilge | 🇮🇪 | |
-| `ca` | Català | 🇦🇩 | |
-| `is` | Íslenska | 🇮🇸 | |
-| `sw` | Kiswahili | 🇹🇿 | |
-| `am` | አማርኛ | 🇪🇹 | |
-| `ne` | नेपाली | 🇳🇵 | |
-| `si` | සිංහල | 🇱🇰 | |
-| `my` | မြန်မာ | 🇲🇲 | |
-| `km` | ខ្មែរ | 🇰🇭 | |
-| `lo` | ລາວ | 🇱🇦 | |
-| `ka` | ქართული | 🇬🇪 | |
-| `hy` | Հայերեն | 🇦🇲 | |
-| `kk` | Қазақ | 🇰🇿 | |
-| `uz` | Oʻzbek | 🇺🇿 | |
-| `mn` | Монгол | 🇲🇳 | |
-| `ur` | اردو | 🇵🇰 | ✓ |
-| `ml` | മലയാളം | 🇮🇳 | |
-| `ta` | தமிழ் | 🇮🇳 | |
-| `te` | తెలుగు | 🇮🇳 | |
-| `kn` | ಕನ್ನಡ | 🇮🇳 | |
-| `mr` | मराठी | 🇮🇳 | |
-| `gu` | ગુજરાતી | 🇮🇳 | |
-| `pa` | ਪੰਜਾਬੀ | 🇮🇳 | |
-| `yo` | Yorùbá | 🇳🇬 | |
-| `ig` | Igbo | 🇳🇬 | |
-| `zu` | isiZulu | 🇿🇦 | |
-| `af` | Afrikaans | 🇿🇦 | |
-| `ha` | Hausa | 🇳🇬 | |
-| `tl` | Filipino | 🇵🇭 | |
-| `mi` | Te Reo Māori | 🇳🇿 | |
-| `sm` | Gagana Samoa | 🇼🇸 | |
-| `to` | Lea Faka-Tonga | 🇹🇴 | |
-| `eo` | Esperanto | 🌐 | |
+| Code | Language         | Flag | RTL |
+| ---- | ---------------- | ---- | --- |
+| `en` | English          | 🇺🇸   |     |
+| `fr` | Français         | 🇫🇷   |     |
+| `es` | Español          | 🇪🇸   |     |
+| `de` | Deutsch          | 🇩🇪   |     |
+| `ja` | 日本語           | 🇯🇵   |     |
+| `ko` | 한국어           | 🇰🇷   |     |
+| `zh` | 中文             | 🇨🇳   |     |
+| `ar` | العربية          | 🇸🇦   | ✓   |
+| `pt` | Português        | 🇧🇷   |     |
+| `it` | Italiano         | 🇮🇹   |     |
+| `nl` | Nederlands       | 🇳🇱   |     |
+| `ru` | Русский          | 🇷🇺   |     |
+| `pl` | Polski           | 🇵🇱   |     |
+| `tr` | Türkçe           | 🇹🇷   |     |
+| `vi` | Tiếng Việt       | 🇻🇳   |     |
+| `th` | ไทย              | 🇹🇭   |     |
+| `id` | Bahasa Indonesia | 🇮🇩   |     |
+| `hi` | हिन्दी           | 🇮🇳   |     |
+| `bn` | বাংলা            | 🇧🇩   |     |
+| `uk` | Українська       | 🇺🇦   |     |
+| `cs` | Čeština          | 🇨🇿   |     |
+| `sv` | Svenska          | 🇸🇪   |     |
+| `da` | Dansk            | 🇩🇰   |     |
+| `fi` | Suomi            | 🇫🇮   |     |
+| `no` | Norsk            | 🇳🇴   |     |
+| `el` | Ελληνικά         | 🇬🇷   |     |
+| `he` | עברית            | 🇮🇱   | ✓   |
+| `fa` | فارسی            | 🇮🇷   | ✓   |
+| `ro` | Română           | 🇷🇴   |     |
+| `hu` | Magyar           | 🇭🇺   |     |
+| `sk` | Slovenčina       | 🇸🇰   |     |
+| `bg` | Български        | 🇧🇬   |     |
+| `hr` | Hrvatski         | 🇭🇷   |     |
+| `sr` | Српски           | 🇷🇸   |     |
+| `sl` | Slovenščina      | 🇸🇮   |     |
+| `lt` | Lietuvių         | 🇱🇹   |     |
+| `lv` | Latviešu         | 🇱🇻   |     |
+| `et` | Eesti            | 🇪🇪   |     |
+| `ga` | Gaeilge          | 🇮🇪   |     |
+| `ca` | Català           | 🇦🇩   |     |
+| `is` | Íslenska         | 🇮🇸   |     |
+| `sw` | Kiswahili        | 🇹🇿   |     |
+| `am` | አማርኛ             | 🇪🇹   |     |
+| `ne` | नेपाली           | 🇳🇵   |     |
+| `si` | සිංහල            | 🇱🇰   |     |
+| `my` | မြန်မာ           | 🇲🇲   |     |
+| `km` | ខ្មែរ            | 🇰🇭   |     |
+| `lo` | ລາວ              | 🇱🇦   |     |
+| `ka` | ქართული          | 🇬🇪   |     |
+| `hy` | Հայերեն          | 🇦🇲   |     |
+| `kk` | Қазақ            | 🇰🇿   |     |
+| `uz` | Oʻzbek           | 🇺🇿   |     |
+| `mn` | Монгол           | 🇲🇳   |     |
+| `ur` | اردو             | 🇵🇰   | ✓   |
+| `ml` | മലയാളം           | 🇮🇳   |     |
+| `ta` | தமிழ்            | 🇮🇳   |     |
+| `te` | తెలుగు           | 🇮🇳   |     |
+| `kn` | ಕನ್ನಡ            | 🇮🇳   |     |
+| `mr` | मराठी            | 🇮🇳   |     |
+| `gu` | ગુજરાતી          | 🇮🇳   |     |
+| `pa` | ਪੰਜਾਬੀ           | 🇮🇳   |     |
+| `yo` | Yorùbá           | 🇳🇬   |     |
+| `ig` | Igbo             | 🇳🇬   |     |
+| `zu` | isiZulu          | 🇿🇦   |     |
+| `af` | Afrikaans        | 🇿🇦   |     |
+| `ha` | Hausa            | 🇳🇬   |     |
+| `tl` | Filipino         | 🇵🇭   |     |
+| `mi` | Te Reo Māori     | 🇳🇿   |     |
+| `sm` | Gagana Samoa     | 🇼🇸   |     |
+| `to` | Lea Faka-Tonga   | 🇹🇴   |     |
+| `eo` | Esperanto        | 🌐   |     |
 
 Need a language not listed? Pass a custom `label` and `flag` to override:
 
@@ -306,9 +279,11 @@ Need a language not listed? Pass a custom `label` and `flag` to override:
 ## Dependencies
 
 This component uses:
+
 - `clsx` and `tailwind-merge` (bundled as dependencies)
 
 Peer dependencies:
+
 - `react` >= 18
 - `react-dom` >= 18
 - `tailwindcss` >= 3

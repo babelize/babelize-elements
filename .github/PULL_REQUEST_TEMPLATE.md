@@ -6,11 +6,11 @@ Closes #
 
 ## Type of change
 
-* [ ] Bug fix
-* [ ] New component
-* [ ] Enhancement
-* [ ] Documentation / website
-* [ ] CI / infrastructure
+- [ ] Bug fix
+- [ ] New component
+- [ ] Enhancement
+- [ ] Documentation / website
+- [ ] CI / infrastructure
 
 ## Screenshots / Recording
 
@@ -20,11 +20,13 @@ Closes #
 
 ## Checklist
 
-* [ ] Dark mode / responsive styles considered
-* [ ] `npm ci` passes
-* [ ] `bun run lint` passes
-* [ ] `bun run build` passes
-* [ ] CI checks pass
+- [ ] Dark mode / responsive styles considered
+- [ ] `bun install` succeeds
+- [ ] `bun run lint` passes
+- [ ] `bun run typecheck` passes
+- [ ] `bun run test` passes
+- [ ] `bun run build` passes
+- [ ] CI checks pass
 
 ## Usage
 

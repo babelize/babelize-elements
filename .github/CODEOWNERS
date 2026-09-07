@@ -1,9 +1,13 @@
 # Default code owners for the repository
 # https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+#
+# Named individually rather than via @babelize/maintainers — that team does not
+# exist, and a CODEOWNERS entry pointing at a non-existent team matches nothing,
+# which silently disables the rule. Switch back to a team handle if one is created.
 
 # All files require review from a maintainer
-* @babelize/maintainers
+* @sapatmohit @ujwalbajaj @Anjali-Nayak-prog
 
 # Documentation changes require review
-*.md @babelize/maintainers
-docs/ @babelize/maintainers
+*.md @sapatmohit @ujwalbajaj @Anjali-Nayak-prog
+content/docs/ @sapatmohit @ujwalbajaj @Anjali-Nayak-prog

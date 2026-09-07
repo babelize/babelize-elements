@@ -13,19 +13,19 @@ and orientation.
 
 Examples of behavior that contributes to a positive environment:
 
-* Using welcoming and inclusive language
-* Being respectful of differing viewpoints and experiences
-* Gracefully accepting constructive criticism
-* Focusing on what is best for the community
-* Showing empathy towards other community members
+- Using welcoming and inclusive language
+- Being respectful of differing viewpoints and experiences
+- Gracefully accepting constructive criticism
+- Focusing on what is best for the community
+- Showing empathy towards other community members
 
 Examples of unacceptable behavior:
 
-* The use of sexualized language or imagery, and sexual attention or advances of any kind
-* Trolling, insulting or derogatory comments, and personal or political attacks
-* Public or private harassment
-* Publishing others' private information, such as a physical or electronic address, without explicit permission
-* Conduct which could reasonably be considered inappropriate for the forum in which it occurs
+- The use of sexualized language or imagery, and sexual attention or advances of any kind
+- Trolling, insulting or derogatory comments, and personal or political attacks
+- Public or private harassment
+- Publishing others' private information, such as a physical or electronic address, without explicit permission
+- Conduct which could reasonably be considered inappropriate for the forum in which it occurs
 
 ## Enforcement Responsibilities
 
@@ -47,7 +47,7 @@ representative at an online or offline event.
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
 reported to the community leaders responsible for enforcement via:
 
-- **Discord:** [babelize.gg](https://discord.gg/babelize)
+- **Discord:** [Babelize Discord](https://discord.gg/4kMng8XVcm)
 - **Email:** conduct@babelize.co
 
 All complaints will be reviewed and investigated promptly and fairly.

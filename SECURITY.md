@@ -7,7 +7,7 @@ responsibly. **Do not open a public issue.**
 
 Instead, please report it via:
 
-- **Discord:** [babelize.gg](https://discord.gg/babelize) — DM a maintainer
+- **Discord:** [Babelize Discord](https://discord.gg/4kMng8XVcm) — DM a maintainer
 - **Email:** security@babelize.co
 
 You should receive a response within 48 hours. We will work with you to
@@ -25,10 +25,10 @@ limited to:
 
 ## Supported Versions
 
-| Version | Supported          |
-| ------- | ------------------ |
-| latest  | :white_check_mark: |
-| < latest | :x:               |
+| Version  | Supported          |
+| -------- | ------------------ |
+| latest   | :white_check_mark: |
+| < latest | :x:                |
 
 We only provide security fixes for the latest version. Please upgrade before
 reporting.

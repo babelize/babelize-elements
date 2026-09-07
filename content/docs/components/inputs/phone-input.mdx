@@ -13,53 +13,25 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
 
 ## Installation
 
-<Tabs items={["shadcn", "Elements CLI"]} defaultValue="shadcn" className="bg-transparent border-none">
+<Tabs
+  items={["shadcn", "Elements CLI"]}
+  defaultValue="shadcn"
+  className="bg-transparent border-none"
+>
   <Tab value="shadcn" className="border-none bg-transparent p-0 mt-3">
     <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="installation-tabs">
-      <Tab value="npx">
-        ```bash
-        npx shadcn@latest add @elements/phone-input
-        ```
-      </Tab>
-      <Tab value="pnpm">
-        ```bash
-        pnpm dlx shadcn@latest add @elements/phone-input
-        ```
-      </Tab>
-      <Tab value="yarn">
-        ```bash
-        yarn dlx shadcn@latest add @elements/phone-input
-        ```
-      </Tab>
-      <Tab value="bun">
-        ```bash
-        bunx shadcn@latest add @elements/phone-input
-        ```
-      </Tab>
+      <Tab value="npx">```bash npx shadcn@latest add @elements/phone-input ```</Tab>
+      <Tab value="pnpm">```bash pnpm dlx shadcn@latest add @elements/phone-input ```</Tab>
+      <Tab value="yarn">```bash yarn dlx shadcn@latest add @elements/phone-input ```</Tab>
+      <Tab value="bun">```bash bunx shadcn@latest add @elements/phone-input ```</Tab>
     </Tabs>
   </Tab>
   <Tab value="Elements CLI" className="border-none bg-transparent p-0 mt-3">
     <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="elements-cli-tabs">
-      <Tab value="npx">
-        ```bash
-        npx @babelize/elements add phone-input
-        ```
-      </Tab>
-      <Tab value="pnpm">
-        ```bash
-        pnpm dlx @babelize/elements add phone-input
-        ```
-      </Tab>
-      <Tab value="yarn">
-        ```bash
-        yarn dlx @babelize/elements add phone-input
-        ```
-      </Tab>
-      <Tab value="bun">
-        ```bash
-        bunx @babelize/elements add phone-input
-        ```
-      </Tab>
+      <Tab value="npx">```bash npx @babelize/elements add phone-input ```</Tab>
+      <Tab value="pnpm">```bash pnpm dlx @babelize/elements add phone-input ```</Tab>
+      <Tab value="yarn">```bash yarn dlx @babelize/elements add phone-input ```</Tab>
+      <Tab value="bun">```bash bunx @babelize/elements add phone-input ```</Tab>
     </Tabs>
   </Tab>
 </Tabs>
@@ -74,7 +46,7 @@ import { PhoneInput } from "@/components/ui/phone-input";
 <PhoneInput
   defaultCountry="US"
   placeholder="Enter phone number"
-  onChange={(value, country) => {
+  onValueChange={(value, country) => {
     console.log(value, country.dialCode);
   }}
 />
@@ -82,25 +54,30 @@ import { PhoneInput } from "@/components/ui/phone-input";
 
 ## Props
 
-| Prop | Type | Required | Description |
-|------|------|----------|-------------|
-| `value` | `string` | No | Phone number value |
-| `onChange` | `(phone: string, country: Country) => void` | No | Callback when phone number or country changes |
-| `defaultCountry` | `string` | No | Default country code (ISO 3166-1 alpha-2, e.g. `"US"`, `"GB"`, `"IN"`) |
-| `placeholder` | `string` | No | Placeholder text |
-| `disabled` | `boolean` | No | Disable the input |
-| `showFlag` | `boolean` | No | Show country flag next to dial code (default: `true`) |
-| `label` | `string` | No | Accessible label for the input |
-| `className` | `string` | No | Additional CSS classes |
+| Prop             | Type                                        | Required | Description                                                            |
+| ---------------- | ------------------------------------------- | -------- | ---------------------------------------------------------------------- |
+| `value`          | `string`                                    | No       | Phone number — pass this to control the component                      |
+| `defaultValue`   | `string`                                    | No       | Initial phone number when uncontrolled                                 |
+| `onValueChange`  | `(phone: string, country: Country) => void` | No       | Callback when phone number or country changes                          |
+| `defaultCountry` | `string`                                    | No       | Default country code (ISO 3166-1 alpha-2, e.g. `"US"`, `"GB"`, `"IN"`) |
+| `placeholder`    | `string`                                    | No       | Placeholder text                                                       |
+| `disabled`       | `boolean`                                   | No       | Disable the input                                                      |
+| `showFlags`      | `boolean`                                   | No       | Show country flag next to dial code (default: `true`)                  |
+| `label`          | `string`                                    | No       | Accessible label for the input                                         |
+| `className`      | `string`                                    | No       | Additional CSS classes                                                 |
+
+Any other prop — `name`, `required`, `autoComplete`, `data-*` — is spread onto the
+underlying `<input>`, and the ref is forwarded to it, so the component works inside
+a plain HTML form.
 
 ### Country Object
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `code` | `string` | ISO 3166-1 alpha-2 code (e.g. `"US"`, `"GB"`, `"IN"`) |
-| `dialCode` | `string` | Dial code (e.g. `"+1"`, `"+44"`, `"+91"`) |
-| `name` | `string` | Country name |
-| `flag` | `string` | Flag emoji |
+| Property   | Type     | Description                                           |
+| ---------- | -------- | ----------------------------------------------------- |
+| `code`     | `string` | ISO 3166-1 alpha-2 code (e.g. `"US"`, `"GB"`, `"IN"`) |
+| `dialCode` | `string` | Dial code (e.g. `"+1"`, `"+44"`, `"+91"`)             |
+| `name`     | `string` | Country name                                          |
+| `flag`     | `string` | Flag emoji                                            |
 
 ## Examples
 
@@ -122,7 +99,7 @@ export function ContactPhone() {
   return (
     <PhoneInput
       value={phone}
-      onChange={(value, country) => {
+      onValueChange={(value, country) => {
         setPhone(value);
         // Validate against locale-specific rules
       }}
@@ -157,7 +134,7 @@ export default function CheckoutForm() {
     <div>
       <PhoneInput
         value={phone}
-        onChange={(value) => {
+        onValueChange={(value) => {
           setPhone(value);
           validate(value);
         }}
@@ -188,7 +165,7 @@ export default function App() {
   return (
     <PhoneInput
       defaultCountry="US"
-      onChange={(phone, country) => console.log(phone, country)}
+      onValueChange={(phone, country) => console.log(phone, country)}
     />
   );
 }
@@ -198,7 +175,7 @@ export default function App() {
 
 - **50 countries** — pre-loaded with dial codes, flags, and names
 - **Dropdown search** — filter countries by name or dial code
-- **Flag emojis** — auto-detected from country code, with `showFlag` toggle
+- **Flag emojis** — auto-detected from country code, with `showFlags` toggle
 - **Keyboard accessible** — arrow keys, Enter, Escape, Tab navigation
 - **ARIA labels** — proper `aria-expanded`, `aria-haspopup`, `aria-label`
 - **Dark mode** — built with Tailwind CSS, dark-mode compatible
@@ -208,26 +185,28 @@ export default function App() {
 
 The input ships with 50 countries pre-loaded. Use the dropdown search to find any country by name or dial code. The full list includes:
 
-| Country | Code | Dial Code | Flag |
-|---------|------|-----------|------|
-| United States | `US` | `+1` | 🇺🇸 |
-| United Kingdom | `GB` | `+44` | 🇬🇧 |
-| Canada | `CA` | `+1` | 🇨🇦 |
-| Australia | `AU` | `+61` | 🇦🇺 |
-| India | `IN` | `+91` | 🇮🇳 |
-| Germany | `DE` | `+49` | 🇩🇪 |
-| France | `FR` | `+33` | 🇫🇷 |
-| Japan | `JP` | `+81` | 🇯🇵 |
-| Brazil | `BR` | `+55` | 🇧🇷 |
-| South Korea | `KR` | `+82` | 🇰🇷 |
+| Country                                | Code | Dial Code | Flag |
+| -------------------------------------- | ---- | --------- | ---- |
+| United States                          | `US` | `+1`      | 🇺🇸   |
+| United Kingdom                         | `GB` | `+44`     | 🇬🇧   |
+| Canada                                 | `CA` | `+1`      | 🇨🇦   |
+| Australia                              | `AU` | `+61`     | 🇦🇺   |
+| India                                  | `IN` | `+91`     | 🇮🇳   |
+| Germany                                | `DE` | `+49`     | 🇩🇪   |
+| France                                 | `FR` | `+33`     | 🇫🇷   |
+| Japan                                  | `JP` | `+81`     | 🇯🇵   |
+| Brazil                                 | `BR` | `+55`     | 🇧🇷   |
+| South Korea                            | `KR` | `+82`     | 🇰🇷   |
 | ...and 40 more via the dropdown search |
 
 ## Dependencies
 
 This component uses:
+
 - `clsx` and `tailwind-merge` (bundled as dependencies)
 
 Peer dependencies:
+
 - `react` >= 18
 - `react-dom` >= 18
 - `tailwindcss` >= 3

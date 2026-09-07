@@ -10,10 +10,26 @@ Babelize Elements is built with full TypeScript support. Every component exports
 
 Install the library or a component, then import the types you need:
 
+From the npm package:
+
 ```ts
-import { LanguageSwitcher, type Locale } from "@/components/ui/language-switcher";
+import {
+  LanguageSwitcher,
+  PhoneInput,
+  NavBar,
+  type Locale,
+  type Country,
+  type NavLink,
+} from "@babelize/elements";
+```
+
+Or, if you copied the components in with the CLI:
+
+```ts
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
 import { PhoneInput, type Country } from "@/components/ui/phone-input";
-import { NavBar, type NavLink, type NavBarLocale } from "@/components/ui/navbar";
+import { NavBar, type NavLink } from "@/components/ui/navbar";
+import type { Locale } from "@/components/ui/types";
 ```
 
 ## Language Switcher
@@ -86,7 +102,7 @@ export interface PhoneInputProps {
   /** Additional CSS classes */
   className?: string;
   /** Show country flag next to dial code (default: true) */
-  showFlag?: boolean;
+  showFlags?: boolean;
   /** Accessible label for the input */
   label?: string;
 }
@@ -105,20 +121,8 @@ export interface NavLink {
 }
 ```
 
-### NavBarLocale
-
-The navbar exports its own `Locale` interface as `NavBarLocale`:
-
-```ts
-export interface Locale {
-  /** ISO 639-1 / BCP 47 code — required */
-  code: string;
-  /** Override display name (auto-resolved if omitted) */
-  label?: string;
-  /** Override flag emoji (auto-detected if omitted) */
-  flag?: string;
-}
-```
+> `NavBar` uses the same shared `Locale` interface as `LanguageSwitcher`. The old
+> `NavBarLocale` alias was removed in `1.1.0` — import `Locale` instead.
 
 ### NavBarProps
 
@@ -131,9 +135,9 @@ export interface NavBarProps {
   /** Available locales for language selector */
   locales?: Locale[];
   /** Currently selected locale code */
-  currentLocale?: string;
+  value?: string;
   /** Callback when locale changes */
-  onLocaleChange?: (code: string) => void;
+  onValueChange?: (code: string) => void;
   /** CTA button */
   cta?: { label: string; href: string };
   /** Show GitHub icon button */

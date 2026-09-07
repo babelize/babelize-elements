@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./public/elements_logo.svg" width="341" height="64" alt="Babelize Elements logo" />
+  <img src="https://raw.githubusercontent.com/babelize/babelize-elements/main/public/elements_logo.svg" width="341" height="64" alt="Babelize Elements logo" />
 </p>
 
 <h1 align="center">Babelize Elements</h1>
@@ -19,10 +19,11 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/babelize/babelize-elements/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT" /></a>
-  <a href="https://github.com/babelize/babelize-elements/blob/main/CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-Keep%20a%20Changelog-blueviolet.svg" alt="Changelog" /></a>
+  <a href="https://www.npmjs.com/package/@babelize/elements"><img src="https://img.shields.io/npm/v/@babelize/elements.svg" alt="npm version" /></a>
+  <a href="https://www.npmjs.com/package/@babelize/elements"><img src="https://img.shields.io/npm/dm/@babelize/elements.svg" alt="npm downloads" /></a>
+  <a href="https://github.com/babelize/babelize-elements/actions/workflows/ci.yml"><img src="https://github.com/babelize/babelize-elements/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <a href="https://github.com/babelize/babelize-elements/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/@babelize/elements.svg" alt="License: MIT" /></a>
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome" />
-  <a href="https://github.com/babelize/babelize-elements/discussions"><img src="https://img.shields.io/badge/discussions-Join%20us-blue.svg" alt="Discussions" /></a>
 </p>
 
 ## What is Babelize Elements?
@@ -30,6 +31,7 @@
 **Babelize Elements** is a community-built library of **Localization UI components** for React and Tailwind CSS. Every localized app needs a language switcher, a locale picker, RTL-aware layouts, and pluralization UI — Elements turns that repetitive work into a shared, open-source toolbox.
 
 - **Easy to install** — `npm install @babelize/elements` for the full library, or add components one at a time with `npx shadcn@latest add @elements/<component>`.
+- **No framework lock-in** — plain React and Tailwind. No Next.js, no router, no theme provider required.
 - **Localization-first** — pluralization, RTL, and locale data built into every component.
 - **Accessible** — keyboard support, ARIA labels, and WCAG-aware markup.
 - **Open source** — MIT-licensed, free forever, built by contributors like you.
@@ -57,19 +59,95 @@ Or with the CLI bundled in `@babelize/elements`:
 npx @babelize/elements add language-switcher
 ```
 
+## Usage
+
+Every component works uncontrolled (pass `defaultValue`) or controlled (pass `value`
+and `onValueChange`).
+
+```tsx
+import { LanguageSwitcher, PhoneInput, NavBar } from "@babelize/elements";
+```
+
+### LanguageSwitcher
+
+```tsx
+<LanguageSwitcher
+  locales={[{ code: "en" }, { code: "fr" }, { code: "ar" }]}
+  defaultValue="en"
+  showFlags
+  onValueChange={(code) => router.push(`/${code}`)}
+/>
+```
+
+| Prop            | Type                     | Default      | Description                                                                           |
+| --------------- | ------------------------ | ------------ | ------------------------------------------------------------------------------------- |
+| `locales`       | `Locale[]`               | —            | Available locales. Only `code` is required; labels, flags, and RTL are auto-detected. |
+| `value`         | `string`                 | —            | Selected locale code. Pass this to control the component.                             |
+| `defaultValue`  | `string`                 | first locale | Initial locale code when uncontrolled.                                                |
+| `onValueChange` | `(code: string) => void` | —            | Fired once per selection.                                                             |
+| `showFlags`     | `boolean`                | `false`      | Show flag emojis beside locale names.                                                 |
+| `label`         | `"native" \| "english"`  | `"english"`  | Render locale names natively or in English.                                           |
+
+### PhoneInput
+
+```tsx
+<PhoneInput
+  defaultCountry="IN"
+  name="phone"
+  onValueChange={(phone, country) => console.log(country.dialCode + phone)}
+/>
+```
+
+| Prop             | Type                                        | Default | Description                                       |
+| ---------------- | ------------------------------------------- | ------- | ------------------------------------------------- |
+| `value`          | `string`                                    | —       | Phone number. Pass this to control the component. |
+| `defaultValue`   | `string`                                    | `""`    | Initial number when uncontrolled.                 |
+| `onValueChange`  | `(phone: string, country: Country) => void` | —       | Fired on typing and on country change.            |
+| `defaultCountry` | `string`                                    | `"US"`  | ISO 3166-1 alpha-2 code of the initial country.   |
+| `showFlags`      | `boolean`                                   | `true`  | Show the flag emoji beside the dial code.         |
+
+The ref points at the underlying `<input>`, and `name`, `required`, and other input
+attributes pass straight through — so it works in a plain HTML form.
+
+### NavBar
+
+`NavBar` renders plain `<a>` elements by default. Pass `linkComponent` to get
+client-side navigation from your router:
+
+```tsx
+import Link from "next/link";
+
+<NavBar
+  logo={<Logo />}
+  links={[{ label: "Docs", href: "/docs" }]}
+  locales={[{ code: "en" }, { code: "fr" }]}
+  value={locale}
+  onValueChange={setLocale}
+  linkComponent={Link}
+  cta={{ label: "Get started", href: "/docs" }}
+/>;
+```
+
+Full props for every component are documented at
+[elements.babelize.co](https://elements.babelize.co).
+
 ## Documentation
 
-Visit [elements.babelize.co](https://elements.babelize.co) for full documentation, guides, and component demos.
+Full documentation, guides, and live component demos live at
+[elements.babelize.co](https://elements.babelize.co), built with Next.js and
+[Fumadocs](https://fumadocs.dev) from this same repo.
 
-## Docs & Website
-
-The landing page and component documentation live at [elements.babelize.co](https://elements.babelize.co), built with Next.js and [Fumadocs](https://fumadocs.dev).
-
-### Local Development
+## Local development
 
 ```bash
 bun install
-bun run dev
+bun run dev          # docs site at http://localhost:3000
+
+bun run test         # component tests
+bun run typecheck
+bun run lint
+bun run build:lib    # build the publishable library into dist/
+bun run test:pack    # install the packed tarball into a scratch project
 ```
 
 ## Contributing a component
