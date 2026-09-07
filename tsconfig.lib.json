@@ -2,7 +2,6 @@
   "compilerOptions": {
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
     "noEmit": false,
@@ -19,12 +18,17 @@
     "isolatedModules": true,
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitOverride": true,
+    "verbatimModuleSyntax": true
   },
   "include": [
     "src/registry/components/**/*.ts",
     "src/registry/components/**/*.tsx",
     "src/lib/utils.ts",
+    "src/lib/use-controllable-state.ts",
     "src/cli/**/*.ts"
   ],
   "exclude": ["node_modules", "dist", "src/app", "src/components", ".next", ".source"]
