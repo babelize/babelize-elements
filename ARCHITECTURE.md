@@ -188,5 +188,5 @@ second.
 
 Merging to `main` publishes nothing. A release happens when a GitHub Release is
 published: the tag is the version, `.github/workflows/release.yml` re-runs the full
-check set against that commit, then publishes to npm with provenance. See
-`CONTRIBUTING.md`.
+check set against that commit, then publishes to npm with provenance. Step-by-step
+in [CONTRIBUTING.md](CONTRIBUTING.md#releasing-maintainers).

@@ -57,6 +57,48 @@ Use the [PR template](https://github.com/babelize/babelize-elements/compare) —
 - In the PR description, include a brief usage snippet and any notes on design decisions.
 - Label your PR with `component` and the relevant category.
 
+## Releasing (maintainers)
+
+**Merging to `main` publishes nothing.** A release is a deliberate act, and it takes
+one step.
+
+1. Go to **Releases → Draft a new release**.
+2. Tag: `vX.Y.Z` — the `v` prefix is expected, and the tag _is_ the version that gets
+   published. A tag that isn't semver fails the job rather than publishing.
+3. Click **Auto-generate release notes** to list the merged PRs, then edit. If the
+   release changes or removes a prop, say so at the top — that's what people read.
+4. **Publish release.**
+
+Publishing the release triggers `.github/workflows/release.yml`, which re-runs the
+full check set against that commit and then publishes to npm with provenance. Watch
+it in the Actions tab; if it fails, nothing is published and you can fix and re-run
+without cutting a new tag:
+
+```bash
+gh workflow run release.yml -f tag=vX.Y.Z
+```
+
+Note npm takes about five minutes to show a new version after the job succeeds —
+`npm view @babelize/elements version` lagging is normal, not a failure.
+
+### Picking the number
+
+Breaking a prop, removing an export, or changing runtime behaviour someone could be
+relying on is a **major**. New component or new prop is a **minor**. Fixes are
+**patches**. Keep deprecated prop aliases for at least one minor release before
+removing them.
+
+### Don't
+
+- Hand-edit `version` in `package.json` outside a release, or `CHANGELOG.md` above the
+  `1.0.16` line — everything from `1.1.0` on lives in GitHub Releases.
+- Run `npm publish` locally. It skips every check and drops the provenance
+  attestation.
+- Override a failing `test:pack`. That check installs the packed tarball into a clean
+  project and imports it; if it fails, the package is broken for everyone installing
+  it. It exists because a broken build shipped to npm sixteen times without anyone
+  noticing.
+
 ## Code of conduct
 
 This project follows the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). By participating, you agree to uphold it.
