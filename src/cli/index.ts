@@ -1,6 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { basename, dirname, join } from "node:path";
 import { spawnSync } from "node:child_process";
+import { parseJsonc, resolveAliasToDir, type TsPathsConfig } from "./paths";
 
 const REGISTRY_URL = process.env.BABELIZE_REGISTRY ?? "https://elements.babelize.co/r";
 const BASE_URL = REGISTRY_URL.replace(/\/r\/?$/, "");
@@ -54,13 +55,34 @@ function readComponentsJson(): { aliases?: Record<string, string> } {
   }
 }
 
+function readTsPaths(): TsPathsConfig | null {
+  for (const file of ["tsconfig.json", "jsconfig.json"]) {
+    let raw: string;
+    try {
+      raw = readFileSync(join(projectRoot, file), "utf8");
+    } catch {
+      continue;
+    }
+    const config = parseJsonc<{
+      compilerOptions?: { baseUrl?: string; paths?: Record<string, string[]> };
+    }>(raw);
+    const options = config?.compilerOptions;
+    if (options?.paths) {
+      return { baseUrl: options.baseUrl ?? ".", paths: options.paths };
+    }
+  }
+  return null;
+}
+
 function resolveAliases(): Record<string, string> {
   const user = readComponentsJson().aliases ?? {};
   return { ...DEFAULT_ALIASES, ...user };
 }
 
+const tsPaths = readTsPaths();
+
 function aliasToDir(alias: string): string {
-  return alias.replace(/^@\//, "");
+  return resolveAliasToDir(alias, tsPaths);
 }
 
 async function fetchItem(nameOrUrl: string): Promise<RegistryItem> {
