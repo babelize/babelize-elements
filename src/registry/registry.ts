@@ -29,7 +29,7 @@ const ITEMS: ItemDef[] = [
     source: "registry/components/language-switcher",
     filePath: "components/ui/language-switcher.tsx",
     dependencies: ["clsx", "tailwind-merge"],
-    registryDependencies: ["utils"],
+    registryDependencies: ["utils", "locale-types", "use-controllable-state"],
   },
   {
     name: "phone-input",
@@ -40,7 +40,7 @@ const ITEMS: ItemDef[] = [
     source: "registry/components/phone-input",
     filePath: "components/ui/phone-input.tsx",
     dependencies: ["clsx", "tailwind-merge"],
-    registryDependencies: ["utils"],
+    registryDependencies: ["utils", "use-controllable-state"],
   },
   {
     name: "navbar",
@@ -51,7 +51,24 @@ const ITEMS: ItemDef[] = [
     source: "registry/components/navbar",
     filePath: "components/ui/navbar.tsx",
     dependencies: ["clsx", "tailwind-merge"],
-    registryDependencies: ["utils"],
+    registryDependencies: ["utils", "locale-types", "use-controllable-state"],
+  },
+  {
+    name: "locale-types",
+    title: "Locale Types",
+    description: "The shared `Locale` interface used by every locale-aware component.",
+    type: "registry:component",
+    source: "registry/components/types",
+    filePath: "components/ui/types.ts",
+  },
+  {
+    name: "use-controllable-state",
+    title: "useControllableState",
+    description:
+      "Hook backing the `value` / `defaultValue` / `onValueChange` trio on every component.",
+    type: "registry:lib",
+    source: "lib/use-controllable-state",
+    filePath: "lib/use-controllable-state.ts",
   },
   {
     name: "utils",

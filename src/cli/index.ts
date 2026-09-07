@@ -90,15 +90,17 @@ function installDependencies(pm: string, deps: string[]): void {
 
 function resolveDestination(file: RegistryFile, aliases: Record<string, string>): string {
   const dir =
-    file.type === "registry:lib"
-      ? aliasToDir(aliases.lib)
-      : aliasToDir(aliases.components);
+    file.type === "registry:lib" ? aliasToDir(aliases.lib) : aliasToDir(aliases.components);
   const pathInDir = file.path.replace(/^(components|lib|ui|hooks)\//, "");
   return join(projectRoot, dir, pathInDir);
 }
 
 function rewriteImports(content: string, aliases: Record<string, string>): string {
-  return content.replaceAll("@/lib/utils", aliases.utils);
+  // Longest specifier first: "@/lib/utils" is a prefix of nothing here, but the
+  // hook path must not be partially rewritten by a shorter rule later.
+  return content
+    .replaceAll("@/lib/use-controllable-state", `${aliases.lib}/use-controllable-state`)
+    .replaceAll("@/lib/utils", aliases.utils);
 }
 
 function writeItem(
