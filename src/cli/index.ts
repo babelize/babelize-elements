@@ -63,11 +63,13 @@ function aliasToDir(alias: string): string {
   return alias.replace(/^@\//, "");
 }
 
-async function fetchItem(name: string): Promise<RegistryItem> {
-  const url = `${REGISTRY_URL}/${name}.json`;
+async function fetchItem(nameOrUrl: string): Promise<RegistryItem> {
+  // registryDependencies are absolute URLs, because the shadcn CLI resolves bare
+  // names against its own registry. Accept both forms.
+  const url = /^https?:\/\//.test(nameOrUrl) ? nameOrUrl : `${REGISTRY_URL}/${nameOrUrl}.json`;
   const res = await fetch(url);
   if (!res.ok) {
-    throw new Error(`Failed to fetch "${name}" from ${url} (HTTP ${res.status}).`);
+    throw new Error(`Failed to fetch "${nameOrUrl}" from ${url} (HTTP ${res.status}).`);
   }
   return (await res.json()) as RegistryItem;
 }

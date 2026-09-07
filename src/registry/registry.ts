@@ -81,6 +81,23 @@ const ITEMS: ItemDef[] = [
   },
 ];
 
+/**
+ * Absolute URL for an item in this registry.
+ *
+ * `registryDependencies` entries must be absolute URLs: the shadcn CLI resolves a
+ * bare name against its own registry (ui.shadcn.com), and the `@namespace/name`
+ * form depends on whatever namespace the consumer picked when adding this registry.
+ */
+function itemUrl(name: string): string {
+  // Overridable so a local dev server emits localhost URLs instead of production ones.
+  const base = process.env.BABELIZE_SITE_URL ?? REGISTRY_HOMEPAGE;
+  return `${base.replace(/\/$/, "")}/r/${name}.json`;
+}
+
+function resolveDeps(deps: string[] | undefined): string[] | undefined {
+  return deps?.map((d) => (ITEMS.some((item) => item.name === d) ? itemUrl(d) : d));
+}
+
 function readSource(source: string): string {
   const base = join(process.cwd(), "src", ...source.split("/"));
   for (const ext of [".ts", ".tsx"]) {
@@ -104,7 +121,7 @@ export function getRegistryItem(name: string) {
     title: def.title,
     description: def.description,
     dependencies: def.dependencies,
-    registryDependencies: def.registryDependencies,
+    registryDependencies: resolveDeps(def.registryDependencies),
     files: [
       {
         path: def.filePath,
@@ -126,7 +143,7 @@ export function getRegistryIndex() {
       title: item.title,
       description: item.description,
       dependencies: item.dependencies,
-      registryDependencies: item.registryDependencies,
+      registryDependencies: resolveDeps(item.registryDependencies),
       files: [
         {
           path: item.filePath,
