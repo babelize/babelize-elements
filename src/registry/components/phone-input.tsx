@@ -2,22 +2,42 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { useControllableState } from "@/lib/use-controllable-state";
 
 export interface Country {
+  /** ISO 3166-1 alpha-2 country code (e.g. "US") */
   code: string;
+  /** E.164 dial prefix, including the leading "+" */
   dialCode: string;
+  /** English country name */
   name: string;
+  /** Flag emoji */
   flag: string;
 }
 
-export interface PhoneInputProps {
+export interface PhoneInputProps extends Omit<
+  React.ComponentPropsWithoutRef<"input">,
+  "value" | "defaultValue" | "onChange" | "type"
+> {
+  /** Phone number. Provide this to control the component. */
   value?: string;
+  /** Initial phone number when uncontrolled */
+  defaultValue?: string;
+  /** Callback when the number or the selected country changes */
+  onValueChange?: (phone: string, country: Country) => void;
+  /**
+   * @deprecated Use `onValueChange`. Kept for one release.
+   */
   onChange?: (phone: string, country: Country) => void;
+  /** ISO 3166-1 alpha-2 code of the initially selected country (default: "US") */
   defaultCountry?: string;
-  placeholder?: string;
-  disabled?: boolean;
-  className?: string;
+  /** Show the flag emoji beside the dial code (default: true) */
+  showFlags?: boolean;
+  /**
+   * @deprecated Use `showFlags`. Kept for one release.
+   */
   showFlag?: boolean;
+  /** Accessible label for the field (default: "Phone number") */
   label?: string;
 }
 
@@ -78,30 +98,41 @@ function getCountryByCode(code: string): Country | undefined {
   return COUNTRIES.find((c) => c.code === code.toUpperCase());
 }
 
-export function PhoneInput({
-  value,
-  onChange,
-  defaultCountry = "US",
-  placeholder = "Phone number",
-  disabled = false,
-  className,
-  showFlag = true,
-  label = "Phone number",
-}: PhoneInputProps) {
+export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(function PhoneInput(
+  {
+    value,
+    defaultValue,
+    onValueChange,
+    onChange,
+    defaultCountry = "US",
+    placeholder = "Phone number",
+    disabled = false,
+    className,
+    showFlags,
+    showFlag,
+    label = "Phone number",
+    ...rest
+  },
+  forwardedRef,
+) {
+  const flagsVisible = showFlags ?? showFlag ?? true;
   const [selectedCountry, setSelectedCountry] = React.useState<Country>(
-    () => getCountryByCode(defaultCountry) ?? COUNTRIES[0]
+    () => getCountryByCode(defaultCountry) ?? COUNTRIES[0],
   );
-  const [inputValue, setInputValue] = React.useState(value ?? "");
+  const notify = onValueChange ?? onChange;
+  const [inputValue, setInputValue] = useControllableState(value, defaultValue ?? "", undefined);
   const [open, setOpen] = React.useState(false);
   const [search, setSearch] = React.useState("");
   const ref = React.useRef<HTMLDivElement>(null);
   const inputRef = React.useRef<HTMLInputElement>(null);
 
+  React.useImperativeHandle(forwardedRef, () => inputRef.current as HTMLInputElement);
+
   const filtered = COUNTRIES.filter(
     (c) =>
       c.name.toLowerCase().includes(search.toLowerCase()) ||
       c.dialCode.includes(search) ||
-      c.code.toLowerCase().includes(search.toLowerCase())
+      c.code.toLowerCase().includes(search.toLowerCase()),
   );
 
   React.useEffect(() => {
@@ -136,14 +167,14 @@ export function PhoneInput({
     setSelectedCountry(country);
     setOpen(false);
     setSearch("");
-    onChange?.(inputValue, country);
+    notify?.(inputValue, country);
     inputRef.current?.focus();
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setInputValue(newValue);
-    onChange?.(newValue, selectedCountry);
+    notify?.(newValue, selectedCountry);
   };
 
   return (
@@ -152,7 +183,7 @@ export function PhoneInput({
         className={cn(
           "flex items-center overflow-hidden rounded-lg border transition-colors",
           "bg-white border-zinc-200 dark:bg-zinc-900 dark:border-zinc-800",
-          disabled && "opacity-50 cursor-not-allowed"
+          disabled && "opacity-50 cursor-not-allowed",
         )}
       >
         <button
@@ -162,16 +193,19 @@ export function PhoneInput({
           className={cn(
             "flex items-center gap-1.5 border-r px-3 py-2.5 text-sm transition-colors",
             "border-zinc-200 text-zinc-900 hover:bg-zinc-100 hover:text-zinc-900 dark:border-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-100",
-            disabled && "cursor-not-allowed"
+            disabled && "cursor-not-allowed",
           )}
           aria-label="Select country"
           aria-expanded={open}
           aria-haspopup="listbox"
         >
-          {showFlag && <span className="text-base leading-none">{selectedCountry.flag}</span>}
+          {flagsVisible && <span className="text-base leading-none">{selectedCountry.flag}</span>}
           <span className="font-mono text-xs">{selectedCountry.dialCode}</span>
           <svg
-            className={cn("size-3 text-zinc-500 transition-transform dark:text-zinc-400", open && "rotate-180")}
+            className={cn(
+              "size-3 text-zinc-500 transition-transform dark:text-zinc-400",
+              open && "rotate-180",
+            )}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -188,11 +222,12 @@ export function PhoneInput({
           onChange={handleInputChange}
           placeholder={placeholder}
           disabled={disabled}
+          {...rest}
           className={cn(
             "flex-1 bg-transparent px-3 py-2.5 text-sm outline-none placeholder:text-zinc-400 dark:placeholder:text-zinc-500",
             "text-zinc-900 dark:text-zinc-100",
             "focus:ring-1 focus:ring-emerald-500/50",
-            disabled && "cursor-not-allowed"
+            disabled && "cursor-not-allowed",
           )}
           aria-label={label}
         />
@@ -229,12 +264,14 @@ export function PhoneInput({
                     "flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition-colors",
                     isActive
                       ? "bg-emerald-500/10 text-emerald-600 font-medium dark:text-emerald-400"
-                      : "text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+                      : "text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100",
                   )}
                 >
                   <span className="text-base leading-none">{country.flag}</span>
                   <span className="flex-1">{country.name}</span>
-                  <span className="font-mono text-xs text-zinc-500 dark:text-zinc-400">{country.dialCode}</span>
+                  <span className="font-mono text-xs text-zinc-500 dark:text-zinc-400">
+                    {country.dialCode}
+                  </span>
                   {isActive && (
                     <svg
                       className="size-4 text-emerald-600 dark:text-emerald-400"
@@ -259,6 +296,6 @@ export function PhoneInput({
       )}
     </div>
   );
-}
+});
 
 export { COUNTRIES };

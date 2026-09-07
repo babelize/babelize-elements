@@ -1,32 +1,59 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { useControllableState } from "@/lib/use-controllable-state";
+import type { Locale } from "./types";
+
+export type { Locale };
 
 export interface NavLink {
+  /** Visible link text */
   label: string;
+  /** Destination passed to `linkComponent` as `href` */
   href: string;
 }
 
-export interface Locale {
-  code: string;
-  label?: string;
-  flag?: string;
-}
-
-export interface NavBarProps {
+export interface NavBarProps extends Omit<
+  React.ComponentPropsWithoutRef<"nav">,
+  "defaultValue" | "onChange"
+> {
+  /** Brand mark rendered on the left */
   logo?: React.ReactNode;
+  /** Navigation links */
   links?: NavLink[];
+  /** Locales offered by the built-in language menu */
   locales?: Locale[];
+  /** Selected locale code. Provide this to control the component. */
+  value?: string;
+  /** Initial selected locale code when uncontrolled (default: "en") */
+  defaultValue?: string;
+  /** Callback when the locale changes */
+  onValueChange?: (code: string) => void;
+  /**
+   * @deprecated Use `value`. Kept for one release.
+   */
   currentLocale?: string;
+  /**
+   * @deprecated Use `onValueChange`. Kept for one release.
+   */
   onLocaleChange?: (code: string) => void;
+  /** Primary call-to-action button */
   cta?: { label: string; href: string };
+  /** Show a GitHub icon link */
   showGitHub?: boolean;
+  /** Target of the GitHub icon link */
   githubUrl?: string;
+  /** Pin the bar to the top of the viewport (default: true) */
   sticky?: boolean;
-  className?: string;
+  /** Show flag emojis in the language menu (default: true) */
   showFlags?: boolean;
+  /**
+   * Component used to render internal links. Defaults to `"a"` so the
+   * component works in any React app; pass your router's link (e.g.
+   * `next/link`) to get client-side navigation.
+   */
+  linkComponent?: React.ElementType;
 }
 
 const LOCALE_MAP: Record<string, { label: string; flag: string }> = {
@@ -57,8 +84,14 @@ const LOCALE_MAP: Record<string, { label: string; flag: string }> = {
   ro: { label: "Rom\u00e2n\u0103", flag: "\u{1F1F7}\u{1F1F4}" },
   hu: { label: "Magyar", flag: "\u{1F1ED}\u{1F1FA}" },
   cs: { label: "\u010ce\u0161tina", flag: "\u{1F1E8}\u{1F1FF}" },
-  uk: { label: "\u0423\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430", flag: "\u{1F1FA}\u{1F1E6}" },
-  bg: { label: "\u0411\u044a\u043b\u0433\u0430\u0440\u0441\u043a\u0438", flag: "\u{1F1E7}\u{1F1EC}" },
+  uk: {
+    label: "\u0423\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430",
+    flag: "\u{1F1FA}\u{1F1E6}",
+  },
+  bg: {
+    label: "\u0411\u044a\u043b\u0433\u0430\u0440\u0441\u043a\u0438",
+    flag: "\u{1F1E7}\u{1F1EC}",
+  },
   hr: { label: "Hrvatski", flag: "\u{1F1ED}\u{1F1F7}" },
   sk: { label: "Sloven\u010dina", flag: "\u{1F1F8}\u{1F1F0}" },
   sl: { label: "Sloven\u0161\u010dina", flag: "\u{1F1F8}\u{1F1EE}" },
@@ -74,25 +107,38 @@ function getLocaleInfo(code: string) {
   return LOCALE_MAP[code] ?? { label: code.toUpperCase(), flag: "\u{1F310}" };
 }
 
-export function NavBar({
-  logo,
-  links = [],
-  locales = [],
-  currentLocale = "en",
-  onLocaleChange,
-  cta,
-  showGitHub = false,
-  githubUrl = "https://github.com/babelize/babelize-elements",
-  sticky = true,
-  className,
-  showFlags = true,
-}: NavBarProps) {
+export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar(
+  {
+    logo,
+    links = [],
+    locales = [],
+    value,
+    defaultValue,
+    onValueChange,
+    currentLocale,
+    onLocaleChange,
+    cta,
+    showGitHub = false,
+    githubUrl = "https://github.com/babelize/babelize-elements",
+    sticky = true,
+    className,
+    showFlags = true,
+    linkComponent: Link = "a",
+    ...rest
+  },
+  forwardedRef,
+) {
+  const [locale, setLocale] = useControllableState(
+    value ?? currentLocale,
+    defaultValue ?? "en",
+    onValueChange ?? onLocaleChange,
+  );
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [langOpen, setLangOpen] = React.useState(false);
   const langRef = React.useRef<HTMLDivElement>(null);
   const mobileLangRef = React.useRef<HTMLDivElement>(null);
 
-  const currentLocaleInfo = getLocaleInfo(currentLocale);
+  const currentLocaleInfo = getLocaleInfo(locale);
 
   React.useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -110,7 +156,9 @@ export function NavBar({
     } else {
       document.body.style.overflow = "";
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [mobileOpen]);
 
   const langButton = (
@@ -125,7 +173,10 @@ export function NavBar({
       {showFlags && <span className="text-sm leading-none">{currentLocaleInfo.flag}</span>}
       <span className="hidden sm:inline">{currentLocaleInfo.label}</span>
       <svg
-        className={cn("size-3 text-zinc-500 transition-transform dark:text-zinc-400", langOpen && "rotate-180")}
+        className={cn(
+          "size-3 text-zinc-500 transition-transform dark:text-zinc-400",
+          langOpen && "rotate-180",
+        )}
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -142,28 +193,28 @@ export function NavBar({
       role="listbox"
       aria-label="Select language"
     >
-      {locales.map((locale) => {
-        const info = getLocaleInfo(locale.code);
-        const isActive = locale.code === currentLocale;
+      {locales.map((item) => {
+        const info = getLocaleInfo(item.code);
+        const isActive = item.code === locale;
         return (
           <button
-            key={locale.code}
+            key={item.code}
             type="button"
             role="option"
             aria-selected={isActive}
             onClick={() => {
-              onLocaleChange?.(locale.code);
+              setLocale(item.code);
               setLangOpen(false);
             }}
             className={cn(
               "flex w-full items-center gap-2.5 px-3 py-2 text-sm rounded-lg mx-1.5 w-[calc(100%-12px)] transition-colors",
               isActive
                 ? "bg-emerald-500/10 text-emerald-600 font-medium dark:text-emerald-400"
-                : "text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+                : "text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100",
             )}
           >
             {showFlags && <span className="text-base leading-none">{info.flag}</span>}
-            <span className="flex-1">{locale.label ?? info.label}</span>
+            <span className="flex-1">{item.label ?? info.label}</span>
             {isActive && (
               <svg
                 className="size-4 shrink-0 text-emerald-600 dark:text-emerald-400"
@@ -183,10 +234,12 @@ export function NavBar({
 
   return (
     <nav
+      ref={forwardedRef}
+      {...rest}
       className={cn(
         "z-50 w-full border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900",
         sticky && "sticky top-0",
-        className
+        className,
       )}
     >
       {/* Desktop */}
@@ -251,7 +304,9 @@ export function NavBar({
                 className="inline-flex size-8 items-center justify-center rounded-md transition-colors text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
                 aria-label={`Current language: ${currentLocaleInfo.label}`}
               >
-                {showFlags && <span className="text-base leading-none">{currentLocaleInfo.flag}</span>}
+                {showFlags && (
+                  <span className="text-base leading-none">{currentLocaleInfo.flag}</span>
+                )}
               </button>
               {langOpen && langDropdown}
             </div>
@@ -263,11 +318,23 @@ export function NavBar({
             aria-label="Toggle menu"
           >
             {mobileOpen ? (
-              <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg
+                className="size-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             ) : (
-              <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg
+                className="size-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             )}
@@ -301,4 +368,4 @@ export function NavBar({
       )}
     </nav>
   );
-}
+});
