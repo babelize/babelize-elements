@@ -33,7 +33,7 @@
     "build:lib": "rm -rf dist && tsup",
     "start": "next start",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit && tsc --project tsconfig.lib.json --noEmit",
+    "typecheck": "fumadocs-mdx && tsc --noEmit && tsc --project tsconfig.lib.json --noEmit",
     "prepublishOnly": "bun run build:lib",
     "test": "vitest run",
     "test:watch": "vitest",
