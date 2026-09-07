@@ -1,7 +1,5 @@
 {
   "title": "Customization",
-  "pages": [
-    "interfaces"
-  ],
+  "pages": ["interfaces"],
   "collapsible": false
 }

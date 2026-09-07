@@ -62,7 +62,9 @@ export function Hero() {
                 className="mx-auto max-w-4xl text-[2.75rem] leading-[1.1] font-bold tracking-tight text-white sm:text-6xl md:text-7xl lg:text-[5rem]"
               >
                 Localization UI Components{" "}
-                <span className="bg-gradient-to-r from-emerald-400 to-emerald-500 bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(52,211,153,0.2)]">for React.</span>
+                <span className="bg-gradient-to-r from-emerald-400 to-emerald-500 bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(52,211,153,0.2)]">
+                  for React.
+                </span>
               </motion.h1>
 
               <motion.p
@@ -71,9 +73,9 @@ export function Hero() {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="mx-auto mt-6 max-w-3xl text-[1.1rem] leading-relaxed text-neutral-400"
               >
-                Open-source React components for internationalization (i18n).
-                Build language switchers, locale pickers, and RTL layouts in minutes —
-                MIT licensed, community-driven.
+                Open-source React components for internationalization (i18n). Build language
+                switchers, locale pickers, and RTL layouts in minutes — MIT licensed,
+                community-driven.
               </motion.p>
 
               <motion.div
@@ -162,7 +164,6 @@ export function Hero() {
             </motion.div>
           </div>
         </div>
-
       </div>
     </main>
   );

@@ -18,13 +18,17 @@ function CodeHighlight({ code, lang, theme }: CodeBlockProps) {
 
   return (
     <div className="custom-code-block [&_pre]:!bg-transparent [&_pre]:!p-0 [&_pre]:!overflow-x-auto [&_pre]:!overflow-y-hidden [&_pre]:!max-h-none [&_pre]:![scrollbar-width:none] [&_pre]:[-ms-overflow-style:none] [&_pre]:[&::-webkit-scrollbar]:hidden [&_code]:!text-[13px] [&_code]:!leading-relaxed">
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
         .custom-code-block * {
           background-color: transparent !important;
           border: none !important;
           box-shadow: none !important;
         }
-      `}} />
+      `,
+        }}
+      />
       {result}
     </div>
   );

@@ -1,8 +1,6 @@
 {
   "title": "Navigation",
   "icon": "Menu",
-  "pages": [
-    "navbar"
-  ],
+  "pages": ["navbar"],
   "collapsible": false
 }

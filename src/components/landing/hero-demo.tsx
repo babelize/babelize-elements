@@ -12,13 +12,47 @@ const languages = [
   { code: "ar", label: "العربية", flag: "🇸🇦", rtl: true },
 ];
 
-const mockContent: Record<string, { greeting: string; name: string; button: string; desc: string; rtl?: boolean }> = {
-  en: { greeting: "Welcome back", name: "Sarah", button: "Dashboard", desc: "You have 3 new notifications" },
-  fr: { greeting: "Bienvenue", name: "Sarah", button: "Tableau de bord", desc: "Vous avez 3 nouvelles notifications" },
-  es: { greeting: "Bienvenido", name: "Sarah", button: "Panel", desc: "Tienes 3 notificaciones nuevas" },
-  de: { greeting: "Willkommen", name: "Sarah", button: "Dashboard", desc: "Sie haben 3 neue Benachrichtigungen" },
-  ja: { greeting: "おかえりなさい", name: "サラ", button: "ダッシュボード", desc: "新しい通知が3件あります" },
-  ar: { greeting: "مرحبا بعودتك", name: "سارة", button: "لوحة التحكم", desc: "لديك 3 إشعارات جديدة", rtl: true },
+const mockContent: Record<
+  string,
+  { greeting: string; name: string; button: string; desc: string; rtl?: boolean }
+> = {
+  en: {
+    greeting: "Welcome back",
+    name: "Sarah",
+    button: "Dashboard",
+    desc: "You have 3 new notifications",
+  },
+  fr: {
+    greeting: "Bienvenue",
+    name: "Sarah",
+    button: "Tableau de bord",
+    desc: "Vous avez 3 nouvelles notifications",
+  },
+  es: {
+    greeting: "Bienvenido",
+    name: "Sarah",
+    button: "Panel",
+    desc: "Tienes 3 notificaciones nuevas",
+  },
+  de: {
+    greeting: "Willkommen",
+    name: "Sarah",
+    button: "Dashboard",
+    desc: "Sie haben 3 neue Benachrichtigungen",
+  },
+  ja: {
+    greeting: "おかえりなさい",
+    name: "サラ",
+    button: "ダッシュボード",
+    desc: "新しい通知が3件あります",
+  },
+  ar: {
+    greeting: "مرحبا بعودتك",
+    name: "سارة",
+    button: "لوحة التحكم",
+    desc: "لديك 3 إشعارات جديدة",
+    rtl: true,
+  },
 };
 
 function PillSwitcher({ value, onChange }: { value: string; onChange: (v: string) => void }) {
@@ -30,14 +64,10 @@ function PillSwitcher({ value, onChange }: { value: string; onChange: (v: string
           onClick={() => onChange(l.code)}
           className={cn(
             "relative rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-300",
-            value === l.code
-              ? "text-black shadow-lg"
-              : "text-white/60 hover:text-white",
+            value === l.code ? "text-black shadow-lg" : "text-white/60 hover:text-white",
           )}
         >
-          {value === l.code && (
-            <span className="absolute inset-0 rounded-full bg-emerald-500" />
-          )}
+          {value === l.code && <span className="absolute inset-0 rounded-full bg-emerald-500" />}
           <span className="relative z-10 flex items-center gap-1.5">
             <span>{l.flag}</span>
             <span className="hidden sm:inline">{l.label}</span>
@@ -96,7 +126,16 @@ export function HeroLanguageSwitcher() {
                 3
               </span>
               <div className="flex size-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/60">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
                   <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
                 </svg>

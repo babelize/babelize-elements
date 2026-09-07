@@ -1,8 +1,4 @@
 {
-  "pages": [
-    "getting-started",
-    "components",
-    "customization"
-  ],
+  "pages": ["getting-started", "components", "customization"],
   "collapsible": false
 }

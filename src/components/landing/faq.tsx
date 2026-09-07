@@ -45,7 +45,6 @@ export function Faq() {
     <section className="relative overflow-hidden py-24 md:py-32">
       <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-12 lg:gap-16">
-          
           {/* Header */}
           <div className="flex flex-col items-center text-center">
             <Reveal>
@@ -84,7 +83,7 @@ export function Faq() {
                       "group relative overflow-hidden rounded-2xl border transition-colors duration-300",
                       isOpen
                         ? "border-emerald-500/20 bg-emerald-500/[0.02]"
-                        : "border-white/[0.06] bg-white/[0.01] hover:bg-white/[0.03]"
+                        : "border-white/[0.06] bg-white/[0.01] hover:bg-white/[0.03]",
                     )}
                   >
                     <button
@@ -95,7 +94,7 @@ export function Faq() {
                       <span
                         className={cn(
                           "text-base font-medium transition-colors duration-300",
-                          isOpen ? "text-emerald-400" : "text-white group-hover:text-white/80"
+                          isOpen ? "text-emerald-400" : "text-white group-hover:text-white/80",
                         )}
                       >
                         {faq.question}
@@ -105,7 +104,7 @@ export function Faq() {
                           "flex size-8 shrink-0 items-center justify-center rounded-full border transition-all duration-300",
                           isOpen
                             ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-400 rotate-45"
-                            : "border-white/[0.08] bg-white/[0.02] text-white/50 group-hover:bg-white/[0.06] group-hover:text-white"
+                            : "border-white/[0.08] bg-white/[0.02] text-white/50 group-hover:bg-white/[0.06] group-hover:text-white",
                         )}
                       >
                         <Plus size={16} />
@@ -114,7 +113,7 @@ export function Faq() {
                     <div
                       className={cn(
                         "grid transition-all duration-300 ease-out",
-                        isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                        isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
                       )}
                     >
                       <div className="overflow-hidden">

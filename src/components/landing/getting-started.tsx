@@ -61,9 +61,7 @@ function StayConsistentMicro() {
         <span className="-translate-y-1 rounded-md bg-white/[0.03] px-2 py-1 text-[10px] text-white/50 transition-transform duration-300 group-hover:translate-y-0">
           Dropdown
         </span>
-        <span className="rounded-md bg-white/[0.03] px-2 py-1 text-[10px] text-white/50">
-          Pill
-        </span>
+        <span className="rounded-md bg-white/[0.03] px-2 py-1 text-[10px] text-white/50">Pill</span>
         <span className="translate-y-1 rounded-md bg-white/[0.03] px-2 py-1 text-[10px] text-white/50 transition-transform duration-300 group-hover:translate-y-0">
           Segmented
         </span>
@@ -102,8 +100,6 @@ const micros = [BuildFasterMicro, StayConsistentMicro, ShipGloballyMicro];
 export function GettingStarted() {
   return (
     <section className="relative overflow-hidden py-20 md:py-28">
-
-
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Statement */}
         <Reveal>
@@ -122,9 +118,8 @@ export function GettingStarted() {
               </span>
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-base text-white/50">
-              Skip the repetitive work of rebuilding localization UI. Babelize
-              gives you polished, production-ready components that fit directly
-              into the stack you already use.
+              Skip the repetitive work of rebuilding localization UI. Babelize gives you polished,
+              production-ready components that fit directly into the stack you already use.
             </p>
           </div>
         </Reveal>
@@ -140,14 +135,11 @@ export function GettingStarted() {
                     "group flex h-full flex-col py-10 lg:px-10 lg:py-0",
                     i === 0 && "lg:pl-0",
                     i === benefits.length - 1 && "lg:pr-0",
-                    i > 0 &&
-                      "border-t border-white/[0.06] lg:border-l lg:border-t-0",
+                    i > 0 && "border-t border-white/[0.06] lg:border-l lg:border-t-0",
                   )}
                 >
                   <div className="flex items-baseline gap-3">
-                    <span className="font-mono text-sm text-emerald-400">
-                      {benefit.number}
-                    </span>
+                    <span className="font-mono text-sm text-emerald-400">{benefit.number}</span>
                     <h3 className="text-lg font-semibold tracking-tight text-white">
                       {benefit.title}
                     </h3>

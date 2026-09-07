@@ -40,8 +40,16 @@ function MiniApp({ title, children }: { title: string; children: React.ReactNode
 
 const pillMessages: Record<string, { greeting: string; name: string; desc: string }> = {
   en: { greeting: "Welcome back", name: "Sarah", desc: "Here's what changed while you were away." },
-  fr: { greeting: "Bon retour", name: "Sarah", desc: "Voici ce qui a changé pendant votre absence." },
-  es: { greeting: "Bienvenida de nuevo", name: "Sarah", desc: "Esto es lo que cambió mientras no estabas." },
+  fr: {
+    greeting: "Bon retour",
+    name: "Sarah",
+    desc: "Voici ce qui a changé pendant votre absence.",
+  },
+  es: {
+    greeting: "Bienvenida de nuevo",
+    name: "Sarah",
+    desc: "Esto es lo que cambió mientras no estabas.",
+  },
   de: { greeting: "Willkommen zurück", name: "Sarah", desc: "Hier ist, was sich geändert hat." },
 };
 
@@ -142,7 +150,10 @@ function DropdownPreview() {
               <span className="text-base leading-none">{current.flag}</span>
               <span>{current.label}</span>
               <svg
-                className={cn("size-3.5 text-white/40 transition-transform duration-200", open && "rotate-180")}
+                className={cn(
+                  "size-3.5 text-white/40 transition-transform duration-200",
+                  open && "rotate-180",
+                )}
                 viewBox="0 0 12 12"
                 fill="none"
                 stroke="currentColor"
@@ -169,7 +180,9 @@ function DropdownPreview() {
                       }}
                       className={cn(
                         "flex w-full items-center gap-2.5 px-3.5 py-2.5 text-sm transition-colors",
-                        lang === l.code ? "bg-emerald-500/10 text-emerald-400" : "text-white/60 hover:bg-white/5 hover:text-white",
+                        lang === l.code
+                          ? "bg-emerald-500/10 text-emerald-400"
+                          : "text-white/60 hover:bg-white/5 hover:text-white",
                       )}
                     >
                       <span className="text-base leading-none">{l.flag}</span>
@@ -230,7 +243,14 @@ function EditingPreview() {
         </div>
 
         <div className="mx-auto mt-0.5 flex size-6 items-center justify-center rounded-full border border-white/10 bg-[#0d0d0d] text-white/40">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 12 12"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+          >
             <path d="M6 2v8M2 6h8" />
           </svg>
         </div>
@@ -289,7 +309,9 @@ function RtlPreview() {
               onClick={() => setDir(d)}
               className={cn(
                 "rounded-full px-3 py-1 text-[11px] font-medium uppercase tracking-wide transition-colors",
-                dir === d ? "bg-emerald-500/15 text-emerald-400" : "text-white/40 hover:text-white/80",
+                dir === d
+                  ? "bg-emerald-500/15 text-emerald-400"
+                  : "text-white/40 hover:text-white/80",
               )}
             >
               {d}
@@ -306,7 +328,16 @@ function RtlPreview() {
               <p className="mt-1 text-sm text-white/40">{rtlMessages.desc}</p>
             </div>
             <span className="flex size-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/60">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
                 <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
               </svg>
@@ -527,8 +558,7 @@ export function ComponentShowcase() {
               </span>
             </h2>
             <p className="mt-5 max-w-xl text-base text-white/50">
-              Production-ready React components designed to drop directly into
-              modern applications.
+              Production-ready React components designed to drop directly into modern applications.
             </p>
           </div>
         </Reveal>

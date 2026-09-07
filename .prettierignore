@@ -1,0 +1,6 @@
+bun.lock
+dist
+.next
+.source
+.vercel
+CHANGELOG.md

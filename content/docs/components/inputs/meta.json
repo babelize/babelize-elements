@@ -1,8 +1,6 @@
 {
   "title": "Inputs",
   "icon": "TextCursorInput",
-  "pages": [
-    "phone-input"
-  ],
+  "pages": ["phone-input"],
   "collapsible": false
 }

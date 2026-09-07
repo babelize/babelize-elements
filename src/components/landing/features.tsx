@@ -38,7 +38,6 @@ export function Features() {
   return (
     <section className="relative w-full overflow-hidden py-32 font-sans selection:bg-emerald-500/30">
       <div className="container relative z-10 mx-auto max-w-[1400px] px-6 lg:px-12">
-        
         {/* Hero-style Header */}
         <div className="mx-auto mb-24 flex max-w-3xl flex-col items-center text-center">
           <Reveal>
@@ -53,9 +52,7 @@ export function Features() {
 
           <Reveal delay={0.1}>
             <h2 className="mb-6 text-balance text-5xl font-semibold tracking-tight md:text-6xl lg:text-7xl">
-              <span className="text-white">
-                Everything you need{" "}
-              </span>
+              <span className="text-white">Everything you need </span>
               <span className="bg-gradient-to-r from-emerald-300 to-emerald-600 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(52,211,153,0.2)]">
                 to localize.
               </span>
@@ -71,7 +68,6 @@ export function Features() {
 
         {/* Main Split Layout */}
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20 items-center">
-          
           {/* Left: Bento Grid */}
           <Reveal delay={0.3}>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -102,14 +98,15 @@ export function Features() {
           {/* Right: Hyper-modern IDE */}
           <Reveal delay={0.4} className="relative w-full">
             <div className="relative overflow-hidden rounded-3xl border border-white/[0.08] bg-[#0A0A0A] shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_40px_100px_rgba(0,0,0,0.5)]">
-              
               {/* macOS Top Bar */}
               <div className="flex h-12 items-center justify-between border-b border-white/[0.05] bg-white/[0.01] px-5">
                 <div className="flex items-center gap-2">
                   <div className="size-3 rounded-full bg-white/20" />
                   <div className="size-3 rounded-full bg-white/20" />
                   <div className="size-3 rounded-full bg-white/20" />
-                  <span className="ml-4 font-mono text-xs font-medium text-neutral-500">app.tsx</span>
+                  <span className="ml-4 font-mono text-xs font-medium text-neutral-500">
+                    app.tsx
+                  </span>
                 </div>
                 <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-xs font-medium text-neutral-400 transition-colors hover:bg-white/[0.05] hover:text-white">
                   <Copy className="size-3.5" />
@@ -136,54 +133,54 @@ export function Features() {
                     <span className="text-[#d2a8ff]"> App</span>
                     <span className="text-[#c9d1d9]">() {"{"}</span>
                     {"\n"}
-                    <span className="text-[#c9d1d9]">  </span>
+                    <span className="text-[#c9d1d9]"> </span>
                     <span className="text-[#ff7b72]">return</span>
                     <span className="text-[#c9d1d9]"> (</span>
                     {"\n"}
-                    <span className="text-[#c9d1d9]">    &lt;</span>
+                    <span className="text-[#c9d1d9]"> &lt;</span>
                     <span className="text-[#a5d6ff]">LanguageSwitcher</span>
                     {"\n"}
-                    <span className="text-[#d2a8ff]">      locales</span>
+                    <span className="text-[#d2a8ff]"> locales</span>
                     <span className="text-[#ff7b72]">=</span>
                     <span className="text-[#c9d1d9]">{"{["}</span>
                     {"\n"}
-                    <span className="text-[#c9d1d9]">        {"{ "}</span>
+                    <span className="text-[#c9d1d9]"> {"{ "}</span>
                     <span className="text-[#c9d1d9]">code:</span>
                     <span className="text-[#a5d6ff]"> &quot;en&quot;</span>
                     <span className="text-[#c9d1d9]">{" },"}</span>
                     {"\n"}
-                    <span className="text-[#c9d1d9]">        {"{ "}</span>
+                    <span className="text-[#c9d1d9]"> {"{ "}</span>
                     <span className="text-[#c9d1d9]">code:</span>
                     <span className="text-[#a5d6ff]"> &quot;fr&quot;</span>
                     <span className="text-[#c9d1d9]">{" },"}</span>
                     {"\n"}
-                    <span className="text-[#c9d1d9]">        {"{ "}</span>
+                    <span className="text-[#c9d1d9]"> {"{ "}</span>
                     <span className="text-[#c9d1d9]">code:</span>
                     <span className="text-[#a5d6ff]"> &quot;es&quot;</span>
                     <span className="text-[#c9d1d9]">{" },"}</span>
                     {"\n"}
-                    <span className="text-[#c9d1d9]">        {"{ "}</span>
+                    <span className="text-[#c9d1d9]"> {"{ "}</span>
                     <span className="text-[#c9d1d9]">code:</span>
                     <span className="text-[#a5d6ff]"> &quot;de&quot;</span>
                     <span className="text-[#c9d1d9]">{" },"}</span>
                     {"\n"}
-                    <span className="text-[#c9d1d9]">        {"{ "}</span>
+                    <span className="text-[#c9d1d9]"> {"{ "}</span>
                     <span className="text-[#c9d1d9]">code:</span>
                     <span className="text-[#a5d6ff]"> &quot;ja&quot;</span>
                     <span className="text-[#c9d1d9]">{" },"}</span>
                     {"\n"}
-                    <span className="text-[#c9d1d9]">        {"{ "}</span>
+                    <span className="text-[#c9d1d9]"> {"{ "}</span>
                     <span className="text-[#c9d1d9]">code:</span>
                     <span className="text-[#a5d6ff]"> &quot;ar&quot;</span>
                     <span className="text-[#c9d1d9]">{" },"}</span>
                     {"\n"}
-                    <span className="text-[#c9d1d9]">      {"]}"}</span>
+                    <span className="text-[#c9d1d9]"> {"]}"}</span>
                     {"\n"}
-                    <span className="text-[#d2a8ff]">      defaultValue</span>
+                    <span className="text-[#d2a8ff]"> defaultValue</span>
                     <span className="text-[#ff7b72]">=</span>
                     <span className="text-[#a5d6ff]">&quot;en&quot;</span>
                     {"\n"}
-                    <span className="text-[#d2a8ff]">      onValueChange</span>
+                    <span className="text-[#d2a8ff]"> onValueChange</span>
                     <span className="text-[#ff7b72]">=</span>
                     <span className="text-[#c9d1d9]">{"{("}</span>
                     <span className="text-[#ffa657]">code</span>
@@ -193,7 +190,7 @@ export function Features() {
                     {"\n"}
                     <span className="text-[#8b949e]">{"// next-intl"}</span>
                     {"\n"}
-                    <span className="text-[#c9d1d9]">        router.</span>
+                    <span className="text-[#c9d1d9]"> router.</span>
                     <span className="text-[#d2a8ff]">push</span>
                     <span className="text-[#c9d1d9]">(</span>
                     <span className="text-[#a5d6ff]">`/$</span>
@@ -205,27 +202,25 @@ export function Features() {
                     {"\n"}
                     <span className="text-[#8b949e]">{"// react-i18next"}</span>
                     {"\n"}
-                    <span className="text-[#c9d1d9]">        i18n.</span>
+                    <span className="text-[#c9d1d9]"> i18n.</span>
                     <span className="text-[#d2a8ff]">changeLanguage</span>
                     <span className="text-[#c9d1d9]">(</span>
                     <span className="text-[#c9d1d9]">code</span>
                     <span className="text-[#c9d1d9]">);</span>
                     {"\n"}
-                    <span className="text-[#c9d1d9]">      {"}}"}</span>
+                    <span className="text-[#c9d1d9]"> {"}}"}</span>
                     {"\n"}
-                    <span className="text-[#c9d1d9]">    /&gt;</span>
+                    <span className="text-[#c9d1d9]"> /&gt;</span>
                     {"\n"}
-                    <span className="text-[#c9d1d9]">  );</span>
+                    <span className="text-[#c9d1d9]"> );</span>
                     {"\n"}
                     <span className="text-[#c9d1d9]">{"}"}</span>
                   </code>
                 </pre>
               </div>
-
             </div>
           </Reveal>
         </div>
-
       </div>
     </section>
   );

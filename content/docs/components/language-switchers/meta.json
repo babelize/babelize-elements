@@ -1,8 +1,6 @@
 {
   "title": "Language Switchers",
   "icon": "Globe",
-  "pages": [
-    "language-switcher"
-  ],
+  "pages": ["language-switcher"],
   "collapsible": false
 }

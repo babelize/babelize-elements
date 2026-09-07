@@ -19,10 +19,7 @@ export function PreviewComponents({ registryName, children }: PreviewComponentsP
     fetch(`/r/${registryName}.json`)
       .then((res) => (res.ok ? res.json() : null))
       .then((item) => {
-        setSource(
-          item?.files?.[0]?.content ??
-            `// No source available for "${registryName}".`,
-        );
+        setSource(item?.files?.[0]?.content ?? `// No source available for "${registryName}".`);
       })
       .catch(() => setSource(`// Could not load source for "${registryName}".`));
   }, [view, registryName, source]);

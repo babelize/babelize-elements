@@ -33,13 +33,7 @@ export function Reveal({
   );
 }
 
-export function RevealGroup({
-  children,
-  className,
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
+export function RevealGroup({ children, className }: { children: ReactNode; className?: string }) {
   const reduce = useReducedMotion();
 
   return (

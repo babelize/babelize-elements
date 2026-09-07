@@ -61,7 +61,8 @@
   --color-fd-border: rgba(255, 255, 255, 0.08);
 }
 
-html, body {
+html,
+body {
   scroll-behavior: smooth;
 }
 
@@ -147,19 +148,19 @@ aside button[data-active="true"] svg {
 }
 
 /* Style the TOC links */
-.fd-toc-item, 
+.fd-toc-item,
 .fd-toc a {
   color: var(--muted-foreground) !important;
   transition: all 0.2s ease;
 }
 
-.fd-toc-item:hover, 
+.fd-toc-item:hover,
 .fd-toc a:hover {
   color: var(--foreground) !important;
 }
 
 /* Active TOC links */
-.fd-toc-item[data-active="true"], 
+.fd-toc-item[data-active="true"],
 .fd-toc a[data-active="true"],
 .fd-toc-item[aria-current="true"],
 .fd-toc a[aria-current="true"] {

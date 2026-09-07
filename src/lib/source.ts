@@ -9,7 +9,9 @@ export const source = loader({
   source: docs.toFumadocsSource(),
   icon(icon) {
     if (!icon) return undefined;
-    const Icon = (LucideIcons as unknown as Record<string, ComponentType<{ className?: string }>>)[icon];
+    const Icon = (LucideIcons as unknown as Record<string, ComponentType<{ className?: string }>>)[
+      icon
+    ];
     if (!Icon) return undefined;
     return createElement(Icon, { className: "size-4 sidebar-icon" });
   },

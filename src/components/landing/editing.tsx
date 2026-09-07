@@ -54,9 +54,12 @@ function EditingDemo() {
     return () => window.removeEventListener("keydown", onKey);
   }, [editing]);
 
-  useEffect(() => () => {
-    if (savedTimer.current) clearTimeout(savedTimer.current);
-  }, []);
+  useEffect(
+    () => () => {
+      if (savedTimer.current) clearTimeout(savedTimer.current);
+    },
+    [],
+  );
 
   const open = (field: StrField) => {
     setEditing(field);
@@ -243,7 +246,16 @@ function EditingDemo() {
                 transition={{ duration: 0.18, ease: "easeOut" }}
                 className="absolute bottom-3 right-0 z-40 flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-xs font-medium text-emerald-300 shadow-[0_0_20px_rgba(16,185,129,0.25)]"
               >
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <path d="M20 6 9 17l-5-5" />
                 </svg>
                 Saved
@@ -280,8 +292,8 @@ export function InContextEditing() {
                 </span>
               </h2>
               <p className="mt-5 text-base leading-relaxed text-white/50">
-                Update localized content directly inside your interface instead
-                of hunting through translation files.
+                Update localized content directly inside your interface instead of hunting through
+                translation files.
               </p>
               <p className="mt-6 flex items-center gap-2.5 text-sm text-white/40">
                 <span className="h-px w-6 bg-emerald-500/60" />
