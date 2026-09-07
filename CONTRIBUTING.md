@@ -30,6 +30,10 @@ When opening or triaging issues, use these labels:
 3. Create a branch for your work.
 4. Build your component in `src/registry/components/`.
 
+Read [ARCHITECTURE.md](ARCHITECTURE.md) first — it explains how the library, the
+registry, and the docs site relate, the conventions every component follows, and
+the six files a new component touches.
+
 ## Component checklist
 
 Before opening a pull request, make sure your component:

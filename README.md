@@ -154,10 +154,11 @@ bun run test:pack    # install the packed tarball into a scratch project
 
 Components are contributed by the community. The typical flow:
 
+1. Read [ARCHITECTURE.md](https://github.com/babelize/babelize-elements/blob/main/ARCHITECTURE.md) for the codebase layout and component conventions.
 1. Pick an open [issue](https://github.com/babelize/babelize-elements/issues) — look for `good first issue` or `help wanted`.
-2. Build the component in `src/registry/components/`.
-3. Open a pull request following our [contributing guide](https://github.com/babelize/babelize-elements/blob/main/CONTRIBUTING.md).
-4. Maintainers review it, and merged components ship to the docs for everyone.
+1. Build the component in `src/registry/components/`.
+1. Open a pull request following our [contributing guide](https://github.com/babelize/babelize-elements/blob/main/CONTRIBUTING.md).
+1. Maintainers review it, and merged components ship to the docs for everyone.
 
 Great component candidates:
 
@@ -171,6 +172,7 @@ Great component candidates:
 
 ## Community
 
+- [Architecture](https://github.com/babelize/babelize-elements/blob/main/ARCHITECTURE.md)
 - [Code of Conduct](https://github.com/babelize/babelize-elements/blob/main/CODE_OF_CONDUCT.md)
 - [Security Policy](https://github.com/babelize/babelize-elements/blob/main/SECURITY.md)
 - [Contributing](https://github.com/babelize/babelize-elements/blob/main/CONTRIBUTING.md)
