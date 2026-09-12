@@ -32,7 +32,9 @@ When opening or triaging issues, use these labels:
 
 Read [ARCHITECTURE.md](ARCHITECTURE.md) first — it explains how the library, the
 registry, and the docs site relate, the conventions every component follows, and
-the six files a new component touches.
+the six files a new component touches. The
+[docs code blocks](ARCHITECTURE.md#how-docs-code-blocks-work) section covers how a
+demo file becomes the Code tab on a docs page.
 
 ## Component checklist
 
@@ -45,7 +47,11 @@ Before opening a pull request, make sure your component:
 - [ ] Supports controlled and uncontrolled use (`value` / `defaultValue` / `onValueChange`)
 - [ ] Forwards a ref and spreads unknown props onto its root element
 - [ ] Has tests in `test/` covering render, interaction, and controlled mode
-- [ ] Includes a short demo or usage example for the docs
+- [ ] Has a demo at `src/components/docs/<name>-demo.tsx` — the docs Code tab renders
+      this file verbatim, so write it as the snippet you'd want someone to copy:
+      just the component and its props, no wrapper card or theme toggle (the preview
+      shell provides those)
+- [ ] Has an MDX page embedding `<PreviewComponents registryName="<name>">`
 - [ ] Runs clean through `bun run lint`, `bun run typecheck`, `bun run test`, and `bun run build`
 
 ## Opening a pull request

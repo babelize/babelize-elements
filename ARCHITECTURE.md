@@ -42,7 +42,13 @@ src/
     registry.json/route.ts  GET /registry.json   — the registry index
   components/
     landing/             website only
-    docs/                website only — live demos embedded in MDX
+    docs/                website only — live demos + the docs code panels
+      *-demo.tsx           live demo rendered in the Preview tab
+      preview-components.tsx  server: reads the demo file, highlights it
+      component-source.tsx    server: reads a registry item's source
+      source.ts               shared file-read + shiki highlight helper
+      preview-shell.tsx       client: Preview / Code tabs
+      code-panel.tsx          client: file bar, scroll cap, copy, expand
 
 content/docs/            MDX documentation, sidebar order in meta.json
 test/                    vitest; mirrors component names
@@ -137,8 +143,33 @@ the display follows), ref forwarding, and prop passthrough. Copy the shape of
 **5. Docs** — `content/docs/components/<category>/my-thing.mdx`, and add the slug to
 that directory's `meta.json` to place it in the sidebar.
 
-**6. A live demo** — `src/components/docs/my-thing-demo.tsx`, wired up in
-`src/components/docs/preview-components.tsx` so the MDX page can embed it.
+**6. A live demo** — `src/components/docs/my-thing-demo.tsx`
+
+The file name matters: `<PreviewComponents registryName="my-thing">` reads
+`src/components/docs/my-thing-demo.tsx` by default, so the Code tab shows the demo
+you wrote without any extra wiring. Pass `demo="components/docs/other-file.tsx"`
+(relative to `src/`) to point elsewhere. In the MDX page:
+
+```mdx
+import { PreviewComponents } from "@/components/docs/preview-components";
+import { ComponentSource } from "@/components/docs/component-source";
+import { MyThingDemo } from "@/components/docs/my-thing-demo";
+
+<PreviewComponents registryName="my-thing">
+  <MyThingDemo />
+</PreviewComponents>
+
+{/* in the Manual install tab */}
+
+<ComponentSource name="my-thing" />
+```
+
+Write the demo as the snippet you would want to copy — it _is_ the Code tab. Keep
+it short, import the component the way a consumer would, and skip docs-only
+scaffolding. The preview chrome (light/dark toggle, the framed stage, centering and
+padding) lives in `preview-shell.tsx`, so a demo renders bare children: no wrapper
+card, no theme button, no `cn()` plumbing. Pass `fullBleed` when the component
+spans the full width and should not be padded — `NavBar` does.
 
 Then:
 
@@ -153,6 +184,41 @@ BABELIZE_SITE_URL=http://localhost:3000 bun run dev
 # then, in a scratch project whose components.json points @elements at localhost:
 npx shadcn@latest add @elements/my-thing
 ```
+
+## How docs code blocks work
+
+`PreviewComponents` renders the Code tab at the top of a component page. It reads
+the demo file off disk **on the server at render time** and highlights it with
+Shiki via `highlight()` from `fumadocs-core/highlight`. Nothing fetches source in
+the browser.
+
+| Component           | Shows                                     | Used in                                      |
+| ------------------- | ----------------------------------------- | -------------------------------------------- |
+| `PreviewComponents` | the demo file — usage, not implementation | the Preview / Code tabs at the top of a page |
+| `ComponentSource`   | the registry item's full source           | the **Manual** install tab                   |
+
+It funnels through `src/components/docs/source.ts`, which rewrites
+`@/registry/components/*` imports to `@/components/ui/*` — the path the component
+actually lands on in a consumer's repo — so a copied snippet compiles there.
+`preview-shell.tsx` also owns the Preview tab: a light/dark toggle scoped to the
+stage. It toggles between `dark` and `light` classes, not `dark` and nothing —
+Fumadocs defines the `dark` variant as `&:where(.dark, .dark *)`, so inside the
+site's dark shell the absence of `dark` changes nothing. `globals.css` redefines
+the variant to exclude `.light` subtrees, which is what makes the light preview
+possible.
+
+Source is highlighted with two Shiki themes (`github-light` / `github-dark`) and
+`defaultColor: false`, so each token carries both colours as custom properties and
+the panel picks one. A single hardcoded theme was unreadable on the light panel.
+
+The shared client shell is `code-panel.tsx`: file bar, line count, copy button, a
+22rem scroll cap with a fade, and an Expand toggle past 18 lines. Its typography
+lives in the `.custom-code-block` rules in `src/app/globals.css`, which override the
+Fumadocs prose styles that otherwise inflate line height inside Shiki output.
+
+The Code tab deliberately shows the **demo**, not the component implementation.
+Someone reading the page wants the few lines that use the component — the full
+implementation is what the CLI installs for them.
 
 ## The registry endpoints
 

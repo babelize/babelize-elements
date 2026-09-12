@@ -2,6 +2,14 @@
 @import "fumadocs-ui/css/neutral.css";
 @import "fumadocs-ui/css/preset.css";
 
+/*
+ * Fumadocs defines `dark` as `&:where(.dark, .dark *)`, which makes the variant
+ * additive: a nested element can turn dark on, never off. The docs preview stage
+ * needs the opposite — a light island inside the dark site shell — so `.light`
+ * opts a subtree back out.
+ */
+@variant dark (&:where(.dark, .dark *):not(:where(.light, .light *)));
+
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -222,4 +230,115 @@ figure.shiki pre {
 
 .prose pre::-webkit-scrollbar {
   display: none !important;
+}
+
+/* ── Shiki code block (docs preview / custom blocks) ── */
+.custom-code-block,
+.custom-code-block * {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.custom-code-block figure,
+.custom-code-block pre,
+.custom-code-block code {
+  margin: 0 !important;
+  padding: 0 !important;
+  max-height: none !important;
+  border-radius: 0 !important;
+}
+
+.custom-code-block pre,
+.custom-code-block code {
+  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace !important;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+  tab-size: 2;
+}
+
+.custom-code-block code {
+  display: block;
+  width: fit-content;
+  min-width: 100%;
+}
+
+/* Shiki is highlighted with two themes; each token carries both colours as custom
+   properties and the site theme decides which one paints. */
+.custom-code-block span {
+  color: var(--shiki-light);
+}
+
+.dark .custom-code-block span {
+  color: var(--shiki-dark);
+}
+
+/* Shiki emits one <span class="line"> per line, each already followed by a literal
+   newline. Making them block-level renders that newline too — one blank line per
+   line of code — so they stay inline and `white-space: pre` does the wrapping. */
+.custom-code-block .line {
+  display: inline;
+  line-height: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Scroll lives on the wrapper, never on the inner <pre> */
+.custom-code-block pre {
+  overflow: visible !important;
+  width: auto !important;
+  min-width: 0 !important;
+}
+
+.code-scroll {
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.16) transparent;
+}
+
+.dark .code-scroll {
+  scrollbar-color: rgba(255, 255, 255, 0.14) transparent;
+}
+
+.code-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.code-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.16);
+  border-radius: 999px;
+}
+
+.code-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.28);
+}
+
+.dark .code-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.14);
+}
+
+.dark .code-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.24);
+}
+
+.code-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Beat fumadocs/prose specificity wherever the block is mounted */
+.prose .custom-code-block pre,
+.prose .custom-code-block code,
+.prose .custom-code-block .line,
+#nd-page .custom-code-block pre,
+#nd-page .custom-code-block code,
+#nd-page .custom-code-block .line {
+  line-height: 1.5 !important;
+  margin: 0 !important;
+  letter-spacing: 0 !important;
+}
+
+.custom-code-block pre,
+.custom-code-block code {
+  white-space: pre !important;
 }
