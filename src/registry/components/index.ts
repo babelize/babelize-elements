@@ -5,6 +5,9 @@ export type { Locale } from "./types";
 export { LanguageSwitcher } from "./language-switcher";
 export type { LanguageSwitcherProps } from "./language-switcher";
 
+export { LanguageSwitcherPill } from "./language-switcher-pill";
+export type { LanguageSwitcherPillProps } from "./language-switcher-pill";
+
 export { PhoneInput, COUNTRIES } from "./phone-input";
 export type { PhoneInputProps, Country } from "./phone-input";
 

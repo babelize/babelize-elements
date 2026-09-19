@@ -1,6 +1,6 @@
 {
   "title": "Language Switchers",
   "icon": "Globe",
-  "pages": ["language-switcher"],
+  "pages": ["language-switcher", "language-switcher-pill"],
   "collapsible": false
 }

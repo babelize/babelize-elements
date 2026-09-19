@@ -39,6 +39,16 @@ const ITEMS: ItemDef[] = [
     registryDependencies: ["locale-types", "use-controllable-state"],
   },
   {
+    name: "language-switcher-pill",
+    title: "Language Switcher Pill",
+    description: "Animated pill-style language switcher with keyboard navigation and RTL support.",
+    type: "registry:ui",
+    source: "registry/components/language-switcher-pill",
+    filePath: "ui/language-switcher-pill.tsx",
+    dependencies: ["clsx", "tailwind-merge"],
+    registryDependencies: ["locale-types", "use-controllable-state"],
+  },
+  {
     name: "phone-input",
     title: "Phone Input",
     description:
