@@ -14,9 +14,7 @@ export function Flow({ steps }: { steps: FlowStep[] }) {
     <div className="not-prose my-6 flex flex-wrap items-center gap-2">
       {steps.map((step, i) => (
         <Fragment key={step.label}>
-          {i > 0 && (
-            <ArrowRight aria-hidden="true" className="size-4 shrink-0 text-emerald-500" />
-          )}
+          {i > 0 && <ArrowRight aria-hidden="true" className="size-4 shrink-0 text-emerald-500" />}
           <div className="flex items-center gap-2 rounded-lg border border-emerald-500/25 bg-emerald-500/5 px-3 py-1.5 text-xs font-semibold tracking-wide text-fd-foreground uppercase [&_svg]:size-4 [&_svg]:text-emerald-600 dark:[&_svg]:text-emerald-400">
             {step.icon}
             {step.label}
