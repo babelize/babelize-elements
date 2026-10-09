@@ -59,24 +59,63 @@ export function Translate() {
 }
 ```
 
+With language pickers and the swap button:
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { TranslationWidget } from "@/components/ui/translation-widget";
+
+const locales = [{ code: "en" }, { code: "fr" }, { code: "ar" }];
+
+export function Translate() {
+  const [source, setSource] = useState("Hello, world!");
+  const [target, setTarget] = useState("Bonjour, le monde !");
+  const [sourceLocale, setSourceLocale] = useState("en");
+  const [targetLocale, setTargetLocale] = useState("fr");
+
+  return (
+    <TranslationWidget
+      locales={locales}
+      sourceLocale={sourceLocale}
+      targetLocale={targetLocale}
+      onSourceLocaleChange={setSourceLocale}
+      onTargetLocaleChange={setTargetLocale}
+      sourceText={source}
+      onSourceChange={setSource}
+      targetText={target}
+      onTargetChange={setTarget}
+      onSwap={() => console.log("swapped")}
+    />
+  );
+}
+```
+
 ## Props
 
-| Prop                | Type                     | Required | Description                                                                             |
-| ------------------- | ------------------------ | -------- | --------------------------------------------------------------------------------------- |
-| `sourceLocale`      | `string`                 | Yes      | BCP 47 code of the source locale (e.g. `"en"`)                                          |
-| `targetLocale`      | `string`                 | Yes      | BCP 47 code of the target locale (e.g. `"fr"`, `"ar"`)                                  |
-| `sourceText`        | `string`                 | No       | Source text — pass this to control the source pane                                      |
-| `onSourceChange`    | `(text: string) => void` | No       | Callback when the source text changes; makes the pane editable                          |
-| `targetText`        | `string`                 | No       | Target text — pass this to control the target pane (read-only without `onTargetChange`) |
-| `defaultTargetText` | `string`                 | No       | Initial target text when uncontrolled                                                   |
-| `onTargetChange`    | `(text: string) => void` | No       | Callback when the target text changes                                                   |
-| `sourcePlaceholder` | `string`                 | No       | Placeholder for the source pane                                                         |
-| `targetPlaceholder` | `string`                 | No       | Placeholder for the target pane                                                         |
-| `sourceLabel`       | `string`                 | No       | Accessible label for the source pane (default: `"Source text"`)                         |
-| `targetLabel`       | `string`                 | No       | Accessible label for the target pane (default: `"Target text"`)                         |
-| `readOnlySource`    | `boolean`                | No       | Keep the source pane read-only even with `onSourceChange`                               |
-| `dir`               | `"ltr" \| "rtl"`         | No       | Override the auto-detected layout direction                                             |
-| `className`         | `string`                 | No       | Additional CSS classes                                                                  |
+| Prop                   | Type                     | Required | Description                                                                             |
+| ---------------------- | ------------------------ | -------- | --------------------------------------------------------------------------------------- |
+| `locales`              | `Locale[]`               | No       | Locales for the per-pane language pickers; omit to show static chips                    |
+| `sourceLocale`         | `string`                 | No       | BCP 47 code of the source locale (e.g. `"en"`); provide to control it                   |
+| `defaultSourceLocale`  | `string`                 | No       | Initial source locale when uncontrolled (default: `locales[0]`, else `"en"`)            |
+| `onSourceLocaleChange` | `(code: string) => void` | No       | Callback when the source locale changes                                                 |
+| `targetLocale`         | `string`                 | No       | BCP 47 code of the target locale (e.g. `"fr"`, `"ar"`); provide to control it           |
+| `defaultTargetLocale`  | `string`                 | No       | Initial target locale when uncontrolled (default: `locales[1]`, else `"en"`)            |
+| `onTargetLocaleChange` | `(code: string) => void` | No       | Callback when the target locale changes                                                 |
+| `sourceText`           | `string`                 | No       | Source text — pass this to control the source pane                                      |
+| `onSourceChange`       | `(text: string) => void` | No       | Callback when the source text changes; makes the pane editable                          |
+| `targetText`           | `string`                 | No       | Target text — pass this to control the target pane (read-only without `onTargetChange`) |
+| `defaultTargetText`    | `string`                 | No       | Initial target text when uncontrolled                                                   |
+| `onTargetChange`       | `(text: string) => void` | No       | Callback when the target text changes                                                   |
+| `onSwap`               | `() => void`             | No       | Called after the swap button exchanges locales and texts                                |
+| `sourcePlaceholder`    | `string`                 | No       | Placeholder for the source pane                                                         |
+| `targetPlaceholder`    | `string`                 | No       | Placeholder for the target pane                                                         |
+| `sourceLabel`          | `string`                 | No       | Accessible label for the source pane (default: `"Source text"`)                         |
+| `targetLabel`          | `string`                 | No       | Accessible label for the target pane (default: `"Target text"`)                         |
+| `readOnlySource`       | `boolean`                | No       | Keep the source pane read-only even with `onSourceChange`                               |
+| `dir`                  | `"ltr" \| "rtl"`         | No       | Override the auto-detected layout direction                                             |
+| `className`            | `string`                 | No       | Additional CSS classes                                                                  |
 
 Any other prop — `id`, `data-*`, `aria-*` — is spread onto the root element, and the
 ref is forwarded to it.
@@ -115,6 +154,50 @@ read-only, so typed text is never silently dropped:
 />
 ```
 
+## Language pickers
+
+Pass `locales` to render a [Language Switcher](/docs/components/language-switchers/language-switcher)
+on each pane instead of the static language chip. Each picker updates its pane's
+locale — the textarea's `lang` and `dir` follow — so switching the target to
+Arabic flips that pane to RTL:
+
+```tsx
+<TranslationWidget
+  locales={[{ code: "en" }, { code: "fr" }, { code: "ar" }]}
+  defaultSourceLocale="en"
+  defaultTargetLocale="fr"
+  sourceText={source}
+  onSourceChange={setSource}
+/>
+```
+
+Locale state can be uncontrolled (`defaultSourceLocale` / `defaultTargetLocale`)
+or controlled (`sourceLocale` + `onSourceLocaleChange`, same for the target). When
+`locales` is omitted, the widget keeps the compact static chips.
+
+## Swap
+
+The swap button between the panes exchanges **both** the locales and the texts —
+source ↔ target — and fires `onSwap`. The icon points sideways (⇄) when the panes
+sit side by side and rotates to ↕ when they stack on narrow screens. The button
+carries an `aria-label="Swap languages"` and is disabled when any exchanged value
+is controlled without a change handler, since the swap could not be applied:
+
+```tsx
+<TranslationWidget
+  locales={locales}
+  sourceLocale={sourceLocale}
+  targetLocale={targetLocale}
+  onSourceLocaleChange={setSourceLocale}
+  onTargetLocaleChange={setTargetLocale}
+  sourceText={source}
+  onSourceChange={setSource}
+  targetText={target}
+  onTargetChange={setTarget}
+  onSwap={() => analytics.track("languages-swapped")}
+/>
+```
+
 ## RTL support
 
 When the target locale is an RTL language (`ar`, `he`, `fa`, `ur`, …) or carries an
@@ -130,13 +213,15 @@ Pass `dir` to set the widget's direction explicitly.
 ## Features
 
 - **Side-by-side panes** — source and target text areas in one responsive row
+- **Language pickers** — pass `locales` for a Language Switcher per pane; static chips otherwise
+- **Swap button** — exchanges both locales and texts, with `onSwap` and an accessible label
 - **Editable target** — uncontrolled, or controlled with `targetText` + `onTargetChange` (a controlled target without a handler renders read-only so typed text is never silently dropped)
 - **RTL-aware** — per-pane `dir` and `lang` follow each locale; pane order stays fixed
 - **Accessible** — labelled textareas, `lang` attributes, visible focus rings
 - **Keyboard support** — Tab between panes, type to translate
 - **Claymorphism styling** — soft raised card with recessed, pressed-in textareas
 - **Dark mode** — built with Tailwind CSS, dark-mode compatible
-- **Controlled/uncontrolled** — works with or without `targetText`
+- **Controlled/uncontrolled** — works with or without `targetText`; same for locales
 
 ## Design
 
@@ -150,6 +235,7 @@ component drops into any project and restyles with `className`.
 This component uses:
 
 - `clsx` and `tailwind-merge` (bundled as dependencies)
+- the [Language Switcher](/docs/components/language-switchers/language-switcher) component (pulled in automatically via registry dependencies)
 
 Peer dependencies:
 
