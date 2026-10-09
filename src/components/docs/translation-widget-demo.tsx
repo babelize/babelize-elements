@@ -3,11 +3,23 @@
 import { useState } from "react";
 import { TranslationWidget, type Locale } from "@/registry/components/translation-widget";
 
-const locales: Locale[] = [{ code: "en" }, { code: "fr" }, { code: "ar" }];
+const locales: Locale[] = [
+  { code: "en" },
+  { code: "fr" },
+  { code: "es" },
+  { code: "de" },
+  { code: "hi" },
+  { code: "ja" },
+  { code: "ar" },
+];
 
 const greetings: Record<string, string> = {
   en: "Hello, world!",
   fr: "Bonjour, le monde !",
+  es: "¡Hola, mundo!",
+  de: "Hallo, Welt!",
+  hi: "नमस्ते, दुनिया!",
+  ja: "こんにちは、世界！",
   ar: "مرحبا بالعالم!",
 };
 
