@@ -1,0 +1,105 @@
+---
+title: Language Switcher Pill
+description: Animated pill-style language switcher for React with keyboard navigation and RTL support.
+---
+
+import { PreviewComponents } from "@/components/docs/preview-components";
+import { LanguageSwitcherPillDemo } from "@/components/docs/language-switcher-pill-demo";
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+<PreviewComponents registryName="language-switcher-pill">
+  <LanguageSwitcherPillDemo />
+</PreviewComponents>
+
+## Installation
+
+<Tabs
+  items={["shadcn", "Elements CLI"]}
+  defaultValue="shadcn"
+  className="bg-transparent border-none"
+>
+  <Tab value="shadcn" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="installation-tabs">
+      <Tab value="npx">```bash npx shadcn@latest add @elements/language-switcher-pill ```</Tab>
+      <Tab value="pnpm">
+        ```bash pnpm dlx shadcn@latest add @elements/language-switcher-pill ```
+      </Tab>
+      <Tab value="yarn">
+        ```bash yarn dlx shadcn@latest add @elements/language-switcher-pill ```
+      </Tab>
+      <Tab value="bun">```bash bunx shadcn@latest add @elements/language-switcher-pill ```</Tab>
+    </Tabs>
+  </Tab>
+  <Tab value="Elements CLI" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="elements-cli-tabs">
+      <Tab value="npx">```bash npx @babelize/elements add language-switcher-pill ```</Tab>
+      <Tab value="pnpm">```bash pnpm dlx @babelize/elements add language-switcher-pill ```</Tab>
+      <Tab value="yarn">```bash yarn dlx @babelize/elements add language-switcher-pill ```</Tab>
+      <Tab value="bun">```bash bunx @babelize/elements add language-switcher-pill ```</Tab>
+    </Tabs>
+  </Tab>
+</Tabs>
+
+## Usage
+
+````tsx
+import { LanguageSwitcherPill } from "@/components/ui/language-switcher-pill";
+
+```mdx
+```tsx
+import { useState } from "react";
+
+const locales = [
+  { code: "en", label: "English", flag: "🇺🇸" },
+  { code: "es", label: "Español", flag: "🇪🇸" },
+  { code: "fr", label: "Français", flag: "🇫🇷" },
+];
+
+export function Example() {
+  const [locale, setLocale] = useState("en");
+
+  return (
+    <LanguageSwitcherPill
+      locales={locales}
+      locale={locale}
+      onLocaleChange={setLocale}
+    />
+  );
+}
+
+## Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `locales` | `Locale[]` | — | List of available languages. |
+| `locale` | `string` | — | Controlled selected locale. |
+| `defaultLocale` | `string` | First locale | Initial locale for uncontrolled usage. |
+| `onLocaleChange` | `(locale: string) => void` | — | Called when the selected language changes. |
+| `className` | `string` | — | Additional CSS classes for the pill. |
+
+## Keyboard Navigation
+
+- **Arrow Right** — Move to the next language.
+- **Arrow Left** — Move to the previous language.
+- **Home** — Move to the first language.
+- **End** — Move to the last language.
+- **Enter / Space** — Select the focused language.
+
+## RTL Support
+
+The component supports right-to-left languages such as Arabic, Hebrew, Persian, Urdu, Pashto, Sindhi, and Yiddish.
+
+Locale-specific direction is applied automatically, while the active indicator follows the selected language.
+
+```tsx
+const locales = [
+  { code: "en", label: "English", flag: "🇺🇸" },
+  { code: "ar", label: "العربية", flag: "🇸🇦", rtl: true },
+  { code: "he", label: "עברית", flag: "🇮🇱", rtl: true },
+];
+
+<LanguageSwitcherPill
+  locales={locales}
+  defaultLocale="en"
+/>;
+````

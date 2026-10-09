@@ -25,6 +25,7 @@ src/
       index.ts             barrel — the entire public API surface
       types.ts             shared Locale interface
       language-switcher.tsx
+      language-switcher-pill.tsx
       phone-input.tsx
       navbar.tsx
     registry.ts          ← registry manifest: item list, deps, install paths
