@@ -10,3 +10,6 @@ export type { PhoneInputProps, Country } from "./phone-input";
 
 export { NavBar } from "./navbar";
 export type { NavBarProps, NavLink } from "./navbar";
+
+export { TranslationWidget } from "./translation-widget";
+export type { TranslationWidgetProps } from "./translation-widget";

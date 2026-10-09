@@ -61,6 +61,17 @@ const ITEMS: ItemDef[] = [
     registryDependencies: ["locale-types", "use-controllable-state"],
   },
   {
+    name: "translation-widget",
+    title: "Translation Widget",
+    description:
+      "Side-by-side translation view with editable target, RTL-aware layout, and claymorphism styling.",
+    type: "registry:ui",
+    source: "registry/components/translation-widget",
+    filePath: "ui/translation-widget.tsx",
+    dependencies: ["clsx", "tailwind-merge"],
+    registryDependencies: ["use-controllable-state"],
+  },
+  {
     name: "locale-types",
     title: "Locale Types",
     description: "The shared `Locale` interface used by every locale-aware component.",
