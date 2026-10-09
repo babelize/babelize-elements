@@ -61,22 +61,22 @@ export function Translate() {
 
 ## Props
 
-| Prop                | Type                     | Required | Description                                                     |
-| ------------------- | ------------------------ | -------- | --------------------------------------------------------------- |
-| `sourceLocale`      | `string`                 | Yes      | BCP 47 code of the source locale (e.g. `"en"`)                  |
-| `targetLocale`      | `string`                 | Yes      | BCP 47 code of the target locale (e.g. `"fr"`, `"ar"`)          |
-| `sourceText`        | `string`                 | No       | Source text — pass this to control the source pane              |
-| `onSourceChange`    | `(text: string) => void` | No       | Callback when the source text changes; makes the pane editable  |
-| `targetText`        | `string`                 | No       | Target text — pass this to control the target pane              |
-| `defaultTargetText` | `string`                 | No       | Initial target text when uncontrolled                           |
-| `onTargetChange`    | `(text: string) => void` | No       | Callback when the target text changes                           |
-| `sourcePlaceholder` | `string`                 | No       | Placeholder for the source pane                                 |
-| `targetPlaceholder` | `string`                 | No       | Placeholder for the target pane                                 |
-| `sourceLabel`       | `string`                 | No       | Accessible label for the source pane (default: `"Source text"`) |
-| `targetLabel`       | `string`                 | No       | Accessible label for the target pane (default: `"Target text"`) |
-| `readOnlySource`    | `boolean`                | No       | Keep the source pane read-only even with `onSourceChange`       |
-| `dir`               | `"ltr" \| "rtl"`         | No       | Override the auto-detected layout direction                     |
-| `className`         | `string`                 | No       | Additional CSS classes                                          |
+| Prop                | Type                     | Required | Description                                                                             |
+| ------------------- | ------------------------ | -------- | --------------------------------------------------------------------------------------- |
+| `sourceLocale`      | `string`                 | Yes      | BCP 47 code of the source locale (e.g. `"en"`)                                          |
+| `targetLocale`      | `string`                 | Yes      | BCP 47 code of the target locale (e.g. `"fr"`, `"ar"`)                                  |
+| `sourceText`        | `string`                 | No       | Source text — pass this to control the source pane                                      |
+| `onSourceChange`    | `(text: string) => void` | No       | Callback when the source text changes; makes the pane editable                          |
+| `targetText`        | `string`                 | No       | Target text — pass this to control the target pane (read-only without `onTargetChange`) |
+| `defaultTargetText` | `string`                 | No       | Initial target text when uncontrolled                                                   |
+| `onTargetChange`    | `(text: string) => void` | No       | Callback when the target text changes                                                   |
+| `sourcePlaceholder` | `string`                 | No       | Placeholder for the source pane                                                         |
+| `targetPlaceholder` | `string`                 | No       | Placeholder for the target pane                                                         |
+| `sourceLabel`       | `string`                 | No       | Accessible label for the source pane (default: `"Source text"`)                         |
+| `targetLabel`       | `string`                 | No       | Accessible label for the target pane (default: `"Target text"`)                         |
+| `readOnlySource`    | `boolean`                | No       | Keep the source pane read-only even with `onSourceChange`                               |
+| `dir`               | `"ltr" \| "rtl"`         | No       | Override the auto-detected layout direction                                             |
+| `className`         | `string`                 | No       | Additional CSS classes                                                                  |
 
 Any other prop — `id`, `data-*`, `aria-*` — is spread onto the root element, and the
 ref is forwarded to it.
@@ -96,12 +96,32 @@ or force it read-only with `readOnlySource` even when a change handler is presen
 />
 ```
 
+## Controlled target
+
+The target pane is editable when uncontrolled (`defaultTargetText`) or when you pass
+both `targetText` and `onTargetChange`. A controlled target with no handler renders
+read-only, so typed text is never silently dropped:
+
+```tsx
+// Read-only: controlled with no way to report edits
+<TranslationWidget sourceLocale="en" targetLocale="fr" targetText="Bonjour" />
+
+// Editable
+<TranslationWidget
+  sourceLocale="en"
+  targetLocale="fr"
+  targetText={text}
+  onTargetChange={setText}
+/>
+```
+
 ## RTL support
 
-When the target locale is an RTL language (`ar`, `he`, `fa`, `ur`, …) the widget
-flips its layout direction and marks the target pane `dir="rtl"`. Each pane also
-carries its own `dir` and `lang`, so a mixed LTR→RTL pair keeps the source reading
-left-to-right while the target reads right-to-left. Pass `dir` to override.
+When the target locale is an RTL language (`ar`, `he`, `fa`, `ur`, …) or carries an
+RTL script subtag (`az-Arab`), the target pane's text flows right-to-left. The pane
+_order_ never changes — source stays first, target second — and each pane carries
+its own `dir` and `lang`, so a mixed LTR→RTL pair reads correctly on both sides.
+Pass `dir` to set the widget's direction explicitly.
 
 ```tsx
 <TranslationWidget sourceLocale="en" targetLocale="ar" sourceText="Hello, world!" />
@@ -110,8 +130,8 @@ left-to-right while the target reads right-to-left. Pass `dir` to override.
 ## Features
 
 - **Side-by-side panes** — source and target text areas in one responsive row
-- **Editable target** — controlled (`targetText`) or uncontrolled (`defaultTargetText`)
-- **RTL-aware** — auto-flips for RTL target locales; per-pane `dir` and `lang`
+- **Editable target** — uncontrolled, or controlled with `targetText` + `onTargetChange` (a controlled target without a handler renders read-only so typed text is never silently dropped)
+- **RTL-aware** — per-pane `dir` and `lang` follow each locale; pane order stays fixed
 - **Accessible** — labelled textareas, `lang` attributes, visible focus rings
 - **Keyboard support** — Tab between panes, type to translate
 - **Claymorphism styling** — soft raised card with recessed, pressed-in textareas

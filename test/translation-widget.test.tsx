@@ -115,14 +115,32 @@ describe("TranslationWidget", () => {
     expect(screen.getByRole("textbox", { name: /target text/i })).toHaveAttribute("lang", "ja");
   });
 
-  it("flips the widget direction for an RTL target and not for LTR", () => {
+  it("does not set dir on the root for an RTL or LTR target", () => {
     const { container, rerender } = render(
       <TranslationWidget sourceLocale="en" targetLocale="ar" sourceText="Hello" />,
     );
-    expect(container.firstElementChild).toHaveAttribute("dir", "rtl");
+    expect(container.firstElementChild).not.toHaveAttribute("dir");
 
     rerender(<TranslationWidget sourceLocale="en" targetLocale="fr" sourceText="Hello" />);
-    expect(container.firstElementChild).toHaveAttribute("dir", "ltr");
+    expect(container.firstElementChild).not.toHaveAttribute("dir");
+  });
+
+  it("keeps the source pane before the target pane for an RTL target", () => {
+    render(<TranslationWidget sourceLocale="en" targetLocale="ar" sourceText="Hello" />);
+    const source = screen.getByRole("textbox", { name: /source text/i });
+    const target = screen.getByRole("textbox", { name: /target text/i });
+    expect(source.closest("div")?.parentElement?.firstElementChild?.contains(source)).toBe(true);
+    expect(source.compareDocumentPosition(target) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
+  it("detects RTL from an explicit script subtag", () => {
+    const { rerender } = render(
+      <TranslationWidget sourceLocale="en" targetLocale="az-Arab" sourceText="Hello" />,
+    );
+    expect(screen.getByRole("textbox", { name: /target text/i })).toHaveAttribute("dir", "rtl");
+
+    rerender(<TranslationWidget sourceLocale="en" targetLocale="az-Latn" sourceText="Hello" />);
+    expect(screen.getByRole("textbox", { name: /target text/i })).toHaveAttribute("dir", "ltr");
   });
 
   it("does not reverse an RTL row twice", () => {
@@ -134,11 +152,57 @@ describe("TranslationWidget", () => {
     expect(row?.className).not.toContain("flex-row-reverse");
   });
 
+  it("keeps the target pane editable when a change handler is provided", async () => {
+    const onTargetChange = vi.fn();
+    render(
+      <TranslationWidget
+        sourceLocale="en"
+        targetLocale="fr"
+        sourceText="Hello"
+        targetText="Bonjour"
+        onTargetChange={onTargetChange}
+      />,
+    );
+    const target = screen.getByRole("textbox", { name: /target text/i });
+    expect(target).not.toHaveAttribute("readonly");
+
+    await userEvent.type(target, "!");
+    expect(onTargetChange).toHaveBeenLastCalledWith("Bonjour!");
+  });
+
+  it("keeps an uncontrolled target editable without a change handler", async () => {
+    render(
+      <TranslationWidget
+        sourceLocale="en"
+        targetLocale="fr"
+        sourceText="Hello"
+        defaultTargetText="Bonjour"
+      />,
+    );
+    const target = screen.getByRole("textbox", { name: /target text/i });
+    expect(target).not.toHaveAttribute("readonly");
+
+    await userEvent.type(target, "!");
+    expect(target).toHaveValue("Bonjour!");
+  });
+
+  it("makes the target pane read-only when controlled without a handler", () => {
+    render(
+      <TranslationWidget
+        sourceLocale="en"
+        targetLocale="fr"
+        sourceText="Hello"
+        targetText="Bonjour"
+      />,
+    );
+    expect(screen.getByRole("textbox", { name: /target text/i })).toHaveAttribute("readonly");
+  });
+
   it("lets a caller override the direction", () => {
     const { container } = render(
-      <TranslationWidget sourceLocale="en" targetLocale="ar" sourceText="Hello" dir="ltr" />,
+      <TranslationWidget sourceLocale="en" targetLocale="ar" sourceText="Hello" dir="rtl" />,
     );
-    expect(container.firstElementChild).toHaveAttribute("dir", "ltr");
+    expect(container.firstElementChild).toHaveAttribute("dir", "rtl");
   });
 
   it("forwards a ref to the root element", () => {

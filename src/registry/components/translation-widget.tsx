@@ -36,8 +36,12 @@ export interface TranslationWidgetProps extends Omit<
 
 const RTL_LOCALES = new Set(["ar", "he", "fa", "ur", "ps", "sd", "yi"]);
 
+const RTL_SCRIPTS = new Set(["arab", "hebr", "thaa", "nkoo", "adlm", "syrc", "samar"]);
+
 function isRtl(code: string): boolean {
-  return RTL_LOCALES.has(code.split("-")[0].toLowerCase());
+  const subtags = code.toLowerCase().split("-");
+  if (subtags.some((s) => RTL_SCRIPTS.has(s))) return true;
+  return RTL_LOCALES.has(subtags[0]);
 }
 
 const LOCALE_LABELS: Record<string, string> = {
@@ -128,8 +132,8 @@ export const TranslationWidget = React.forwardRef<HTMLDivElement, TranslationWid
 
     const sourceRtl = isRtl(sourceLocale);
     const targetRtl = isRtl(targetLocale);
-    const widgetDir = dir ?? (targetRtl ? "rtl" : "ltr");
     const sourceReadOnly = readOnlySource || !onSourceChange;
+    const targetReadOnly = targetText !== undefined && !onTargetChange;
 
     const id = React.useId();
     const sourceId = `${id}-source`;
@@ -138,8 +142,7 @@ export const TranslationWidget = React.forwardRef<HTMLDivElement, TranslationWid
     return (
       <div
         ref={forwardedRef}
-        dir={widgetDir}
-        lang={targetLocale}
+        dir={dir}
         className={cn(
           "w-full rounded-3xl border p-4 transition-shadow sm:p-5",
           "border-zinc-200 bg-white",
@@ -198,6 +201,7 @@ export const TranslationWidget = React.forwardRef<HTMLDivElement, TranslationWid
               id={targetId}
               value={target}
               onChange={(e) => setTarget(e.target.value)}
+              readOnly={targetReadOnly}
               placeholder={targetPlaceholder}
               aria-label={`${targetLabel} (${getLocaleLabel(targetLocale)})`}
               dir={targetRtl ? "rtl" : "ltr"}
@@ -211,6 +215,7 @@ export const TranslationWidget = React.forwardRef<HTMLDivElement, TranslationWid
                 "dark:bg-zinc-800/70 dark:text-zinc-100 dark:placeholder:text-zinc-500",
                 "dark:shadow-[inset_0_3px_8px_rgba(0,0,0,0.45),inset_0_-2px_4px_rgba(255,255,255,0.04)]",
                 "dark:focus:ring-violet-400/50",
+                targetReadOnly && "cursor-default",
               )}
             />
           </div>
