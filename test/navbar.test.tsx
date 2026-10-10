@@ -130,4 +130,33 @@ describe("NavBar", () => {
     expect(ref.current?.tagName).toBe("NAV");
     expect(screen.getByRole("navigation", { name: "Main" })).toBeInTheDocument();
   });
+  it("honors flag and label overrides on the trigger", () => {
+    // Regression: the trigger used to ignore per-locale overrides entirely.
+    render(
+      <NavBar locales={[{ code: "en-US", label: "English (US)", flag: "\u{1F1FA}\u{1F1F8}" }]} />,
+    );
+    const trigger = screen.getAllByRole("button", {
+      name: "Current language: English (US)",
+    })[0];
+    expect(trigger).toHaveTextContent("\u{1F1FA}\u{1F1F8}");
+  });
+
+  it("honors overrides in the option rows", async () => {
+    render(
+      <NavBar locales={[{ code: "en-US", label: "English (US)", flag: "\u{1F1FA}\u{1F1F8}" }]} />,
+    );
+    await userEvent.click(screen.getAllByRole("button", { name: /Current language/ })[0]);
+    expect(screen.getAllByRole("option", { name: /English \(US\)/ })[0]).toHaveTextContent(
+      "\u{1F1FA}\u{1F1F8}",
+    );
+  });
+
+  it("falls back to the base language for regional codes without overrides", () => {
+    // Regression: "en-US" used to render as "EN-US" with a globe emoji.
+    render(<NavBar locales={[{ code: "en-US" }]} />);
+    const trigger = screen.getAllByRole("button", {
+      name: "Current language: English",
+    })[0];
+    expect(trigger).toHaveTextContent("\u{1F1FA}\u{1F1F8}");
+  });
 });

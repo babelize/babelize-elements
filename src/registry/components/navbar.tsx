@@ -4,6 +4,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { useControllableState } from "@/lib/use-controllable-state";
 import type { Locale } from "./types";
+import { getFlag, getLanguageName } from "./locale-data";
 
 export type { Locale };
 
@@ -48,55 +49,13 @@ export interface NavBarProps extends Omit<
   linkComponent?: React.ElementType;
 }
 
-const LOCALE_MAP: Record<string, { label: string; flag: string }> = {
-  en: { label: "English", flag: "\u{1F1FA}\u{1F1F8}" },
-  fr: { label: "Fran\u00e7ais", flag: "\u{1F1EB}\u{1F1F7}" },
-  es: { label: "Espa\u00f1ol", flag: "\u{1F1EA}\u{1F1F8}" },
-  de: { label: "Deutsch", flag: "\u{1F1E9}\u{1F1EA}" },
-  ja: { label: "\u65e5\u672c\u8a9e", flag: "\u{1F1EF}\u{1F1F5}" },
-  ko: { label: "\ud55c\uad6d\uc5b4", flag: "\u{1F1F0}\u{1F1F7}" },
-  zh: { label: "\u4e2d\u6587", flag: "\u{1F1E8}\u{1F1F3}" },
-  ar: { label: "\u0627\u0644\u0639\u0631\u0628\u064a\u0629", flag: "\u{1F1F8}\u{1F1E6}" },
-  pt: { label: "Portugu\u00eas", flag: "\u{1F1E7}\u{1F1F7}" },
-  it: { label: "Italiano", flag: "\u{1F1EE}\u{1F1F9}" },
-  nl: { label: "Nederlands", flag: "\u{1F1F3}\u{1F1F1}" },
-  ru: { label: "\u0420\u0443\u0441\u0441\u043a\u0438\u0439", flag: "\u{1F1F7}\u{1F1FA}" },
-  pl: { label: "Polski", flag: "\u{1F1F5}\u{1F1F1}" },
-  tr: { label: "T\u00fcrk\u00e7e", flag: "\u{1F1F9}\u{1F1F7}" },
-  vi: { label: "Ti\u1ebfng Vi\u1ec7t", flag: "\u{1F1FB}\u{1F1F3}" },
-  th: { label: "\u0e44\u0e17\u0e22", flag: "\u{1F1F9}\u{1F1ED}" },
-  id: { label: "Bahasa Indonesia", flag: "\u{1F1EE}\u{1F1E9}" },
-  hi: { label: "\u0939\u093f\u0928\u094d\u0926\u0940", flag: "\u{1F1EE}\u{1F1F3}" },
-  sv: { label: "Svenska", flag: "\u{1F1F8}\u{1F1EA}" },
-  da: { label: "Dansk", flag: "\u{1F1E9}\u{1F1F0}" },
-  fi: { label: "Suomi", flag: "\u{1F1EB}\u{1F1EE}" },
-  no: { label: "Norsk", flag: "\u{1F1F3}\u{1F1F4}" },
-  el: { label: "\u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac", flag: "\u{1F1EC}\u{1F1F7}" },
-  he: { label: "\u05e2\u05d1\u05e8\u05d9\u05ea", flag: "\u{1F1EE}\u{1F1F1}" },
-  ro: { label: "Rom\u00e2n\u0103", flag: "\u{1F1F7}\u{1F1F4}" },
-  hu: { label: "Magyar", flag: "\u{1F1ED}\u{1F1FA}" },
-  cs: { label: "\u010ce\u0161tina", flag: "\u{1F1E8}\u{1F1FF}" },
-  uk: {
-    label: "\u0423\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430",
-    flag: "\u{1F1FA}\u{1F1E6}",
-  },
-  bg: {
-    label: "\u0411\u044a\u043b\u0433\u0430\u0440\u0441\u043a\u0438",
-    flag: "\u{1F1E7}\u{1F1EC}",
-  },
-  hr: { label: "Hrvatski", flag: "\u{1F1ED}\u{1F1F7}" },
-  sk: { label: "Sloven\u010dina", flag: "\u{1F1F8}\u{1F1F0}" },
-  sl: { label: "Sloven\u0161\u010dina", flag: "\u{1F1F8}\u{1F1EE}" },
-  lt: { label: "Lietuvi\u0173", flag: "\u{1F1F1}\u{1F1F9}" },
-  lv: { label: "Latvie\u0161u", flag: "\u{1F1F1}\u{1F1FB}" },
-  et: { label: "Eesti", flag: "\u{1F1EA}\u{1F1EA}" },
-  ca: { label: "Catal\u00e0", flag: "\u{1F1EA}\u{1F1F8}" },
-  af: { label: "Afrikaans", flag: "\u{1F1FF}\u{1F1E6}" },
-  sw: { label: "Kiswahili", flag: "\u{1F1F9}\u{1F1FF}" },
-};
-
-function getLocaleInfo(code: string) {
-  return LOCALE_MAP[code] ?? { label: code.toUpperCase(), flag: "\u{1F310}" };
+function getLocaleInfo(code: string, override?: Locale) {
+  // Per-locale `label`/`flag` props win; otherwise fall back to the shared
+  // locale data, which resolves regional codes via the base language subtag.
+  return {
+    label: override?.label ?? getLanguageName(code) ?? code.toUpperCase(),
+    flag: override?.flag ?? getFlag(code),
+  };
 }
 
 export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar(
@@ -132,7 +91,10 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
   const mobileLangRef = React.useRef<HTMLDivElement>(null);
   const menuId = React.useId();
 
-  const currentLocaleInfo = getLocaleInfo(locale);
+  const currentLocaleInfo = getLocaleInfo(
+    locale,
+    locales.find((l) => l.code === locale),
+  );
 
   React.useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -201,7 +163,7 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
       aria-label="Select language"
     >
       {locales.map((item) => {
-        const info = getLocaleInfo(item.code);
+        const info = getLocaleInfo(item.code, item);
         const isActive = item.code === locale;
         return (
           <button

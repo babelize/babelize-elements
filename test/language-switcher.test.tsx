@@ -150,7 +150,7 @@ describe("LanguageSwitcher", () => {
  * (`ml` is Malayalam, not Mali), and pairs like `ZO` render as letters.
  */
 const switcherSource = readFileSync(
-  resolve(process.cwd(), "src/registry/components/language-switcher.tsx"),
+  resolve(process.cwd(), "src/registry/components/locale-data.ts"),
   "utf8",
 );
 const flagTableBlock = switcherSource.slice(
