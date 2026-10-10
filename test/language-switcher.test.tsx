@@ -2,6 +2,8 @@ import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as React from "react";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { LanguageSwitcher } from "@/registry/components";
 
 const locales = [{ code: "en" }, { code: "fr" }, { code: "ar" }];
@@ -138,5 +140,119 @@ describe("LanguageSwitcher", () => {
     expect(option.className).not.toContain("flex-row-reverse");
     expect(option.className).not.toContain("text-right");
     expect(option.className).not.toContain("text-left");
+  });
+});
+
+/**
+ * Every entry in `LANG_TO_FLAG` must render a flag that decodes to a real
+ * ISO 3166-1 region. The table is read from the source so that entries added
+ * later are covered automatically — a language code is not a country code
+ * (`ml` is Malayalam, not Mali), and pairs like `ZO` render as letters.
+ */
+const switcherSource = readFileSync(
+  resolve(process.cwd(), "src/registry/components/language-switcher.tsx"),
+  "utf8",
+);
+const flagTableBlock = switcherSource.slice(
+  switcherSource.indexOf("const LANG_TO_FLAG"),
+  switcherSource.indexOf("};", switcherSource.indexOf("const LANG_TO_FLAG")),
+);
+const FLAG_TABLE_CODES = [...flagTableBlock.matchAll(/^ {2}([a-z]+):/gm)].map((m) => m[1]);
+
+/** Decodes a flag emoji to its ISO 3166-1 region, or null if it isn't a pair. */
+function decodeRegion(flag: string): string | null {
+  const codepoints = Array.from(flag);
+  if (codepoints.length !== 2) return null;
+  const letters = codepoints.map((c) => {
+    const cp = c.codePointAt(0)!;
+    if (cp < 0x1f1e6 || cp > 0x1f1ff) return null;
+    return String.fromCharCode(cp - 0x1f1e6 + 65);
+  });
+  if (letters.some((l) => l === null)) return null;
+  return letters.join("");
+}
+
+/** Renders one switcher with every given code and returns its flags in order. */
+async function renderFlags(codes: string[]): Promise<string[]> {
+  render(<LanguageSwitcher locales={codes.map((code) => ({ code }))} showFlags />);
+  const trigger = screen.getByRole("button", { name: /Current language/ });
+  await userEvent.click(trigger);
+  const options = screen.getAllByRole("option");
+  expect(options).toHaveLength(codes.length);
+  const flags = options.map((option) => option.querySelector("span")?.textContent ?? "");
+  expect(trigger.querySelector("span")?.textContent).toBe(flags[0]);
+  return flags;
+}
+
+describe("LanguageSwitcher flags", () => {
+  const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
+
+  it("collects the whole flag table from the source", () => {
+    expect(FLAG_TABLE_CODES.length).toBeGreaterThan(80);
+    expect(FLAG_TABLE_CODES).toContain("en");
+  });
+
+  it("renders a valid ISO 3166-1 region flag for every language in the table", async () => {
+    const flags = await renderFlags(FLAG_TABLE_CODES);
+
+    FLAG_TABLE_CODES.forEach((code, i) => {
+      const region = decodeRegion(flags[i]);
+      expect(
+        region,
+        `${code} rendered "${flags[i]}", which is not a regional-indicator pair`,
+      ).not.toBeNull();
+      const name = regionNames.of(region!);
+      // Intl.DisplayNames falls back to the raw code for unknown regions.
+      expect(name, `${code} maps to invalid region ${region}`).toBeTruthy();
+      expect(name, `${code} maps to invalid region ${region}`).not.toBe(region);
+    });
+  });
+
+  it("maps languages whose codes collide with another country to the right flag", async () => {
+    const expected: Record<string, string> = {
+      ml: "IN", // Malayalam, not Mali
+      or: "IN", // Odia, not Norway
+      am: "ET", // Amharic, not Armenia
+      si: "LK", // Sinhala, not Slovakia
+      ta: "IN", // Tamil, not Timor-Leste
+      te: "IN", // Telugu, not Tajikistan
+      mr: "IN", // Marathi, not Mauritania
+      pa: "IN", // Punjabi, not Panama
+      as: "IN", // Assamese, not American Samoa
+      ur: "PK", // Urdu, not U.S. Outlying Islands
+      ps: "AF", // Pashto, not Palestinian Territories
+      sd: "PK", // Sindhi, not Saudi Arabia
+      bs: "BA", // Bosnian, not Bahamas
+      af: "ZA", // Afrikaans, not Azerbaijan
+      sm: "WS", // Samoan, not Somalia
+      ha: "NG", // Hausa, not Heard & McDonald Islands
+      ca: "ES", // Catalan, not American Samoa
+      eu: "ES", // Basque, not Argentina
+      gl: "ES", // Galician, not Argentina
+      la: "VA", // Latin, not Laos
+      cy: "GB", // Welsh, invalid region ZO
+      haw: "US", // Hawaiian, invalid region HW
+      my: "MM", // Burmese, broken pair
+      kk: "KZ", // Kazakh, invalid region KK
+      yo: "NG", // Yoruba, invalid region YN
+      ig: "NG", // Igbo, invalid region IG
+      zu: "ZA", // Zulu, invalid region ZN
+    };
+    const codes = Object.keys(expected);
+    const flags = await renderFlags(codes);
+
+    codes.forEach((code, i) => {
+      expect(decodeRegion(flags[i])).toBe(expected[code]);
+    });
+  });
+
+  it("falls back to the globe for languages without a canonical country", async () => {
+    const flags = await renderFlags(["yi", "eo"]);
+    expect(flags).toEqual(["\u{1F310}", "\u{1F310}"]);
+  });
+
+  it("renders the flags reported as wrong in issue #24", async () => {
+    const flags = await renderFlags(["ml", "am", "cy"]);
+    expect(flags).toEqual(["\u{1F1EE}\u{1F1F3}", "\u{1F1EA}\u{1F1F9}", "\u{1F1EC}\u{1F1E7}"]);
   });
 });

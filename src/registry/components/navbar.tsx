@@ -90,8 +90,8 @@ const LOCALE_MAP: Record<string, { label: string; flag: string }> = {
   lt: { label: "Lietuvi\u0173", flag: "\u{1F1F1}\u{1F1F9}" },
   lv: { label: "Latvie\u0161u", flag: "\u{1F1F1}\u{1F1FB}" },
   et: { label: "Eesti", flag: "\u{1F1EA}\u{1F1EA}" },
-  ca: { label: "Catal\u00e0", flag: "\u{1F1E6}\u{1F1F8}" },
-  af: { label: "Afrikaans", flag: "\u{1F1E6}\u{1F1FF}" },
+  ca: { label: "Catal\u00e0", flag: "\u{1F1EA}\u{1F1F8}" },
+  af: { label: "Afrikaans", flag: "\u{1F1FF}\u{1F1E6}" },
   sw: { label: "Kiswahili", flag: "\u{1F1F9}\u{1F1FF}" },
 };
 
