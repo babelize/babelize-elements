@@ -188,6 +188,28 @@ describe("PhoneInput keyboard navigation", () => {
     expect(document.activeElement).toBe(trigger);
   });
 
+  it("keeps number-field keys out of the open country menu", async () => {
+    const onValueChange = vi.fn();
+    render(<PhoneInput onValueChange={onValueChange} />);
+    const trigger = screen.getByRole("button", { name: "Select country" });
+    const numberField = screen.getByRole("textbox", { name: "Phone number" });
+    await userEvent.click(trigger);
+    // The number field stays visible and focusable inside the container, so a
+    // click there does not dismiss the menu.
+    await userEvent.click(numberField);
+    expect(screen.getByRole("listbox")).toBeInTheDocument();
+
+    // Arrows, Home / End, and Enter belong to the field, not the country list.
+    await userEvent.keyboard("{ArrowDown}{End}{Enter}");
+    expect(screen.getByRole("listbox")).toBeInTheDocument();
+    expect(onValueChange).not.toHaveBeenCalled();
+
+    // Escape still closes the menu and returns to the trigger.
+    await userEvent.keyboard("{Escape}");
+    expect(screen.queryByRole("listbox")).toBeNull();
+    expect(document.activeElement).toBe(trigger);
+  });
+
   it("restarts the highlight at the top when the filter changes", async () => {
     render(<PhoneInput />);
     await userEvent.click(screen.getByRole("button", { name: "Select country" }));

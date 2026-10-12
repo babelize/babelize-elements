@@ -176,11 +176,29 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
     onValueChange?.(newValue, selectedCountry);
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    // While the menu is open the number field is still focusable: arrows and
+    // Home / End belong to the caret there, and Enter is not a request to pick
+    // a country. Escape and everything else keep going to the listbox.
+    if (
+      open &&
+      event.target === inputRef.current &&
+      (event.key === "ArrowUp" ||
+        event.key === "ArrowDown" ||
+        event.key === "Home" ||
+        event.key === "End" ||
+        event.key === "Enter")
+    ) {
+      return;
+    }
+    nav.onKeyDown(event);
+  };
+
   return (
     <div
       ref={ref}
       className={cn("relative inline-block text-sm", className)}
-      onKeyDown={nav.onKeyDown}
+      onKeyDown={handleKeyDown}
     >
       <div
         className={cn(
