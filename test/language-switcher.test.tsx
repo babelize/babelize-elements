@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as React from "react";
 import { readFileSync } from "node:fs";
@@ -333,6 +333,25 @@ describe("LanguageSwitcher keyboard navigation", () => {
 
     expect(screen.queryByRole("listbox")).toBeNull();
     expect(document.activeElement).toBe(trigger);
+  });
+
+  it("ignores Enter while an IME composition is in progress", async () => {
+    const onValueChange = vi.fn();
+    render(<LanguageSwitcher locales={locales} onValueChange={onValueChange} />);
+    await userEvent.click(screen.getByRole("button", { name: /Current language/ }));
+
+    // The Enter that commits a composition is not a request to select.
+    fireEvent.keyDown(searchBox(), { key: "Enter", isComposing: true });
+    // Legacy browsers never set `isComposing` and only report the 229 keyCode.
+    fireEvent.keyDown(searchBox(), { key: "Enter", keyCode: 229 });
+
+    expect(onValueChange).not.toHaveBeenCalled();
+    expect(screen.getByRole("listbox")).toBeInTheDocument();
+
+    // A real Enter still selects.
+    await userEvent.keyboard("{ArrowDown}");
+    fireEvent.keyDown(searchBox(), { key: "Enter" });
+    expect(onValueChange).toHaveBeenCalledWith("fr");
   });
 
   it("restarts the highlight at the top when the filter changes", async () => {

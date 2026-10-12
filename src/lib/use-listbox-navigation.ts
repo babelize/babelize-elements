@@ -301,6 +301,11 @@ export function useListboxNavigation(options: UseListboxNavigationOptions): List
         // An option is a `<button>`, and the browser fires its click for us.
         // Selecting here too would run `onSelect` twice.
         if ((event.target as HTMLElement).getAttribute("role") === "option") return;
+        // Enter during an IME composition commits the composition — not a request
+        // to pick the highlighted option. Composing events report `isComposing`;
+        // older browsers only report the legacy 229 keyCode. Checked before
+        // `preventDefault`, which must not stall the IME's own commit either.
+        if (event.nativeEvent.isComposing || event.nativeEvent.keyCode === 229) return;
         if (activeIndex < 0 || activeIndex >= count) return;
         event.preventDefault();
         select(activeIndex);
