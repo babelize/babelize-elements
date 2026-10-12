@@ -41,8 +41,8 @@ npx shadcn@latest add @elements/navbar
 
 The CLI resolves each component's dependencies (including the `cn` utility) and
 writes each file to the alias its type selects — components to your `ui` alias,
-the `useControllableState` hook to `lib`. If you have relocated `ui` in
-`components.json`, components follow it.
+shared hooks such as `useControllableState` and `useListboxNavigation` to `lib`.
+If you have relocated `ui` in `components.json`, components follow it.
 
 <Callout title="Your `cn` is left alone">
   Components import `cn` through your `utils` alias and expect it to already be

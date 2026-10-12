@@ -3,6 +3,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { useControllableState } from "@/lib/use-controllable-state";
+import { useListboxNavigation } from "@/lib/use-listbox-navigation";
 import type { Locale } from "./types";
 import { getFlag, getLanguageName } from "./locale-data";
 
@@ -41,6 +42,8 @@ export interface NavBarProps extends Omit<
   sticky?: boolean;
   /** Show flag emojis in the language menu (default: true) */
   showFlags?: boolean;
+  /** Max height of the scrolling language menu, before it scrolls (default: "15rem") */
+  maxHeight?: number | string;
   /**
    * Component used to render internal links. Defaults to `"a"` so the
    * component works in any React app; pass your router's link (e.g.
@@ -72,7 +75,9 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
     sticky = true,
     className,
     showFlags = true,
+    maxHeight = "15rem",
     linkComponent: Link = "a",
+    onKeyDown,
     ...rest
   },
   forwardedRef,
@@ -89,12 +94,44 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
   const [langOpen, setLangOpen] = React.useState<"desktop" | "mobile" | null>(null);
   const langRef = React.useRef<HTMLDivElement>(null);
   const mobileLangRef = React.useRef<HTMLDivElement>(null);
+  const desktopTriggerRef = React.useRef<HTMLButtonElement>(null);
+  const mobileTriggerRef = React.useRef<HTMLButtonElement>(null);
   const menuId = React.useId();
 
   const currentLocaleInfo = getLocaleInfo(
     locale,
     locales.find((l) => l.code === locale),
   );
+
+  /**
+   * The trigger that owns the interaction: whichever bar is open, or — while the
+   * menu is closed — whichever one the keyboard event landed on.
+   */
+  const getTrigger = () =>
+    langOpen === "mobile"
+      ? mobileTriggerRef.current
+      : langOpen === "desktop"
+        ? desktopTriggerRef.current
+        : document.activeElement === mobileTriggerRef.current
+          ? mobileTriggerRef.current
+          : desktopTriggerRef.current;
+
+  // No search field lives in this menu, so the highlight moves real DOM focus
+  // onto the active option instead — `aria-activedescendant` is not valid on a
+  // `<button>` trigger, and the trigger keeps its button role.
+  const nav = useListboxNavigation({
+    count: locales.length,
+    open: langOpen !== null,
+    strategy: "roving",
+    initialIndex: locales.findIndex((item) => item.code === locale),
+    onClose: () => setLangOpen(null),
+    onOpen: () => setLangOpen(getTrigger() === mobileTriggerRef.current ? "mobile" : "desktop"),
+    onSelect: (index) => {
+      const picked = locales[index];
+      if (picked) setLocale(picked.code);
+    },
+    triggerRef: getTrigger,
+  });
 
   React.useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -110,15 +147,17 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const { close: closeLanguageMenu } = nav;
+
   React.useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key !== "Escape") return;
-      setLangOpen(null);
+      closeLanguageMenu();
       setMobileOpen(false);
     }
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [closeLanguageMenu]);
 
   React.useEffect(() => {
     if (!mobileOpen) return;
@@ -132,6 +171,7 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
 
   const langButton = (
     <button
+      ref={desktopTriggerRef}
       type="button"
       onClick={() => setLangOpen(langOpen === "desktop" ? null : "desktop")}
       className="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
@@ -157,47 +197,54 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
   );
 
   const langDropdown = (
-    <div
-      className="absolute right-0 top-full z-50 mt-1.5 min-w-[170px] rounded-xl border border-zinc-200 bg-white py-1.5 shadow-xl dark:border-zinc-800 dark:bg-zinc-950"
-      role="listbox"
-      aria-label="Select language"
-    >
-      {locales.map((item) => {
-        const info = getLocaleInfo(item.code, item);
-        const isActive = item.code === locale;
-        return (
-          <button
-            key={item.code}
-            type="button"
-            role="option"
-            aria-selected={isActive}
-            onClick={() => {
-              setLocale(item.code);
-              setLangOpen(null);
-            }}
-            className={cn(
-              "mx-1.5 flex w-[calc(100%-12px)] items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors",
-              isActive
-                ? "bg-emerald-500/10 text-emerald-600 font-medium dark:text-emerald-400"
-                : "text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100",
-            )}
-          >
-            {showFlags && <span className="text-base leading-none">{info.flag}</span>}
-            <span className="flex-1">{item.label ?? info.label}</span>
-            {isActive && (
-              <svg
-                className="size-4 shrink-0 text-emerald-600 dark:text-emerald-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2.5}
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-              </svg>
-            )}
-          </button>
-        );
-      })}
+    <div className="absolute right-0 top-full z-50 mt-1.5 min-w-[170px] rounded-xl border border-zinc-200 bg-white py-1.5 shadow-xl dark:border-zinc-800 dark:bg-zinc-950">
+      {/* The listbox owns the options only, and scrolls on its own: a long list
+          never drags the page along with it. */}
+      <div
+        className="overflow-y-auto"
+        style={{ maxHeight }}
+        role="listbox"
+        aria-label="Select language"
+        {...nav.listboxProps}
+      >
+        {locales.map((item, index) => {
+          const info = getLocaleInfo(item.code, item);
+          const isCurrent = item.code === locale;
+          const isActive = index === nav.activeIndex;
+          return (
+            <button
+              key={item.code}
+              type="button"
+              role="option"
+              aria-selected={isCurrent}
+              onClick={() => nav.select(index)}
+              {...nav.optionProps(index)}
+              className={cn(
+                "mx-1.5 flex w-[calc(100%-12px)] items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors",
+                isCurrent
+                  ? "bg-emerald-500/10 text-emerald-600 font-medium dark:text-emerald-400"
+                  : isActive
+                    ? "bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
+                    : "text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100",
+              )}
+            >
+              {showFlags && <span className="text-base leading-none">{info.flag}</span>}
+              <span className="flex-1">{item.label ?? info.label}</span>
+              {isCurrent && (
+                <svg
+                  className="size-4 shrink-0 text-emerald-600 dark:text-emerald-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2.5}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              )}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 
@@ -205,6 +252,10 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
     <nav
       ref={forwardedRef}
       {...rest}
+      onKeyDown={(event) => {
+        nav.onKeyDown(event);
+        onKeyDown?.(event);
+      }}
       className={cn(
         "z-50 w-full border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900",
         sticky && "sticky top-0",
@@ -268,6 +319,7 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
           {locales.length > 0 && (
             <div ref={mobileLangRef} className="relative">
               <button
+                ref={mobileTriggerRef}
                 type="button"
                 onClick={() => setLangOpen(langOpen === "mobile" ? null : "mobile")}
                 className="inline-flex size-8 items-center justify-center rounded-md transition-colors text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"

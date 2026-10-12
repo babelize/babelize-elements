@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as React from "react";
 import { NavBar } from "@/registry/components";
+import { fakeScroller } from "./fake-geometry";
 
 const links = [
   { label: "Docs", href: "/docs" },
@@ -158,5 +159,136 @@ describe("NavBar", () => {
       name: "Current language: English",
     })[0];
     expect(trigger).toHaveTextContent("\u{1F1FA}\u{1F1F8}");
+  });
+});
+
+describe("NavBar keyboard navigation", () => {
+  const triggers = () => screen.getAllByRole("button", { name: /Current language/ });
+  // Index 0 is the desktop bar, index 1 the mobile one — both live in the DOM.
+  const desktopTrigger = () => triggers()[0];
+  const mobileTrigger = () => triggers()[1];
+
+  it("opens on ArrowDown with focus on the first option", async () => {
+    render(<NavBar locales={locales} />);
+    desktopTrigger().focus();
+
+    await userEvent.keyboard("{ArrowDown}");
+
+    const options = screen.getAllByRole("option");
+    expect(screen.getAllByRole("listbox")).toHaveLength(1);
+    expect(document.activeElement).toBe(options[0]);
+    // Roving tabindex: the active option joins the tab order, the rest skip it.
+    expect(options[0]).toHaveAttribute("tabindex", "0");
+    expect(options[1]).toHaveAttribute("tabindex", "-1");
+  });
+
+  it("moves focus with ArrowDown and ArrowUp, wrapping at both ends", async () => {
+    render(<NavBar locales={locales} />);
+    await userEvent.click(desktopTrigger());
+    const options = screen.getAllByRole("option");
+
+    await userEvent.keyboard("{ArrowDown}");
+    expect(document.activeElement).toBe(options[1]);
+
+    await userEvent.keyboard("{ArrowDown}");
+    expect(document.activeElement).toBe(options[0]);
+
+    await userEvent.keyboard("{ArrowUp}");
+    expect(document.activeElement).toBe(options[1]);
+  });
+
+  it("jumps to the first and last option with Home and End", async () => {
+    render(<NavBar locales={locales} />);
+    await userEvent.click(desktopTrigger());
+
+    await userEvent.keyboard("{End}");
+    expect(document.activeElement).toBe(screen.getAllByRole("option")[1]);
+
+    await userEvent.keyboard("{Home}");
+    expect(document.activeElement).toBe(screen.getAllByRole("option")[0]);
+  });
+
+  it("picks the active language with Enter, closes, and returns focus to the trigger", async () => {
+    const onValueChange = vi.fn();
+    render(<NavBar locales={locales} onValueChange={onValueChange} />);
+    const trigger = desktopTrigger();
+    trigger.focus();
+
+    await userEvent.keyboard("{ArrowDown}{ArrowDown}{Enter}");
+
+    expect(onValueChange).toHaveBeenCalledTimes(1);
+    expect(onValueChange).toHaveBeenCalledWith("fr");
+    expect(screen.queryByRole("listbox")).toBeNull();
+    expect(document.activeElement).toBe(trigger);
+  });
+
+  it("navigates and returns focus to the mobile trigger for the mobile bar", async () => {
+    render(<NavBar locales={locales} />);
+    const trigger = mobileTrigger();
+    trigger.focus();
+
+    await userEvent.keyboard("{ArrowDown}");
+    const options = screen.getAllByRole("option");
+    expect(screen.getAllByRole("listbox")).toHaveLength(1);
+    expect(document.activeElement).toBe(options[0]);
+
+    await userEvent.keyboard("{End}");
+    expect(document.activeElement).toBe(options[options.length - 1]);
+
+    await userEvent.keyboard("{Escape}");
+    expect(screen.queryByRole("listbox")).toBeNull();
+    expect(document.activeElement).toBe(trigger);
+  });
+
+  it("keeps focus on the trigger when the menu is opened with the mouse", async () => {
+    render(<NavBar locales={locales} />);
+    const trigger = desktopTrigger();
+    await userEvent.click(trigger);
+
+    expect(document.activeElement).toBe(trigger);
+    expect(screen.getAllByRole("option")[0]).toHaveAttribute("data-active", "true");
+  });
+
+  it("does not steal focus when Escape arrives while the menu is closed", async () => {
+    render(<NavBar locales={locales} />);
+    const toggle = screen.getByRole("button", { name: "Toggle menu" });
+    toggle.focus();
+
+    await userEvent.keyboard("{Escape}");
+
+    expect(document.activeElement).toBe(toggle);
+  });
+
+  it("keeps the language menu inside its own scroll container", async () => {
+    render(<NavBar locales={locales} />);
+    await userEvent.click(desktopTrigger());
+
+    // Without its own scroll area a long menu made the page scroll instead.
+    const listbox = screen.getByRole("listbox");
+    expect(listbox.className).toContain("overflow-y-auto");
+    expect(listbox.style.maxHeight).toBe("15rem");
+  });
+
+  it("honours maxHeight on the language menu", async () => {
+    render(<NavBar locales={locales} maxHeight="60vh" />);
+    await userEvent.click(desktopTrigger());
+
+    expect(screen.getByRole("listbox").style.maxHeight).toBe("60vh");
+  });
+
+  it("pins the highlight and scrolls the menu, not the page, under roving focus", async () => {
+    render(<NavBar locales={locales} />);
+    await userEvent.click(desktopTrigger());
+    // jsdom has no layout, so fake two 80px rows overflowing a 100px viewport.
+    const scroller = fakeScroller(screen.getByRole("listbox"), screen.getAllByRole("option"), {
+      itemHeight: 80,
+    });
+
+    await userEvent.keyboard("{ArrowDown}");
+
+    expect(screen.getAllByRole("option")[1]).toHaveAttribute("data-active", "true");
+    expect(scroller.scrollTop).toBe(60); // clamped: 160px of content, 100px viewport
+    expect(document.documentElement.scrollTop).toBe(0);
+    expect(document.body.scrollTop).toBe(0);
   });
 });

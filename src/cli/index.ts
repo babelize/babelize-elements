@@ -117,6 +117,7 @@ function rewriteImports(content: string, aliases: Record<string, string>): strin
   // hook path must not be partially rewritten by a shorter rule later.
   return content
     .replaceAll("@/lib/use-controllable-state", `${aliases.lib}/use-controllable-state`)
+    .replaceAll("@/lib/use-listbox-navigation", `${aliases.lib}/use-listbox-navigation`)
     .replaceAll("@/lib/utils", aliases.utils);
 }
 

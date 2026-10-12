@@ -3,6 +3,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { useControllableState } from "@/lib/use-controllable-state";
+import { useListboxNavigation } from "@/lib/use-listbox-navigation";
 import type { Locale } from "./types";
 import { getFlag, getLanguageName, isRtl } from "./locale-data";
 
@@ -24,6 +25,8 @@ export interface LanguageSwitcherProps extends Omit<
   showFlags?: boolean;
   /** Display labels in native language or English (default: "english") */
   label?: "native" | "english";
+  /** Max height of the scrolling option list, before it scrolls (default: "15rem") */
+  maxHeight?: number | string;
 }
 
 export const LanguageSwitcher = React.forwardRef<HTMLDivElement, LanguageSwitcherProps>(
@@ -35,7 +38,9 @@ export const LanguageSwitcher = React.forwardRef<HTMLDivElement, LanguageSwitche
       onValueChange,
       showFlags = false,
       label: labelMode = "english",
+      maxHeight = "15rem",
       className,
+      onKeyDown,
       ...rest
     },
     forwardedRef,
@@ -49,6 +54,7 @@ export const LanguageSwitcher = React.forwardRef<HTMLDivElement, LanguageSwitche
     const [search, setSearch] = React.useState("");
     const ref = React.useRef<HTMLDivElement>(null);
     const inputRef = React.useRef<HTMLInputElement>(null);
+    const triggerRef = React.useRef<HTMLButtonElement>(null);
 
     React.useImperativeHandle(forwardedRef, () => ref.current as HTMLDivElement);
 
@@ -60,6 +66,23 @@ export const LanguageSwitcher = React.forwardRef<HTMLDivElement, LanguageSwitche
         resolveLabel(l).toLowerCase().includes(search.toLowerCase()) ||
         l.code.toLowerCase().includes(search.toLowerCase()),
     );
+
+    const nav = useListboxNavigation({
+      count: filtered.length,
+      open,
+      // Land on the current selection when the popup opens.
+      initialIndex: filtered.findIndex((l) => l.code === locale),
+      onClose: () => {
+        setOpen(false);
+        setSearch("");
+      },
+      onOpen: () => setOpen(true),
+      onSelect: (index) => {
+        const picked = filtered[index];
+        if (picked) setLocale(picked.code);
+      },
+      triggerRef: () => triggerRef.current,
+    });
 
     const dir = (activeLocale?.rtl ?? isRtl(locale)) ? "rtl" : "ltr";
 
@@ -78,27 +101,19 @@ export const LanguageSwitcher = React.forwardRef<HTMLDivElement, LanguageSwitche
       if (open) inputRef.current?.focus();
     }, [open]);
 
-    React.useEffect(() => {
-      function handleKeyDown(e: KeyboardEvent) {
-        if (e.key === "Escape") {
-          setOpen(false);
-          setSearch("");
-        }
-      }
-      if (open) {
-        document.addEventListener("keydown", handleKeyDown);
-        return () => document.removeEventListener("keydown", handleKeyDown);
-      }
-    }, [open]);
-
     return (
       <div
         ref={ref}
         dir={dir}
         className={cn("relative inline-block text-sm z-50", className)}
+        onKeyDown={(event) => {
+          nav.onKeyDown(event);
+          onKeyDown?.(event);
+        }}
         {...rest}
       >
         <button
+          ref={triggerRef}
           type="button"
           onClick={() => setOpen(!open)}
           className={cn(
@@ -125,11 +140,7 @@ export const LanguageSwitcher = React.forwardRef<HTMLDivElement, LanguageSwitche
         </button>
 
         {open && (
-          <div
-            className="absolute z-50 mt-1 min-w-[200px] overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-xl dark:border-zinc-800 dark:bg-zinc-950"
-            role="listbox"
-            aria-label="Select language"
-          >
+          <div className="absolute z-50 mt-1 min-w-[200px] overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-xl dark:border-zinc-800 dark:bg-zinc-950">
             <div className="border-b border-zinc-200 p-2 dark:border-zinc-800">
               <input
                 ref={inputRef}
@@ -137,36 +148,48 @@ export const LanguageSwitcher = React.forwardRef<HTMLDivElement, LanguageSwitche
                 placeholder="Search..."
                 aria-label="Search languages"
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  nav.resetActive();
+                }}
+                {...nav.comboboxProps}
                 className="w-full rounded-lg bg-zinc-100 px-3 py-1.5 text-sm text-zinc-900 outline-none placeholder:text-zinc-400 focus:ring-1 focus:ring-emerald-500/50 dark:bg-zinc-800 dark:text-zinc-100 dark:placeholder:text-zinc-500"
               />
             </div>
-            <div className="max-h-60 overflow-y-auto p-1">
-              {filtered.map((l) => {
-                const isActive = l.code === locale;
+            {/* The listbox owns the options only — the search field above sits
+                outside it, per ARIA. It scrolls on its own: the page never does. */}
+            <div
+              className="overflow-y-auto p-1"
+              style={{ maxHeight }}
+              role="listbox"
+              aria-label="Select language"
+              {...nav.listboxProps}
+            >
+              {filtered.map((l, index) => {
+                const isCurrent = l.code === locale;
+                const isActive = index === nav.activeIndex;
                 const itemDir = (l.rtl ?? isRtl(l.code)) ? "rtl" : "ltr";
                 return (
                   <button
                     key={l.code}
                     type="button"
                     role="option"
-                    aria-selected={isActive}
+                    aria-selected={isCurrent}
                     dir={itemDir}
-                    onClick={() => {
-                      setLocale(l.code);
-                      setOpen(false);
-                      setSearch("");
-                    }}
+                    onClick={() => nav.select(index)}
+                    {...nav.optionProps(index)}
                     className={cn(
                       "flex w-full items-center gap-2 rounded-lg px-3 py-2 text-start text-sm transition-colors",
-                      isActive
+                      isCurrent
                         ? "bg-emerald-500/10 text-emerald-600 font-medium dark:text-emerald-400"
-                        : "text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100",
+                        : isActive
+                          ? "bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
+                          : "text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100",
                     )}
                   >
                     {showFlags && <span className="text-base">{l.flag ?? getFlag(l.code)}</span>}
                     <span className="flex-1">{resolveLabel(l)}</span>
-                    {isActive && (
+                    {isCurrent && (
                       <svg
                         className="size-4 text-emerald-600 dark:text-emerald-400"
                         fill="none"

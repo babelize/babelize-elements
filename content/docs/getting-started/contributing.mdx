@@ -81,6 +81,13 @@ Note the four conventions every component follows: a `value` / `defaultValue` /
 onto the root element, and the shared `Locale` type from `./types` rather than a
 local copy.
 
+A component that renders a `role="listbox"` popup — a language menu, a country
+picker — shares its keyboard handling through `useListboxNavigation` from
+`@/lib/use-listbox-navigation` instead of wiring arrow keys, `Home` / `End`,
+`Enter`, and `Escape` itself. See `LanguageSwitcher` (search field plus
+`aria-activedescendant`) and `NavBar` (roving focus) for the two focus
+strategies.
+
 ## Contribution checklist
 
 - [ ] TypeScript-first with exported interfaces for all props

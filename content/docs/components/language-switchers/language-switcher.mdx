@@ -63,15 +63,16 @@ export function LocaleSwitcher() {
 
 ## Props
 
-| Prop            | Type                     | Required | Description                                                 |
-| --------------- | ------------------------ | -------- | ----------------------------------------------------------- |
-| `locales`       | `Locale[]`               | Yes      | Array of available locales — only `code` is required        |
-| `value`         | `string`                 | No       | Selected locale code — pass this to control the component   |
-| `defaultValue`  | `string`                 | No       | Initial selected locale code (default: first locale's code) |
-| `onValueChange` | `(code: string) => void` | No       | Callback when locale changes                                |
-| `label`         | `"native" \| "english"`  | No       | Display labels in native or English (default: `"english"`)  |
-| `showFlags`     | `boolean`                | No       | Show flag emojis (default: `false`)                         |
-| `className`     | `string`                 | No       | Additional CSS classes                                      |
+| Prop            | Type                     | Required | Description                                                  |
+| --------------- | ------------------------ | -------- | ------------------------------------------------------------ |
+| `locales`       | `Locale[]`               | Yes      | Array of available locales — only `code` is required         |
+| `value`         | `string`                 | No       | Selected locale code — pass this to control the component    |
+| `defaultValue`  | `string`                 | No       | Initial selected locale code (default: first locale's code)  |
+| `onValueChange` | `(code: string) => void` | No       | Callback when locale changes                                 |
+| `label`         | `"native" \| "english"`  | No       | Display labels in native or English (default: `"english"`)   |
+| `showFlags`     | `boolean`                | No       | Show flag emojis (default: `false`)                          |
+| `maxHeight`     | `number \| string`       | No       | Max height of the scrolling option list (default: `"15rem"`) |
+| `className`     | `string`                 | No       | Additional CSS classes                                       |
 
 ### Locale Object
 
@@ -183,13 +184,33 @@ export default function App() {
 }
 ```
 
+## Keyboard support
+
+The popup follows the WAI-ARIA combobox pattern: focus stays in the search field,
+which is exposed as a `role="combobox"`, and the highlighted option is announced
+through `aria-activedescendant`.
+
+| Key                              | Action                                                        |
+| -------------------------------- | ------------------------------------------------------------- |
+| `Enter`, `Space`, or click       | Open the popup from the trigger                               |
+| `ArrowDown` / `ArrowUp` (closed) | Open with the first / last locale highlighted                 |
+| `ArrowDown` / `ArrowUp`          | Move the highlight, wrapping at both ends                     |
+| `Home` / `End`                   | Highlight the first / last locale                             |
+| `Enter`                          | Select the highlighted locale and return focus to the trigger |
+| `Escape`                         | Close the popup and return focus to the trigger               |
+| Typing                           | Filter by name or code; the highlight restarts at the top     |
+
+The highlight stays on the row where it appeared when the menu opened — the
+list scrolls beneath it, like a native menu — and the page itself never
+scrolls. Pass `maxHeight` to change how tall the list gets before it scrolls.
+
 ## Features
 
 - **Zero-config** — just pass codes, labels and flags are auto-resolved
 - **Dropdown with search** — filter locales by name or code
 - **RTL-aware** — auto-detects RTL locales (ar, he, fa, ur) and adjusts layout
-- **Keyboard accessible** — arrow keys, Enter, Escape, Tab navigation
-- **ARIA labels** — proper `aria-expanded`, `aria-haspopup`, `aria-selected`
+- **Keyboard accessible** — arrow keys, Home / End, Enter, and Escape navigation
+- **ARIA labels** — `role="combobox"` search field with `aria-activedescendant`, plus `aria-expanded`, `aria-haspopup`, and `aria-selected`
 - **Dark mode** — built with Tailwind CSS, dark-mode compatible
 - **Library agnostic** — works with any i18n setup via callback
 

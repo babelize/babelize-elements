@@ -36,7 +36,12 @@ const ITEMS: ItemDef[] = [
     source: "registry/components/language-switcher",
     filePath: "ui/language-switcher.tsx",
     dependencies: ["clsx", "tailwind-merge"],
-    registryDependencies: ["locale-types", "locale-data", "use-controllable-state"],
+    registryDependencies: [
+      "locale-types",
+      "locale-data",
+      "use-controllable-state",
+      "use-listbox-navigation",
+    ],
   },
   {
     name: "language-switcher-pill",
@@ -57,7 +62,7 @@ const ITEMS: ItemDef[] = [
     source: "registry/components/phone-input",
     filePath: "ui/phone-input.tsx",
     dependencies: ["clsx", "tailwind-merge"],
-    registryDependencies: ["use-controllable-state"],
+    registryDependencies: ["use-controllable-state", "use-listbox-navigation"],
   },
   {
     name: "navbar",
@@ -68,7 +73,12 @@ const ITEMS: ItemDef[] = [
     source: "registry/components/navbar",
     filePath: "ui/navbar.tsx",
     dependencies: ["clsx", "tailwind-merge"],
-    registryDependencies: ["locale-types", "locale-data", "use-controllable-state"],
+    registryDependencies: [
+      "locale-types",
+      "locale-data",
+      "use-controllable-state",
+      "use-listbox-navigation",
+    ],
   },
   {
     name: "translation-widget",
@@ -105,6 +115,15 @@ const ITEMS: ItemDef[] = [
     type: "registry:lib",
     source: "lib/use-controllable-state",
     filePath: "lib/use-controllable-state.ts",
+  },
+  {
+    name: "use-listbox-navigation",
+    title: "useListboxNavigation",
+    description:
+      "Keyboard navigation for listbox popups: arrow keys, Home / End, Enter, Escape, and focus management.",
+    type: "registry:lib",
+    source: "lib/use-listbox-navigation",
+    filePath: "lib/use-listbox-navigation.ts",
   },
   {
     name: "utils",

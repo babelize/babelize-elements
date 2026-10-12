@@ -29,6 +29,7 @@
     "src/registry/components/**/*.tsx",
     "src/lib/utils.ts",
     "src/lib/use-controllable-state.ts",
+    "src/lib/use-listbox-navigation.ts",
     "src/cli/**/*.ts"
   ],
   "exclude": ["node_modules", "dist", "src/app", "src/components", ".next", ".source"]

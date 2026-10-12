@@ -3,6 +3,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { useControllableState } from "@/lib/use-controllable-state";
+import { useListboxNavigation } from "@/lib/use-listbox-navigation";
 
 export interface Country {
   /** ISO 3166-1 alpha-2 country code (e.g. "US") */
@@ -31,6 +32,8 @@ export interface PhoneInputProps extends Omit<
   showFlags?: boolean;
   /** Accessible label for the field (default: "Phone number") */
   label?: string;
+  /** Max height of the scrolling country list, before it scrolls (default: "15rem") */
+  maxHeight?: number | string;
 }
 
 const COUNTRIES: Country[] = [
@@ -101,6 +104,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
     className,
     showFlags = true,
     label = "Phone number",
+    maxHeight = "15rem",
     ...rest
   },
   forwardedRef,
@@ -117,6 +121,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
   // field overwrote it whenever the dropdown opened, which pointed the forwarded
   // ref at the wrong element and sent focus to a node that was about to unmount.
   const searchRef = React.useRef<HTMLInputElement>(null);
+  const triggerRef = React.useRef<HTMLButtonElement>(null);
 
   React.useImperativeHandle(forwardedRef, () => inputRef.current as HTMLInputElement);
 
@@ -126,6 +131,25 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
       c.dialCode.includes(search) ||
       c.code.toLowerCase().includes(search.toLowerCase()),
   );
+
+  const nav = useListboxNavigation({
+    count: filtered.length,
+    open,
+    // Land on the current selection when the popup opens.
+    initialIndex: filtered.findIndex((c) => c.code === selectedCountry.code),
+    onClose: () => {
+      setOpen(false);
+      setSearch("");
+    },
+    onOpen: () => setOpen(true),
+    onSelect: (index) => {
+      const picked = filtered[index];
+      if (!picked) return;
+      setSelectedCountry(picked);
+      onValueChange?.(inputValue, picked);
+    },
+    triggerRef: () => triggerRef.current,
+  });
 
   React.useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -142,27 +166,6 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
     if (open) searchRef.current?.focus();
   }, [open]);
 
-  React.useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") {
-        setOpen(false);
-        setSearch("");
-      }
-    }
-    if (open) {
-      document.addEventListener("keydown", handleKeyDown);
-      return () => document.removeEventListener("keydown", handleKeyDown);
-    }
-  }, [open]);
-
-  const handleCountrySelect = (country: Country) => {
-    setSelectedCountry(country);
-    setOpen(false);
-    setSearch("");
-    onValueChange?.(inputValue, country);
-    inputRef.current?.focus();
-  };
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setInputValue(newValue);
@@ -170,7 +173,11 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
   };
 
   return (
-    <div ref={ref} className={cn("relative inline-block text-sm", className)}>
+    <div
+      ref={ref}
+      className={cn("relative inline-block text-sm", className)}
+      onKeyDown={nav.onKeyDown}
+    >
       <div
         className={cn(
           "flex items-center overflow-hidden rounded-lg border transition-colors",
@@ -179,6 +186,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
         )}
       >
         <button
+          ref={triggerRef}
           type="button"
           onClick={() => !disabled && setOpen(!open)}
           disabled={disabled}
@@ -226,11 +234,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
       </div>
 
       {open && (
-        <div
-          className="absolute z-50 mt-1 min-w-[280px] overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-xl dark:border-zinc-800 dark:bg-zinc-950"
-          role="listbox"
-          aria-label="Select country"
-        >
+        <div className="absolute z-50 mt-1 min-w-[280px] overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-xl dark:border-zinc-800 dark:bg-zinc-950">
           <div className="border-b border-zinc-200 p-2 dark:border-zinc-800">
             <input
               ref={searchRef}
@@ -238,26 +242,42 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
               placeholder="Search countries..."
               aria-label="Search countries"
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                nav.resetActive();
+              }}
+              {...nav.comboboxProps}
               className="w-full rounded-lg bg-zinc-100 px-3 py-1.5 text-sm text-zinc-900 outline-none placeholder:text-zinc-400 focus:ring-1 focus:ring-emerald-500/50 dark:bg-zinc-800 dark:text-zinc-100 dark:placeholder:text-zinc-500"
             />
           </div>
 
-          <div className="max-h-60 overflow-y-auto p-1">
-            {filtered.map((country) => {
-              const isActive = country.code === selectedCountry.code;
+          {/* The listbox owns the options only — the search field above sits
+              outside it, per ARIA. It scrolls on its own: the page never does. */}
+          <div
+            className="overflow-y-auto p-1"
+            style={{ maxHeight }}
+            role="listbox"
+            aria-label="Select country"
+            {...nav.listboxProps}
+          >
+            {filtered.map((country, index) => {
+              const isCurrent = country.code === selectedCountry.code;
+              const isActive = index === nav.activeIndex;
               return (
                 <button
                   key={country.code}
                   type="button"
                   role="option"
-                  aria-selected={isActive}
-                  onClick={() => handleCountrySelect(country)}
+                  aria-selected={isCurrent}
+                  onClick={() => nav.select(index)}
+                  {...nav.optionProps(index)}
                   className={cn(
                     "flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition-colors",
-                    isActive
+                    isCurrent
                       ? "bg-emerald-500/10 text-emerald-600 font-medium dark:text-emerald-400"
-                      : "text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100",
+                      : isActive
+                        ? "bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
+                        : "text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100",
                   )}
                 >
                   <span className="text-base leading-none">{country.flag}</span>
@@ -265,7 +285,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
                   <span className="font-mono text-xs text-zinc-500 dark:text-zinc-400">
                     {country.dialCode}
                   </span>
-                  {isActive && (
+                  {isCurrent && (
                     <svg
                       className="size-4 text-emerald-600 dark:text-emerald-400"
                       fill="none"

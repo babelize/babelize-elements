@@ -69,21 +69,22 @@ export function SiteNav() {
 
 ## Props
 
-| Prop            | Type                              | Required | Description                                               |
-| --------------- | --------------------------------- | -------- | --------------------------------------------------------- |
-| `logo`          | `React.ReactNode`                 | No       | Logo element (renders before nav links)                   |
-| `links`         | `NavLink[]`                       | No       | Navigation links                                          |
-| `locales`       | `Locale[]`                        | No       | Available locales for language selector                   |
-| `value`         | `string`                          | No       | Selected locale code — pass this to control the component |
-| `defaultValue`  | `string`                          | No       | Initial locale code when uncontrolled (default: `"en"`)   |
-| `onValueChange` | `(code: string) => void`          | No       | Callback when locale changes                              |
-| `cta`           | `{ label: string; href: string }` | No       | CTA button                                                |
-| `showGitHub`    | `boolean`                         | No       | Show GitHub icon button                                   |
-| `githubUrl`     | `string`                          | No       | GitHub repository URL                                     |
-| `sticky`        | `boolean`                         | No       | Make navbar sticky at top (default: `true`)               |
-| `showFlags`     | `boolean`                         | No       | Show flags in language selector (default: `true`)         |
-| `linkComponent` | `React.ElementType`               | No       | Component used for internal links (default: `"a"`)        |
-| `className`     | `string`                          | No       | Additional CSS classes                                    |
+| Prop            | Type                              | Required | Description                                                    |
+| --------------- | --------------------------------- | -------- | -------------------------------------------------------------- |
+| `logo`          | `React.ReactNode`                 | No       | Logo element (renders before nav links)                        |
+| `links`         | `NavLink[]`                       | No       | Navigation links                                               |
+| `locales`       | `Locale[]`                        | No       | Available locales for language selector                        |
+| `value`         | `string`                          | No       | Selected locale code — pass this to control the component      |
+| `defaultValue`  | `string`                          | No       | Initial locale code when uncontrolled (default: `"en"`)        |
+| `onValueChange` | `(code: string) => void`          | No       | Callback when locale changes                                   |
+| `cta`           | `{ label: string; href: string }` | No       | CTA button                                                     |
+| `showGitHub`    | `boolean`                         | No       | Show GitHub icon button                                        |
+| `githubUrl`     | `string`                          | No       | GitHub repository URL                                          |
+| `sticky`        | `boolean`                         | No       | Make navbar sticky at top (default: `true`)                    |
+| `showFlags`     | `boolean`                         | No       | Show flags in language selector (default: `true`)              |
+| `maxHeight`     | `number \| string`                | No       | Max height of the scrolling language menu (default: `"15rem"`) |
+| `linkComponent` | `React.ElementType`               | No       | Component used for internal links (default: `"a"`)             |
+| `className`     | `string`                          | No       | Additional CSS classes                                         |
 
 Any other prop is spread onto the underlying `<nav>` element, and the ref is
 forwarded to it.
@@ -238,6 +239,25 @@ export default function App() {
 }
 ```
 
+## Keyboard support
+
+The language menu follows the WAI-ARIA listbox pattern. With no text field in the
+menu, arrow keys move real DOM focus between the options instead of tracking a
+highlight from a search box. The same keys work from the desktop and the mobile
+bar.
+
+| Key                              | Action                                                               |
+| -------------------------------- | -------------------------------------------------------------------- |
+| `Enter`, `Space`, or click       | Open the menu from the language trigger                              |
+| `ArrowDown` / `ArrowUp` (closed) | Open with the first / last locale focused                            |
+| `ArrowDown` / `ArrowUp`          | Move focus between locales, wrapping at both ends                    |
+| `Home` / `End`                   | Focus the first / last locale                                        |
+| `Enter`                          | Select the focused locale and return focus to the trigger            |
+| `Escape`                         | Close the menu (and the mobile menu) and return focus to the trigger |
+
+The highlight stays on its row while the list scrolls beneath it — a long list
+never scrolls the page. Pass `maxHeight` to set how tall the menu gets.
+
 ## Features
 
 - **Responsive** — hamburger menu on mobile, full layout on desktop
@@ -246,8 +266,8 @@ export default function App() {
 - **CTA button** — optional call-to-action with customizable text and href
 - **GitHub link** — optional icon button linking to your repo
 - **Sticky/non-sticky** — toggle top-of-page stickiness
-- **Keyboard accessible** — arrow keys, Enter, Escape, Tab navigation
-- **ARIA labels** — proper `aria-expanded`, `aria-haspopup`, `aria-label`
+- **Keyboard accessible** — arrow keys, Home / End, Enter, and Escape navigation
+- **ARIA labels** — `aria-expanded`, `aria-haspopup`, `aria-selected`, and roving focus over the options
 - **Dark mode** — built with Tailwind CSS, dark-mode compatible
 - **Next.js Link** — uses `next/link` for client-side navigation
 

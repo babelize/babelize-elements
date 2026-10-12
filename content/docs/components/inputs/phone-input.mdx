@@ -72,6 +72,7 @@ export function PhoneField() {
 | `placeholder`    | `string`                                    | No       | Placeholder text                                                       |
 | `disabled`       | `boolean`                                   | No       | Disable the input                                                      |
 | `showFlags`      | `boolean`                                   | No       | Show country flag next to dial code (default: `true`)                  |
+| `maxHeight`      | `number \| string`                          | No       | Max height of the scrolling country list (default: `"15rem"`)          |
 | `label`          | `string`                                    | No       | Accessible label for the input                                         |
 | `className`      | `string`                                    | No       | Additional CSS classes                                                 |
 
@@ -180,13 +181,34 @@ export default function App() {
 }
 ```
 
+## Keyboard support
+
+The country menu follows the WAI-ARIA combobox pattern: focus stays in the search
+field, which is exposed as a `role="combobox"`, and the highlighted country is
+announced through `aria-activedescendant`.
+
+| Key                              | Action                                                                |
+| -------------------------------- | --------------------------------------------------------------------- |
+| `Enter`, `Space`, or click       | Open the country menu from the flag trigger                           |
+| `ArrowDown` / `ArrowUp` (closed) | Open with the first / last country highlighted                        |
+| `ArrowDown` / `ArrowUp`          | Move the highlight, wrapping at both ends                             |
+| `Home` / `End`                   | Highlight the first / last country                                    |
+| `Enter`                          | Select the highlighted country and return focus to the flag trigger   |
+| `Escape`                         | Close the menu and return focus to the flag trigger                   |
+| Typing                           | Filter by name, code, or dial code; the highlight restarts at the top |
+
+The highlight stays on the row where it appeared when the menu opened — the
+list scrolls beneath it, like a native menu — and the page itself never
+scrolls. Pass `maxHeight` to change how tall the country list gets before it
+scrolls.
+
 ## Features
 
 - **50 countries** — pre-loaded with dial codes, flags, and names
 - **Dropdown search** — filter countries by name or dial code
 - **Flag emojis** — auto-detected from country code, with `showFlags` toggle
-- **Keyboard accessible** — arrow keys, Enter, Escape, Tab navigation
-- **ARIA labels** — proper `aria-expanded`, `aria-haspopup`, `aria-label`
+- **Keyboard accessible** — arrow keys, Home / End, Enter, and Escape navigation
+- **ARIA labels** — `role="combobox"` search field with `aria-activedescendant`, plus `aria-expanded`, `aria-haspopup`, and `aria-selected`
 - **Dark mode** — built with Tailwind CSS, dark-mode compatible
 - **Controlled/uncontrolled** — works with or without `value` prop
 

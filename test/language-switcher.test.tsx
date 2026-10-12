@@ -5,6 +5,7 @@ import * as React from "react";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { LanguageSwitcher } from "@/registry/components";
+import { fakeScroller } from "./fake-geometry";
 
 const locales = [{ code: "en" }, { code: "fr" }, { code: "ar" }];
 
@@ -85,7 +86,7 @@ describe("LanguageSwitcher", () => {
     render(<LanguageSwitcher locales={locales} />);
     await userEvent.click(screen.getByRole("button", { name: /Current language/ }));
 
-    expect(screen.getByRole("textbox", { name: "Search languages" })).toBeInTheDocument();
+    expect(screen.getByRole("combobox", { name: "Search languages" })).toBeInTheDocument();
   });
 
   it("marks the root rtl for an RTL locale and ltr otherwise", () => {
@@ -254,5 +255,130 @@ describe("LanguageSwitcher flags", () => {
   it("renders the flags reported as wrong in issue #24", async () => {
     const flags = await renderFlags(["ml", "am", "cy"]);
     expect(flags).toEqual(["\u{1F1EE}\u{1F1F3}", "\u{1F1EA}\u{1F1F9}", "\u{1F1EC}\u{1F1E7}"]);
+  });
+});
+
+describe("LanguageSwitcher keyboard navigation", () => {
+  const searchBox = () => screen.getByRole("combobox", { name: "Search languages" });
+  const activeOptionId = () => searchBox().getAttribute("aria-activedescendant");
+
+  it("opens on ArrowDown from the trigger with the first option active", async () => {
+    render(<LanguageSwitcher locales={locales} />);
+    const trigger = screen.getByRole("button", { name: /Current language/ });
+    trigger.focus();
+
+    await userEvent.keyboard("{ArrowDown}");
+
+    expect(screen.getByRole("listbox")).toBeInTheDocument();
+    expect(document.activeElement).toBe(searchBox());
+    expect(searchBox()).toHaveAttribute("aria-expanded", "true");
+    expect(searchBox()).toHaveAttribute("aria-controls", screen.getByRole("listbox").id);
+    expect(activeOptionId()).toBe(screen.getByRole("option", { name: /English/ }).id);
+  });
+
+  it("lands on the current selection when opened with the mouse", async () => {
+    render(<LanguageSwitcher locales={locales} defaultValue="fr" />);
+    await userEvent.click(screen.getByRole("button", { name: /Current language/ }));
+
+    expect(activeOptionId()).toBe(screen.getByRole("option", { name: /French/ }).id);
+  });
+
+  it("moves the active option with ArrowDown and ArrowUp, wrapping at both ends", async () => {
+    render(<LanguageSwitcher locales={locales} />);
+    await userEvent.click(screen.getByRole("button", { name: /Current language/ }));
+    // Opening by mouse starts on the current selection: English, index 0.
+    expect(activeOptionId()).toBe(screen.getByRole("option", { name: /English/ }).id);
+
+    await userEvent.keyboard("{ArrowDown}");
+    expect(activeOptionId()).toBe(screen.getByRole("option", { name: /French/ }).id);
+
+    await userEvent.keyboard("{ArrowUp}{ArrowUp}");
+    expect(activeOptionId()).toBe(screen.getByRole("option", { name: /Arabic/ }).id);
+
+    await userEvent.keyboard("{ArrowDown}");
+    expect(activeOptionId()).toBe(screen.getByRole("option", { name: /English/ }).id);
+  });
+
+  it("jumps to the first and last option with Home and End", async () => {
+    render(<LanguageSwitcher locales={locales} />);
+    await userEvent.click(screen.getByRole("button", { name: /Current language/ }));
+
+    await userEvent.keyboard("{End}");
+    expect(activeOptionId()).toBe(screen.getByRole("option", { name: /Arabic/ }).id);
+
+    await userEvent.keyboard("{Home}");
+    expect(activeOptionId()).toBe(screen.getByRole("option", { name: /English/ }).id);
+  });
+
+  it("selects the active option with Enter, closes, and returns focus to the trigger", async () => {
+    const onValueChange = vi.fn();
+    render(<LanguageSwitcher locales={locales} onValueChange={onValueChange} />);
+    const trigger = screen.getByRole("button", { name: /Current language/ });
+    await userEvent.click(trigger);
+
+    await userEvent.keyboard("{ArrowDown}{Enter}");
+
+    expect(onValueChange).toHaveBeenCalledTimes(1);
+    expect(onValueChange).toHaveBeenCalledWith("fr");
+    expect(screen.queryByRole("listbox")).toBeNull();
+    expect(document.activeElement).toBe(trigger);
+  });
+
+  it("closes on Escape and returns focus to the trigger", async () => {
+    render(<LanguageSwitcher locales={locales} />);
+    const trigger = screen.getByRole("button", { name: /Current language/ });
+    await userEvent.click(trigger);
+
+    await userEvent.keyboard("{Escape}");
+
+    expect(screen.queryByRole("listbox")).toBeNull();
+    expect(document.activeElement).toBe(trigger);
+  });
+
+  it("restarts the highlight at the top when the filter changes", async () => {
+    render(<LanguageSwitcher locales={locales} />);
+    await userEvent.click(screen.getByRole("button", { name: /Current language/ }));
+    await userEvent.keyboard("{ArrowDown}"); // French
+
+    await userEvent.type(searchBox(), "ar");
+
+    expect(screen.getAllByRole("option")).toHaveLength(1);
+    expect(activeOptionId()).toBe(screen.getByRole("option", { name: /Arabic/ }).id);
+  });
+
+  it("keeps the navigation keys harmless when the filter matches nothing", async () => {
+    const onValueChange = vi.fn();
+    render(<LanguageSwitcher locales={locales} onValueChange={onValueChange} />);
+    await userEvent.click(screen.getByRole("button", { name: /Current language/ }));
+    await userEvent.type(searchBox(), "zzz");
+
+    expect(screen.queryAllByRole("option")).toHaveLength(0);
+    await userEvent.keyboard("{ArrowDown}{ArrowUp}{Home}{End}{Enter}");
+
+    expect(onValueChange).not.toHaveBeenCalled();
+  });
+
+  it("pins the highlight and scrolls the menu beneath it, never the page", async () => {
+    render(<LanguageSwitcher locales={locales} />);
+    await userEvent.click(screen.getByRole("button", { name: /Current language/ }));
+    // jsdom has no layout, so fake a viewport the three options overflow by 20px.
+    const scroller = fakeScroller(screen.getByRole("listbox"), screen.getAllByRole("option"));
+
+    await userEvent.keyboard("{End}");
+    expect(scroller.scrollTop).toBe(20); // pinned at the last row, clamped there
+
+    await userEvent.keyboard("{Home}");
+    expect(scroller.scrollTop).toBe(0); // ...and back on the first
+
+    // `scrollIntoView` used to be called here, which also scrolled the document.
+    expect(document.documentElement.scrollTop).toBe(0);
+    expect(document.body.scrollTop).toBe(0);
+  });
+
+  it("honours maxHeight on the scrolling option list", async () => {
+    render(<LanguageSwitcher locales={locales} maxHeight={200} />);
+    await userEvent.click(screen.getByRole("button", { name: /Current language/ }));
+
+    expect(screen.getByRole("listbox").style.maxHeight).toBe("200px");
   });
 });
