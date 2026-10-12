@@ -20,7 +20,7 @@ export function PreviewShell({ code, highlighted, fullBleed, children }: Preview
   const [previewDark, setPreviewDark] = useState(true);
 
   return (
-    <div className="not-prose mt-3 overflow-hidden rounded-2xl border border-black/10 bg-black/[0.02] dark:border-white/10 dark:bg-white/[0.02]">
+    <div className="not-prose mt-3 rounded-2xl border border-black/10 bg-black/[0.02] dark:border-white/10 dark:bg-white/[0.02]">
       <div className="flex items-center justify-between gap-3 px-3 py-2">
         <div className="flex items-center gap-0.5 rounded-lg bg-black/5 p-0.5 dark:bg-white/5">
           {(["preview", "code"] as const).map((v) => (
@@ -57,6 +57,9 @@ export function PreviewShell({ code, highlighted, fullBleed, children }: Preview
         <div
           className={cn(
             "relative overflow-visible border-t border-black/10 transition-colors dark:border-white/10",
+            // Rounds the card's bottom corners by itself now that the card no
+            // longer clips with `overflow-hidden` — dropdowns may overflow it.
+            "rounded-b-2xl",
             // `light` is what turns the stage back off inside the dark site shell —
             // the absence of `dark` is not enough, see the `@variant` in globals.css.
             previewDark ? "dark" : "light",

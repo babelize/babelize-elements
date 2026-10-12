@@ -89,7 +89,9 @@ export function CodePanel({
         "not-prose bg-[#FAFAFA] dark:bg-[#0A0A0A]",
         standalone
           ? "mt-3 overflow-hidden rounded-2xl border border-black/10 dark:border-white/10"
-          : "border-t border-black/10 dark:border-white/10",
+          : // Embedded in a PreviewShell card, which stopped clipping with
+            // `overflow-hidden` — the panel rounds its own bottom corners.
+            "rounded-b-2xl border-t border-black/10 dark:border-white/10",
         className,
       )}
     >
