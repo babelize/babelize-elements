@@ -142,11 +142,15 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
       setSearch("");
     },
     onOpen: () => setOpen(true),
+    // Picking a country is half the task — typing the number is the other
+    // half, so focus lands in the number field instead of back on the trigger.
+    restoreFocusOnSelect: false,
     onSelect: (index) => {
       const picked = filtered[index];
       if (!picked) return;
       setSelectedCountry(picked);
       onValueChange?.(inputValue, picked);
+      inputRef.current?.focus();
     },
     triggerRef: () => triggerRef.current,
   });

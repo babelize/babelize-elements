@@ -73,13 +73,13 @@ describe("PhoneInput", () => {
     expect(ref.current?.type).toBe("tel");
   });
 
-  it("returns focus to the country trigger after a country is picked", async () => {
+  it("focuses the number field after a country is picked by click", async () => {
     render(<PhoneInput />);
-    const trigger = screen.getByRole("button", { name: "Select country" });
-    await userEvent.click(trigger);
+    await userEvent.click(screen.getByRole("button", { name: "Select country" }));
     await userEvent.click(screen.getByRole("option", { name: /India/ }));
 
-    expect(document.activeElement).toBe(trigger);
+    expect(screen.queryByRole("listbox")).toBeNull();
+    expect(document.activeElement).toBe(screen.getByRole("textbox", { name: "Phone number" }));
   });
 
   it("focuses the search box when the country list opens", async () => {
@@ -164,18 +164,17 @@ describe("PhoneInput keyboard navigation", () => {
     expect(activeOptionId()).toBe(screen.getByRole("option", { name: /United States/ }).id);
   });
 
-  it("selects the active country with Enter, closes, and returns focus to the trigger", async () => {
+  it("selects the active country with Enter, closes, and focuses the number field", async () => {
     const onValueChange = vi.fn();
     render(<PhoneInput onValueChange={onValueChange} />);
-    const trigger = screen.getByRole("button", { name: "Select country" });
-    await userEvent.click(trigger);
+    await userEvent.click(screen.getByRole("button", { name: "Select country" }));
 
     await userEvent.keyboard("{ArrowDown}{Enter}");
 
     expect(onValueChange).toHaveBeenCalledTimes(1);
     expect(onValueChange).toHaveBeenCalledWith("", expect.objectContaining({ code: "GB" }));
     expect(screen.queryByRole("listbox")).toBeNull();
-    expect(document.activeElement).toBe(trigger);
+    expect(document.activeElement).toBe(screen.getByRole("textbox", { name: "Phone number" }));
   });
 
   it("closes on Escape and returns focus to the trigger", async () => {

@@ -38,6 +38,13 @@ export interface UseListboxNavigationOptions {
   /** Defaults to `"activedescendant"`. */
   strategy?: ListboxStrategy;
   /**
+   * Whether picking an option returns focus to the trigger (default: true).
+   * Opt out when the component moves focus elsewhere itself after a pick —
+   * `PhoneInput` focuses its number field, since typing the number is the next
+   * step. Escape still returns focus to the trigger.
+   */
+  restoreFocusOnSelect?: boolean;
+  /**
    * The element that opens the popup. Read through a getter because a component
    * may own more than one trigger (the NavBar's desktop and mobile bars).
    */
@@ -72,7 +79,11 @@ export interface ListboxNavigation {
   optionProps: (index: number) => ListboxOptionProps;
   /** Attach to an ancestor of both the trigger and the options. */
   onKeyDown: (event: React.KeyboardEvent) => void;
-  /** Highlights an option. The component's option `onClick` should call it. */
+  /**
+   * Highlights an option. The component's option `onClick` should call it.
+   * Closes the popup and — unless `restoreFocusOnSelect` is false — returns
+   * focus to the trigger.
+   */
   select: (index: number) => void;
   /** Restarts the highlight at the top — call it whenever a filter changes. */
   resetActive: () => void;
@@ -236,7 +247,10 @@ export function useListboxNavigation(options: UseListboxNavigationOptions): List
       const current = optionsRef.current;
       if (index < 0 || index >= current.count) return;
       current.onSelect?.(index);
-      close(true);
+      // A component that moves focus itself after a pick (PhoneInput focuses
+      // its number field) opts out of the restore; Escape still returns to the
+      // trigger through `close`.
+      close(current.restoreFocusOnSelect ?? true);
     },
     [close],
   );
