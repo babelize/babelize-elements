@@ -67,7 +67,7 @@ export function Footer() {
                 </svg>
               </a>
               <a
-                href="https://babelize.co"
+                href="https://www.babelize.co"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex size-10 items-center justify-center rounded-xl opacity-40 transition-all hover:bg-white/5 hover:opacity-100"

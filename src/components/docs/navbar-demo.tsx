@@ -16,32 +16,32 @@ const links: Record<string, { label: string; href: string }[]> = {
   en: [
     { label: "Home", href: "/" },
     { label: "Docs", href: "/docs" },
-    { label: "Pricing", href: "/pricing" },
+    { label: "Pricing", href: "#pricing" },
   ],
   fr: [
     { label: "Accueil", href: "/" },
     { label: "Docs", href: "/docs" },
-    { label: "Tarifs", href: "/pricing" },
+    { label: "Tarifs", href: "#pricing" },
   ],
   es: [
     { label: "Inicio", href: "/" },
     { label: "Docs", href: "/docs" },
-    { label: "Precios", href: "/pricing" },
+    { label: "Precios", href: "#pricing" },
   ],
   de: [
     { label: "Startseite", href: "/" },
     { label: "Docs", href: "/docs" },
-    { label: "Preise", href: "/pricing" },
+    { label: "Preise", href: "#pricing" },
   ],
   ja: [
     { label: "ホーム", href: "/" },
     { label: "ドキュメント", href: "/docs" },
-    { label: "料金", href: "/pricing" },
+    { label: "料金", href: "#pricing" },
   ],
   ar: [
     { label: "الرئيسية", href: "/" },
     { label: "التوثيق", href: "/docs" },
-    { label: "الأسعار", href: "/pricing" },
+    { label: "الأسعار", href: "#pricing" },
   ],
 };
 
@@ -55,7 +55,7 @@ export function NavBarDemo() {
       locales={locales}
       value={locale}
       onValueChange={setLocale}
-      cta={{ label: "Get Started", href: "/signup" }}
+      cta={{ label: "Get Started", href: "#get-started" }}
       showGitHub
       sticky={false} // the docs preview scrolls with the page
     />
