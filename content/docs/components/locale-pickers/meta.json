@@ -1,0 +1,6 @@
+{
+  "title": "Locale Pickers",
+  "icon": "MapPin",
+  "pages": ["locale-picker"],
+  "collapsible": false
+}

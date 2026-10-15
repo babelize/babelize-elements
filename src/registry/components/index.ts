@@ -22,3 +22,6 @@ export type { LocaleNumberProps } from "./locale-number";
 
 export { RelativeTime } from "./relative-time";
 export type { RelativeTimeProps } from "./relative-time";
+
+export { LocalePicker } from "./locale-picker";
+export type { LocalePickerProps } from "./locale-picker";

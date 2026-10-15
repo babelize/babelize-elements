@@ -1,0 +1,160 @@
+---
+title: Locale Picker
+description: Region picker with locale-derived defaults — currency, date and number formats, and first day of week. Searchable, keyboard accessible, and RTL-aware.
+---
+
+import { PreviewComponents } from "@/components/docs/preview-components";
+import { LocalePickerDemo } from "@/components/docs/locale-picker-demo";
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+<PreviewComponents registryName="locale-picker">
+  <LocalePickerDemo />
+</PreviewComponents>
+
+## Installation
+
+<Tabs
+  items={["shadcn", "Elements CLI"]}
+  defaultValue="shadcn"
+  className="bg-transparent border-none"
+>
+  <Tab value="shadcn" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="installation-tabs">
+      <Tab value="npx">```bash npx shadcn@latest add @elements/locale-picker ```</Tab>
+      <Tab value="pnpm">```bash pnpm dlx shadcn@latest add @elements/locale-picker ```</Tab>
+      <Tab value="yarn">```bash yarn dlx shadcn@latest add @elements/locale-picker ```</Tab>
+      <Tab value="bun">```bash bunx shadcn@latest add @elements/locale-picker ```</Tab>
+    </Tabs>
+  </Tab>
+  <Tab value="Elements CLI" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="elements-cli-tabs">
+      <Tab value="npx">```bash npx @babelize/elements add locale-picker ```</Tab>
+      <Tab value="pnpm">```bash pnpm dlx @babelize/elements add locale-picker ```</Tab>
+      <Tab value="yarn">```bash yarn dlx @babelize/elements add locale-picker ```</Tab>
+      <Tab value="bun">```bash bunx @babelize/elements add locale-picker ```</Tab>
+    </Tabs>
+  </Tab>
+</Tabs>
+
+## Usage
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { LocalePicker } from "@/components/ui/locale-picker";
+
+export function SettingsRegion() {
+  const [locale, setLocale] = useState("en-IN");
+
+  return (
+    <LocalePicker
+      regions={["IN", "US", "GB", "DE", "JP"]} // ISO 3166-1 alpha-2 codes
+      defaultValue="en-IN" // omit for uncontrolled, use value instead
+      onValueChange={setLocale} // receives the full BCP 47 tag, e.g. "en-US"
+    />
+  );
+}
+```
+
+## Props
+
+| Prop            | Type                       | Required | Default             | Description                                                    |
+| --------------- | -------------------------- | -------- | ------------------- | -------------------------------------------------------------- |
+| `regions`       | `string[]`                 | Yes      | —                   | Regions to choose from, ISO 3166-1 alpha-2 codes               |
+| `value`         | `string`                   | No       | —                   | Selected locale (BCP 47) — pass this to control the component  |
+| `defaultValue`  | `string`                   | No       | `en-<first region>` | Initial selected locale when uncontrolled                      |
+| `onValueChange` | `(locale: string) => void` | No       | —                   | Callback when the region changes — receives the new BCP 47 tag |
+| `label`         | `"native" \| "english"`    | No       | `"english"`         | Region names in English, or localized to the selected locale   |
+| `showFlags`     | `boolean`                  | No       | `true`              | Show the region's flag emoji next to its name                  |
+| `maxHeight`     | `number \| string`         | No       | `"15rem"`           | Max height of the scrolling option list, before it scrolls     |
+| `className`     | `string`                   | No       | —                   | Additional CSS classes                                         |
+
+The selected value is a full BCP 47 tag: its **region** subtag is the picked
+region, and its **language** subtag survives region changes. Picking Germany
+from `en-IN` yields `en-DE`; picking it from `fr-JP` yields `fr-DE`.
+
+## Derived defaults
+
+The summary card derives everything from the selected locale through `Intl` —
+no data bundled beyond an ISO 4217 fallback table for the currency code:
+
+| Row            | Source                                                                           |
+| -------------- | -------------------------------------------------------------------------------- |
+| Currency       | Region → ISO 4217 code, previewed with `Intl.NumberFormat` (`style: "currency"`) |
+| Date format    | `Intl.DateTimeFormat` (`dateStyle: "medium"`) on a fixed sample date             |
+| Number format  | `Intl.NumberFormat` on a fixed sample amount                                     |
+| Week starts on | `Intl.Locale#getWeekInfo()` where available, with a regional fallback            |
+
+Regions without a currency mapping show an em dash rather than a guess.
+
+## Keyboard support
+
+The popup follows the WAI-ARIA combobox pattern: focus stays in the search
+field, which is exposed as a `role="combobox"`, and the highlighted option is
+announced through `aria-activedescendant`.
+
+| Key                              | Action                                                        |
+| -------------------------------- | ------------------------------------------------------------- |
+| `Enter`, `Space`, or click       | Open the popup from the trigger                               |
+| `ArrowDown` / `ArrowUp` (closed) | Open with the first / last region highlighted                 |
+| `ArrowDown` / `ArrowUp`          | Move the highlight, wrapping at both ends                     |
+| `Home` / `End`                   | Highlight the first / last region                             |
+| `Enter`                          | Select the highlighted region and return focus to the trigger |
+| `Escape`                         | Close the popup and return focus to the trigger               |
+| Typing                           | Filter by name or code; the highlight restarts at the top     |
+
+## Features
+
+- **Derived defaults** — currency, date format, number format, and first day of week, resolved live through `Intl`
+- **Dropdown with search** — filter regions by English name, localized name, or code
+- **RTL-aware** — flips direction for RTL locales (ar, he, fa, ur) via `dir` on the root
+- **Keyboard accessible** — arrow keys, Home / End, Enter, and Escape navigation
+- **ARIA labels** — `role="combobox"` search field with `aria-activedescendant`, plus `aria-expanded`, `aria-haspopup`, and `aria-selected`
+- **Dark mode** — built with Tailwind CSS, dark-mode compatible
+- **Controlled or uncontrolled** — `value` / `defaultValue` / `onValueChange`
+
+## Examples
+
+### Controlled
+
+```tsx
+"use client";
+
+import { LocalePicker } from "@/components/ui/locale-picker";
+
+export function SettingsRegion({ locale, setLocale }) {
+  return (
+    <LocalePicker
+      regions={["IN", "US", "GB", "DE", "JP"]}
+      value={locale}
+      onValueChange={setLocale}
+    />
+  );
+}
+```
+
+### Native region names
+
+```tsx
+<LocalePicker regions={["IN", "US", "GB", "DE", "JP"]} defaultValue="de-DE" label="native" />
+```
+
+With `de-DE` selected, the trigger reads "Deutschland" and the options read
+"Vereinigte Staaten", "Vereinigtes Königreich", and so on.
+
+## Dependencies
+
+This component uses:
+
+- `clsx` and `tailwind-merge` (bundled as dependencies)
+
+Peer dependencies:
+
+- `react` >= 18
+- `react-dom` >= 18
+- `tailwindcss` >= 3
+
+## Credits
+
+Created by [ujwalbajaj](https://github.com/ujwalbajaj).

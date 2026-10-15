@@ -151,6 +151,22 @@ const ITEMS: ItemDef[] = [
     source: "registry/components/relative-time",
     filePath: "ui/relative-time.tsx",
   },
+  {
+    name: "locale-picker",
+    title: "Locale Picker",
+    description:
+      "Region picker with locale-derived defaults: currency, date and number formats, and first day of week.",
+    type: "registry:ui",
+    source: "registry/components/locale-picker",
+    filePath: "ui/locale-picker.tsx",
+    dependencies: ["clsx", "tailwind-merge"],
+    registryDependencies: [
+      "locale-types",
+      "locale-data",
+      "use-controllable-state",
+      "use-listbox-navigation",
+    ],
+  },
 ];
 
 /**
