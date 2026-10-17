@@ -6,19 +6,23 @@ import { Community } from "@/components/landing/community";
 import { Faq } from "@/components/landing/faq";
 import { Footer } from "@/components/landing/footer";
 
+import { getGitHubStats } from "@/lib/github";
+
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-export default function Home() {
+export default async function Home() {
+  const stats = await getGitHubStats();
+
   return (
     <div className="flex flex-1 flex-col">
-      <Navbar />
+      <Navbar stats={stats} />
       <main>
         <Hero />
         <Features />
 
-        <Community />
+        <Community stats={stats} />
         <Faq />
       </main>
       <Footer />

@@ -1,4 +1,6 @@
 import { Reveal } from "./reveal";
+import { GitHubCounter } from "./github-counter";
+import type { GitHubStats } from "@/lib/github";
 
 const communityLinks = [
   {
@@ -51,9 +53,13 @@ const communityLinks = [
   },
 ];
 
-export function Community() {
+export interface CommunityProps {
+  stats?: GitHubStats;
+}
+
+export function Community({ stats }: CommunityProps = {}) {
   return (
-    <section className="relative overflow-hidden py-24 md:py-32">
+    <section id="community" className="relative overflow-hidden py-24 md:py-32">
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <Reveal>
@@ -65,6 +71,13 @@ export function Community() {
             <p className="mt-4 text-base text-white/50">
               Connect with other developers, get help, and contribute to the project
             </p>
+          </Reveal>
+          <Reveal delay={0.15}>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+              <GitHubCounter metric="stars" count={stats?.stars} />
+              <GitHubCounter metric="forks" count={stats?.forks} />
+              <GitHubCounter metric="prs" count={stats?.prs} />
+            </div>
           </Reveal>
         </div>
 
