@@ -77,6 +77,11 @@ one step.
    release changes or removes a prop, say so at the top — that's what people read.
 4. **Publish release.**
 
+Give the release a descriptive title (e.g. `v1.3.0: LanguageSwitcherPill and keyboard
+navigation`). Once npm publishing succeeds, the workflow opens an **Announcements**
+discussion from the release, using that title and the release notes. If you already
+ticked "Create a discussion", the workflow leaves it alone; pre-releases get none.
+
 Publishing the release triggers `.github/workflows/release.yml`, which re-runs the
 full check set against that commit and then publishes to npm with provenance. Watch
 it in the Actions tab; if it fails, nothing is published and you can fix and re-run

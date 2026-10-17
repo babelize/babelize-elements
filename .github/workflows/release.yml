@@ -77,3 +77,28 @@ jobs:
           # npmjs.com (Settings -> Trusted Publisher -> this repo + release.yml).
           # Once that is done, delete this env block and the NPM_TOKEN secret.
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  # Opens an Announcements discussion from the release once npm has the version, the
+  # same as ticking "Create a discussion for this release" in the UI. The discussion
+  # takes the release title, so give the release a descriptive one.
+  announce:
+    needs: publish
+    if: github.event_name == 'release' && !github.event.release.prerelease
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      discussions: write
+    steps:
+      - name: Create Announcements discussion
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          EXISTING=$(gh api "repos/$GH_REPO/releases/tags/$TAG" --jq '.discussion_url // ""')
+          if [ -n "$EXISTING" ]; then
+            echo "Release $TAG already has a discussion: $EXISTING"
+            exit 0
+          fi
+          gh release edit "$TAG" --discussion-category Announcements
+          gh api "repos/$GH_REPO/releases/tags/$TAG" --jq '"Created " + .discussion_url'
