@@ -373,7 +373,15 @@ describe("LocalePicker currency table", () => {
 
   it("collects the whole table from the source", () => {
     expect(Object.keys(CURRENCY_TABLE).length).toBeGreaterThan(80);
-    expect(CURRENCY_TABLE).toMatchObject({ IN: "INR", US: "USD", DE: "EUR", JP: "JPY", GB: "GBP" });
+    expect(CURRENCY_TABLE).toMatchObject({
+      IN: "INR",
+      US: "USD",
+      DE: "EUR",
+      JP: "JPY",
+      GB: "GBP",
+      // Bulgaria adopted the euro on 1 January 2026 — was BGN.
+      BG: "EUR",
+    });
   });
 
   it("maps every region to a valid ISO 3166-1 region", () => {

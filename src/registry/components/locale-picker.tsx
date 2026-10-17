@@ -35,7 +35,7 @@ const REGION_CURRENCY: Record<string, string> = {
   BA: "BAM",
   BD: "BDT",
   BE: "EUR",
-  BG: "BGN",
+  BG: "EUR",
   BH: "BHD",
   BR: "BRL",
   BY: "BYN",
