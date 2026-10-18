@@ -162,6 +162,64 @@ describe("NavBar", () => {
   });
 });
 
+describe("NavBar direction", () => {
+  it("mirrors the bar when selecting an RTL locale and switches back for LTR", async () => {
+    render(<NavBar locales={[{ code: "en" }, { code: "ar" }]} />);
+    const bar = screen.getByRole("navigation");
+    const trigger = () => screen.getAllByRole("button", { name: /Current language/ })[0];
+    expect(bar).toHaveAttribute("dir", "ltr");
+    await userEvent.click(trigger());
+    await userEvent.click(screen.getByRole("option", { name: /العربية/ }));
+    expect(bar).toHaveAttribute("dir", "rtl");
+    await userEvent.click(trigger());
+    await userEvent.click(screen.getByRole("option", { name: /English/ }));
+    expect(bar).toHaveAttribute("dir", "ltr");
+  });
+
+  it.each([
+    { code: "en", rtl: true, expected: "rtl" },
+    { code: "ar", rtl: false, expected: "ltr" },
+    { code: "ar-EG", rtl: undefined, expected: "rtl" },
+  ])("resolves $code with rtl=$rtl to $expected", ({ code, rtl, expected }) => {
+    render(<NavBar locales={[{ code, rtl }]} />);
+    expect(screen.getByRole("navigation")).toHaveAttribute("dir", expected);
+  });
+
+  it.each(["ltr", "rtl", "auto"])("honors an explicit dir=%s", (dir) => {
+    render(<NavBar locales={[{ code: "ar" }]} dir={dir} />);
+    expect(screen.getByRole("navigation")).toHaveAttribute("dir", dir);
+  });
+
+  it("follows controlled locale updates", () => {
+    const { rerender } = render(<NavBar locales={[{ code: "en" }, { code: "ar" }]} value="en" />);
+    rerender(<NavBar locales={[{ code: "en" }, { code: "ar" }]} value="ar" />);
+    expect(screen.getByRole("navigation")).toHaveAttribute("dir", "rtl");
+  });
+
+  it.each([0, 1])("keeps each option's direction in menu %i", async (triggerIndex) => {
+    render(
+      <NavBar
+        locales={[
+          { code: "en" },
+          { code: "ar" },
+          { code: "fr", rtl: true },
+          { code: "he", rtl: false },
+        ]}
+      />,
+    );
+    await userEvent.click(
+      screen.getAllByRole("button", { name: /Current language/ })[triggerIndex],
+    );
+    const options = screen.getAllByRole("option");
+    expect(options.map((option) => option.getAttribute("dir"))).toEqual([
+      "ltr",
+      "rtl",
+      "rtl",
+      "ltr",
+    ]);
+  });
+});
+
 describe("NavBar keyboard navigation", () => {
   const triggers = () => screen.getAllByRole("button", { name: /Current language/ });
   // Index 0 is the desktop bar, index 1 the mobile one — both live in the DOM.

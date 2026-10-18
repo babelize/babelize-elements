@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { useControllableState } from "@/lib/use-controllable-state";
 import { useListboxNavigation } from "@/lib/use-listbox-navigation";
 import type { Locale } from "./types";
-import { getFlag, getLanguageName } from "./locale-data";
+import { getFlag, getLanguageName, isRtl } from "./locale-data";
 
 export type { Locale };
 
@@ -74,6 +74,7 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
     githubUrl = "https://github.com/babelize/babelize-elements",
     sticky = true,
     className,
+    dir,
     showFlags = true,
     maxHeight = "15rem",
     linkComponent: Link = "a",
@@ -98,10 +99,9 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
   const mobileTriggerRef = React.useRef<HTMLButtonElement>(null);
   const menuId = React.useId();
 
-  const currentLocaleInfo = getLocaleInfo(
-    locale,
-    locales.find((l) => l.code === locale),
-  );
+  const activeLocale = locales.find((l) => l.code === locale);
+  const direction = dir ?? ((activeLocale?.rtl ?? isRtl(locale)) ? "rtl" : "ltr");
+  const currentLocaleInfo = getLocaleInfo(locale, activeLocale);
 
   /**
    * The trigger that owns the interaction: whichever bar is open, or — while the
@@ -197,7 +197,7 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
   );
 
   const langDropdown = (
-    <div className="absolute right-0 top-full z-50 mt-1.5 min-w-[170px] rounded-xl border border-zinc-200 bg-white py-1.5 shadow-xl dark:border-zinc-800 dark:bg-zinc-950">
+    <div className="absolute end-0 top-full z-50 mt-1.5 min-w-[170px] rounded-xl border border-zinc-200 bg-white py-1.5 shadow-xl dark:border-zinc-800 dark:bg-zinc-950">
       {/* The listbox owns the options only, and scrolls on its own: a long list
           never drags the page along with it. */}
       <div
@@ -216,11 +216,12 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
               key={item.code}
               type="button"
               role="option"
+              dir={(item.rtl ?? isRtl(item.code)) ? "rtl" : "ltr"}
               aria-selected={isCurrent}
               onClick={() => nav.select(index)}
               {...nav.optionProps(index)}
               className={cn(
-                "mx-1.5 flex w-[calc(100%-12px)] items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors",
+                "mx-1.5 flex w-[calc(100%-12px)] items-center gap-2.5 rounded-lg px-3 py-2 text-start text-sm transition-colors",
                 isCurrent
                   ? "bg-emerald-500/10 text-emerald-600 font-medium dark:text-emerald-400"
                   : isActive
@@ -252,6 +253,7 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
     <nav
       ref={forwardedRef}
       {...rest}
+      dir={direction}
       onKeyDown={(event) => {
         nav.onKeyDown(event);
         onKeyDown?.(event);
