@@ -207,6 +207,23 @@ describe("LocalePicker", () => {
     expect(screen.getByRole("option", { name: /Deutschland/ })).toBeInTheDocument();
   });
 
+  it("does not match every option on the shared language subtag", async () => {
+    render(<LocalePicker regions={regions} defaultValue="en-IN" />);
+    await userEvent.click(trigger());
+
+    // Every option's tag shares the active language subtag ("en-IN", "en-US",
+    // …), so the tag must stay out of the search text — only the region part
+    // of the tag is useful, and that is the region code itself.
+    await userEvent.type(searchBox(), "en");
+    expect(screen.queryAllByRole("option")).toHaveLength(0);
+    expect(screen.getByText("No results")).toBeInTheDocument();
+
+    await userEvent.clear(searchBox());
+    await userEvent.type(searchBox(), "ind");
+    expect(screen.getAllByRole("option")).toHaveLength(1);
+    expect(screen.getByRole("option", { name: /India/ })).toBeInTheDocument();
+  });
+
   it("renders deterministic markup for the server", () => {
     const html = renderToString(<LocalePicker regions={regions} defaultValue="en-IN" />);
 
@@ -399,5 +416,60 @@ describe("LocalePicker currency table", () => {
       expect(name, `${region} maps to invalid currency ${code}`).toBeTruthy();
       expect(name, `${region} maps to invalid currency ${code}`).not.toBe(code);
     }
+  });
+});
+
+/**
+ * The fallback table exists only for engines without `getWeekInfo` — if it
+ * drifts from what `getWeekInfo` reports, those engines contradict modern
+ * ones. Reading it from the source and comparing against the runtime's week
+ * data pins every currency-mapped region: entries present, values current,
+ * Monday-starting regions absent.
+ */
+const firstDayTableBlock = pickerSource.slice(
+  pickerSource.indexOf("const REGION_FIRST_DAY"),
+  pickerSource.indexOf("};", pickerSource.indexOf("const REGION_FIRST_DAY")),
+);
+const FIRST_DAY_TABLE = Object.fromEntries(
+  [...firstDayTableBlock.matchAll(/^ {2}([A-Z]{2}): (\d),?$/gm)].map((match) => [
+    match[1],
+    Number(match[2]),
+  ]),
+);
+
+const weekInfoSupported =
+  typeof (new Intl.Locale("en") as Intl.Locale & { getWeekInfo?(): unknown }).getWeekInfo ===
+  "function";
+
+describe("LocalePicker first-day fallback table", () => {
+  it.skipIf(!weekInfoSupported)(
+    "mirrors the runtime's week info for every currency-mapped region",
+    () => {
+      const expected: Record<string, number> = {};
+      for (const region of Object.keys(CURRENCY_TABLE)) {
+        const tag = new Intl.Locale(`en-${region}`) as Intl.Locale & {
+          getWeekInfo(): { firstDay: number };
+        };
+        const firstDay = tag.getWeekInfo().firstDay;
+        if (firstDay !== 1) expected[region] = firstDay;
+      }
+      expect(FIRST_DAY_TABLE).toEqual(expected);
+    },
+  );
+
+  it("only holds non-Monday days for real regions", () => {
+    expect(Object.keys(FIRST_DAY_TABLE).length).toBeGreaterThanOrEqual(35);
+    expect(Object.values(FIRST_DAY_TABLE)).not.toContain(1);
+    expect(FIRST_DAY_TABLE).toMatchObject({
+      // Indonesia and Saudi Arabia start the week on Sunday.
+      ID: 7,
+      SA: 7,
+      // The Maldives start it on Friday.
+      MV: 5,
+      // The United Arab Emirates start on Monday and must not appear.
+    });
+    expect(FIRST_DAY_TABLE.AE).toBeUndefined();
+    expect(FIRST_DAY_TABLE).toHaveProperty("IN", 7);
+    expect(FIRST_DAY_TABLE).toHaveProperty("US", 7);
   });
 });

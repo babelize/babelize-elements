@@ -128,29 +128,53 @@ const REGION_CURRENCY: Record<string, string> = {
 };
 
 /**
- * First day of week (1 = Monday … 7 = Sunday) for regions whose week starts
- * somewhere other than Monday, consulted only on engines without
- * `Intl.Locale.prototype.getWeekInfo`.
+ * First day of week (1 = Monday … 7 = Sunday) for every currency-mapped
+ * region whose CLDR week does not start on Monday, consulted only on engines
+ * without `Intl.Locale.prototype.getWeekInfo`. Mirrors current CLDR (Monday-
+ * starting regions are omitted) and is kept in sync with the runtime's week
+ * data by the tests.
  */
 const REGION_FIRST_DAY: Record<string, number> = {
   AF: 6,
+  BD: 7,
   BH: 6,
+  BR: 7,
+  BZ: 7,
+  CA: 7,
+  CO: 7,
+  DO: 7,
+  DZ: 6,
   EG: 6,
+  ET: 7,
+  GT: 7,
+  HK: 7,
+  ID: 7,
   IL: 7,
   IN: 7,
-  IQ: 6,
-  IR: 6,
+  IS: 7,
   JO: 6,
   JP: 7,
+  KE: 7,
+  KR: 7,
   KW: 6,
-  LY: 6,
+  MO: 7,
+  MT: 7,
+  MX: 7,
+  MV: 5,
+  NP: 7,
   OM: 6,
+  PH: 7,
+  PK: 7,
+  PR: 7,
+  PT: 7,
   QA: 6,
-  SA: 6,
-  SD: 6,
-  SY: 6,
+  SA: 7,
+  SG: 7,
+  TH: 7,
+  TW: 7,
   US: 7,
-  YE: 6,
+  VE: 7,
+  ZA: 7,
 };
 
 /** English weekday names, used only when `Intl.DateTimeFormat` cannot help. */
@@ -369,7 +393,9 @@ export const LocalePicker = React.forwardRef<HTMLDivElement, LocalePickerProps>(
         label,
         flag: regionFlag(upper),
         rtl: isRtl(code),
-        search: `${upper} ${label} ${english} ${code}`.toLowerCase(),
+        // The BCP 47 tag is omitted: every option shares the active language
+        // subtag, so it would match all of them. The region subtag is `upper`.
+        search: `${upper} ${label} ${english}`.toLowerCase(),
       };
     });
 

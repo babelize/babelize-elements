@@ -39,22 +39,15 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
 ## Usage
 
 ```tsx
-"use client";
-
-import { useState } from "react";
 import { LocalePicker } from "@/components/ui/locale-picker";
+```
 
-export function SettingsRegion() {
-  const [locale, setLocale] = useState("en-IN");
-
-  return (
-    <LocalePicker
-      regions={["IN", "US", "GB", "DE", "JP"]} // ISO 3166-1 alpha-2 codes
-      defaultValue="en-IN" // omit for uncontrolled, use value instead
-      onValueChange={setLocale} // receives the full BCP 47 tag, e.g. "en-US"
-    />
-  );
-}
+```tsx
+<LocalePicker
+  regions={["IN", "US", "GB", "DE", "JP"]}
+  defaultValue="en-IN"
+  onValueChange={(locale) => console.log(locale)}
+/>
 ```
 
 ## Props
@@ -119,19 +112,7 @@ announced through `aria-activedescendant`.
 ### Controlled
 
 ```tsx
-"use client";
-
-import { LocalePicker } from "@/components/ui/locale-picker";
-
-export function SettingsRegion({ locale, setLocale }) {
-  return (
-    <LocalePicker
-      regions={["IN", "US", "GB", "DE", "JP"]}
-      value={locale}
-      onValueChange={setLocale}
-    />
-  );
-}
+<LocalePicker regions={["IN", "US", "GB", "DE", "JP"]} value={locale} onValueChange={setLocale} />
 ```
 
 ### Native region names
