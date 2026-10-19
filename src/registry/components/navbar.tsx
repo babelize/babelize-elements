@@ -1,6 +1,14 @@
 "use client";
 
 import * as React from "react";
+import {
+  AnimatePresence,
+  MotionConfig,
+  motion,
+  useIsPresent,
+  type HTMLMotionProps,
+} from "motion/react";
+import { ArrowRightIcon, CheckIcon, ChevronDownIcon, GlobeIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useControllableState } from "@/lib/use-controllable-state";
 import { useListboxNavigation } from "@/lib/use-listbox-navigation";
@@ -16,19 +24,45 @@ export interface NavLink {
   href: string;
 }
 
+/** Per-part class overrides, merged after the defaults with `cn`. */
+export interface NavBarClassNames {
+  /** The `<nav>` element (same as `className`) */
+  root?: string;
+  /** The bar itself — the full-width row, or the floating card */
+  container?: string;
+  /** The desktop link group */
+  links?: string;
+  /** Each link, on desktop and in the mobile menu */
+  link?: string;
+  /** The desktop group holding the language menu, GitHub link and CTA */
+  actions?: string;
+  /** The call-to-action button, on desktop and in the mobile menu */
+  cta?: string;
+  /** The language menu triggers */
+  languageTrigger?: string;
+  /** The language menu panel */
+  languageContent?: string;
+  /** Each language option */
+  languageItem?: string;
+  /** The mobile menu panel */
+  mobileMenu?: string;
+}
+
 export interface NavBarProps extends Omit<
   React.ComponentPropsWithoutRef<"nav">,
   "defaultValue" | "onChange"
 > {
-  /** Brand mark rendered on the left */
+  /** Brand mark rendered at the start of the bar */
   logo?: React.ReactNode;
   /** Navigation links */
   links?: NavLink[];
+  /** `href` of the current page. The matching link gets `aria-current="page"` and a highlight. */
+  activeHref?: string;
   /** Locales offered by the built-in language menu */
   locales?: Locale[];
   /** Selected locale code. Provide this to control the component. */
   value?: string;
-  /** Initial selected locale code when uncontrolled (default: "en") */
+  /** Initial selected locale code when uncontrolled (default: first locale's code) */
   defaultValue?: string;
   /** Callback when the locale changes */
   onValueChange?: (code: string) => void;
@@ -40,6 +74,11 @@ export interface NavBarProps extends Omit<
   githubUrl?: string;
   /** Pin the bar to the top of the viewport (default: true) */
   sticky?: boolean;
+  /**
+   * Bar style (default: "default"). `"default"` spans the full width with a
+   * bottom border; `"floating"` is a rounded card inset from the top edge.
+   */
+  variant?: "default" | "floating";
   /** Show flag emojis in the language menu (default: true) */
   showFlags?: boolean;
   /** Max height of the scrolling language menu, before it scrolls (default: "15rem") */
@@ -50,6 +89,8 @@ export interface NavBarProps extends Omit<
    * `next/link`) to get client-side navigation.
    */
   linkComponent?: React.ElementType;
+  /** Per-part class overrides */
+  classNames?: NavBarClassNames;
 }
 
 function getLocaleInfo(code: string, override?: Locale) {
@@ -61,10 +102,31 @@ function getLocaleInfo(code: string, override?: Locale) {
   };
 }
 
+/**
+ * A panel that animates out. While it plays its exit animation it is still
+ * mounted, so it leaves the accessibility tree first: a closing menu is not a menu.
+ */
+const Panel = React.forwardRef<HTMLDivElement, HTMLMotionProps<"div">>(function Panel(props, ref) {
+  const isPresent = useIsPresent();
+  return <motion.div ref={ref} aria-hidden={isPresent ? undefined : true} {...props} />;
+});
+
+const FOCUS_RING = "outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50";
+
+const GHOST_BUTTON = cn(
+  "inline-flex items-center justify-center rounded-md text-sm font-medium text-muted-foreground transition-colors no-underline select-none",
+  "hover:bg-accent hover:text-accent-foreground aria-expanded:bg-accent aria-expanded:text-accent-foreground",
+  "dark:hover:bg-accent/50",
+  FOCUS_RING,
+);
+
+const EASE = [0.16, 1, 0.3, 1] as const;
+
 export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar(
   {
     logo,
     links = [],
+    activeHref,
     locales = [],
     value,
     defaultValue,
@@ -73,7 +135,9 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
     showGitHub = false,
     githubUrl = "https://github.com/babelize/babelize-elements",
     sticky = true,
+    variant = "default",
     className,
+    classNames,
     dir,
     showFlags = true,
     maxHeight = "15rem",
@@ -93,6 +157,9 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
   // and mobile bars are both always in the DOM — only CSS hides one — so a shared
   // boolean mounted two listboxes into the accessibility tree at once.
   const [langOpen, setLangOpen] = React.useState<"desktop" | "mobile" | null>(null);
+  // The link under the pointer or keyboard focus; the highlight follows it and
+  // settles back on the active link when it leaves.
+  const [hoveredHref, setHoveredHref] = React.useState<string | null>(null);
   const langRef = React.useRef<HTMLDivElement>(null);
   const mobileLangRef = React.useRef<HTMLDivElement>(null);
   const desktopTriggerRef = React.useRef<HTMLButtonElement>(null);
@@ -102,6 +169,8 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
   const activeLocale = locales.find((l) => l.code === locale);
   const direction = dir ?? ((activeLocale?.rtl ?? isRtl(locale)) ? "rtl" : "ltr");
   const currentLocaleInfo = getLocaleInfo(locale, activeLocale);
+  const floating = variant === "floating";
+  const highlightedHref = hoveredHref ?? activeHref ?? null;
 
   /**
    * The trigger that owns the interaction: whichever bar is open, or — while the
@@ -169,39 +238,28 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
     };
   }, [mobileOpen]);
 
-  const langButton = (
-    <button
-      ref={desktopTriggerRef}
-      type="button"
-      onClick={() => setLangOpen(langOpen === "desktop" ? null : "desktop")}
-      className="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
-      aria-expanded={langOpen === "desktop"}
-      aria-haspopup="listbox"
-      aria-label={`Current language: ${currentLocaleInfo.label}`}
-    >
-      {showFlags && <span className="text-sm leading-none">{currentLocaleInfo.flag}</span>}
-      <span className="hidden sm:inline">{currentLocaleInfo.label}</span>
-      <svg
-        className={cn(
-          "size-3 text-zinc-500 transition-transform dark:text-zinc-400",
-          langOpen === "desktop" && "rotate-180",
-        )}
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={2}
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-      </svg>
-    </button>
-  );
+  const flagOrGlobe = (flag: string, className?: string) =>
+    showFlags ? (
+      <span className={cn("text-base leading-none", className)}>{flag}</span>
+    ) : (
+      <GlobeIcon aria-hidden="true" className={cn("size-4 shrink-0", className)} />
+    );
 
   const langDropdown = (
-    <div className="absolute end-0 top-full z-50 mt-1.5 min-w-[170px] rounded-xl border border-zinc-200 bg-white py-1.5 shadow-xl dark:border-zinc-800 dark:bg-zinc-950">
+    <Panel
+      initial={{ opacity: 0, y: -4 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -4, pointerEvents: "none" }}
+      transition={{ duration: 0.15, ease: EASE }}
+      className={cn(
+        "absolute end-0 top-full z-50 mt-2 min-w-44 overflow-hidden rounded-lg border bg-popover text-popover-foreground shadow-lg",
+        classNames?.languageContent,
+      )}
+    >
       {/* The listbox owns the options only, and scrolls on its own: a long list
           never drags the page along with it. */}
       <div
-        className="overflow-y-auto"
+        className="overflow-y-auto overscroll-contain p-1"
         style={{ maxHeight }}
         role="listbox"
         aria-label="Select language"
@@ -210,7 +268,6 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
         {locales.map((item, index) => {
           const info = getLocaleInfo(item.code, item);
           const isCurrent = item.code === locale;
-          const isActive = index === nav.activeIndex;
           return (
             <button
               key={item.code}
@@ -221,182 +278,284 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
               onClick={() => nav.select(index)}
               {...nav.optionProps(index)}
               className={cn(
-                "mx-1.5 flex w-[calc(100%-12px)] items-center gap-2.5 rounded-lg px-3 py-2 text-start text-sm transition-colors",
-                isCurrent
-                  ? "bg-emerald-500/10 text-emerald-600 font-medium dark:text-emerald-400"
-                  : isActive
-                    ? "bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
-                    : "text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100",
+                "relative flex w-full cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-start text-sm outline-none select-none",
+                "data-[active=true]:bg-accent data-[active=true]:text-accent-foreground",
+                classNames?.languageItem,
               )}
             >
               {showFlags && <span className="text-base leading-none">{info.flag}</span>}
-              <span className="flex-1">{item.label ?? info.label}</span>
-              {isCurrent && (
-                <svg
-                  className="size-4 shrink-0 text-emerald-600 dark:text-emerald-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2.5}
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-              )}
+              <span className="flex-1 truncate">{item.label ?? info.label}</span>
+              <CheckIcon
+                aria-hidden="true"
+                className={cn(
+                  "size-4 shrink-0 text-primary",
+                  isCurrent ? "opacity-100" : "opacity-0",
+                )}
+              />
             </button>
           );
         })}
       </div>
-    </div>
+    </Panel>
+  );
+
+  const githubLink = (
+    <a
+      href={githubUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={cn(GHOST_BUTTON, "size-9")}
+      aria-label="GitHub"
+    >
+      <svg aria-hidden="true" className="size-4" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+      </svg>
+    </a>
+  );
+
+  const ctaClass = cn(
+    "group inline-flex h-9 items-center justify-center gap-1.5 rounded-md bg-primary px-4 text-sm font-medium whitespace-nowrap text-primary-foreground no-underline shadow-xs transition-colors hover:bg-primary/90",
+    FOCUS_RING,
+    classNames?.cta,
+  );
+
+  const ctaArrow = (
+    <ArrowRightIcon
+      aria-hidden="true"
+      className="-me-0.5 size-4 transition-transform duration-200 group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5"
+    />
   );
 
   return (
-    <nav
-      ref={forwardedRef}
-      {...rest}
-      dir={direction}
-      onKeyDown={(event) => {
-        nav.onKeyDown(event);
-        onKeyDown?.(event);
-      }}
-      className={cn(
-        "z-50 w-full border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900",
-        sticky && "sticky top-0",
-        className,
-      )}
-    >
-      {/* Desktop */}
-      <div className="mx-auto hidden max-w-6xl items-center justify-between px-5 py-3 md:flex">
-        {logo && <div className="flex-shrink-0">{logo}</div>}
-
-        <div className="flex items-center gap-1">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="px-3 py-1.5 text-sm transition-colors rounded-md no-underline text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-1">
-          {locales.length > 0 && (
-            <div ref={langRef} className="relative">
-              {langButton}
-              {langOpen === "desktop" && langDropdown}
-            </div>
-          )}
-
-          {showGitHub && (
-            <a
-              href={githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex size-8 items-center justify-center rounded-md transition-colors no-underline text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
-              aria-label="GitHub"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
-              </svg>
-            </a>
-          )}
-
-          {cta && (
-            <Link
-              href={cta.href}
-              className="rounded-md px-3.5 py-1.5 text-sm font-medium transition-colors no-underline bg-emerald-500 text-white hover:opacity-90"
-            >
-              {cta.label}
-            </Link>
-          )}
-        </div>
-      </div>
-
-      {/* Mobile */}
-      <div className="flex items-center justify-between px-4 py-3 md:hidden">
-        {logo && <div className="flex-shrink-0">{logo}</div>}
-
-        <div className="flex items-center gap-1">
-          {locales.length > 0 && (
-            <div ref={mobileLangRef} className="relative">
-              <button
-                ref={mobileTriggerRef}
-                type="button"
-                onClick={() => setLangOpen(langOpen === "mobile" ? null : "mobile")}
-                className="inline-flex size-8 items-center justify-center rounded-md transition-colors text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
-                aria-expanded={langOpen === "mobile"}
-                aria-haspopup="listbox"
-                aria-label={`Current language: ${currentLocaleInfo.label}`}
-              >
-                {showFlags && (
-                  <span className="text-base leading-none">{currentLocaleInfo.flag}</span>
-                )}
-              </button>
-              {langOpen === "mobile" && langDropdown}
-            </div>
-          )}
-
-          <button
-            type="button"
-            className="inline-flex size-8 items-center justify-center rounded-md transition-colors text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
-            aria-expanded={mobileOpen}
-            aria-controls={mobileOpen ? menuId : undefined}
-          >
-            {mobileOpen ? (
-              <svg
-                className="size-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg
-                className="size-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile menu panel */}
-      {mobileOpen && (
+    <MotionConfig reducedMotion="user">
+      <nav
+        ref={forwardedRef}
+        {...rest}
+        dir={direction}
+        onKeyDown={(event) => {
+          nav.onKeyDown(event);
+          onKeyDown?.(event);
+        }}
+        className={cn(
+          "z-50 w-full text-foreground",
+          sticky ? "sticky top-0" : "relative",
+          floating
+            ? "px-3 pt-3 sm:px-4 sm:pt-4"
+            : "border-b bg-background/80 backdrop-blur-lg supports-[backdrop-filter]:bg-background/60",
+          classNames?.root,
+          className,
+        )}
+      >
         <div
-          id={menuId}
-          className="border-t border-zinc-200 bg-white px-4 py-3 md:hidden dark:border-zinc-800 dark:bg-zinc-900"
-        >
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setMobileOpen(false)}
-              className="block py-2.5 text-sm transition-colors no-underline text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
-            >
-              {link.label}
-            </Link>
-          ))}
-          {cta && (
-            <Link
-              href={cta.href}
-              onClick={() => setMobileOpen(false)}
-              className="mt-2 block rounded-md px-3.5 py-2 text-center text-sm font-medium transition-colors no-underline bg-emerald-500 text-white hover:opacity-90"
-            >
-              {cta.label}
-            </Link>
+          className={cn(
+            floating &&
+              "mx-auto max-w-5xl rounded-2xl border bg-background/80 shadow-lg shadow-black/5 backdrop-blur-lg supports-[backdrop-filter]:bg-background/60 dark:shadow-black/20",
+            classNames?.container,
           )}
+        >
+          {/* Desktop */}
+          <div
+            className={cn(
+              "mx-auto hidden h-16 max-w-6xl items-center justify-between gap-6 md:flex",
+              floating ? "h-14 ps-5 pe-2.5" : "px-6",
+            )}
+          >
+            {logo && <div className="flex shrink-0 items-center">{logo}</div>}
+
+            {links.length > 0 && (
+              <div
+                className={cn("flex items-center gap-1", classNames?.links)}
+                onMouseLeave={() => setHoveredHref(null)}
+              >
+                {links.map((link) => {
+                  const isActive = link.href === activeHref;
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      aria-current={isActive ? "page" : undefined}
+                      onMouseEnter={() => setHoveredHref(link.href)}
+                      onFocus={() => setHoveredHref(link.href)}
+                      onBlur={() => setHoveredHref(null)}
+                      className={cn(
+                        "relative rounded-md px-3 py-1.5 text-sm font-medium no-underline transition-colors",
+                        isActive || hoveredHref === link.href
+                          ? "text-foreground"
+                          : "text-muted-foreground",
+                        FOCUS_RING,
+                        classNames?.link,
+                      )}
+                    >
+                      {highlightedHref === link.href && (
+                        <motion.span
+                          aria-hidden="true"
+                          layoutId={`${menuId}-link-highlight`}
+                          transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
+                          className="absolute inset-0 rounded-md bg-accent dark:bg-accent/60"
+                        />
+                      )}
+                      <span className="relative">{link.label}</span>
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+
+            <div className={cn("flex items-center gap-1", classNames?.actions)}>
+              {locales.length > 0 && (
+                <div ref={langRef} className="relative">
+                  <button
+                    ref={desktopTriggerRef}
+                    type="button"
+                    onClick={() => setLangOpen(langOpen === "desktop" ? null : "desktop")}
+                    className={cn(GHOST_BUTTON, "h-9 gap-1.5 px-2.5", classNames?.languageTrigger)}
+                    aria-expanded={langOpen === "desktop"}
+                    aria-haspopup="listbox"
+                    aria-label={`Current language: ${currentLocaleInfo.label}`}
+                  >
+                    {flagOrGlobe(currentLocaleInfo.flag)}
+                    <span>{currentLocaleInfo.label}</span>
+                    <ChevronDownIcon
+                      aria-hidden="true"
+                      className={cn(
+                        "size-3.5 shrink-0 opacity-60 transition-transform duration-200",
+                        langOpen === "desktop" && "rotate-180",
+                      )}
+                    />
+                  </button>
+                  <AnimatePresence>{langOpen === "desktop" && langDropdown}</AnimatePresence>
+                </div>
+              )}
+
+              {showGitHub && githubLink}
+
+              {cta && (
+                <Link href={cta.href} className={cn(ctaClass, "ms-1")}>
+                  {cta.label}
+                  {ctaArrow}
+                </Link>
+              )}
+            </div>
+          </div>
+
+          {/* Mobile */}
+          <div
+            className={cn(
+              "flex h-14 items-center justify-between md:hidden",
+              floating ? "ps-4 pe-2" : "px-4",
+            )}
+          >
+            {logo && <div className="flex shrink-0 items-center">{logo}</div>}
+
+            <div className="flex items-center gap-1">
+              {locales.length > 0 && (
+                <div ref={mobileLangRef} className="relative">
+                  <button
+                    ref={mobileTriggerRef}
+                    type="button"
+                    onClick={() => setLangOpen(langOpen === "mobile" ? null : "mobile")}
+                    className={cn(GHOST_BUTTON, "size-9", classNames?.languageTrigger)}
+                    aria-expanded={langOpen === "mobile"}
+                    aria-haspopup="listbox"
+                    aria-label={`Current language: ${currentLocaleInfo.label}`}
+                  >
+                    {flagOrGlobe(currentLocaleInfo.flag)}
+                  </button>
+                  <AnimatePresence>{langOpen === "mobile" && langDropdown}</AnimatePresence>
+                </div>
+              )}
+
+              <button
+                type="button"
+                className={cn(GHOST_BUTTON, "relative size-9 text-foreground")}
+                onClick={() => setMobileOpen(!mobileOpen)}
+                aria-label="Toggle menu"
+                aria-expanded={mobileOpen}
+                aria-controls={mobileOpen ? menuId : undefined}
+              >
+                {/* Two bars that cross into an X. */}
+                <span aria-hidden="true" className="relative block h-3 w-4">
+                  <motion.span
+                    className="absolute inset-x-0 top-0 h-0.5 rounded-full bg-current"
+                    initial={false}
+                    animate={mobileOpen ? { y: 5, rotate: 45 } : { y: 1, rotate: 0 }}
+                    transition={{ duration: 0.2, ease: EASE }}
+                  />
+                  <motion.span
+                    className="absolute inset-x-0 top-0 h-0.5 rounded-full bg-current"
+                    initial={false}
+                    animate={mobileOpen ? { y: 5, rotate: -45 } : { y: 9, rotate: 0 }}
+                    transition={{ duration: 0.2, ease: EASE }}
+                  />
+                </span>
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile menu panel */}
+          <AnimatePresence initial={false}>
+            {mobileOpen && (
+              <Panel
+                id={menuId}
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0, pointerEvents: "none" }}
+                transition={{ duration: 0.25, ease: EASE }}
+                className={cn(
+                  "overflow-hidden md:hidden",
+                  !floating && "border-t",
+                  classNames?.mobileMenu,
+                )}
+              >
+                <div className={cn("flex flex-col gap-1 p-3", floating && "pt-0")}>
+                  {links.map((link, index) => (
+                    <motion.div
+                      key={link.href}
+                      initial={{ opacity: 0, y: -6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.2, delay: 0.03 * index, ease: EASE }}
+                    >
+                      <Link
+                        href={link.href}
+                        aria-current={link.href === activeHref ? "page" : undefined}
+                        onClick={() => setMobileOpen(false)}
+                        className={cn(
+                          "flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-muted-foreground no-underline transition-colors",
+                          "hover:bg-accent hover:text-accent-foreground aria-[current=page]:bg-accent aria-[current=page]:text-accent-foreground",
+                          FOCUS_RING,
+                          classNames?.link,
+                        )}
+                      >
+                        {link.label}
+                      </Link>
+                    </motion.div>
+                  ))}
+                  {(cta || showGitHub) && (
+                    <motion.div
+                      className="mt-2 flex items-center gap-2 border-t pt-3"
+                      initial={{ opacity: 0, y: -6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.2, delay: 0.03 * links.length, ease: EASE }}
+                    >
+                      {cta && (
+                        <Link
+                          href={cta.href}
+                          onClick={() => setMobileOpen(false)}
+                          className={cn(ctaClass, "flex-1")}
+                        >
+                          {cta.label}
+                          {ctaArrow}
+                        </Link>
+                      )}
+                      {showGitHub && githubLink}
+                    </motion.div>
+                  )}
+                </div>
+              </Panel>
+            )}
+          </AnimatePresence>
         </div>
-      )}
-    </nav>
+      </nav>
+    </MotionConfig>
   );
 });

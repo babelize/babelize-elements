@@ -350,3 +350,73 @@ describe("NavBar keyboard navigation", () => {
     expect(document.body.scrollTop).toBe(0);
   });
 });
+
+describe("NavBar customization", () => {
+  it("marks the link matching activeHref as the current page", () => {
+    render(<NavBar links={links} activeHref="/blog" />);
+
+    for (const blog of screen.getAllByRole("link", { name: "Blog" })) {
+      expect(blog).toHaveAttribute("aria-current", "page");
+    }
+    for (const docs of screen.getAllByRole("link", { name: "Docs" })) {
+      expect(docs).not.toHaveAttribute("aria-current");
+    }
+  });
+
+  it("renders the floating variant as an inset card", () => {
+    render(<NavBar links={links} variant="floating" classNames={{ container: "custom-card" }} />);
+    const card = screen.getByRole("navigation").firstElementChild;
+
+    expect(card).toHaveClass("custom-card", "rounded-2xl", "border");
+  });
+
+  it("applies classNames to each part", async () => {
+    render(
+      <NavBar
+        links={links}
+        locales={locales}
+        cta={{ label: "Sign up", href: "/signup" }}
+        classNames={{
+          root: "custom-root",
+          link: "custom-link",
+          cta: "custom-cta",
+          languageTrigger: "custom-trigger",
+          languageContent: "custom-content",
+          languageItem: "custom-item",
+        }}
+      />,
+    );
+
+    expect(screen.getByRole("navigation")).toHaveClass("custom-root");
+    expect(screen.getAllByRole("link", { name: "Docs" })[0]).toHaveClass("custom-link");
+    expect(screen.getAllByRole("link", { name: "Sign up" })[0]).toHaveClass("custom-cta");
+
+    const trigger = screen.getAllByRole("button", { name: /Current language/ })[0];
+    expect(trigger).toHaveClass("custom-trigger");
+    await userEvent.click(trigger);
+    expect(screen.getByRole("listbox").parentElement).toHaveClass("custom-content");
+    expect(screen.getAllByRole("option")[0]).toHaveClass("custom-item");
+  });
+
+  it("shows a globe on the language triggers when flags are off", () => {
+    render(<NavBar locales={locales} showFlags={false} />);
+
+    for (const trigger of screen.getAllByRole("button", { name: /Current language/ })) {
+      expect(trigger.querySelector("svg")).not.toBeNull();
+      expect(trigger).not.toHaveTextContent("\u{1F1FA}\u{1F1F8}");
+    }
+  });
+
+  it("removes the mobile menu from the accessibility tree once closed", async () => {
+    render(<NavBar links={links} classNames={{ mobileMenu: "custom-mobile" }} />);
+    const toggle = screen.getByRole("button", { name: "Toggle menu" });
+
+    await userEvent.click(toggle);
+    const panel = document.getElementById(toggle.getAttribute("aria-controls")!);
+    expect(panel).toHaveClass("custom-mobile");
+
+    await userEvent.click(toggle);
+    expect(toggle).not.toHaveAttribute("aria-controls");
+    expect(screen.getAllByRole("link", { name: "Docs" })).toHaveLength(1);
+  });
+});

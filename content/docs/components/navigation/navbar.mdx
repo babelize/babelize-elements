@@ -69,22 +69,25 @@ export function SiteNav() {
 
 ## Props
 
-| Prop            | Type                              | Required | Description                                                    |
-| --------------- | --------------------------------- | -------- | -------------------------------------------------------------- |
-| `logo`          | `React.ReactNode`                 | No       | Logo element (renders before nav links)                        |
-| `links`         | `NavLink[]`                       | No       | Navigation links                                               |
-| `locales`       | `Locale[]`                        | No       | Available locales for language selector                        |
-| `value`         | `string`                          | No       | Selected locale code — pass this to control the component      |
-| `defaultValue`  | `string`                          | No       | Initial locale code when uncontrolled (default: `"en"`)        |
-| `onValueChange` | `(code: string) => void`          | No       | Callback when locale changes                                   |
-| `cta`           | `{ label: string; href: string }` | No       | CTA button                                                     |
-| `showGitHub`    | `boolean`                         | No       | Show GitHub icon button                                        |
-| `githubUrl`     | `string`                          | No       | GitHub repository URL                                          |
-| `sticky`        | `boolean`                         | No       | Make navbar sticky at top (default: `true`)                    |
-| `showFlags`     | `boolean`                         | No       | Show flags in language selector (default: `true`)              |
-| `maxHeight`     | `number \| string`                | No       | Max height of the scrolling language menu (default: `"15rem"`) |
-| `linkComponent` | `React.ElementType`               | No       | Component used for internal links (default: `"a"`)             |
-| `className`     | `string`                          | No       | Additional CSS classes                                         |
+| Prop            | Type                              | Required | Description                                                      |
+| --------------- | --------------------------------- | -------- | ---------------------------------------------------------------- |
+| `logo`          | `React.ReactNode`                 | No       | Logo element (renders before nav links)                          |
+| `links`         | `NavLink[]`                       | No       | Navigation links                                                 |
+| `activeHref`    | `string`                          | No       | `href` of the current page — gets `aria-current` and a highlight |
+| `locales`       | `Locale[]`                        | No       | Available locales for language selector                          |
+| `value`         | `string`                          | No       | Selected locale code — pass this to control the component        |
+| `defaultValue`  | `string`                          | No       | Initial locale code when uncontrolled (default: first locale)    |
+| `onValueChange` | `(code: string) => void`          | No       | Callback when locale changes                                     |
+| `cta`           | `{ label: string; href: string }` | No       | CTA button                                                       |
+| `showGitHub`    | `boolean`                         | No       | Show GitHub icon button                                          |
+| `githubUrl`     | `string`                          | No       | GitHub repository URL                                            |
+| `sticky`        | `boolean`                         | No       | Make navbar sticky at top (default: `true`)                      |
+| `variant`       | `"default" \| "floating"`         | No       | Full-width bar or inset floating card (default: `"default"`)     |
+| `showFlags`     | `boolean`                         | No       | Show flags in language selector (default: `true`)                |
+| `maxHeight`     | `number \| string`                | No       | Max height of the scrolling language menu (default: `"15rem"`)   |
+| `linkComponent` | `React.ElementType`               | No       | Component used for internal links (default: `"a"`)               |
+| `classNames`    | `NavBarClassNames`                | No       | Per-part class overrides (see below)                             |
+| `className`     | `string`                          | No       | Additional CSS classes                                           |
 
 Any other prop is spread onto the underlying `<nav>` element, and the ref is
 forwarded to it.
@@ -99,6 +102,35 @@ navigation:
 import Link from "next/link";
 
 <NavBar links={links} linkComponent={Link} />;
+```
+
+### Styling parts
+
+`classNames` merges extra classes into each part with `cn`, so your classes win
+over the defaults:
+
+| Key               | Part                                                      |
+| ----------------- | --------------------------------------------------------- |
+| `root`            | The `<nav>` element (same as `className`)                 |
+| `container`       | The bar itself — the full-width row, or the floating card |
+| `links`           | The desktop link group                                    |
+| `link`            | Each link, on desktop and in the mobile menu              |
+| `actions`         | The desktop group with the language menu, GitHub and CTA  |
+| `cta`             | The call-to-action button                                 |
+| `languageTrigger` | The language menu triggers                                |
+| `languageContent` | The language menu panel                                   |
+| `languageItem`    | Each language option                                      |
+| `mobileMenu`      | The mobile menu panel                                     |
+
+```tsx
+<NavBar
+  links={links}
+  classNames={{
+    container: "max-w-4xl",
+    cta: "rounded-full",
+    link: "text-base",
+  }}
+/>
 ```
 
 ### NavLink Object
@@ -221,6 +253,32 @@ export function AppNavBar() {
 }
 ```
 
+### Floating
+
+An inset, rounded bar that floats above the page — pair it with `activeHref` to
+highlight the current page:
+
+```tsx
+"use client";
+
+import { NavBar } from "@/components/ui/navbar";
+
+export default function App() {
+  return (
+    <NavBar
+      variant="floating"
+      logo={<span className="font-bold">MyApp</span>}
+      links={[
+        { label: "Home", href: "/" },
+        { label: "Docs", href: "/docs" },
+      ]}
+      activeHref="/docs"
+      cta={{ label: "Get Started", href: "/signup" }}
+    />
+  );
+}
+```
+
 ### Non-sticky
 
 ```tsx
@@ -268,17 +326,21 @@ never scrolls the page. Pass `maxHeight` to set how tall the menu gets.
 - **Sticky/non-sticky** — toggle top-of-page stickiness
 - **Keyboard accessible** — arrow keys, Home / End, Enter, and Escape navigation
 - **ARIA labels** — `aria-expanded`, `aria-haspopup`, `aria-selected`, and roving focus over the options
-- **Dark mode** — built with Tailwind CSS, dark-mode compatible
-- **Next.js Link** — uses `next/link` for client-side navigation
+- **Themeable** — styled with shadcn/ui tokens, so it follows your theme and dark mode
+- **Two variants** — full-width bar or floating inset card
+- **Animated** — hover highlight that glides between links, animated mobile menu and language menu; honors `prefers-reduced-motion`
+- **Router-agnostic** — pass `next/link` (or any link) through `linkComponent`
 
 ## Dependencies
+
+- `motion` — animations
+- `lucide-react` — icons
 
 Peer dependencies:
 
 - `react` >= 18
 - `react-dom` >= 18
 - `tailwindcss` >= 3
-- `next` >= 13 (uses `next/link`)
 
 ## Credits
 
