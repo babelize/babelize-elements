@@ -8,33 +8,32 @@ import { Callout } from "fumadocs-ui/components/callout";
 
 Install individual Babelize Elements components directly into your project with the shadcn CLI.
 
-## One-time setup
+## The `@babelize` registry
 
-Register the Babelize Elements registry namespace:
+Babelize Elements is listed in the
+[shadcn registry directory](https://ui.shadcn.com/docs/directory) as `@babelize`, so
+the shadcn CLI resolves it with no setup.
 
-```bash
-npx shadcn@latest registry add @elements=https://elements.babelize.co/r/{name}.json
-```
-
-Alternatively, add it manually to the `registries` field of your `components.json`:
+On an older CLI, or to pin the registry explicitly, add it to the `registries` field of
+your `components.json`:
 
 ```json
 {
   "registries": {
-    "@elements": "https://elements.babelize.co/r/{name}.json"
+    "@babelize": "https://elements.babelize.co/r/{name}.json"
   }
 }
 ```
 
 ## Install a component
 
-Once the namespace is registered, install any component:
+Install any component:
 
 ```bash
-npx shadcn@latest add @elements/language-switcher
-npx shadcn@latest add @elements/language-switcher-pill
-npx shadcn@latest add @elements/phone-input
-npx shadcn@latest add @elements/navbar
+npx shadcn@latest add @babelize/language-switcher
+npx shadcn@latest add @babelize/language-switcher-pill
+npx shadcn@latest add @babelize/phone-input
+npx shadcn@latest add @babelize/navbar
 ```
 
 The CLI resolves each component's dependencies (including the `cn` utility) and
