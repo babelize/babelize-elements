@@ -6,8 +6,18 @@
  */
 const RTL_LOCALES = new Set(["ar", "he", "fa", "ur", "ps", "sd", "yi"]);
 
+/** ISO 15924 scripts written right to left. */
+const RTL_SCRIPTS = new Set(["arab", "hebr", "thaa", "nkoo", "adlm", "syrc", "samr"]);
+
+/**
+ * Whether a locale is written right to left. An explicit script subtag decides
+ * on its own, so "pa-Arab" is RTL and "sd-Deva" is not; otherwise the base
+ * language does.
+ */
 export function isRtl(code: string): boolean {
-  const lang = code.split("-")[0].toLowerCase();
+  const [lang, ...rest] = code.toLowerCase().split("-");
+  const script = rest.find((subtag) => /^[a-z]{4}$/.test(subtag));
+  if (script) return RTL_SCRIPTS.has(script);
   return RTL_LOCALES.has(lang);
 }
 
@@ -235,6 +245,20 @@ export function getLanguageName(
 ): string | undefined {
   const lang = code.split("-")[0].toLowerCase();
   const names = LANG_NAMES[lang];
-  if (!names) return undefined;
-  return mode === "native" ? names[0] : names[1];
+  if (names) return mode === "native" ? names[0] : names[1];
+  return displayName(lang, mode);
+}
+
+/** `Intl.DisplayNames` fallback for languages missing from the built-in table. */
+function displayName(lang: string, mode: "native" | "english"): string | undefined {
+  try {
+    const name = new Intl.DisplayNames([mode === "native" ? lang : "en"], {
+      type: "language",
+      fallback: "none",
+    }).of(lang);
+    return name && name.toLowerCase() !== lang ? name : undefined;
+  } catch {
+    // Malformed code, or no Intl.DisplayNames in this runtime.
+    return undefined;
+  }
 }

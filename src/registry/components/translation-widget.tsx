@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { useControllableState } from "@/lib/use-controllable-state";
 import { LanguageSwitcher } from "./language-switcher";
 import type { Locale } from "./types";
+import { getLanguageName, isRtl } from "./locale-data";
 
 export type { Locale };
 
@@ -86,72 +87,8 @@ export interface TranslationWidgetProps extends Omit<
   classNames?: TranslationWidgetClassNames;
 }
 
-const RTL_LOCALES = new Set(["ar", "he", "fa", "ur", "ps", "sd", "yi"]);
-
-const RTL_SCRIPTS = new Set(["arab", "hebr", "thaa", "nkoo", "adlm", "syrc", "samr"]);
-
-function isRtl(code: string): boolean {
-  const subtags = code.toLowerCase().split("-");
-  if (subtags.some((s) => RTL_SCRIPTS.has(s))) return true;
-  return RTL_LOCALES.has(subtags[0]);
-}
-
-const LOCALE_LABELS: Record<string, string> = {
-  en: "English",
-  fr: "French",
-  es: "Spanish",
-  de: "German",
-  it: "Italian",
-  pt: "Portuguese",
-  nl: "Dutch",
-  ru: "Russian",
-  uk: "Ukrainian",
-  pl: "Polish",
-  tr: "Turkish",
-  ar: "Arabic",
-  he: "Hebrew",
-  fa: "Persian",
-  ur: "Urdu",
-  hi: "Hindi",
-  bn: "Bengali",
-  ta: "Tamil",
-  te: "Telugu",
-  mr: "Marathi",
-  gu: "Gujarati",
-  kn: "Kannada",
-  ml: "Malayalam",
-  pa: "Punjabi",
-  ja: "Japanese",
-  ko: "Korean",
-  zh: "Chinese",
-  th: "Thai",
-  vi: "Vietnamese",
-  id: "Indonesian",
-  ms: "Malay",
-  sw: "Swahili",
-  sv: "Swedish",
-  da: "Danish",
-  fi: "Finnish",
-  no: "Norwegian",
-  nb: "Norwegian",
-  cs: "Czech",
-  el: "Greek",
-  ro: "Romanian",
-  hu: "Hungarian",
-  bg: "Bulgarian",
-  hr: "Croatian",
-  sr: "Serbian",
-  sk: "Slovak",
-  sl: "Slovenian",
-  lt: "Lithuanian",
-  lv: "Latvian",
-  et: "Estonian",
-  ca: "Catalan",
-  eu: "Basque",
-};
-
 function getLocaleLabel(code: string): string {
-  return LOCALE_LABELS[code.split("-")[0].toLowerCase()] ?? code;
+  return getLanguageName(code, "english") ?? code;
 }
 
 const ICON_BUTTON_CLASS = cn(

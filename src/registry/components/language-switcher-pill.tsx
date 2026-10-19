@@ -5,7 +5,7 @@ import { LayoutGroup, MotionConfig, motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { useControllableState } from "@/lib/use-controllable-state";
 import type { Locale } from "./types";
-import { getFlag } from "./locale-data";
+import { getFlag, isRtl } from "./locale-data";
 
 /** Per-part class overrides, merged after the defaults with `cn`. */
 export interface LanguageSwitcherPillClassNames {
@@ -59,12 +59,8 @@ export interface LanguageSwitcherPillProps extends Omit<
 const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? React.useLayoutEffect : React.useEffect;
 
-const RTL_LOCALES = new Set(["ar", "he", "fa", "ur", "ps", "sd", "yi"]);
-
-function isRtl(locale: Locale): boolean {
-  if (locale.rtl !== undefined) return locale.rtl;
-
-  return RTL_LOCALES.has(locale.code.split("-")[0].toLowerCase());
+function isLocaleRtl(locale: Locale): boolean {
+  return locale.rtl ?? isRtl(locale.code);
 }
 
 const TRACK_VARIANTS = {
@@ -213,7 +209,7 @@ export const LanguageSwitcherPill = React.forwardRef<HTMLDivElement, LanguageSwi
                   ref={(element) => {
                     buttonRefs.current[index] = element;
                   }}
-                  dir={isRtl(item) ? "rtl" : "ltr"}
+                  dir={isLocaleRtl(item) ? "rtl" : "ltr"}
                   type="button"
                   role="radio"
                   aria-checked={isActive}

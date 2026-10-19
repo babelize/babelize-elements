@@ -89,7 +89,12 @@ const ITEMS: ItemDef[] = [
     source: "registry/components/translation-widget",
     filePath: "ui/translation-widget.tsx",
     dependencies: ["clsx", "tailwind-merge", "lucide-react", "motion"],
-    registryDependencies: ["language-switcher", "locale-types", "use-controllable-state"],
+    registryDependencies: [
+      "language-switcher",
+      "locale-types",
+      "locale-data",
+      "use-controllable-state",
+    ],
   },
   {
     name: "locale-data",
