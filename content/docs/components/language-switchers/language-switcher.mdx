@@ -63,16 +63,27 @@ export function LocaleSwitcher() {
 
 ## Props
 
-| Prop            | Type                     | Required | Description                                                  |
-| --------------- | ------------------------ | -------- | ------------------------------------------------------------ |
-| `locales`       | `Locale[]`               | Yes      | Array of available locales — only `code` is required         |
-| `value`         | `string`                 | No       | Selected locale code — pass this to control the component    |
-| `defaultValue`  | `string`                 | No       | Initial selected locale code (default: first locale's code)  |
-| `onValueChange` | `(code: string) => void` | No       | Callback when locale changes                                 |
-| `label`         | `"native" \| "english"`  | No       | Display labels in native or English (default: `"english"`)   |
-| `showFlags`     | `boolean`                | No       | Show flag emojis (default: `false`)                          |
-| `maxHeight`     | `number \| string`       | No       | Max height of the scrolling option list (default: `"15rem"`) |
-| `className`     | `string`                 | No       | Additional CSS classes                                       |
+| Prop                | Type                                  | Required | Description                                                                          |
+| ------------------- | ------------------------------------- | -------- | ------------------------------------------------------------------------------------ |
+| `locales`           | `Locale[]`                            | Yes      | Array of available locales — only `code` is required                                 |
+| `value`             | `string`                              | No       | Selected locale code — pass this to control the component                            |
+| `defaultValue`      | `string`                              | No       | Initial selected locale code (default: first locale's code)                          |
+| `onValueChange`     | `(code: string) => void`              | No       | Callback when locale changes                                                         |
+| `label`             | `"native" \| "english"`               | No       | Display labels in native or English (default: `"english"`)                           |
+| `showFlags`         | `boolean`                             | No       | Show flag emojis (default: `false`)                                                  |
+| `maxHeight`         | `number \| string`                    | No       | Max height of the scrolling option list (default: `"15rem"`)                         |
+| `showCode`          | `boolean`                             | No       | Show the locale code beside each option (default: `false`)                           |
+| `variant`           | `"outline" \| "ghost" \| "secondary"` | No       | Trigger style (default: `"outline"`)                                                 |
+| `size`              | `"sm" \| "default" \| "lg"`           | No       | Trigger size (default: `"default"`)                                                  |
+| `align`             | `"start" \| "end"`                    | No       | Edge of the trigger the menu lines up with (default: `"start"`)                      |
+| `side`              | `"top" \| "bottom"`                   | No       | Preferred menu side; flips when there is no room (default: `"bottom"`)               |
+| `searchable`        | `boolean`                             | No       | Show the search field (default: `true`)                                              |
+| `searchPlaceholder` | `string`                              | No       | Search placeholder (default: `"Search languages..."`)                                |
+| `emptyMessage`      | `ReactNode`                           | No       | Shown when the search matches nothing (default: `"No languages found."`)             |
+| `disabled`          | `boolean`                             | No       | Disable the trigger                                                                  |
+| `renderOption`      | `(locale, state) => ReactNode`        | No       | Replace each option row's content; `state` has `selected`, `active`, `label`, `flag` |
+| `classNames`        | `LanguageSwitcherClassNames`          | No       | Per-part classes: `trigger`, `content`, `search`, `list`, `item`, `empty`            |
+| `className`         | `string`                              | No       | Additional CSS classes on the root                                                   |
 
 ### Locale Object
 
@@ -182,6 +193,28 @@ export default function App() {
     />
   );
 }
+```
+
+### Customizing parts
+
+The switcher is styled with shadcn theme tokens, so it follows your theme. Use
+`classNames` to restyle any part, or `renderOption` to change what each row shows:
+
+```tsx
+<LanguageSwitcher
+  locales={locales}
+  variant="ghost"
+  size="sm"
+  align="end"
+  classNames={{ content: "w-64", item: "py-2" }}
+  renderOption={(locale, { label, flag, selected }) => (
+    <>
+      <span className="text-base leading-none">{flag}</span>
+      <span className="flex-1">{label}</span>
+      <span className="text-xs text-muted-foreground">{selected ? "Current" : locale.code}</span>
+    </>
+  )}
+/>
 ```
 
 ## Keyboard support

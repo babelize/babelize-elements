@@ -35,7 +35,7 @@ const ITEMS: ItemDef[] = [
     type: "registry:ui",
     source: "registry/components/language-switcher",
     filePath: "ui/language-switcher.tsx",
-    dependencies: ["clsx", "tailwind-merge"],
+    dependencies: ["clsx", "tailwind-merge", "lucide-react", "motion"],
     registryDependencies: [
       "locale-types",
       "locale-data",

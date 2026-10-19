@@ -3,7 +3,11 @@ export { cn } from "@/lib/utils";
 export type { Locale } from "./types";
 
 export { LanguageSwitcher } from "./language-switcher";
-export type { LanguageSwitcherProps } from "./language-switcher";
+export type {
+  LanguageSwitcherProps,
+  LanguageSwitcherClassNames,
+  LanguageSwitcherOptionState,
+} from "./language-switcher";
 
 export { LanguageSwitcherPill } from "./language-switcher-pill";
 export type { LanguageSwitcherPillProps } from "./language-switcher-pill";
