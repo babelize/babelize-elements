@@ -70,6 +70,9 @@ pick up your app's theme, radius, and dark mode automatically.
 This is the shadcn neutral theme; change any value to match your brand.
 
 ```css title="app/globals.css"
+/* Make `dark:` follow the `.dark` class, as the tokens below do. */
+@custom-variant dark (&:is(.dark *));
+
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
