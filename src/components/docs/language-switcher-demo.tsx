@@ -1,39 +1,18 @@
 "use client";
 
-import { useState } from "react";
-import { LanguageSwitcher, type Locale } from "@/registry/components/language-switcher";
-
-const locales: Locale[] = [
-  { code: "en" },
-  { code: "fr" },
-  { code: "es" },
-  { code: "de" },
-  { code: "ja" },
-  { code: "ar" },
-];
-
-const greetings: Record<string, string> = {
-  en: "Hello, world!",
-  fr: "Bonjour, le monde !",
-  es: "¡Hola, mundo!",
-  de: "Hallo, Welt!",
-  ja: "こんにちは、世界！",
-  ar: "مرحبا بالعالم!",
-};
+import { LanguageSwitcher } from "@/registry/components/language-switcher";
+import { locales } from "@/lib/elements-config";
 
 export function LanguageSwitcherDemo() {
-  const [locale, setLocale] = useState("en");
-
   return (
-    <>
-      <LanguageSwitcher
-        locales={locales}
-        defaultValue="en"
-        onValueChange={setLocale}
-        showFlags // flag emoji next to each locale
-      />
-
-      <p className="text-4xl font-bold tracking-tight sm:text-5xl">{greetings[locale]}</p>
-    </>
+    <LanguageSwitcher
+      locales={locales}
+      defaultValue="en"
+      onValueChange={(code) => console.log("Selected locale:", code)}
+      label="native" // native, english
+      variant="outline" // outline, ghost, secondary
+      size="default" // sm, default, lg
+      showFlags
+    />
   );
 }
