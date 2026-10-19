@@ -61,7 +61,7 @@ const ITEMS: ItemDef[] = [
     type: "registry:ui",
     source: "registry/components/phone-input",
     filePath: "ui/phone-input.tsx",
-    dependencies: ["clsx", "tailwind-merge"],
+    dependencies: ["clsx", "tailwind-merge", "lucide-react", "motion"],
     registryDependencies: ["use-controllable-state", "use-listbox-navigation"],
   },
   {

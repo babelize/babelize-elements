@@ -63,22 +63,30 @@ export function PhoneField() {
 
 ## Props
 
-| Prop             | Type                                        | Required | Description                                                            |
-| ---------------- | ------------------------------------------- | -------- | ---------------------------------------------------------------------- |
-| `value`          | `string`                                    | No       | Phone number — pass this to control the component                      |
-| `defaultValue`   | `string`                                    | No       | Initial phone number when uncontrolled                                 |
-| `onValueChange`  | `(phone: string, country: Country) => void` | No       | Callback when phone number or country changes                          |
-| `defaultCountry` | `string`                                    | No       | Default country code (ISO 3166-1 alpha-2, e.g. `"US"`, `"GB"`, `"IN"`) |
-| `placeholder`    | `string`                                    | No       | Placeholder text                                                       |
-| `disabled`       | `boolean`                                   | No       | Disable the input                                                      |
-| `showFlags`      | `boolean`                                   | No       | Show country flag next to dial code (default: `true`)                  |
-| `maxHeight`      | `number \| string`                          | No       | Max height of the scrolling country list (default: `"15rem"`)          |
-| `label`          | `string`                                    | No       | Accessible label for the input                                         |
-| `className`      | `string`                                    | No       | Additional CSS classes                                                 |
+| Prop                | Type                                        | Required | Description                                                                                         |
+| ------------------- | ------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `value`             | `string`                                    | No       | Phone number — pass this to control the component                                                   |
+| `defaultValue`      | `string`                                    | No       | Initial phone number when uncontrolled                                                              |
+| `onValueChange`     | `(phone: string, country: Country) => void` | No       | Callback when phone number or country changes                                                       |
+| `defaultCountry`    | `string`                                    | No       | Default country code (ISO 3166-1 alpha-2, e.g. `"US"`, `"GB"`, `"IN"`)                              |
+| `countries`         | `Country[]`                                 | No       | Countries offered, in display order (default: `COUNTRIES`)                                          |
+| `placeholder`       | `string`                                    | No       | Placeholder text                                                                                    |
+| `disabled`          | `boolean`                                   | No       | Disable the input                                                                                   |
+| `showFlags`         | `boolean`                                   | No       | Show country flag next to dial code (default: `true`)                                               |
+| `size`              | `"sm" \| "default" \| "lg"`                 | No       | Field height (default: `"default"`)                                                                 |
+| `align`             | `"start" \| "end"`                          | No       | Edge of the field the menu lines up with (default: `"start"`)                                       |
+| `side`              | `"top" \| "bottom"`                         | No       | Preferred menu side; flips when there is no room (default: `"bottom"`)                              |
+| `searchPlaceholder` | `string`                                    | No       | Placeholder for the country search (default: `"Search countries..."`)                               |
+| `emptyMessage`      | `ReactNode`                                 | No       | Shown when the search matches nothing (default: `"No countries found."`)                            |
+| `maxHeight`         | `number \| string`                          | No       | Max height of the scrolling country list (default: `"15rem"`)                                       |
+| `label`             | `string`                                    | No       | Accessible label for the input                                                                      |
+| `className`         | `string`                                    | No       | Classes for the root wrapper                                                                        |
+| `classNames`        | `PhoneInputClassNames`                      | No       | Per-part classes: `root`, `field`, `trigger`, `input`, `content`, `search`, `list`, `item`, `empty` |
 
-Any other prop — `name`, `required`, `autoComplete`, `data-*` — is spread onto the
-underlying `<input>`, and the ref is forwarded to it, so the component works inside
-a plain HTML form.
+Any other prop — `name`, `required`, `autoComplete`, `aria-invalid`, `data-*` — is
+spread onto the underlying `<input>`, and the ref is forwarded to it, so the
+component works inside a plain HTML form. Setting `aria-invalid` turns the whole
+field red, matching shadcn's `Input`.
 
 ### Country Object
 
@@ -150,8 +158,9 @@ export default function CheckoutForm() {
         }}
         defaultCountry="US"
         placeholder="Enter phone number"
+        aria-invalid={error ? true : undefined}
       />
-      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+      {error && <p className="mt-1 text-sm text-destructive">{error}</p>}
     </div>
   );
 }
@@ -162,23 +171,39 @@ export default function CheckoutForm() {
 ```tsx
 "use client";
 
-import { PhoneInput } from "@/components/ui/phone-input";
+import { COUNTRIES, PhoneInput } from "@/components/ui/phone-input";
 
-const COUNTRIES = [
-  { code: "US", dialCode: "+1", name: "United States", flag: "🇺🇸" },
-  { code: "GB", dialCode: "+44", name: "United Kingdom", flag: "🇬🇧" },
-  { code: "CA", dialCode: "+1", name: "Canada", flag: "🇨🇦" },
-  { code: "AU", dialCode: "+61", name: "Australia", flag: "🇦🇺" },
-];
+// Only the markets you ship to, in the order you want them listed.
+const SUPPORTED = ["US", "GB", "CA", "AU"].map((code) =>
+  COUNTRIES.find((country) => country.code === code)!,
+);
 
 export default function App() {
   return (
     <PhoneInput
+      countries={SUPPORTED}
       defaultCountry="US"
       onValueChange={(phone, country) => console.log(phone, country)}
     />
   );
 }
+```
+
+### Customizing parts
+
+Every part takes its own classes through `classNames`, merged after the defaults:
+
+```tsx
+<PhoneInput
+  size="lg"
+  align="end"
+  classNames={{
+    field: "rounded-full",
+    trigger: "ps-4",
+    content: "w-80",
+    item: "py-2",
+  }}
+/>
 ```
 
 ## Keyboard support
@@ -209,7 +234,8 @@ scrolls.
 - **Flag emojis** — auto-detected from country code, with `showFlags` toggle
 - **Keyboard accessible** — arrow keys, Home / End, Enter, and Escape navigation
 - **ARIA labels** — `role="combobox"` search field with `aria-activedescendant`, plus `aria-expanded`, `aria-haspopup`, and `aria-selected`
-- **Dark mode** — built with Tailwind CSS, dark-mode compatible
+- **Themeable** — styled with shadcn/ui tokens (`border-input`, `bg-popover`, `ring-ring`), so it follows your theme and dark mode
+- **Animated menu** — fades in and out with `motion`, honouring reduced-motion settings, and flips upward when there is no room below
 - **Controlled/uncontrolled** — works with or without `value` prop
 
 ## Supported Countries
@@ -235,6 +261,7 @@ The input ships with 50 countries pre-loaded. Use the dropdown search to find an
 This component uses:
 
 - `clsx` and `tailwind-merge` (bundled as dependencies)
+- `lucide-react` for icons and `motion` for the menu animation
 
 Peer dependencies:
 

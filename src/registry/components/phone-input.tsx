@@ -1,6 +1,14 @@
 "use client";
 
 import * as React from "react";
+import {
+  AnimatePresence,
+  MotionConfig,
+  motion,
+  useIsPresent,
+  type HTMLMotionProps,
+} from "motion/react";
+import { CheckIcon, ChevronDownIcon, SearchIcon, XIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useControllableState } from "@/lib/use-controllable-state";
 import { useListboxNavigation } from "@/lib/use-listbox-navigation";
@@ -16,9 +24,31 @@ export interface Country {
   flag: string;
 }
 
+/** Per-part class overrides, merged after the defaults with `cn`. */
+export interface PhoneInputClassNames {
+  /** The outer wrapper that positions the menu */
+  root?: string;
+  /** The bordered field holding the country trigger and the number input */
+  field?: string;
+  /** The country trigger segment */
+  trigger?: string;
+  /** The number `<input>` */
+  input?: string;
+  /** The floating country menu panel */
+  content?: string;
+  /** The search row, including its icon */
+  search?: string;
+  /** The scrolling country list */
+  list?: string;
+  /** Each country row */
+  item?: string;
+  /** The empty-state message */
+  empty?: string;
+}
+
 export interface PhoneInputProps extends Omit<
   React.ComponentPropsWithoutRef<"input">,
-  "value" | "defaultValue" | "onChange" | "type"
+  "value" | "defaultValue" | "onChange" | "type" | "size"
 > {
   /** Phone number. Provide this to control the component. */
   value?: string;
@@ -28,12 +58,32 @@ export interface PhoneInputProps extends Omit<
   onValueChange?: (phone: string, country: Country) => void;
   /** ISO 3166-1 alpha-2 code of the initially selected country (default: "US") */
   defaultCountry?: string;
+  /**
+   * Countries offered in the menu, in display order (default: `COUNTRIES`).
+   * Pass a subset to restrict the list or reorder it to put common ones first.
+   */
+  countries?: Country[];
   /** Show the flag emoji beside the dial code (default: true) */
   showFlags?: boolean;
   /** Accessible label for the field (default: "Phone number") */
   label?: string;
   /** Max height of the scrolling country list, before it scrolls (default: "15rem") */
   maxHeight?: number | string;
+  /** Field size (default: "default") */
+  size?: "sm" | "default" | "lg";
+  /** Edge of the field the menu lines up with, in reading direction (default: "start") */
+  align?: "start" | "end";
+  /**
+   * Preferred side for the menu (default: "bottom"). It flips to the other side
+   * when there is not enough room in the viewport.
+   */
+  side?: "top" | "bottom";
+  /** Placeholder for the country search field (default: "Search countries...") */
+  searchPlaceholder?: string;
+  /** Content shown when the search matches nothing (default: "No countries found.") */
+  emptyMessage?: React.ReactNode;
+  /** Per-part class overrides. `className` still targets the root. */
+  classNames?: PhoneInputClassNames;
 }
 
 const COUNTRIES: Country[] = [
@@ -89,8 +139,37 @@ const COUNTRIES: Country[] = [
   { code: "BE", dialCode: "+32", name: "Belgium", flag: "\u{1F1E7}\u{1F1EA}" },
 ];
 
-function getCountryByCode(code: string): Country | undefined {
-  return COUNTRIES.find((c) => c.code === code.toUpperCase());
+/**
+ * The menu panel. While it plays its exit animation it is still mounted, so it
+ * leaves the accessibility tree first: a closing menu is not a menu.
+ */
+const MenuPanel = React.forwardRef<HTMLDivElement, HTMLMotionProps<"div">>(
+  function MenuPanel(props, ref) {
+    const isPresent = useIsPresent();
+    return <motion.div ref={ref} aria-hidden={isPresent ? undefined : true} {...props} />;
+  },
+);
+
+const FIELD_SIZES = {
+  sm: "h-8",
+  default: "h-9",
+  lg: "h-10",
+} as const;
+
+const SEGMENT_SIZES = {
+  sm: "gap-1 ps-2.5 pe-1.5",
+  default: "gap-1.5 ps-3 pe-2",
+  lg: "gap-1.5 ps-3.5 pe-2.5",
+} as const;
+
+const INPUT_SIZES = {
+  sm: "px-2.5",
+  default: "px-3",
+  lg: "px-3.5",
+} as const;
+
+function getCountryByCode(code: string, list: Country[] = COUNTRIES): Country | undefined {
+  return list.find((c) => c.code === code.toUpperCase());
 }
 
 export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(function PhoneInput(
@@ -99,22 +178,30 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
     defaultValue,
     onValueChange,
     defaultCountry = "US",
+    countries = COUNTRIES,
     placeholder = "Phone number",
     disabled = false,
     className,
     showFlags = true,
     label = "Phone number",
     maxHeight = "15rem",
+    size = "default",
+    align = "start",
+    side: preferredSide = "bottom",
+    searchPlaceholder = "Search countries...",
+    emptyMessage = "No countries found.",
+    classNames,
     ...rest
   },
   forwardedRef,
 ) {
   const [selectedCountry, setSelectedCountry] = React.useState<Country>(
-    () => getCountryByCode(defaultCountry) ?? COUNTRIES[0],
+    () => getCountryByCode(defaultCountry, countries) ?? countries[0] ?? COUNTRIES[0],
   );
   const [inputValue, setInputValue] = useControllableState(value, defaultValue ?? "", undefined);
   const [open, setOpen] = React.useState(false);
   const [search, setSearch] = React.useState("");
+  const [side, setSide] = React.useState(preferredSide);
   const ref = React.useRef<HTMLDivElement>(null);
   const inputRef = React.useRef<HTMLInputElement>(null);
   // The country search box needs its own ref. Sharing `inputRef` meant the search
@@ -122,14 +209,16 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
   // ref at the wrong element and sent focus to a node that was about to unmount.
   const searchRef = React.useRef<HTMLInputElement>(null);
   const triggerRef = React.useRef<HTMLButtonElement>(null);
+  const popupRef = React.useRef<HTMLDivElement>(null);
 
   React.useImperativeHandle(forwardedRef, () => inputRef.current as HTMLInputElement);
 
-  const filtered = COUNTRIES.filter(
+  const query = search.trim().toLowerCase();
+  const filtered = countries.filter(
     (c) =>
-      c.name.toLowerCase().includes(search.toLowerCase()) ||
-      c.dialCode.includes(search) ||
-      c.code.toLowerCase().includes(search.toLowerCase()),
+      c.name.toLowerCase().includes(query) ||
+      c.dialCode.includes(query) ||
+      c.code.toLowerCase().includes(query),
   );
 
   const nav = useListboxNavigation({
@@ -141,7 +230,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
       setOpen(false);
       setSearch("");
     },
-    onOpen: () => setOpen(true),
+    onOpen: () => !disabled && setOpen(true),
     // Picking a country is half the task — typing the number is the other
     // half, so focus lands in the number field instead of back on the trigger.
     restoreFocusOnSelect: false,
@@ -170,6 +259,22 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
     if (open) searchRef.current?.focus();
   }, [open]);
 
+  // Flip to the other side when the preferred one has no room. Measured before
+  // paint, so the menu never flashes on the wrong side.
+  React.useLayoutEffect(() => {
+    if (!open) return;
+    const field = ref.current;
+    const popup = popupRef.current;
+    if (!field || !popup) return;
+    const rect = field.getBoundingClientRect();
+    const needed = popup.offsetHeight + 8;
+    const below = window.innerHeight - rect.bottom;
+    const above = rect.top;
+    if (preferredSide === "bottom" && below < needed && above > below) setSide("top");
+    else if (preferredSide === "top" && above < needed && below > above) setSide("bottom");
+    else setSide(preferredSide);
+  }, [open, preferredSide]);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setInputValue(newValue);
@@ -194,142 +299,180 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
     nav.onKeyDown(event);
   };
 
+  const offset = side === "bottom" ? -4 : 4;
+
   return (
-    <div
-      ref={ref}
-      className={cn("relative inline-block text-sm", className)}
-      onKeyDown={handleKeyDown}
-    >
+    <MotionConfig reducedMotion="user">
       <div
-        className={cn(
-          "flex items-center overflow-hidden rounded-lg border transition-colors",
-          "bg-white border-zinc-200 dark:bg-zinc-900 dark:border-zinc-800",
-          disabled && "opacity-50 cursor-not-allowed",
-        )}
+        ref={ref}
+        className={cn("relative inline-block text-sm", className, classNames?.root)}
+        onKeyDown={handleKeyDown}
       >
-        <button
-          ref={triggerRef}
-          type="button"
-          onClick={() => !disabled && setOpen(!open)}
-          disabled={disabled}
+        <div
+          data-disabled={disabled ? "" : undefined}
           className={cn(
-            "flex items-center gap-1.5 border-r px-3 py-2.5 text-sm transition-colors",
-            "border-zinc-200 text-zinc-900 hover:bg-zinc-100 hover:text-zinc-900 dark:border-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-100",
-            disabled && "cursor-not-allowed",
+            "flex w-full min-w-0 items-stretch overflow-hidden rounded-md border border-input bg-transparent shadow-xs transition-[color,border-color,box-shadow] dark:bg-input/30",
+            "focus-within:border-ring focus-within:ring-[3px] focus-within:ring-ring/50",
+            "has-[input[aria-invalid=true]]:border-destructive has-[input[aria-invalid=true]]:ring-destructive/20 dark:has-[input[aria-invalid=true]]:ring-destructive/40",
+            "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
+            FIELD_SIZES[size],
+            classNames?.field,
           )}
-          aria-label="Select country"
-          aria-expanded={open}
-          aria-haspopup="listbox"
         >
-          {showFlags && <span className="text-base leading-none">{selectedCountry.flag}</span>}
-          <span className="font-mono text-xs">{selectedCountry.dialCode}</span>
-          <svg
+          <button
+            ref={triggerRef}
+            type="button"
+            onClick={() => !disabled && setOpen(!open)}
+            disabled={disabled}
+            data-state={open ? "open" : "closed"}
             className={cn(
-              "size-3 text-zinc-500 transition-transform dark:text-zinc-400",
-              open && "rotate-180",
+              "flex shrink-0 items-center border-e border-input text-sm text-foreground transition-colors outline-none select-none",
+              "hover:bg-accent/60 focus-visible:bg-accent aria-expanded:bg-accent/60 dark:hover:bg-input/50 dark:aria-expanded:bg-input/50",
+              "disabled:pointer-events-none",
+              SEGMENT_SIZES[size],
+              classNames?.trigger,
             )}
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
-        </button>
-
-        <input
-          ref={inputRef}
-          type="tel"
-          value={inputValue}
-          onChange={handleInputChange}
-          placeholder={placeholder}
-          disabled={disabled}
-          {...rest}
-          className={cn(
-            "flex-1 bg-transparent px-3 py-2.5 text-sm outline-none placeholder:text-zinc-400 dark:placeholder:text-zinc-500",
-            "text-zinc-900 dark:text-zinc-100",
-            "focus:ring-1 focus:ring-emerald-500/50",
-            disabled && "cursor-not-allowed",
-          )}
-          aria-label={label}
-        />
-      </div>
-
-      {open && (
-        <div className="absolute z-50 mt-1 min-w-[280px] overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-xl dark:border-zinc-800 dark:bg-zinc-950">
-          <div className="border-b border-zinc-200 p-2 dark:border-zinc-800">
-            <input
-              ref={searchRef}
-              type="text"
-              placeholder="Search countries..."
-              aria-label="Search countries"
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
-                nav.resetActive();
-              }}
-              {...nav.comboboxProps}
-              className="w-full rounded-lg bg-zinc-100 px-3 py-1.5 text-sm text-zinc-900 outline-none placeholder:text-zinc-400 focus:ring-1 focus:ring-emerald-500/50 dark:bg-zinc-800 dark:text-zinc-100 dark:placeholder:text-zinc-500"
-            />
-          </div>
-
-          {/* The listbox owns the options only — the search field above sits
-              outside it, per ARIA. It scrolls on its own: the page never does. */}
-          <div
-            className="overflow-y-auto p-1"
-            style={{ maxHeight }}
-            role="listbox"
             aria-label="Select country"
-            {...nav.listboxProps}
+            aria-expanded={open}
+            aria-haspopup="listbox"
           >
-            {filtered.map((country, index) => {
-              const isCurrent = country.code === selectedCountry.code;
-              const isActive = index === nav.activeIndex;
-              return (
-                <button
-                  key={country.code}
-                  type="button"
-                  role="option"
-                  aria-selected={isCurrent}
-                  onClick={() => nav.select(index)}
-                  {...nav.optionProps(index)}
-                  className={cn(
-                    "flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition-colors",
-                    isCurrent
-                      ? "bg-emerald-500/10 text-emerald-600 font-medium dark:text-emerald-400"
-                      : isActive
-                        ? "bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
-                        : "text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100",
-                  )}
-                >
-                  <span className="text-base leading-none">{country.flag}</span>
-                  <span className="flex-1">{country.name}</span>
-                  <span className="font-mono text-xs text-zinc-500 dark:text-zinc-400">
-                    {country.dialCode}
-                  </span>
-                  {isCurrent && (
-                    <svg
-                      className="size-4 text-emerald-600 dark:text-emerald-400"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                  )}
-                </button>
-              );
-            })}
-            {filtered.length === 0 && (
-              <div className="px-3 py-2 text-sm text-zinc-500 dark:text-zinc-400">
-                No countries found
-              </div>
+            {showFlags && <span className="text-base leading-none">{selectedCountry.flag}</span>}
+            <span className="text-sm font-medium tabular-nums">{selectedCountry.dialCode}</span>
+            <ChevronDownIcon
+              aria-hidden="true"
+              className={cn(
+                "size-3.5 shrink-0 text-muted-foreground opacity-70 transition-transform duration-200",
+                open && "rotate-180",
+              )}
+            />
+          </button>
+
+          <input
+            ref={inputRef}
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel-national"
+            value={inputValue}
+            onChange={handleInputChange}
+            placeholder={placeholder}
+            disabled={disabled}
+            {...rest}
+            className={cn(
+              "w-full min-w-0 flex-1 bg-transparent text-sm text-foreground tabular-nums outline-none placeholder:text-muted-foreground",
+              "disabled:cursor-not-allowed",
+              INPUT_SIZES[size],
+              classNames?.input,
             )}
-          </div>
+            aria-label={label}
+          />
         </div>
-      )}
-    </div>
+
+        <AnimatePresence>
+          {open && (
+            <MenuPanel
+              ref={popupRef}
+              data-side={side}
+              initial={{ opacity: 0, y: offset }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: offset, pointerEvents: "none" }}
+              transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              className={cn(
+                "absolute z-50 w-max min-w-full overflow-hidden rounded-lg border bg-popover text-popover-foreground shadow-lg sm:min-w-72",
+                side === "bottom" ? "top-full mt-1.5" : "bottom-full mb-1.5",
+                align === "end" ? "end-0" : "start-0",
+                classNames?.content,
+              )}
+            >
+              <div className={cn("flex items-center gap-2 border-b px-3", classNames?.search)}>
+                <SearchIcon aria-hidden="true" className="size-4 shrink-0 opacity-50" />
+                <input
+                  ref={searchRef}
+                  type="text"
+                  placeholder={searchPlaceholder}
+                  aria-label="Search countries"
+                  autoComplete="off"
+                  spellCheck={false}
+                  value={search}
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                    nav.resetActive();
+                  }}
+                  {...nav.comboboxProps}
+                  className="h-10 w-full min-w-0 bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground"
+                />
+                {search && (
+                  <button
+                    type="button"
+                    tabIndex={-1}
+                    aria-label="Clear search"
+                    onClick={() => {
+                      setSearch("");
+                      nav.resetActive();
+                      searchRef.current?.focus();
+                    }}
+                    className="-me-1 inline-flex size-6 shrink-0 items-center justify-center rounded-sm text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                  >
+                    <XIcon aria-hidden="true" className="size-3.5" />
+                  </button>
+                )}
+              </div>
+
+              {/* The listbox owns the options only — the search field above sits
+                  outside it, per ARIA. It scrolls on its own: the page never does. */}
+              <div
+                className={cn("overflow-y-auto overscroll-contain p-1", classNames?.list)}
+                style={{ maxHeight }}
+                role="listbox"
+                aria-label="Select country"
+                {...nav.listboxProps}
+              >
+                {filtered.map((country, index) => {
+                  const isCurrent = country.code === selectedCountry.code;
+                  return (
+                    <button
+                      key={country.code}
+                      type="button"
+                      role="option"
+                      aria-selected={isCurrent}
+                      onClick={() => nav.select(index)}
+                      {...nav.optionProps(index)}
+                      className={cn(
+                        "relative flex w-full cursor-default items-center gap-2.5 rounded-sm px-2 py-1.5 text-start text-sm outline-none select-none",
+                        "data-[active=true]:bg-accent data-[active=true]:text-accent-foreground",
+                        classNames?.item,
+                      )}
+                    >
+                      <span className="text-base leading-none">{country.flag}</span>
+                      <span className="flex-1 truncate">{country.name}</span>
+                      <span className="text-xs text-muted-foreground tabular-nums">
+                        {country.dialCode}
+                      </span>
+                      <CheckIcon
+                        aria-hidden="true"
+                        className={cn(
+                          "size-4 shrink-0 text-primary",
+                          isCurrent ? "opacity-100" : "opacity-0",
+                        )}
+                      />
+                    </button>
+                  );
+                })}
+                {filtered.length === 0 && (
+                  <div
+                    className={cn(
+                      "py-6 text-center text-sm text-muted-foreground",
+                      classNames?.empty,
+                    )}
+                  >
+                    {emptyMessage}
+                  </div>
+                )}
+              </div>
+            </MenuPanel>
+          )}
+        </AnimatePresence>
+      </div>
+    </MotionConfig>
   );
 });
 

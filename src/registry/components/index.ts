@@ -16,7 +16,7 @@ export type {
 } from "./language-switcher-pill";
 
 export { PhoneInput, COUNTRIES } from "./phone-input";
-export type { PhoneInputProps, Country } from "./phone-input";
+export type { PhoneInputProps, PhoneInputClassNames, Country } from "./phone-input";
 
 export { NavBar } from "./navbar";
 export type { NavBarProps, NavLink } from "./navbar";
