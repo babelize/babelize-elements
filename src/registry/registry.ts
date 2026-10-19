@@ -84,11 +84,11 @@ const ITEMS: ItemDef[] = [
     name: "translation-widget",
     title: "Translation Widget",
     description:
-      "Side-by-side translation view with editable target, RTL-aware layout, and claymorphism styling.",
+      "Side-by-side translation view with editable target, swap, copy, character count, and RTL-aware layout.",
     type: "registry:ui",
     source: "registry/components/translation-widget",
     filePath: "ui/translation-widget.tsx",
-    dependencies: ["clsx", "tailwind-merge"],
+    dependencies: ["clsx", "tailwind-merge", "lucide-react", "motion"],
     registryDependencies: ["language-switcher", "locale-types", "use-controllable-state"],
   },
   {

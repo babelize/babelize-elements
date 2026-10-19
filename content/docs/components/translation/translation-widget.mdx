@@ -1,6 +1,6 @@
 ---
 title: Translation Widget
-description: Side-by-side translation view with an editable target pane, RTL-aware layout, and soft claymorphism styling. Controlled and uncontrolled modes built in.
+description: Side-by-side translation card with language pickers, swap, copy, character count, and a loading state. RTL-aware and themed with shadcn tokens.
 ---
 
 import { PreviewComponents } from "@/components/docs/preview-components";
@@ -94,28 +94,36 @@ export function Translate() {
 
 ## Props
 
-| Prop                   | Type                     | Required | Description                                                                             |
-| ---------------------- | ------------------------ | -------- | --------------------------------------------------------------------------------------- |
-| `locales`              | `Locale[]`               | No       | Locales for the per-pane language pickers; omit to show static chips                    |
-| `sourceLocale`         | `string`                 | No       | BCP 47 code of the source locale (e.g. `"en"`); provide to control it                   |
-| `defaultSourceLocale`  | `string`                 | No       | Initial source locale when uncontrolled (default: `locales[0]`, else `"en"`)            |
-| `onSourceLocaleChange` | `(code: string) => void` | No       | Callback when the source locale changes                                                 |
-| `targetLocale`         | `string`                 | No       | BCP 47 code of the target locale (e.g. `"fr"`, `"ar"`); provide to control it           |
-| `defaultTargetLocale`  | `string`                 | No       | Initial target locale when uncontrolled (default: `locales[1]`, else `"en"`)            |
-| `onTargetLocaleChange` | `(code: string) => void` | No       | Callback when the target locale changes                                                 |
-| `sourceText`           | `string`                 | No       | Source text — pass this to control the source pane                                      |
-| `onSourceChange`       | `(text: string) => void` | No       | Callback when the source text changes; makes the pane editable                          |
-| `targetText`           | `string`                 | No       | Target text — pass this to control the target pane (read-only without `onTargetChange`) |
-| `defaultTargetText`    | `string`                 | No       | Initial target text when uncontrolled                                                   |
-| `onTargetChange`       | `(text: string) => void` | No       | Callback when the target text changes                                                   |
-| `onSwap`               | `() => void`             | No       | Called after the swap button exchanges locales and texts                                |
-| `sourcePlaceholder`    | `string`                 | No       | Placeholder for the source pane                                                         |
-| `targetPlaceholder`    | `string`                 | No       | Placeholder for the target pane                                                         |
-| `sourceLabel`          | `string`                 | No       | Accessible label for the source pane (default: `"Source text"`)                         |
-| `targetLabel`          | `string`                 | No       | Accessible label for the target pane (default: `"Target text"`)                         |
-| `readOnlySource`       | `boolean`                | No       | Keep the source pane read-only even with `onSourceChange`                               |
-| `dir`                  | `"ltr" \| "rtl"`         | No       | Override the auto-detected layout direction                                             |
-| `className`            | `string`                 | No       | Additional CSS classes                                                                  |
+| Prop                   | Type                          | Required | Description                                                                              |
+| ---------------------- | ----------------------------- | -------- | ---------------------------------------------------------------------------------------- |
+| `locales`              | `Locale[]`                    | No       | Locales for the per-pane language pickers; omit to show static chips                     |
+| `sourceLocale`         | `string`                      | No       | BCP 47 code of the source locale (e.g. `"en"`); provide to control it                    |
+| `defaultSourceLocale`  | `string`                      | No       | Initial source locale when uncontrolled (default: `locales[0]`, else `"en"`)             |
+| `onSourceLocaleChange` | `(code: string) => void`      | No       | Callback when the source locale changes                                                  |
+| `targetLocale`         | `string`                      | No       | BCP 47 code of the target locale (e.g. `"fr"`, `"ar"`); provide to control it            |
+| `defaultTargetLocale`  | `string`                      | No       | Initial target locale when uncontrolled (default: `locales[1]`, else `"en"`)             |
+| `onTargetLocaleChange` | `(code: string) => void`      | No       | Callback when the target locale changes                                                  |
+| `sourceText`           | `string`                      | No       | Source text — pass this to control the source pane                                       |
+| `defaultSourceText`    | `string`                      | No       | Initial source text when uncontrolled                                                    |
+| `onSourceChange`       | `(text: string) => void`      | No       | Callback when the source text changes; makes the pane editable                           |
+| `targetText`           | `string`                      | No       | Target text — pass this to control the target pane (read-only without `onTargetChange`)  |
+| `defaultTargetText`    | `string`                      | No       | Initial target text when uncontrolled                                                    |
+| `onTargetChange`       | `(text: string) => void`      | No       | Callback when the target text changes                                                    |
+| `onSwap`               | `() => void`                  | No       | Called after the swap button exchanges locales and texts                                 |
+| `sourcePlaceholder`    | `string`                      | No       | Placeholder for the source pane                                                          |
+| `targetPlaceholder`    | `string`                      | No       | Placeholder for the target pane                                                          |
+| `sourceLabel`          | `string`                      | No       | Accessible label for the source pane (default: `"Source text"`)                          |
+| `targetLabel`          | `string`                      | No       | Accessible label for the target pane (default: `"Target text"`)                          |
+| `readOnlySource`       | `boolean`                     | No       | Keep the source pane read-only even with `onSourceChange`                                |
+| `showCount`            | `boolean`                     | No       | Show the source character count (default: `true`)                                        |
+| `maxLength`            | `number`                      | No       | Character limit for both panes; the count shows `n / max`                                |
+| `showClear`            | `boolean`                     | No       | Show a clear button under an editable source (default: `true`)                           |
+| `showCopy`             | `boolean`                     | No       | Show a copy-to-clipboard button under the target (default: `true`)                       |
+| `onTargetCopy`         | `(text: string) => void`      | No       | Called with the target text after it is copied                                           |
+| `loading`              | `boolean`                     | No       | Show a skeleton in the target pane and mark it `aria-busy`                               |
+| `classNames`           | `TranslationWidgetClassNames` | No       | Per-part class overrides: `root`, `header`, `pane`, `textarea`, `footer`, `swap`, `chip` |
+| `dir`                  | `"ltr" \| "rtl"`              | No       | Override the auto-detected layout direction                                              |
+| `className`            | `string`                      | No       | Additional CSS classes                                                                   |
 
 Any other prop — `id`, `data-*`, `aria-*` — is spread onto the root element, and the
 ref is forwarded to it.
@@ -178,8 +186,8 @@ or controlled (`sourceLocale` + `onSourceLocaleChange`, same for the target). Wh
 ## Swap
 
 The swap button between the panes exchanges **both** the locales and the texts —
-source ↔ target — and fires `onSwap`. The icon points sideways (⇄) when the panes
-sit side by side and rotates to ↕ when they stack on narrow screens. The button
+source ↔ target — and fires `onSwap`. It sits in the header bar between the two
+language pickers, and its icon spins half a turn on every swap. The button
 carries an `aria-label="Swap languages"` and is disabled when any exchanged value
 is controlled without a change handler, since the swap could not be applied:
 
@@ -198,6 +206,59 @@ is controlled without a change handler, since the swap could not be applied:
 />
 ```
 
+## Toolbar
+
+Each pane ends in a small toolbar. The source shows a live character count —
+`n / max` when you pass `maxLength`, turning destructive at the limit — and a clear
+button when the pane is editable. The target has a copy button that confirms with a
+check and announces "Translation copied to clipboard" to screen readers:
+
+```tsx
+<TranslationWidget
+  sourceLocale="en"
+  targetLocale="fr"
+  sourceText={source}
+  onSourceChange={setSource}
+  maxLength={500}
+  onTargetCopy={(text) => analytics.track("translation-copied", { length: text.length })}
+/>
+```
+
+Turn any of it off with `showCount={false}`, `showClear={false}` or `showCopy={false}`.
+
+## Loading state
+
+While a translation is in flight, pass `loading` to replace the target text with a
+pulsing skeleton. The textarea is marked `aria-busy` and copying is disabled:
+
+```tsx
+const [loading, setLoading] = useState(false);
+
+async function translate(text: string) {
+  setLoading(true);
+  setTarget(await api.translate(text, targetLocale));
+  setLoading(false);
+}
+
+<TranslationWidget loading={loading} /* … */ />;
+```
+
+## Customization
+
+Every part takes extra classes through `classNames`, merged after the defaults with
+`cn`, so your classes win:
+
+```tsx
+<TranslationWidget
+  classNames={{
+    root: "rounded-2xl shadow-lg",
+    header: "bg-muted/50",
+    textarea: "font-serif text-lg",
+    swap: "bg-primary text-primary-foreground",
+  }}
+/>
+```
+
 ## RTL support
 
 When the target locale is an RTL language (`ar`, `he`, `fa`, `ur`, …) or carries an
@@ -212,29 +273,33 @@ Pass `dir` to set the widget's direction explicitly.
 
 ## Features
 
-- **Side-by-side panes** — source and target text areas in one responsive row
+- **Side-by-side panes** — source and target in one card, stacked on narrow screens
 - **Language pickers** — pass `locales` for a Language Switcher per pane; static chips otherwise
 - **Swap button** — exchanges both locales and texts, with `onSwap` and an accessible label
 - **Editable target** — uncontrolled, or controlled with `targetText` + `onTargetChange` (a controlled target without a handler renders read-only so typed text is never silently dropped)
 - **RTL-aware** — per-pane `dir` and `lang` follow each locale; pane order stays fixed
-- **Accessible** — labelled textareas, `lang` attributes, visible focus rings
+- **Toolbar** — character count with `maxLength`, clear, and copy-to-clipboard
+- **Loading state** — skeleton target pane with `aria-busy`
+- **Accessible** — labelled textareas, `lang` attributes, visible focus rings, live copy announcement
 - **Keyboard support** — Tab between panes, type to translate
-- **Claymorphism styling** — soft raised card with recessed, pressed-in textareas
-- **Dark mode** — built with Tailwind CSS, dark-mode compatible
+- **Themeable** — shadcn tokens (`bg-card`, `border`, `muted`, `ring`), so it follows your theme and dark mode
+- **Customizable** — `classNames` for every part
+- **Motion** — spring swap icon and copy confirmation, respecting reduced-motion settings
 - **Controlled/uncontrolled** — works with or without `targetText`; same for locales
 
 ## Design
 
-The widget uses a claymorphism treatment: a large-radius card with a soft drop
-shadow and an inner top highlight, and textareas that read as recessed via an
-inset shadow. Colours are Tailwind utilities — no CSS-variable tokens — so the
-component drops into any project and restyles with `className`.
+One card, split into a source pane and a slightly tinted target pane, with both
+language pickers and the swap button in a shared header bar — the layout people
+know from translation tools. Colors come from shadcn's semantic tokens, so the
+widget takes on your theme, radius and dark mode without extra configuration.
 
 ## Dependencies
 
 This component uses:
 
 - `clsx` and `tailwind-merge` (bundled as dependencies)
+- `lucide-react` for icons and `motion` for the swap and copy animations
 - the [Language Switcher](/docs/components/language-switchers/language-switcher) component (pulled in automatically via registry dependencies)
 
 Peer dependencies:

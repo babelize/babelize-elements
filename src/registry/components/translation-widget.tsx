@@ -1,12 +1,32 @@
 "use client";
 
 import * as React from "react";
+import { AnimatePresence, MotionConfig, motion } from "motion/react";
+import { ArrowLeftRightIcon, CheckIcon, CopyIcon, XIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useControllableState } from "@/lib/use-controllable-state";
 import { LanguageSwitcher } from "./language-switcher";
 import type { Locale } from "./types";
 
 export type { Locale };
+
+/** Per-part class overrides, merged after the defaults with `cn`. */
+export interface TranslationWidgetClassNames {
+  /** The outer card */
+  root?: string;
+  /** The header bar holding both language pickers and the swap button */
+  header?: string;
+  /** Each text pane (source and target) */
+  pane?: string;
+  /** Both textareas */
+  textarea?: string;
+  /** The toolbar under each pane */
+  footer?: string;
+  /** The swap button */
+  swap?: string;
+  /** The static language chip shown when a locale is not pickable */
+  chip?: string;
+}
 
 export interface TranslationWidgetProps extends Omit<
   React.ComponentPropsWithoutRef<"div">,
@@ -28,6 +48,8 @@ export interface TranslationWidgetProps extends Omit<
   onTargetLocaleChange?: (code: string) => void;
   /** Source text. Provide this to control the source pane. */
   sourceText?: string;
+  /** Initial source text when uncontrolled */
+  defaultSourceText?: string;
   /** Callback when the source text changes. Makes the source pane editable. */
   onSourceChange?: (text: string) => void;
   /** Target text. Provide this to control the target pane. */
@@ -48,6 +70,20 @@ export interface TranslationWidgetProps extends Omit<
   readOnlySource?: boolean;
   /** Called after the swap button exchanges locales and texts */
   onSwap?: () => void;
+  /** Show the character count under the source pane (default: true) */
+  showCount?: boolean;
+  /** Show a copy-to-clipboard button under the target pane (default: true) */
+  showCopy?: boolean;
+  /** Show a clear button under an editable source pane (default: true) */
+  showClear?: boolean;
+  /** Maximum characters in either pane; the count shows `n / max` when set */
+  maxLength?: number;
+  /** Show a loading skeleton in the target pane, e.g. while a translation is fetched */
+  loading?: boolean;
+  /** Called with the target text after it is copied to the clipboard */
+  onTargetCopy?: (text: string) => void;
+  /** Per-part class overrides */
+  classNames?: TranslationWidgetClassNames;
 }
 
 const RTL_LOCALES = new Set(["ar", "he", "fa", "ur", "ps", "sd", "yi"]);
@@ -118,19 +154,14 @@ function getLocaleLabel(code: string): string {
   return LOCALE_LABELS[code.split("-")[0].toLowerCase()] ?? code;
 }
 
-const CHIP_CLASS = cn(
-  "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium",
-  "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300",
+const ICON_BUTTON_CLASS = cn(
+  "inline-flex size-8 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-[color,background-color,box-shadow] outline-none",
+  "hover:bg-accent hover:text-accent-foreground",
+  "focus-visible:ring-[3px] focus-visible:ring-ring/50",
+  "disabled:pointer-events-none disabled:opacity-50",
 );
 
-const TEXTAREA_CLASS = cn(
-  "w-full resize-none rounded-2xl border border-transparent px-3.5 py-3 text-sm transition-shadow",
-  "bg-zinc-100 text-zinc-900 placeholder:text-zinc-400",
-  "shadow-[inset_0_3px_8px_rgba(15,23,42,0.10),inset_0_-2px_4px_rgba(255,255,255,0.7)]",
-  "focus:outline-none focus:ring-2",
-  "dark:bg-zinc-800/70 dark:text-zinc-100 dark:placeholder:text-zinc-500",
-  "dark:shadow-[inset_0_3px_8px_rgba(0,0,0,0.45),inset_0_-2px_4px_rgba(255,255,255,0.04)]",
-);
+const SKELETON_WIDTHS = ["w-11/12", "w-4/5", "w-3/5"];
 
 export const TranslationWidget = React.forwardRef<HTMLDivElement, TranslationWidgetProps>(
   function TranslationWidget(
@@ -143,6 +174,7 @@ export const TranslationWidget = React.forwardRef<HTMLDivElement, TranslationWid
       defaultTargetLocale,
       onTargetLocaleChange,
       sourceText,
+      defaultSourceText,
       onSourceChange,
       targetText,
       defaultTargetText,
@@ -153,13 +185,24 @@ export const TranslationWidget = React.forwardRef<HTMLDivElement, TranslationWid
       targetLabel = "Target text",
       readOnlySource = false,
       onSwap,
+      showCount = true,
+      showCopy = true,
+      showClear = true,
+      maxLength,
+      loading = false,
+      onTargetCopy,
+      classNames,
       dir,
       className,
       ...rest
     },
     forwardedRef,
   ) {
-    const [source, setSource] = useControllableState(sourceText, "", onSourceChange);
+    const [source, setSource] = useControllableState(
+      sourceText,
+      defaultSourceText ?? "",
+      onSourceChange,
+    );
     const [target, setTarget] = useControllableState(
       targetText,
       defaultTargetText ?? "",
@@ -174,6 +217,19 @@ export const TranslationWidget = React.forwardRef<HTMLDivElement, TranslationWid
       targetLocale,
       defaultTargetLocale ?? locales?.[1]?.code ?? locales?.[0]?.code ?? "en",
       onTargetLocaleChange,
+    );
+    // Each swap turns the icon another half revolution, so it always spins the
+    // same way instead of rocking back and forth.
+    const [swapCount, setSwapCount] = React.useState(0);
+    const [copied, setCopied] = React.useState(false);
+    const copiedTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+    const sourceRef = React.useRef<HTMLTextAreaElement>(null);
+
+    React.useEffect(
+      () => () => {
+        if (copiedTimer.current) clearTimeout(copiedTimer.current);
+      },
+      [],
     );
 
     const sourceRtl = isRtl(activeSourceLocale);
@@ -205,121 +261,253 @@ export const TranslationWidget = React.forwardRef<HTMLDivElement, TranslationWid
       setActiveTargetLocale(prevSourceLocale);
       setSource(prevTarget);
       setTarget(prevSource);
+      setSwapCount((n) => n + 1);
       onSwap?.();
+    };
+
+    const handleCopy = async () => {
+      const clipboard = typeof navigator !== "undefined" ? navigator.clipboard : undefined;
+      if (!clipboard?.writeText || !target) return;
+      try {
+        await clipboard.writeText(target);
+      } catch {
+        return;
+      }
+      setCopied(true);
+      onTargetCopy?.(target);
+      if (copiedTimer.current) clearTimeout(copiedTimer.current);
+      copiedTimer.current = setTimeout(() => setCopied(false), 1500);
+    };
+
+    const handleClear = () => {
+      setSource("");
+      sourceRef.current?.focus();
     };
 
     const id = React.useId();
     const sourceId = `${id}-source`;
     const targetId = `${id}-target`;
+    const countId = `${id}-count`;
+
+    const atLimit = maxLength !== undefined && source.length >= maxLength;
+
+    const renderChip = (code: string) => (
+      <span
+        className={cn(
+          "inline-flex h-8 items-center gap-1.5 rounded-md px-2.5 text-sm font-medium",
+          classNames?.chip,
+        )}
+      >
+        {getLocaleLabel(code)}
+        <span className="font-mono text-xs font-normal text-muted-foreground">{code}</span>
+      </span>
+    );
+
+    const paneClass = cn(
+      "relative flex min-w-0 flex-col transition-shadow",
+      "focus-within:ring-[3px] focus-within:ring-ring/20 focus-within:ring-inset",
+      classNames?.pane,
+    );
+
+    const textareaClass = cn(
+      "block min-h-40 w-full flex-1 resize-none bg-transparent px-4 pt-3 pb-1 text-base leading-relaxed outline-none field-sizing-content",
+      "placeholder:text-muted-foreground sm:text-[0.9375rem]",
+      classNames?.textarea,
+    );
+
+    const footerClass = cn("flex h-11 items-center gap-1 px-2.5", classNames?.footer);
 
     return (
-      <div
-        ref={forwardedRef}
-        dir={dir}
-        className={cn(
-          "w-full rounded-3xl border p-4 transition-shadow sm:p-5",
-          "border-zinc-200 bg-white",
-          "shadow-[0_20px_45px_-20px_rgba(15,23,42,0.30),inset_0_1px_0_rgba(255,255,255,0.9)]",
-          "dark:border-zinc-800 dark:bg-zinc-900",
-          "dark:shadow-[0_20px_45px_-20px_rgba(0,0,0,0.65),inset_0_1px_0_rgba(255,255,255,0.08)]",
-          className,
-        )}
-        {...rest}
-      >
-        <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
-          <div className="min-w-0 flex-1 space-y-2">
-            {canPickSourceLocale ? (
-              <LanguageSwitcher
-                locales={locales}
-                value={activeSourceLocale}
-                onValueChange={setActiveSourceLocale}
-              />
-            ) : (
-              <span className={CHIP_CLASS}>
-                {getLocaleLabel(activeSourceLocale)}
-                <span className="opacity-60">{activeSourceLocale}</span>
-              </span>
-            )}
-            <textarea
-              id={sourceId}
-              value={source}
-              onChange={(e) => setSource(e.target.value)}
-              readOnly={sourceReadOnly}
-              placeholder={sourcePlaceholder}
-              aria-label={`${sourceLabel} (${getLocaleLabel(activeSourceLocale)})`}
-              dir={sourceRtl ? "rtl" : "ltr"}
-              lang={activeSourceLocale}
-              rows={6}
-              className={cn(
-                TEXTAREA_CLASS,
-                "focus:ring-sky-400/60 dark:focus:ring-sky-400/50",
-                sourceReadOnly && "cursor-default",
-              )}
-            />
-          </div>
-
-          <button
-            type="button"
-            onClick={handleSwap}
-            disabled={!canSwap}
-            aria-label="Swap languages"
+      <MotionConfig reducedMotion="user">
+        <div
+          ref={forwardedRef}
+          dir={dir}
+          className={cn(
+            "w-full rounded-xl border bg-card text-card-foreground shadow-sm",
+            classNames?.root,
+            className,
+          )}
+          {...rest}
+        >
+          <div
             className={cn(
-              "inline-flex size-9 shrink-0 items-center justify-center self-center rounded-full border transition-colors",
-              "border-zinc-200 bg-white text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900",
-              "focus:outline-none focus:ring-2 focus:ring-emerald-500/50",
-              "disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white",
-              "dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400",
-              "dark:hover:bg-zinc-800 dark:hover:text-zinc-50",
-              "dark:disabled:hover:bg-zinc-900",
+              "flex items-center gap-2 border-b px-2 py-1.5 sm:grid sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]",
+              classNames?.header,
             )}
           >
-            <svg
-              aria-hidden="true"
-              className="size-4 rotate-90 sm:rotate-0"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="m16 3 4 4-4 4" />
-              <path strokeLinecap="round" strokeLinejoin="round" d="M20 7H4" />
-              <path strokeLinecap="round" strokeLinejoin="round" d="m8 21-4-4 4-4" />
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 17h16" />
-            </svg>
-          </button>
-
-          <div className="min-w-0 flex-1 space-y-2">
-            {canPickTargetLocale ? (
-              <LanguageSwitcher
-                locales={locales}
-                value={activeTargetLocale}
-                onValueChange={setActiveTargetLocale}
-              />
-            ) : (
-              <span className={CHIP_CLASS}>
-                {getLocaleLabel(activeTargetLocale)}
-                <span className="opacity-60">{activeTargetLocale}</span>
-              </span>
-            )}
-            <textarea
-              id={targetId}
-              value={target}
-              onChange={(e) => setTarget(e.target.value)}
-              readOnly={targetReadOnly}
-              placeholder={targetPlaceholder}
-              aria-label={`${targetLabel} (${getLocaleLabel(activeTargetLocale)})`}
-              dir={targetRtl ? "rtl" : "ltr"}
-              lang={activeTargetLocale}
-              rows={6}
-              className={cn(
-                TEXTAREA_CLASS,
-                "focus:ring-violet-400/60 dark:focus:ring-violet-400/50",
-                targetReadOnly && "cursor-default",
+            <div className="flex min-w-0 flex-1 items-center">
+              {canPickSourceLocale ? (
+                <LanguageSwitcher
+                  locales={locales}
+                  value={activeSourceLocale}
+                  onValueChange={setActiveSourceLocale}
+                  variant="ghost"
+                  size="sm"
+                />
+              ) : (
+                renderChip(activeSourceLocale)
               )}
-            />
+            </div>
+
+            <motion.button
+              type="button"
+              onClick={handleSwap}
+              disabled={!canSwap}
+              aria-label="Swap languages"
+              whileTap={canSwap ? { scale: 0.92 } : undefined}
+              className={cn(
+                "inline-flex size-8 shrink-0 items-center justify-center rounded-full border bg-background text-muted-foreground shadow-xs transition-[color,background-color,box-shadow] outline-none",
+                "hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:hover:bg-input/50",
+                "focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50",
+                "disabled:pointer-events-none disabled:opacity-50",
+                classNames?.swap,
+              )}
+            >
+              <motion.span
+                aria-hidden="true"
+                className="inline-flex"
+                animate={{ rotate: swapCount * 180 }}
+                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+              >
+                <ArrowLeftRightIcon className="size-4" />
+              </motion.span>
+            </motion.button>
+
+            <div className="flex min-w-0 flex-1 items-center justify-end sm:justify-start sm:ps-2">
+              {canPickTargetLocale ? (
+                <LanguageSwitcher
+                  locales={locales}
+                  value={activeTargetLocale}
+                  onValueChange={setActiveTargetLocale}
+                  variant="ghost"
+                  size="sm"
+                  align="end"
+                />
+              ) : (
+                renderChip(activeTargetLocale)
+              )}
+            </div>
+          </div>
+
+          <div className="grid overflow-hidden rounded-b-xl sm:grid-cols-2">
+            <div className={cn(paneClass, "border-b sm:border-e sm:border-b-0")}>
+              <textarea
+                ref={sourceRef}
+                id={sourceId}
+                value={source}
+                onChange={(e) => setSource(e.target.value)}
+                readOnly={sourceReadOnly}
+                placeholder={sourcePlaceholder}
+                aria-label={`${sourceLabel} (${getLocaleLabel(activeSourceLocale)})`}
+                aria-describedby={showCount ? countId : undefined}
+                maxLength={maxLength}
+                dir={sourceRtl ? "rtl" : "ltr"}
+                lang={activeSourceLocale}
+                rows={5}
+                className={cn(textareaClass, sourceReadOnly && "cursor-default")}
+              />
+              <div className={footerClass}>
+                {showCount && (
+                  <span
+                    id={countId}
+                    className={cn(
+                      "ps-1.5 text-xs text-muted-foreground tabular-nums",
+                      atLimit && "text-destructive",
+                    )}
+                  >
+                    {maxLength !== undefined ? `${source.length} / ${maxLength}` : source.length}
+                    <span className="sr-only">{" characters"}</span>
+                  </span>
+                )}
+                <div className="ms-auto flex items-center gap-0.5">
+                  {showClear && !sourceReadOnly && (
+                    <button
+                      type="button"
+                      onClick={handleClear}
+                      disabled={!source}
+                      aria-label="Clear source text"
+                      className={ICON_BUTTON_CLASS}
+                    >
+                      <XIcon aria-hidden="true" className="size-4" />
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className={cn(paneClass, "bg-muted/40")}>
+              <div className="relative flex flex-1 flex-col">
+                <textarea
+                  id={targetId}
+                  value={target}
+                  onChange={(e) => setTarget(e.target.value)}
+                  readOnly={targetReadOnly}
+                  placeholder={loading ? undefined : targetPlaceholder}
+                  aria-label={`${targetLabel} (${getLocaleLabel(activeTargetLocale)})`}
+                  aria-busy={loading || undefined}
+                  maxLength={maxLength}
+                  dir={targetRtl ? "rtl" : "ltr"}
+                  lang={activeTargetLocale}
+                  rows={5}
+                  className={cn(
+                    textareaClass,
+                    targetReadOnly && "cursor-default",
+                    loading && "opacity-0",
+                  )}
+                />
+                {loading && (
+                  <div
+                    aria-hidden="true"
+                    data-slot="skeleton"
+                    className="pointer-events-none absolute inset-x-4 top-4 space-y-3"
+                  >
+                    {SKELETON_WIDTHS.map((width) => (
+                      <div
+                        key={width}
+                        className={cn("h-3.5 animate-pulse rounded-full bg-foreground/10", width)}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div className={footerClass}>
+                <div className="ms-auto flex items-center gap-0.5">
+                  {showCopy && (
+                    <button
+                      type="button"
+                      onClick={handleCopy}
+                      disabled={!target || loading}
+                      aria-label={copied ? "Copied" : "Copy translation"}
+                      className={ICON_BUTTON_CLASS}
+                    >
+                      <AnimatePresence mode="wait" initial={false}>
+                        <motion.span
+                          key={copied ? "copied" : "copy"}
+                          aria-hidden="true"
+                          className="inline-flex"
+                          initial={{ opacity: 0, scale: 0.6 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.6 }}
+                          transition={{ duration: 0.12 }}
+                        >
+                          {copied ? (
+                            <CheckIcon className="size-4 text-primary" />
+                          ) : (
+                            <CopyIcon className="size-4" />
+                          )}
+                        </motion.span>
+                      </AnimatePresence>
+                    </button>
+                  )}
+                  <span role="status" aria-live="polite" className="sr-only">
+                    {copied ? "Translation copied to clipboard" : ""}
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </MotionConfig>
     );
   },
 );
