@@ -89,13 +89,30 @@ not stylistic — the tests and the public API depend on them.
 4. **Shared types come from `./types`.** Do not declare a local `Locale`. Two
    divergent copies previously hid behind a `NavBarLocale` alias.
 
-Also: `"use client"` at the top, Tailwind utility classes only (no CSS-variable
-design tokens), dark mode via `dark:` variants, and TSDoc on every prop.
+Also: `"use client"` at the top, Tailwind utility classes only, and TSDoc on every
+prop.
 
-**No framework dependencies.** The package's only runtime deps are `clsx` and
-`tailwind-merge`. `NavBar` needs link rendering, so it takes a `linkComponent`
-prop defaulting to `"a"` rather than importing `next/link` — that keeps the
-library usable in Vite, Remix, or plain React.
+**Styling: shadcn semantic tokens.** Components use `bg-popover`, `text-muted-foreground`,
+`border-input`, `ring-ring/50`, `bg-accent` and friends — never raw palette colours
+like `zinc-*` or `emerald-*` — so they inherit the consumer's shadcn theme. Dark mode
+comes from the tokens; reach for `dark:` only where shadcn itself does
+(`dark:bg-input/30`). The docs site defines the tokens in `src/app/globals.css`.
+
+**Customisation surface.** Every visual component takes a `classNames` prop (one key
+per part, merged last with `cn`) plus `size` / `variant` where they make sense, and
+exports its `*ClassNames` interface from the barrel.
+
+**Motion.** Animations use `motion/react`, wrapped in
+`<MotionConfig reducedMotion="user">`. Popups render inside `AnimatePresence` and mark
+themselves `aria-hidden` while exiting (`useIsPresent`), so a closing menu leaves the
+accessibility tree immediately. Tests set `MotionGlobalConfig.skipAnimations`.
+
+**Dependencies.** Runtime deps are `clsx`, `tailwind-merge`, `motion` and
+`lucide-react` — keep them in sync across `package.json`, the `external` list in
+`tsup.config.ts`, and each item's `dependencies` in `registry.ts`. No framework
+dependencies: `NavBar` needs link rendering, so it takes a `linkComponent` prop
+defaulting to `"a"` rather than importing `next/link` — that keeps the library usable
+in Vite, Remix, or plain React.
 
 ## Adding a component
 

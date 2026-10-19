@@ -15,17 +15,86 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* ── Site chrome tokens (light/dark) ── */
-:root {
+/*
+ * ── shadcn/ui theme tokens ──
+ * The registry components are styled with shadcn's semantic tokens, so they take
+ * on whatever theme the consuming app defines. These are the docs site's values:
+ * shadcn neutral, with the Babelize emerald as `primary` and `ring`.
+ *
+ * `.light` comes last so the docs preview stage can render a light island inside
+ * the dark site shell — see the `@variant dark` above.
+ */
+:root,
+.light {
+  --radius: 0.625rem;
   --background: #ffffff;
   --foreground: #111111;
+  --card: #ffffff;
+  --card-foreground: #111111;
+  --popover: #ffffff;
+  --popover-foreground: #111111;
+  --primary: #00bd7d;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #18181b;
   --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+  --accent: #f4f4f5;
+  --accent-foreground: #18181b;
+  --destructive: #e7000b;
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+  --ring: #00bd7d;
 }
 
 .dark {
   --background: #0a0a0a;
   --foreground: #ededed;
+  --card: #111111;
+  --card-foreground: #ededed;
+  --popover: #111111;
+  --popover-foreground: #ededed;
+  --primary: #26d996;
+  --primary-foreground: #00120c;
+  --secondary: #1c1c1e;
+  --secondary-foreground: #ededed;
   --muted: #131313;
+  --muted-foreground: #8a8a8a;
+  --accent: #1f1f22;
+  --accent-foreground: #ededed;
+  --destructive: #ff6467;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.14);
+  --ring: #26d996;
+}
+
+.light {
+  color-scheme: light;
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
 }
 
 /* ── Babelize brand: emerald accent ── */

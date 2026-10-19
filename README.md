@@ -58,6 +58,10 @@ the components render unstyled:
 content: ["./src/**/*.{ts,tsx}", "./node_modules/@babelize/elements/dist/**/*.js"],
 ```
 
+Components are styled with shadcn/ui theme tokens. In a shadcn project they pick up
+your theme automatically; otherwise add the tokens once — see
+[Theme tokens](https://elements.babelize.co/docs/getting-started/install#theme-tokens).
+
 Components installed with the CLI below live in your own source tree, so they need
 no extra Tailwind config.
 

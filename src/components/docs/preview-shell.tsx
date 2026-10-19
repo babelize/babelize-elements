@@ -63,7 +63,7 @@ export function PreviewShell({ code, highlighted, fullBleed, children }: Preview
             // `light` is what turns the stage back off inside the dark site shell —
             // the absence of `dark` is not enough, see the `@variant` in globals.css.
             previewDark ? "dark" : "light",
-            "bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50",
+            "bg-background text-foreground",
           )}
         >
           {fullBleed ? (
