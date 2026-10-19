@@ -146,7 +146,16 @@ const COUNTRIES: Country[] = [
 const MenuPanel = React.forwardRef<HTMLDivElement, HTMLMotionProps<"div">>(
   function MenuPanel(props, ref) {
     const isPresent = useIsPresent();
-    return <motion.div ref={ref} aria-hidden={isPresent ? undefined : true} {...props} />;
+    return (
+      <motion.div
+        ref={ref}
+        aria-hidden={isPresent ? undefined : true}
+        {...props}
+        // Set on render rather than animated: a panel reopened mid-exit is the
+        // same element, and must take clicks again immediately.
+        style={{ ...props.style, pointerEvents: isPresent ? undefined : "none" }}
+      />
+    );
   },
 );
 
@@ -374,7 +383,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
               data-side={side}
               initial={{ opacity: 0, y: offset }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: offset, pointerEvents: "none" }}
+              exit={{ opacity: 0, y: offset }}
               transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
               className={cn(
                 "absolute z-50 w-max min-w-full overflow-hidden rounded-lg border bg-popover text-popover-foreground shadow-lg sm:min-w-72",

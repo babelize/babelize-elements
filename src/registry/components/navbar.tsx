@@ -108,7 +108,16 @@ function getLocaleInfo(code: string, override?: Locale) {
  */
 const Panel = React.forwardRef<HTMLDivElement, HTMLMotionProps<"div">>(function Panel(props, ref) {
   const isPresent = useIsPresent();
-  return <motion.div ref={ref} aria-hidden={isPresent ? undefined : true} {...props} />;
+  return (
+    <motion.div
+      ref={ref}
+      aria-hidden={isPresent ? undefined : true}
+      {...props}
+      // Set on render rather than animated: a panel reopened mid-exit is the
+      // same element, and must take clicks again immediately.
+      style={{ ...props.style, pointerEvents: isPresent ? undefined : "none" }}
+    />
+  );
 });
 
 const FOCUS_RING = "outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50";
@@ -249,7 +258,7 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
     <Panel
       initial={{ opacity: 0, y: -4 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -4, pointerEvents: "none" }}
+      exit={{ opacity: 0, y: -4 }}
       transition={{ duration: 0.15, ease: EASE }}
       className={cn(
         "absolute end-0 top-full z-50 mt-2 min-w-44 overflow-hidden rounded-lg border bg-popover text-popover-foreground shadow-lg",
@@ -499,7 +508,7 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
                 id={menuId}
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0, pointerEvents: "none" }}
+                exit={{ height: 0, opacity: 0 }}
                 transition={{ duration: 0.25, ease: EASE }}
                 className={cn(
                   "overflow-hidden md:hidden",
