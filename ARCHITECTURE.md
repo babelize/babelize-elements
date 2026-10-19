@@ -33,6 +33,8 @@ src/
     utils.ts             ← cn(); published, also served as a registry item
     use-controllable-state.ts  ← published, also served as a registry item
     source.ts            website only (Fumadocs loader)
+    demo/                website only — data and scaffolding the docs demos import,
+                           so each `*-demo.tsx` (shown in the Code tab) stays short
   cli/
     index.ts             `npx @babelize/elements add <component>`
     paths.ts             tsconfig alias resolution (pure, unit-tested)
@@ -45,11 +47,9 @@ src/
     landing/             website only
     docs/                website only — live demos + the docs code panels
       *-demo.tsx           live demo rendered in the Preview tab
-      preview-components.tsx  server: reads the demo file, highlights it
-      component-source.tsx    server: reads a registry item's source
-      source.ts               shared file-read + shiki highlight helper
-      preview-shell.tsx       client: Preview / Code tabs
-      code-panel.tsx          client: file bar, scroll cap, copy, expand
+      preview-components.tsx  server: Preview / Code tabs, reads the demo file
+      preview-card.tsx        client: preview toolbar (theme, dark mode, Open in v0) + stage
+      preview-themes.ts       client: shadcn accent palettes + shared preview prefs
 
 content/docs/            MDX documentation, sidebar order in meta.json
 test/                    vitest; mirrors component names
