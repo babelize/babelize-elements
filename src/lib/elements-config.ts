@@ -21,11 +21,24 @@ export const pillLocales: Locale[] = [
   { code: "ar", label: "عربي" },
 ];
 
-export const navLinks: NavLink[] = [
-  { label: "Product", href: "#product" },
-  { label: "Docs", href: "/docs" },
-  { label: "Pricing", href: "#pricing" },
-];
+/** NavBar links and CTA, translated for every demo locale. */
+export const navCopy: Record<string, { links: NavLink[]; cta: string }> = {
+  en: { links: links("Product", "Docs", "Pricing"), cta: "Get started" },
+  fr: { links: links("Produit", "Docs", "Tarifs"), cta: "Commencer" },
+  es: { links: links("Producto", "Docs", "Precios"), cta: "Empezar" },
+  de: { links: links("Produkt", "Docs", "Preise"), cta: "Loslegen" },
+  hi: { links: links("उत्पाद", "दस्तावेज़", "मूल्य"), cta: "शुरू करें" },
+  ja: { links: links("製品", "ドキュメント", "料金"), cta: "はじめる" },
+  ar: { links: links("المنتج", "التوثيق", "الأسعار"), cta: "ابدأ الآن" },
+};
+
+function links(product: string, docs: string, pricing: string): NavLink[] {
+  return [
+    { label: product, href: "#product" },
+    { label: docs, href: "/docs" },
+    { label: pricing, href: "#pricing" },
+  ];
+}
 
 export const translation = {
   source: "Your order has shipped! Track your package anytime from the Orders page.",

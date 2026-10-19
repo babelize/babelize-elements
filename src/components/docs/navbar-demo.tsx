@@ -1,18 +1,21 @@
 "use client";
 
+import { useState } from "react";
 import { NavBar } from "@/registry/components/navbar";
-import { locales, navLinks } from "@/lib/elements-config";
+import { locales, navCopy } from "@/lib/elements-config";
 
 export function NavBarDemo() {
+  const [locale, setLocale] = useState("en");
+
   return (
     <NavBar
       logo={<span className="font-semibold tracking-tight">Acme</span>}
-      links={navLinks}
+      links={navCopy[locale].links}
       activeHref="/docs"
       locales={locales}
-      defaultValue="en"
-      onValueChange={(code) => console.log("Selected locale:", code)}
-      cta={{ label: "Get started", href: "#get-started" }}
+      value={locale}
+      onValueChange={setLocale}
+      cta={{ label: navCopy[locale].cta, href: "#get-started" }}
       showGitHub
       variant="floating" // default, floating
       sticky={false}
