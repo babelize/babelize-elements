@@ -1,6 +1,0 @@
-{
-  "title": "Formatters",
-  "icon": "Languages",
-  "pages": ["locale-number", "relative-time"],
-  "collapsible": false
-}
