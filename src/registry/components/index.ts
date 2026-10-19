@@ -10,7 +10,10 @@ export type {
 } from "./language-switcher";
 
 export { LanguageSwitcherPill } from "./language-switcher-pill";
-export type { LanguageSwitcherPillProps } from "./language-switcher-pill";
+export type {
+  LanguageSwitcherPillProps,
+  LanguageSwitcherPillClassNames,
+} from "./language-switcher-pill";
 
 export { PhoneInput, COUNTRIES } from "./phone-input";
 export type { PhoneInputProps, Country } from "./phone-input";

@@ -1,9 +1,25 @@
 "use client";
 
 import * as React from "react";
+import { LayoutGroup, MotionConfig, motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { useControllableState } from "@/lib/use-controllable-state";
 import type { Locale } from "./types";
+import { getFlag } from "./locale-data";
+
+/** Per-part class overrides, merged after the defaults with `cn`. */
+export interface LanguageSwitcherPillClassNames {
+  /** The track that holds every pill */
+  root?: string;
+  /** Each locale pill */
+  item?: string;
+  /** The selected pill */
+  activeItem?: string;
+  /** The sliding indicator behind the selected pill */
+  indicator?: string;
+  /** The flag shown when `showFlags` is set */
+  flag?: string;
+}
 
 export interface LanguageSwitcherPillProps extends Omit<
   React.ComponentPropsWithoutRef<"div">,
@@ -20,6 +36,24 @@ export interface LanguageSwitcherPillProps extends Omit<
 
   /** Called when the selected locale changes. */
   onLocaleChange?: (code: string) => void;
+
+  /** Track style: a muted segmented track, or a bordered one (default: "default"). */
+  variant?: "default" | "outline";
+
+  /** Pill size (default: "default"). */
+  size?: "sm" | "default" | "lg";
+
+  /** Show the locale's flag emoji before its label (default: false). */
+  showFlags?: boolean;
+
+  /** Disable every pill. */
+  disabled?: boolean;
+
+  /** Accessible label for the radio group (default: "Select language"). */
+  "aria-label"?: string;
+
+  /** Per-part class overrides. */
+  classNames?: LanguageSwitcherPillClassNames;
 }
 
 const useIsomorphicLayoutEffect =
@@ -33,6 +67,28 @@ function isRtl(locale: Locale): boolean {
   return RTL_LOCALES.has(locale.code.split("-")[0].toLowerCase());
 }
 
+const TRACK_VARIANTS = {
+  default: "bg-muted",
+  outline: "border border-input bg-background shadow-xs dark:bg-input/30",
+} as const;
+
+const INDICATOR_VARIANTS = {
+  default: "bg-background shadow-sm ring-1 ring-black/5 dark:bg-input/60 dark:ring-white/10",
+  outline: "bg-accent dark:bg-input/60",
+} as const;
+
+const TRACK_SIZES = {
+  sm: "gap-0.5 p-0.5",
+  default: "gap-0.5 p-1",
+  lg: "gap-1 p-1",
+} as const;
+
+const ITEM_SIZES = {
+  sm: "h-6 gap-1 px-2.5 text-xs",
+  default: "h-7 gap-1.5 px-3 text-sm",
+  lg: "h-9 gap-2 px-4 text-sm",
+} as const;
+
 export const LanguageSwitcherPill = React.forwardRef<HTMLDivElement, LanguageSwitcherPillProps>(
   function LanguageSwitcherPill(
     {
@@ -40,8 +96,14 @@ export const LanguageSwitcherPill = React.forwardRef<HTMLDivElement, LanguageSwi
       defaultLocale,
       locales,
       onLocaleChange,
+      variant = "default",
+      size = "default",
+      showFlags = false,
+      disabled = false,
+      classNames,
       className,
       dir: dirProp,
+      "aria-label": ariaLabel = "Select language",
       ...rest
     },
     forwardedRef,
@@ -54,11 +116,9 @@ export const LanguageSwitcherPill = React.forwardRef<HTMLDivElement, LanguageSwi
 
     const rootRef = React.useRef<HTMLDivElement>(null);
     const buttonRefs = React.useRef<(HTMLButtonElement | null)[]>([]);
-
-    const [indicator, setIndicator] = React.useState({
-      width: 0,
-      offset: 0,
-    });
+    // Scopes the shared-layout indicator to this instance, so two pills on one
+    // page never animate into each other.
+    const layoutId = React.useId();
 
     React.useImperativeHandle(forwardedRef, () => rootRef.current as HTMLDivElement);
 
@@ -88,52 +148,8 @@ export const LanguageSwitcherPill = React.forwardRef<HTMLDivElement, LanguageSwi
 
     const direction = dirProp === "rtl" || dirProp === "ltr" ? dirProp : inheritedDir;
 
-    const updateIndicator = React.useCallback(() => {
-      const index = locales.findIndex((item) => item.code === selectedLocale);
-      const button = buttonRefs.current[index];
-      const root = rootRef.current;
-
-      if (!button || !root) return;
-
-      const buttonRect = button.getBoundingClientRect();
-      const rootRect = root.getBoundingClientRect();
-
-      setIndicator({
-        width: buttonRect.width,
-        offset: buttonRect.left - rootRect.left - root.clientLeft,
-      });
-    }, [selectedLocale, locales]);
-
-    useIsomorphicLayoutEffect(() => {
-      updateIndicator();
-    }, [updateIndicator]);
-
-    React.useEffect(() => {
-      const root = rootRef.current;
-
-      if (!root) return;
-
-      const observer = new ResizeObserver(() => {
-        updateIndicator();
-      });
-
-      observer.observe(root);
-      for (const button of buttonRefs.current) {
-        if (button) observer.observe(button);
-      }
-
-      if (typeof document !== "undefined" && "fonts" in document) {
-        document.fonts?.ready?.then(() => {
-          updateIndicator();
-        });
-      }
-
-      return () => {
-        observer.disconnect();
-      };
-    }, [updateIndicator]);
-
     const selectLocale = (code: string) => {
+      if (disabled) return;
       setLocale(code);
     };
 
@@ -169,56 +185,83 @@ export const LanguageSwitcherPill = React.forwardRef<HTMLDivElement, LanguageSwi
     };
 
     return (
-      <div
-        ref={rootRef}
-        dir={dirProp}
-        className={cn(
-          "relative inline-flex flex-row rounded-full border border-zinc-200 bg-zinc-100 p-1 dark:border-zinc-800 dark:bg-zinc-900",
-          className,
-        )}
-        role="radiogroup"
-        aria-label="Select language"
-        {...rest}
-      >
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-y-1 left-0 rounded-full bg-white shadow-sm transition-[transform,width] duration-200 ease-out dark:bg-zinc-800"
-          style={{
-            width: indicator.width,
-            transform: `translateX(${indicator.offset}px)`,
-          }}
-        />
+      <MotionConfig reducedMotion="user">
+        <LayoutGroup id={layoutId}>
+          <div
+            ref={rootRef}
+            dir={dirProp}
+            className={cn(
+              "relative inline-flex flex-row items-center rounded-full",
+              TRACK_VARIANTS[variant],
+              TRACK_SIZES[size],
+              disabled && "opacity-50",
+              classNames?.root,
+              className,
+            )}
+            role="radiogroup"
+            aria-label={ariaLabel}
+            aria-disabled={disabled || undefined}
+            data-disabled={disabled ? "" : undefined}
+            {...rest}
+          >
+            {locales.map((item, index) => {
+              const isActive = item.code === selectedLocale;
 
-        {locales.map((item, index) => {
-          const isActive = item.code === selectedLocale;
-
-          return (
-            <button
-              key={item.code}
-              ref={(element) => {
-                buttonRefs.current[index] = element;
-              }}
-              dir={isRtl(item) ? "rtl" : "ltr"}
-              type="button"
-              role="radio"
-              aria-checked={isActive}
-              tabIndex={isActive ? 0 : -1}
-              onClick={() => selectLocale(item.code)}
-              onKeyDown={(event) => handleKeyDown(event, index)}
-              className={cn(
-                "relative z-10 rounded-full px-3 py-1.5 text-sm font-medium transition-colors duration-200",
-                "focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50",
-                "disabled:pointer-events-none disabled:opacity-50",
-                isActive
-                  ? "text-zinc-900 dark:text-zinc-50"
-                  : "text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100",
-              )}
-            >
-              {item.label ?? item.code}
-            </button>
-          );
-        })}
-      </div>
+              return (
+                <button
+                  key={item.code}
+                  ref={(element) => {
+                    buttonRefs.current[index] = element;
+                  }}
+                  dir={isRtl(item) ? "rtl" : "ltr"}
+                  type="button"
+                  role="radio"
+                  aria-checked={isActive}
+                  data-state={isActive ? "checked" : "unchecked"}
+                  tabIndex={isActive ? 0 : -1}
+                  disabled={disabled}
+                  onClick={() => selectLocale(item.code)}
+                  onKeyDown={(event) => handleKeyDown(event, index)}
+                  className={cn(
+                    "relative inline-flex items-center justify-center rounded-full font-medium whitespace-nowrap transition-colors duration-200 outline-none select-none",
+                    "focus-visible:ring-[3px] focus-visible:ring-ring/50",
+                    "disabled:pointer-events-none",
+                    ITEM_SIZES[size],
+                    isActive
+                      ? "text-foreground"
+                      : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground",
+                    classNames?.item,
+                    isActive && classNames?.activeItem,
+                  )}
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="indicator"
+                      aria-hidden="true"
+                      data-slot="indicator"
+                      className={cn(
+                        "pointer-events-none absolute inset-0 rounded-full",
+                        INDICATOR_VARIANTS[variant],
+                        classNames?.indicator,
+                      )}
+                      transition={{ type: "spring", bounce: 0.18, duration: 0.45 }}
+                    />
+                  )}
+                  {showFlags && (
+                    <span
+                      aria-hidden="true"
+                      className={cn("relative leading-none", classNames?.flag)}
+                    >
+                      {item.flag ?? getFlag(item.code)}
+                    </span>
+                  )}
+                  <span className="relative">{item.label ?? item.code}</span>
+                </button>
+              );
+            })}
+          </div>
+        </LayoutGroup>
+      </MotionConfig>
     );
   },
 );

@@ -50,8 +50,8 @@ const ITEMS: ItemDef[] = [
     type: "registry:ui",
     source: "registry/components/language-switcher-pill",
     filePath: "ui/language-switcher-pill.tsx",
-    dependencies: ["clsx", "tailwind-merge"],
-    registryDependencies: ["locale-types", "use-controllable-state"],
+    dependencies: ["clsx", "tailwind-merge", "motion"],
+    registryDependencies: ["locale-types", "locale-data", "use-controllable-state"],
   },
   {
     name: "phone-input",

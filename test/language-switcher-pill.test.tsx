@@ -200,4 +200,54 @@ describe("LanguageSwitcherPill", () => {
     expect(en).toHaveFocus();
     expect(en).toHaveAttribute("aria-checked", "true");
   });
+
+  it("renders flags without changing the accessible name", () => {
+    render(<LanguageSwitcherPill locales={locales} showFlags />);
+
+    const english = screen.getByRole("radio", { name: "English" });
+    expect(english.textContent).toContain("\u{1F1FA}\u{1F1F8}");
+  });
+
+  it("disables every pill and ignores clicks when disabled", async () => {
+    const onLocaleChange = vi.fn();
+
+    render(<LanguageSwitcherPill locales={locales} disabled onLocaleChange={onLocaleChange} />);
+
+    const french = screen.getByRole("radio", { name: "Français" });
+    expect(french).toBeDisabled();
+    expect(screen.getByRole("radiogroup")).toHaveAttribute("aria-disabled", "true");
+
+    await userEvent.click(french);
+    expect(onLocaleChange).not.toHaveBeenCalled();
+  });
+
+  it("renders one indicator inside the selected pill", async () => {
+    render(<LanguageSwitcherPill locales={locales} />);
+
+    const english = screen.getByRole("radio", { name: "English" });
+    const french = screen.getByRole("radio", { name: "Français" });
+    expect(english.querySelector('[data-slot="indicator"]')).not.toBeNull();
+
+    await userEvent.click(french);
+
+    expect(document.querySelectorAll('[data-slot="indicator"]')).toHaveLength(1);
+    expect(french.querySelector('[data-slot="indicator"]')).not.toBeNull();
+  });
+
+  it("applies classNames slots and a custom group label", () => {
+    render(
+      <LanguageSwitcherPill
+        locales={locales}
+        aria-label="Site language"
+        classNames={{ root: "root-x", item: "item-x", activeItem: "active-x", indicator: "ind-x" }}
+      />,
+    );
+
+    const group = screen.getByRole("radiogroup", { name: "Site language" });
+    expect(group).toHaveClass("root-x");
+    const english = screen.getByRole("radio", { name: "English" });
+    expect(english).toHaveClass("item-x", "active-x");
+    expect(screen.getByRole("radio", { name: "Français" })).not.toHaveClass("active-x");
+    expect(english.querySelector('[data-slot="indicator"]')).toHaveClass("ind-x");
+  });
 });

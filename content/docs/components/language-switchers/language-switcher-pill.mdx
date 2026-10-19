@@ -69,15 +69,47 @@ export function LocalePill() {
 
 ## Props
 
-| Prop             | Type                     | Required | Description                                                                   |
-| ---------------- | ------------------------ | -------- | ----------------------------------------------------------------------------- |
-| `locales`        | `Locale[]`               | Yes      | Array of available locales — only `code` is required                          |
-| `locale`         | `string`                 | No       | Selected locale code — pass this to control the component                     |
-| `defaultLocale`  | `string`                 | No       | Initial selected locale code when uncontrolled (default: first locale's code) |
-| `onLocaleChange` | `(code: string) => void` | No       | Callback when the selected locale changes                                     |
-| `className`      | `string`                 | No       | Additional CSS classes for the pill container                                 |
+| Prop             | Type                             | Required | Description                                                                   |
+| ---------------- | -------------------------------- | -------- | ----------------------------------------------------------------------------- |
+| `locales`        | `Locale[]`                       | Yes      | Array of available locales — only `code` is required                          |
+| `locale`         | `string`                         | No       | Selected locale code — pass this to control the component                     |
+| `defaultLocale`  | `string`                         | No       | Initial selected locale code when uncontrolled (default: first locale's code) |
+| `onLocaleChange` | `(code: string) => void`         | No       | Callback when the selected locale changes                                     |
+| `variant`        | `"default" \| "outline"`         | No       | Muted segmented track or bordered track (default: `"default"`)                |
+| `size`           | `"sm" \| "default" \| "lg"`      | No       | Pill size (default: `"default"`)                                              |
+| `showFlags`      | `boolean`                        | No       | Show each locale's flag emoji before its label (default: `false`)             |
+| `disabled`       | `boolean`                        | No       | Disable every pill                                                            |
+| `aria-label`     | `string`                         | No       | Accessible label for the radio group (default: `"Select language"`)           |
+| `classNames`     | `LanguageSwitcherPillClassNames` | No       | Per-part class overrides — see below                                          |
+| `className`      | `string`                         | No       | Additional CSS classes for the pill container                                 |
 
 Remaining `div` props forward to the root element.
+
+### Class names
+
+Every part takes its own classes, merged after the defaults, so you can restyle one
+piece without forking the component:
+
+| Slot         | Element                                       |
+| ------------ | --------------------------------------------- |
+| `root`       | The track that holds every pill               |
+| `item`       | Each locale pill                              |
+| `activeItem` | The selected pill only                        |
+| `indicator`  | The spring-animated indicator behind the pill |
+| `flag`       | The flag shown when `showFlags` is set        |
+
+```tsx
+<LanguageSwitcherPill
+  locales={locales}
+  classNames={{
+    indicator: "bg-primary",
+    activeItem: "text-primary-foreground",
+  }}
+/>
+```
+
+The component is styled with shadcn/ui theme tokens (`bg-muted`, `bg-background`,
+`text-muted-foreground`, `ring-ring`), so it picks up your theme automatically.
 
 ### Locale Object
 
@@ -85,6 +117,7 @@ Remaining `div` props forward to the root element.
 | -------- | --------- | -------------------------------------------------------------------- |
 | `code`   | `string`  | ISO 639-1 / BCP 47 code (e.g. `"en"`, `"fr"`, `"ar"`) — **required** |
 | `label`  | `string`  | Display name for the language pill                                   |
+| `flag`   | `string`  | Flag emoji shown with `showFlags` (auto-resolved if omitted)         |
 | `rtl`    | `boolean` | Override RTL direction for text shaping (auto-detected if omitted)   |
 
 ## Examples
@@ -173,6 +206,13 @@ export function LocaleSwitcher() {
     />
   );
 }
+```
+
+### Variants and sizes
+
+```tsx
+<LanguageSwitcherPill locales={locales} variant="outline" size="sm" showFlags />
+<LanguageSwitcherPill locales={locales} size="lg" />
 ```
 
 ## Keyboard Navigation
