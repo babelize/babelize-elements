@@ -16,10 +16,34 @@ CJS builds. Runtime dependencies are small and standard in the shadcn ecosystem:
 Install the full library with your preferred package manager:
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
-  <Tab value="npm">```bash npm install @babelize/elements ```</Tab>
-  <Tab value="pnpm">```bash pnpm add @babelize/elements ```</Tab>
-  <Tab value="yarn">```bash yarn add @babelize/elements ```</Tab>
-  <Tab value="bun">```bash bun add @babelize/elements ```</Tab>
+  <Tab value="npm">
+
+```bash
+npm install @babelize/elements
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm add @babelize/elements
+```
+
+  </Tab>
+  <Tab value="yarn">
+
+```bash
+yarn add @babelize/elements
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bun add @babelize/elements
+```
+
+  </Tab>
 </Tabs>
 
 ## Tell Tailwind about the package
@@ -156,8 +180,7 @@ restyle any slot without forking the source.
 Prefer installing components one at a time, straight into your codebase? Use the [shadcn CLI](/docs/getting-started/shadcn-cli):
 
 ```bash
-npx shadcn@latest registry add @elements=https://elements.babelize.co/r/{name}.json
-npx shadcn@latest add @elements/language-switcher
+npx shadcn@latest add @babelize/language-switcher
 ```
 
 Or use the CLI that ships inside the package:
