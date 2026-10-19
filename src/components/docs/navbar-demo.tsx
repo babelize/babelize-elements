@@ -17,6 +17,7 @@ export function NavBarDemo() {
       onValueChange={setLocale}
       cta={{ label: navCopy[locale].cta, href: "#get-started" }}
       showGitHub
+      githubUrl="babelize/babelize-elements" // "owner/repo" or a full URL
       variant="floating" // default, floating
       sticky={false}
     />

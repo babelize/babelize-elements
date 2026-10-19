@@ -420,3 +420,31 @@ describe("NavBar customization", () => {
     expect(screen.getAllByRole("link", { name: "Docs" })).toHaveLength(1);
   });
 });
+
+describe("NavBar GitHub link", () => {
+  const githubLinks = () => screen.queryAllByRole("link", { name: "GitHub" });
+
+  it.each([
+    ["acme/website", "https://github.com/acme/website"],
+    ["acme", "https://github.com/acme"],
+    ["github.com/acme/website/", "https://github.com/acme/website"],
+    ["https://github.com/acme/website", "https://github.com/acme/website"],
+    ["https://gitlab.com/acme/website", "https://gitlab.com/acme/website"],
+  ])("resolves githubUrl=%s to %s", (githubUrl, href) => {
+    render(<NavBar showGitHub githubUrl={githubUrl} />);
+    expect(githubLinks()[0]).toHaveAttribute("href", href);
+  });
+
+  it("renders nothing and warns when showGitHub has no githubUrl", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    render(<NavBar showGitHub />);
+    expect(githubLinks()).toHaveLength(0);
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining("`showGitHub` needs `githubUrl`"));
+    warn.mockRestore();
+  });
+
+  it("stays hidden without showGitHub, even with a githubUrl", () => {
+    render(<NavBar githubUrl="acme/website" />);
+    expect(githubLinks()).toHaveLength(0);
+  });
+});

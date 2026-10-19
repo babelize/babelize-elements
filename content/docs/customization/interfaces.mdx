@@ -151,9 +151,9 @@ export interface NavBarProps {
   linkComponent?: React.ElementType;
   /** CTA button */
   cta?: { label: string; href: string };
-  /** Show GitHub icon button */
+  /** Show GitHub icon button. Needs `githubUrl`; without one, nothing renders */
   showGitHub?: boolean;
-  /** GitHub repository URL */
+  /** Full URL, or "owner" / "owner/repo" shorthand for github.com */
   githubUrl?: string;
   /** Make navbar sticky at top (default: true) */
   sticky?: boolean;

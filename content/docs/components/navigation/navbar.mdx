@@ -112,6 +112,7 @@ export function SiteNav() {
       onValueChange={setLocale}
       cta={{ label: "Get Started", href: "/signup" }}
       showGitHub
+      githubUrl="your-org/your-repo" // or a full URL
     />
   );
 }
@@ -119,25 +120,25 @@ export function SiteNav() {
 
 ## Props
 
-| Prop            | Type                              | Required | Description                                                      |
-| --------------- | --------------------------------- | -------- | ---------------------------------------------------------------- |
-| `logo`          | `React.ReactNode`                 | No       | Logo element (renders before nav links)                          |
-| `links`         | `NavLink[]`                       | No       | Navigation links                                                 |
-| `activeHref`    | `string`                          | No       | `href` of the current page — gets `aria-current` and a highlight |
-| `locales`       | `Locale[]`                        | No       | Available locales for language selector                          |
-| `value`         | `string`                          | No       | Selected locale code — pass this to control the component        |
-| `defaultValue`  | `string`                          | No       | Initial locale code when uncontrolled (default: first locale)    |
-| `onValueChange` | `(code: string) => void`          | No       | Callback when locale changes                                     |
-| `cta`           | `{ label: string; href: string }` | No       | CTA button                                                       |
-| `showGitHub`    | `boolean`                         | No       | Show GitHub icon button                                          |
-| `githubUrl`     | `string`                          | No       | GitHub repository URL                                            |
-| `sticky`        | `boolean`                         | No       | Make navbar sticky at top (default: `true`)                      |
-| `variant`       | `"default" \| "floating"`         | No       | Full-width bar or inset floating card (default: `"default"`)     |
-| `showFlags`     | `boolean`                         | No       | Show flags in language selector (default: `true`)                |
-| `maxHeight`     | `number \| string`                | No       | Max height of the scrolling language menu (default: `"15rem"`)   |
-| `linkComponent` | `React.ElementType`               | No       | Component used for internal links (default: `"a"`)               |
-| `classNames`    | `NavBarClassNames`                | No       | Per-part class overrides (see below)                             |
-| `className`     | `string`                          | No       | Additional CSS classes                                           |
+| Prop            | Type                              | Required | Description                                                                   |
+| --------------- | --------------------------------- | -------- | ----------------------------------------------------------------------------- |
+| `logo`          | `React.ReactNode`                 | No       | Logo element (renders before nav links)                                       |
+| `links`         | `NavLink[]`                       | No       | Navigation links                                                              |
+| `activeHref`    | `string`                          | No       | `href` of the current page — gets `aria-current` and a highlight              |
+| `locales`       | `Locale[]`                        | No       | Available locales for language selector                                       |
+| `value`         | `string`                          | No       | Selected locale code — pass this to control the component                     |
+| `defaultValue`  | `string`                          | No       | Initial locale code when uncontrolled (default: first locale)                 |
+| `onValueChange` | `(code: string) => void`          | No       | Callback when locale changes                                                  |
+| `cta`           | `{ label: string; href: string }` | No       | CTA button                                                                    |
+| `showGitHub`    | `boolean`                         | No       | Show the GitHub icon button. Needs `githubUrl` — without one, nothing renders |
+| `githubUrl`     | `string`                          | No       | Full URL, or `"owner"` / `"owner/repo"` shorthand for github.com              |
+| `sticky`        | `boolean`                         | No       | Make navbar sticky at top (default: `true`)                                   |
+| `variant`       | `"default" \| "floating"`         | No       | Full-width bar or inset floating card (default: `"default"`)                  |
+| `showFlags`     | `boolean`                         | No       | Show flags in language selector (default: `true`)                             |
+| `maxHeight`     | `number \| string`                | No       | Max height of the scrolling language menu (default: `"15rem"`)                |
+| `linkComponent` | `React.ElementType`               | No       | Component used for internal links (default: `"a"`)                            |
+| `classNames`    | `NavBarClassNames`                | No       | Per-part class overrides (see below)                                          |
+| `className`     | `string`                          | No       | Additional CSS classes                                                        |
 
 Any other prop is spread onto the underlying `<nav>` element, and the ref is
 forwarded to it.
@@ -244,6 +245,7 @@ export default function App() {
       }}
       cta={{ label: "Get Started", href: "/signup" }}
       showGitHub
+      githubUrl="your-org/your-repo"
     />
   );
 }
@@ -328,6 +330,18 @@ export default function App() {
   );
 }
 ```
+
+### GitHub link
+
+`showGitHub` adds an icon button that links to `githubUrl`. Pass `"owner/repo"` for a
+repository, `"owner"` for a profile or organisation, or any full URL.
+
+```tsx
+<NavBar showGitHub githubUrl="acme/website" />
+<NavBar showGitHub githubUrl="https://github.com/acme" />
+```
+
+`showGitHub` without `githubUrl` renders no button and logs a warning.
 
 ### Non-sticky
 

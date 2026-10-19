@@ -68,9 +68,12 @@ export interface NavBarProps extends Omit<
   onValueChange?: (code: string) => void;
   /** Primary call-to-action button */
   cta?: { label: string; href: string };
-  /** Show a GitHub icon link */
+  /** Show a GitHub icon link. Needs `githubUrl`; without one, nothing renders. */
   showGitHub?: boolean;
-  /** Target of the GitHub icon link */
+  /**
+   * Target of the GitHub icon link: a full URL, or `"owner"` / `"owner/repo"`
+   * shorthand for a github.com profile or repository.
+   */
   githubUrl?: string;
   /** Pin the bar to the top of the viewport (default: true) */
   sticky?: boolean;
@@ -131,6 +134,18 @@ const GHOST_BUTTON = cn(
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
+/**
+ * Expands `"owner"` / `"owner/repo"` shorthand to a github.com URL. Anything else,
+ * full URLs included, passes through unchanged.
+ */
+function resolveGitHubUrl(value: string | undefined): string | undefined {
+  const trimmed = value?.trim();
+  if (!trimmed) return undefined;
+  if (/^[a-z][a-z\d+.-]*:/i.test(trimmed)) return trimmed;
+  const path = trimmed.replace(/^(www\.)?github\.com\//i, "").replace(/^\/+|\/+$/g, "");
+  return /^[A-Za-z\d-]+(\/[\w.-]+)?$/.test(path) ? `https://github.com/${path}` : trimmed;
+}
+
 export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar(
   {
     logo,
@@ -142,7 +157,7 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
     onValueChange,
     cta,
     showGitHub = false,
-    githubUrl = "https://github.com/babelize/babelize-elements",
+    githubUrl,
     sticky = true,
     variant = "default",
     className,
@@ -308,9 +323,22 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
     </Panel>
   );
 
+  const githubHref = resolveGitHubUrl(githubUrl);
+  // `showGitHub` alone used to link to this library's own repository. Now it
+  // renders nothing, so say why instead of failing silently.
+  const missingGitHubUrl = showGitHub && !githubHref;
+  React.useEffect(() => {
+    if (missingGitHubUrl) {
+      console.warn(
+        'NavBar: `showGitHub` needs `githubUrl` (a URL or "owner/repo"); the GitHub link is hidden.',
+      );
+    }
+  }, [missingGitHubUrl]);
+  const hasGitHub = showGitHub && !!githubHref;
+
   const githubLink = (
     <a
-      href={githubUrl}
+      href={githubHref}
       target="_blank"
       rel="noopener noreferrer"
       className={cn(GHOST_BUTTON, "size-9")}
@@ -436,7 +464,7 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
                 </div>
               )}
 
-              {showGitHub && githubLink}
+              {hasGitHub && githubLink}
 
               {cta && (
                 <Link href={cta.href} className={cn(ctaClass, "ms-1")}>
@@ -539,7 +567,7 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
                       </Link>
                     </motion.div>
                   ))}
-                  {(cta || showGitHub) && (
+                  {(cta || hasGitHub) && (
                     <motion.div
                       className="mt-2 flex items-center gap-2 border-t pt-3"
                       initial={{ opacity: 0, y: -6 }}
@@ -556,7 +584,7 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
                           {ctaArrow}
                         </Link>
                       )}
-                      {showGitHub && githubLink}
+                      {hasGitHub && githubLink}
                     </motion.div>
                   )}
                 </div>
