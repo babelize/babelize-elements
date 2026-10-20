@@ -472,4 +472,21 @@ describe("LanguageSwitcher labels", () => {
     await userEvent.type(search, "zzz");
     expect(screen.getByText("Nothing here")).toBeInTheDocument();
   });
+
+  it("keeps the English default for a label passed as undefined", async () => {
+    render(
+      <LanguageSwitcher locales={locales} labels={{ current: undefined, listbox: undefined }} />,
+    );
+    await userEvent.click(screen.getByRole("button", { name: "Current language: English" }));
+
+    expect(screen.getByRole("listbox", { name: "Select language" })).toBeInTheDocument();
+  });
+
+  it("renders nothing for emptyMessage={null}", async () => {
+    render(<LanguageSwitcher locales={locales} emptyMessage={null} />);
+    await userEvent.click(screen.getByRole("button", { name: /Current language/ }));
+    await userEvent.type(screen.getByRole("combobox"), "zzz");
+
+    expect(screen.queryByText("No languages found.")).not.toBeInTheDocument();
+  });
 });

@@ -215,7 +215,12 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
   const activeLocale = locales.find((l) => l.code === locale);
   const direction = dir ?? ((activeLocale?.rtl ?? isRtl(locale)) ? "rtl" : "ltr");
   const currentLocaleInfo = getLocaleInfo(locale, activeLocale);
-  const text = { ...DEFAULT_LABELS, ...labels };
+  const text: NavBarLabels = {
+    listbox: labels?.listbox ?? DEFAULT_LABELS.listbox,
+    current: labels?.current ?? DEFAULT_LABELS.current,
+    toggleMenu: labels?.toggleMenu ?? DEFAULT_LABELS.toggleMenu,
+    github: labels?.github ?? DEFAULT_LABELS.github,
+  };
   const floating = variant === "floating";
   const highlightedHref = hoveredHref ?? activeHref ?? null;
 

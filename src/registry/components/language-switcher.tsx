@@ -195,7 +195,21 @@ export const LanguageSwitcher = React.forwardRef<HTMLDivElement, LanguageSwitche
 
     React.useImperativeHandle(forwardedRef, () => ref.current as HTMLDivElement);
 
-    const text = { ...DEFAULT_LABELS, ...labels };
+    const text: LanguageSwitcherLabels = {
+      searchPlaceholder:
+        searchPlaceholder ?? labels?.searchPlaceholder ?? DEFAULT_LABELS.searchPlaceholder,
+      searchLabel: labels?.searchLabel ?? DEFAULT_LABELS.searchLabel,
+      clearSearch: labels?.clearSearch ?? DEFAULT_LABELS.clearSearch,
+      // `null` is a valid empty message (it renders nothing), so only `undefined` falls through.
+      emptyMessage:
+        emptyMessage !== undefined
+          ? emptyMessage
+          : labels?.emptyMessage !== undefined
+            ? labels.emptyMessage
+            : DEFAULT_LABELS.emptyMessage,
+      listbox: labels?.listbox ?? DEFAULT_LABELS.listbox,
+      current: labels?.current ?? DEFAULT_LABELS.current,
+    };
     const resolveLabel = (l: Locale) => l.label ?? getLanguageName(l.code, labelMode) ?? l.code;
     const activeLocale = locales.find((l) => l.code === locale);
     const activeLabel = activeLocale ? resolveLabel(activeLocale) : locale;
@@ -329,7 +343,7 @@ export const LanguageSwitcher = React.forwardRef<HTMLDivElement, LanguageSwitche
                     <input
                       ref={inputRef}
                       type="text"
-                      placeholder={searchPlaceholder ?? text.searchPlaceholder}
+                      placeholder={text.searchPlaceholder}
                       aria-label={text.searchLabel}
                       autoComplete="off"
                       spellCheck={false}
@@ -425,7 +439,7 @@ export const LanguageSwitcher = React.forwardRef<HTMLDivElement, LanguageSwitche
                         classNames?.empty,
                       )}
                     >
-                      {emptyMessage ?? text.emptyMessage}
+                      {text.emptyMessage}
                     </div>
                   )}
                 </div>

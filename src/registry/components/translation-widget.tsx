@@ -197,7 +197,14 @@ export const TranslationWidget = React.forwardRef<HTMLDivElement, TranslationWid
       [],
     );
 
-    const text = { ...DEFAULT_LABELS, ...labels };
+    const text: TranslationWidgetLabels = {
+      swap: labels?.swap ?? DEFAULT_LABELS.swap,
+      copy: labels?.copy ?? DEFAULT_LABELS.copy,
+      copied: labels?.copied ?? DEFAULT_LABELS.copied,
+      copiedStatus: labels?.copiedStatus ?? DEFAULT_LABELS.copiedStatus,
+      clearSource: labels?.clearSource ?? DEFAULT_LABELS.clearSource,
+      characters: labels?.characters ?? DEFAULT_LABELS.characters,
+    };
     const sourceRtl = isRtl(activeSourceLocale);
     const targetRtl = isRtl(activeTargetLocale);
     const sourceReadOnly = readOnlySource || !onSourceChange;

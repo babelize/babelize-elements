@@ -473,4 +473,11 @@ describe("NavBar labels", () => {
     await userEvent.click(triggers[0]);
     expect(screen.getByRole("listbox", { name: "Choisir la langue" })).toBeInTheDocument();
   });
+
+  it("keeps the English default for a label passed as undefined", () => {
+    render(<NavBar locales={locales} labels={{ current: undefined, toggleMenu: undefined }} />);
+
+    expect(screen.getAllByRole("button", { name: "Current language: English" })).toHaveLength(2);
+    expect(screen.getByRole("button", { name: "Toggle menu" })).toBeInTheDocument();
+  });
 });

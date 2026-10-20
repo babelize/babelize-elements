@@ -253,7 +253,21 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
 
   React.useImperativeHandle(forwardedRef, () => inputRef.current as HTMLInputElement);
 
-  const text = { ...DEFAULT_LABELS, ...labels };
+  const text: PhoneInputLabels = {
+    trigger: labels?.trigger ?? DEFAULT_LABELS.trigger,
+    searchPlaceholder:
+      searchPlaceholder ?? labels?.searchPlaceholder ?? DEFAULT_LABELS.searchPlaceholder,
+    searchLabel: labels?.searchLabel ?? DEFAULT_LABELS.searchLabel,
+    clearSearch: labels?.clearSearch ?? DEFAULT_LABELS.clearSearch,
+    // `null` is a valid empty message (it renders nothing), so only `undefined` falls through.
+    emptyMessage:
+      emptyMessage !== undefined
+        ? emptyMessage
+        : labels?.emptyMessage !== undefined
+          ? labels.emptyMessage
+          : DEFAULT_LABELS.emptyMessage,
+    listbox: labels?.listbox ?? DEFAULT_LABELS.listbox,
+  };
   const regionNames = React.useMemo(() => {
     if (!displayLocale) return undefined;
     // A malformed locale tag throws; fall back to the English names instead.
@@ -265,12 +279,17 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
   }, [displayLocale]);
   const getCountryName = (c: Country) => regionNames?.of(c.code) ?? c.name;
 
-  const query = search.trim().toLowerCase();
+  // Lowercase with the display locale's rules, so a Turkish "İsrail" matches "israil".
+  // Without a display locale, keep plain lowercasing: the user's own locale could
+  // turn "India" into "ındia".
+  const caseLocale = regionNames?.resolvedOptions().locale;
+  const lower = (s: string) => (caseLocale ? s.toLocaleLowerCase(caseLocale) : s.toLowerCase());
+  const query = lower(search.trim());
   const filtered = countries.filter(
     (c) =>
-      getCountryName(c).toLowerCase().includes(query) ||
+      lower(getCountryName(c)).includes(query) ||
       c.dialCode.includes(query) ||
-      c.code.toLowerCase().includes(query),
+      lower(c.code).includes(query),
   );
 
   const nav = useListboxNavigation({
@@ -440,7 +459,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
                 <input
                   ref={searchRef}
                   type="text"
-                  placeholder={searchPlaceholder ?? text.searchPlaceholder}
+                  placeholder={text.searchPlaceholder}
                   aria-label={text.searchLabel}
                   autoComplete="off"
                   spellCheck={false}
@@ -516,7 +535,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
                       classNames?.empty,
                     )}
                   >
-                    {emptyMessage ?? text.emptyMessage}
+                    {text.emptyMessage}
                   </div>
                 )}
               </div>
