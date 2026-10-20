@@ -560,7 +560,10 @@ export const LocalePicker = React.forwardRef<HTMLDivElement, LocalePickerProps>(
             ref={triggerRef}
             type="button"
             disabled={disabled}
-            onClick={() => setOpen(!open)}
+            onClick={() => {
+              if (open) setSearch("");
+              setOpen(!open);
+            }}
             data-state={open ? "open" : "closed"}
             className={cn(
               "inline-flex w-full items-center justify-between text-sm font-medium whitespace-nowrap transition-[color,background-color,border-color,box-shadow] outline-none select-none",
