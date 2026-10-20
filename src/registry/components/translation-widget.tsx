@@ -11,6 +11,31 @@ import { getLanguageName, isRtl } from "./locale-data";
 
 export type { Locale };
 
+/** Built-in UI text. Every key is optional in `labels`; omitted keys keep the English default. */
+export interface TranslationWidgetLabels {
+  /** Accessible label for the swap button (default: "Swap languages") */
+  swap: string;
+  /** Accessible label for the copy button (default: "Copy translation") */
+  copy: string;
+  /** Accessible label for the copy button right after a copy (default: "Copied") */
+  copied: string;
+  /** Screen reader announcement after a copy (default: "Translation copied to clipboard") */
+  copiedStatus: string;
+  /** Accessible label for the clear button (default: "Clear source text") */
+  clearSource: string;
+  /** Screen reader word read after the character count (default: "characters") */
+  characters: (count: number) => string;
+}
+
+const DEFAULT_LABELS: TranslationWidgetLabels = {
+  swap: "Swap languages",
+  copy: "Copy translation",
+  copied: "Copied",
+  copiedStatus: "Translation copied to clipboard",
+  clearSource: "Clear source text",
+  characters: () => "characters",
+};
+
 /** Per-part class overrides, merged after the defaults with `cn`. */
 export interface TranslationWidgetClassNames {
   /** The outer card */
@@ -83,6 +108,8 @@ export interface TranslationWidgetProps extends Omit<
   loading?: boolean;
   /** Called with the target text after it is copied to the clipboard */
   onTargetCopy?: (text: string) => void;
+  /** Override the built-in English UI text — any key you omit keeps its default */
+  labels?: Partial<TranslationWidgetLabels>;
   /** Per-part class overrides */
   classNames?: TranslationWidgetClassNames;
 }
@@ -128,6 +155,7 @@ export const TranslationWidget = React.forwardRef<HTMLDivElement, TranslationWid
       maxLength,
       loading = false,
       onTargetCopy,
+      labels,
       classNames,
       dir,
       className,
@@ -169,6 +197,7 @@ export const TranslationWidget = React.forwardRef<HTMLDivElement, TranslationWid
       [],
     );
 
+    const text = { ...DEFAULT_LABELS, ...labels };
     const sourceRtl = isRtl(activeSourceLocale);
     const targetRtl = isRtl(activeTargetLocale);
     const sourceReadOnly = readOnlySource || !onSourceChange;
@@ -290,7 +319,7 @@ export const TranslationWidget = React.forwardRef<HTMLDivElement, TranslationWid
               type="button"
               onClick={handleSwap}
               disabled={!canSwap}
-              aria-label="Swap languages"
+              aria-label={text.swap}
               whileTap={canSwap ? { scale: 0.92 } : undefined}
               className={cn(
                 "inline-flex size-8 shrink-0 items-center justify-center rounded-full border bg-background text-muted-foreground shadow-xs transition-[color,background-color,box-shadow] outline-none",
@@ -353,7 +382,7 @@ export const TranslationWidget = React.forwardRef<HTMLDivElement, TranslationWid
                     )}
                   >
                     {maxLength !== undefined ? `${source.length} / ${maxLength}` : source.length}
-                    <span className="sr-only">{" characters"}</span>
+                    <span className="sr-only">{` ${text.characters(source.length)}`}</span>
                   </span>
                 )}
                 <div className="ms-auto flex items-center gap-0.5">
@@ -362,7 +391,7 @@ export const TranslationWidget = React.forwardRef<HTMLDivElement, TranslationWid
                       type="button"
                       onClick={handleClear}
                       disabled={!source}
-                      aria-label="Clear source text"
+                      aria-label={text.clearSource}
                       className={ICON_BUTTON_CLASS}
                     >
                       <XIcon aria-hidden="true" className="size-4" />
@@ -414,7 +443,7 @@ export const TranslationWidget = React.forwardRef<HTMLDivElement, TranslationWid
                       type="button"
                       onClick={handleCopy}
                       disabled={!target || loading}
-                      aria-label={copied ? "Copied" : "Copy translation"}
+                      aria-label={copied ? text.copied : text.copy}
                       className={ICON_BUTTON_CLASS}
                     >
                       <AnimatePresence mode="wait" initial={false}>
@@ -437,7 +466,7 @@ export const TranslationWidget = React.forwardRef<HTMLDivElement, TranslationWid
                     </button>
                   )}
                   <span role="status" aria-live="polite" className="sr-only">
-                    {copied ? "Translation copied to clipboard" : ""}
+                    {copied ? text.copiedStatus : ""}
                   </span>
                 </div>
               </div>

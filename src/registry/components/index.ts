@@ -6,6 +6,7 @@ export { LanguageSwitcher } from "./language-switcher";
 export type {
   LanguageSwitcherProps,
   LanguageSwitcherClassNames,
+  LanguageSwitcherLabels,
   LanguageSwitcherOptionState,
 } from "./language-switcher";
 
@@ -16,10 +17,19 @@ export type {
 } from "./language-switcher-pill";
 
 export { PhoneInput, COUNTRIES } from "./phone-input";
-export type { PhoneInputProps, PhoneInputClassNames, Country } from "./phone-input";
+export type {
+  PhoneInputProps,
+  PhoneInputClassNames,
+  PhoneInputLabels,
+  Country,
+} from "./phone-input";
 
 export { NavBar } from "./navbar";
-export type { NavBarProps, NavBarClassNames, NavLink } from "./navbar";
+export type { NavBarProps, NavBarClassNames, NavBarLabels, NavLink } from "./navbar";
 
 export { TranslationWidget } from "./translation-widget";
-export type { TranslationWidgetProps, TranslationWidgetClassNames } from "./translation-widget";
+export type {
+  TranslationWidgetProps,
+  TranslationWidgetClassNames,
+  TranslationWidgetLabels,
+} from "./translation-widget";

@@ -493,3 +493,42 @@ describe("TranslationWidget toolbar", () => {
     expect(onSourceChange).toHaveBeenLastCalledWith("Hello!");
   });
 });
+
+describe("TranslationWidget labels", () => {
+  it("renders custom labels in place of the English defaults", async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, "clipboard", {
+      value: { writeText },
+      configurable: true,
+    });
+    render(
+      <TranslationWidget
+        sourceLocale="en"
+        targetLocale="fr"
+        defaultSourceText="Hello"
+        defaultTargetText="Bonjour"
+        onSourceChange={() => {}}
+        labels={{
+          swap: "Inverser les langues",
+          copy: "Copier la traduction",
+          copied: "Copié",
+          copiedStatus: "Traduction copiée",
+          clearSource: "Effacer le texte source",
+          characters: (count) => (count === 1 ? "caractère" : "caractères"),
+        }}
+      />,
+    );
+
+    expect(screen.getByRole("button", { name: "Inverser les langues" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Effacer le texte source" })).toBeInTheDocument();
+    expect(screen.getByRole("textbox", { name: /source text/i })).toHaveAccessibleDescription(
+      /^5\s*caractères$/,
+    );
+
+    await act(async () => {
+      screen.getByRole("button", { name: "Copier la traduction" }).click();
+    });
+    expect(screen.getByRole("button", { name: "Copié" })).toBeInTheDocument();
+    expect(screen.getByRole("status")).toHaveTextContent("Traduction copiée");
+  });
+});
