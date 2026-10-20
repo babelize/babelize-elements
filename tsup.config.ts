@@ -14,7 +14,7 @@ export default defineConfig([
     entry: { index: "src/registry/components/index.ts" },
     format: ["esm", "cjs"],
     dts: true,
-    external: ["react", "react-dom", "next", "clsx", "tailwind-merge"],
+    external: ["react", "react-dom", "next", "clsx", "tailwind-merge", "lucide-react", "motion"],
     // Every component in this entry is stateful, and bundling strips the
     // per-file directives. Without this the package throws
     // "useState is not a function" the moment a React Server Component

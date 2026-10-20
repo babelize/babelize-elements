@@ -207,7 +207,7 @@ async function listComponents(): Promise<void> {
     const title = item.title ?? item.name;
     log(`  ${CYAN}${item.name}${RESET} — ${item.description ?? title}`);
   }
-  log(`\nInstall a component:\n  npx shadcn@latest add @elements/<component>`);
+  log(`\nInstall a component:\n  npx shadcn@latest add @babelize/<component>`);
   log(`  npx @babelize/elements add <component>`);
 }
 

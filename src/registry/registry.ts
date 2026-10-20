@@ -35,7 +35,7 @@ const ITEMS: ItemDef[] = [
     type: "registry:ui",
     source: "registry/components/language-switcher",
     filePath: "ui/language-switcher.tsx",
-    dependencies: ["clsx", "tailwind-merge"],
+    dependencies: ["clsx", "tailwind-merge", "lucide-react", "motion"],
     registryDependencies: [
       "locale-types",
       "locale-data",
@@ -50,8 +50,8 @@ const ITEMS: ItemDef[] = [
     type: "registry:ui",
     source: "registry/components/language-switcher-pill",
     filePath: "ui/language-switcher-pill.tsx",
-    dependencies: ["clsx", "tailwind-merge"],
-    registryDependencies: ["locale-types", "use-controllable-state"],
+    dependencies: ["clsx", "tailwind-merge", "motion"],
+    registryDependencies: ["locale-types", "locale-data", "use-controllable-state"],
   },
   {
     name: "phone-input",
@@ -61,7 +61,7 @@ const ITEMS: ItemDef[] = [
     type: "registry:ui",
     source: "registry/components/phone-input",
     filePath: "ui/phone-input.tsx",
-    dependencies: ["clsx", "tailwind-merge"],
+    dependencies: ["clsx", "tailwind-merge", "lucide-react", "motion"],
     registryDependencies: ["use-controllable-state", "use-listbox-navigation"],
   },
   {
@@ -72,7 +72,7 @@ const ITEMS: ItemDef[] = [
     type: "registry:ui",
     source: "registry/components/navbar",
     filePath: "ui/navbar.tsx",
-    dependencies: ["clsx", "tailwind-merge"],
+    dependencies: ["clsx", "tailwind-merge", "lucide-react", "motion"],
     registryDependencies: [
       "locale-types",
       "locale-data",
@@ -84,12 +84,17 @@ const ITEMS: ItemDef[] = [
     name: "translation-widget",
     title: "Translation Widget",
     description:
-      "Side-by-side translation view with editable target, RTL-aware layout, and claymorphism styling.",
+      "Side-by-side translation view with editable target, swap, copy, character count, and RTL-aware layout.",
     type: "registry:ui",
     source: "registry/components/translation-widget",
     filePath: "ui/translation-widget.tsx",
-    dependencies: ["clsx", "tailwind-merge"],
-    registryDependencies: ["language-switcher", "locale-types", "use-controllable-state"],
+    dependencies: ["clsx", "tailwind-merge", "lucide-react", "motion"],
+    registryDependencies: [
+      "language-switcher",
+      "locale-types",
+      "locale-data",
+      "use-controllable-state",
+    ],
   },
   {
     name: "locale-data",

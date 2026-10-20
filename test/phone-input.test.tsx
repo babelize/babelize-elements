@@ -227,4 +227,71 @@ describe("PhoneInput keyboard navigation", () => {
 
     expect(screen.getByRole("listbox").style.maxHeight).toBe("240px");
   });
+
+  it("restricts and orders the menu with the countries prop", async () => {
+    const subset = COUNTRIES.filter((c) => ["DE", "FR", "IN"].includes(c.code)).reverse();
+    render(<PhoneInput countries={subset} defaultCountry="FR" />);
+    expect(screen.getByText("+33")).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Select country" }));
+    expect(screen.getAllByRole("option").map((o) => o.textContent)).toEqual(
+      subset.map((c) => `${c.flag}${c.name}${c.dialCode}`),
+    );
+  });
+
+  it("falls back to the first given country when defaultCountry is not offered", () => {
+    const subset = COUNTRIES.filter((c) => c.code === "IN");
+    render(<PhoneInput countries={subset} defaultCountry="US" />);
+    expect(screen.getByText("+91")).toBeInTheDocument();
+  });
+
+  it("uses custom search placeholder and empty message", async () => {
+    render(<PhoneInput searchPlaceholder="Find a country" emptyMessage="Nothing here" />);
+    await userEvent.click(screen.getByRole("button", { name: "Select country" }));
+
+    await userEvent.type(screen.getByPlaceholderText("Find a country"), "zzzz");
+    expect(screen.queryAllByRole("option")).toHaveLength(0);
+    expect(screen.getByText("Nothing here")).toBeInTheDocument();
+  });
+
+  it("clears the search with the clear button", async () => {
+    render(<PhoneInput />);
+    await userEvent.click(screen.getByRole("button", { name: "Select country" }));
+    await userEvent.type(searchBox(), "Germ");
+    expect(screen.getAllByRole("option")).toHaveLength(1);
+
+    await userEvent.click(screen.getByRole("button", { name: "Clear search" }));
+    expect(searchBox()).toHaveValue("");
+    expect(screen.getAllByRole("option")).toHaveLength(COUNTRIES.length);
+  });
+
+  it("merges classNames onto each part", async () => {
+    render(
+      <PhoneInput
+        className="root-x"
+        classNames={{ field: "field-x", trigger: "trigger-x", input: "input-x", list: "list-x" }}
+      />,
+    );
+    const input = screen.getByRole("textbox", { name: "Phone number" });
+    expect(input).toHaveClass("input-x");
+    expect(input.parentElement).toHaveClass("field-x");
+    expect(input.parentElement?.parentElement).toHaveClass("root-x");
+    expect(screen.getByRole("button", { name: "Select country" })).toHaveClass("trigger-x");
+
+    await userEvent.click(screen.getByRole("button", { name: "Select country" }));
+    expect(screen.getByRole("listbox")).toHaveClass("list-x");
+  });
+
+  it("applies the size prop to the field height", () => {
+    render(<PhoneInput size="lg" />);
+    expect(screen.getByRole("textbox").parentElement).toHaveClass("h-10");
+  });
+
+  it("does not open the menu while disabled", async () => {
+    render(<PhoneInput disabled />);
+    const trigger = screen.getByRole("button", { name: "Select country" });
+    expect(trigger).toBeDisabled();
+    await userEvent.click(trigger);
+    expect(screen.queryByRole("listbox")).toBeNull();
+  });
 });

@@ -30,7 +30,7 @@
 
 **Babelize Elements** is a community-built library of **Localization UI components** for React and Tailwind CSS. Every localized app needs a language switcher, a locale picker, RTL-aware layouts, and pluralization UI — Elements turns that repetitive work into a shared, open-source toolbox.
 
-- **Easy to install** — `npm install @babelize/elements` for the full library, or add components one at a time with `npx shadcn@latest add @elements/<component>`.
+- **Easy to install** — `npm install @babelize/elements` for the full library, or add components one at a time with `npx shadcn@latest add @babelize/<component>`.
 - **No framework lock-in** — plain React and Tailwind. No Next.js, no router, no theme provider required.
 - **Localization-first** — pluralization, RTL, and locale data built into every component.
 - **Accessible** — keyboard support, ARIA labels, and WCAG-aware markup.
@@ -58,16 +58,19 @@ the components render unstyled:
 content: ["./src/**/*.{ts,tsx}", "./node_modules/@babelize/elements/dist/**/*.js"],
 ```
 
+Components are styled with shadcn/ui theme tokens. In a shadcn project they pick up
+your theme automatically; otherwise add the tokens once — see
+[Theme tokens](https://elements.babelize.co/docs/getting-started/install#theme-tokens).
+
 Components installed with the CLI below live in your own source tree, so they need
 no extra Tailwind config.
 
 ### Individual components
 
-Install a component with the shadcn CLI (register the registry once):
+Install a component with the shadcn CLI — `@babelize` is in the official shadcn registry directory, so no setup is needed:
 
 ```bash
-npx shadcn@latest registry add @elements=https://elements.babelize.co/r/{name}.json
-npx shadcn@latest add @elements/language-switcher
+npx shadcn@latest add @babelize/language-switcher
 ```
 
 Or with the CLI bundled in `@babelize/elements`:

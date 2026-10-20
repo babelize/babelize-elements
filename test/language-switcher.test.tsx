@@ -256,6 +256,23 @@ describe("LanguageSwitcher flags", () => {
     const flags = await renderFlags(["ml", "am", "cy"]);
     expect(flags).toEqual(["\u{1F1EE}\u{1F1F3}", "\u{1F1EA}\u{1F1F9}", "\u{1F1EC}\u{1F1E7}"]);
   });
+
+  it("resolves regional flags when a 2-letter region subtag is present (issue #26)", async () => {
+    const regionalCodes = ["en-GB", "pt-PT", "es-MX", "fr-CA", "zh-TW"];
+    const flags = await renderFlags(regionalCodes);
+
+    expect(decodeRegion(flags[0])).toBe("GB"); // en-GB -> GB, not US
+    expect(decodeRegion(flags[1])).toBe("PT"); // pt-PT -> PT, not BR
+    expect(decodeRegion(flags[2])).toBe("MX"); // es-MX -> MX, not ES
+    expect(decodeRegion(flags[3])).toBe("CA"); // fr-CA -> CA, not FR
+    expect(decodeRegion(flags[4])).toBe("TW"); // zh-TW -> TW, not CN
+  });
+
+  it("falls back to the base language for script-only subtags (issue #26)", async () => {
+    const flags = await renderFlags(["zh-Hant", "sr-Latn"]);
+    expect(decodeRegion(flags[0])).toBe("CN"); // falls back to zh -> CN
+    expect(decodeRegion(flags[1])).toBe("RS"); // falls back to sr -> RS
+  });
 });
 
 describe("LanguageSwitcher keyboard navigation", () => {

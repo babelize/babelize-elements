@@ -6,8 +6,18 @@
  */
 const RTL_LOCALES = new Set(["ar", "he", "fa", "ur", "ps", "sd", "yi"]);
 
+/** ISO 15924 scripts written right to left. */
+const RTL_SCRIPTS = new Set(["arab", "hebr", "thaa", "nkoo", "adlm", "syrc", "samr"]);
+
+/**
+ * Whether a locale is written right to left. An explicit script subtag decides
+ * on its own, so "pa-Arab" is RTL and "sd-Deva" is not; otherwise the base
+ * language does.
+ */
 export function isRtl(code: string): boolean {
-  const lang = code.split("-")[0].toLowerCase();
+  const [lang, ...rest] = code.toLowerCase().split("-");
+  const script = rest.find((subtag) => /^[a-z]{4}$/.test(subtag));
+  if (script) return RTL_SCRIPTS.has(script);
   return RTL_LOCALES.has(lang);
 }
 
@@ -110,7 +120,25 @@ const LANG_TO_FLAG: Record<string, string> = {
   la: "\u{1F1FB}\u{1F1E6}",
 };
 
+/**
+ * Resolve a flag emoji for a locale code.
+ *
+ * Uses the 2-letter ISO 3166-1 region subtag (e.g. 'en-GB' -> 🇬🇧) when present,
+ * falling back to the base language mapping or a default globe symbol.
+ */
 export function getFlag(code: string): string {
+  if (!code) return "\u{1F310}";
+
+  try {
+    const locale = new Intl.Locale(code);
+    if (locale.region && /^[A-Za-z]{2}$/.test(locale.region)) {
+      const chars = [...locale.region.toUpperCase()].map((c) => 0x1f1e6 + c.charCodeAt(0) - 65);
+      return String.fromCodePoint(...chars);
+    }
+  } catch {
+    // fallback to language lookup if invalid locale code
+  }
+
   const lang = code.split("-")[0].toLowerCase();
   return LANG_TO_FLAG[lang] ?? "\u{1F310}";
 }
@@ -217,6 +245,20 @@ export function getLanguageName(
 ): string | undefined {
   const lang = code.split("-")[0].toLowerCase();
   const names = LANG_NAMES[lang];
-  if (!names) return undefined;
-  return mode === "native" ? names[0] : names[1];
+  if (names) return mode === "native" ? names[0] : names[1];
+  return displayName(lang, mode);
+}
+
+/** `Intl.DisplayNames` fallback for languages missing from the built-in table. */
+function displayName(lang: string, mode: "native" | "english"): string | undefined {
+  try {
+    const name = new Intl.DisplayNames([mode === "native" ? lang : "en"], {
+      type: "language",
+      fallback: "none",
+    }).of(lang);
+    return name && name.toLowerCase() !== lang ? name : undefined;
+  } catch {
+    // Malformed code, or no Intl.DisplayNames in this runtime.
+    return undefined;
+  }
 }

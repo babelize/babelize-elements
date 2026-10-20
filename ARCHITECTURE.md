@@ -33,6 +33,8 @@ src/
     utils.ts             ← cn(); published, also served as a registry item
     use-controllable-state.ts  ← published, also served as a registry item
     source.ts            website only (Fumadocs loader)
+    demo/                website only — data and scaffolding the docs demos import,
+                           so each `*-demo.tsx` (shown in the Code tab) stays short
   cli/
     index.ts             `npx @babelize/elements add <component>`
     paths.ts             tsconfig alias resolution (pure, unit-tested)
@@ -45,11 +47,9 @@ src/
     landing/             website only
     docs/                website only — live demos + the docs code panels
       *-demo.tsx           live demo rendered in the Preview tab
-      preview-components.tsx  server: reads the demo file, highlights it
-      component-source.tsx    server: reads a registry item's source
-      source.ts               shared file-read + shiki highlight helper
-      preview-shell.tsx       client: Preview / Code tabs
-      code-panel.tsx          client: file bar, scroll cap, copy, expand
+      preview-components.tsx  server: Preview / Code tabs, reads the demo file
+      preview-card.tsx        client: preview toolbar (theme, dark mode, Open in v0) + stage
+      preview-themes.ts       client: shadcn accent palettes + shared preview prefs
 
 content/docs/            MDX documentation, sidebar order in meta.json
 test/                    vitest; mirrors component names
@@ -89,13 +89,30 @@ not stylistic — the tests and the public API depend on them.
 4. **Shared types come from `./types`.** Do not declare a local `Locale`. Two
    divergent copies previously hid behind a `NavBarLocale` alias.
 
-Also: `"use client"` at the top, Tailwind utility classes only (no CSS-variable
-design tokens), dark mode via `dark:` variants, and TSDoc on every prop.
+Also: `"use client"` at the top, Tailwind utility classes only, and TSDoc on every
+prop.
 
-**No framework dependencies.** The package's only runtime deps are `clsx` and
-`tailwind-merge`. `NavBar` needs link rendering, so it takes a `linkComponent`
-prop defaulting to `"a"` rather than importing `next/link` — that keeps the
-library usable in Vite, Remix, or plain React.
+**Styling: shadcn semantic tokens.** Components use `bg-popover`, `text-muted-foreground`,
+`border-input`, `ring-ring/50`, `bg-accent` and friends — never raw palette colours
+like `zinc-*` or `emerald-*` — so they inherit the consumer's shadcn theme. Dark mode
+comes from the tokens; reach for `dark:` only where shadcn itself does
+(`dark:bg-input/30`). The docs site defines the tokens in `src/app/globals.css`.
+
+**Customisation surface.** Every visual component takes a `classNames` prop (one key
+per part, merged last with `cn`) plus `size` / `variant` where they make sense, and
+exports its `*ClassNames` interface from the barrel.
+
+**Motion.** Animations use `motion/react`, wrapped in
+`<MotionConfig reducedMotion="user">`. Popups render inside `AnimatePresence` and mark
+themselves `aria-hidden` while exiting (`useIsPresent`), so a closing menu leaves the
+accessibility tree immediately. Tests set `MotionGlobalConfig.skipAnimations`.
+
+**Dependencies.** Runtime deps are `clsx`, `tailwind-merge`, `motion` and
+`lucide-react` — keep them in sync across `package.json`, the `external` list in
+`tsup.config.ts`, and each item's `dependencies` in `registry.ts`. No framework
+dependencies: `NavBar` needs link rendering, so it takes a `linkComponent` prop
+defaulting to `"a"` rather than importing `next/link` — that keeps the library usable
+in Vite, Remix, or plain React.
 
 ## Adding a component
 

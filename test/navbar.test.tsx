@@ -162,6 +162,64 @@ describe("NavBar", () => {
   });
 });
 
+describe("NavBar direction", () => {
+  it("mirrors the bar when selecting an RTL locale and switches back for LTR", async () => {
+    render(<NavBar locales={[{ code: "en" }, { code: "ar" }]} />);
+    const bar = screen.getByRole("navigation");
+    const trigger = () => screen.getAllByRole("button", { name: /Current language/ })[0];
+    expect(bar).toHaveAttribute("dir", "ltr");
+    await userEvent.click(trigger());
+    await userEvent.click(screen.getByRole("option", { name: /العربية/ }));
+    expect(bar).toHaveAttribute("dir", "rtl");
+    await userEvent.click(trigger());
+    await userEvent.click(screen.getByRole("option", { name: /English/ }));
+    expect(bar).toHaveAttribute("dir", "ltr");
+  });
+
+  it.each([
+    { code: "en", rtl: true, expected: "rtl" },
+    { code: "ar", rtl: false, expected: "ltr" },
+    { code: "ar-EG", rtl: undefined, expected: "rtl" },
+  ])("resolves $code with rtl=$rtl to $expected", ({ code, rtl, expected }) => {
+    render(<NavBar locales={[{ code, rtl }]} />);
+    expect(screen.getByRole("navigation")).toHaveAttribute("dir", expected);
+  });
+
+  it.each(["ltr", "rtl", "auto"])("honors an explicit dir=%s", (dir) => {
+    render(<NavBar locales={[{ code: "ar" }]} dir={dir} />);
+    expect(screen.getByRole("navigation")).toHaveAttribute("dir", dir);
+  });
+
+  it("follows controlled locale updates", () => {
+    const { rerender } = render(<NavBar locales={[{ code: "en" }, { code: "ar" }]} value="en" />);
+    rerender(<NavBar locales={[{ code: "en" }, { code: "ar" }]} value="ar" />);
+    expect(screen.getByRole("navigation")).toHaveAttribute("dir", "rtl");
+  });
+
+  it.each([0, 1])("keeps each option's direction in menu %i", async (triggerIndex) => {
+    render(
+      <NavBar
+        locales={[
+          { code: "en" },
+          { code: "ar" },
+          { code: "fr", rtl: true },
+          { code: "he", rtl: false },
+        ]}
+      />,
+    );
+    await userEvent.click(
+      screen.getAllByRole("button", { name: /Current language/ })[triggerIndex],
+    );
+    const options = screen.getAllByRole("option");
+    expect(options.map((option) => option.getAttribute("dir"))).toEqual([
+      "ltr",
+      "rtl",
+      "rtl",
+      "ltr",
+    ]);
+  });
+});
+
 describe("NavBar keyboard navigation", () => {
   const triggers = () => screen.getAllByRole("button", { name: /Current language/ });
   // Index 0 is the desktop bar, index 1 the mobile one — both live in the DOM.
@@ -290,5 +348,103 @@ describe("NavBar keyboard navigation", () => {
     expect(scroller.scrollTop).toBe(60); // clamped: 160px of content, 100px viewport
     expect(document.documentElement.scrollTop).toBe(0);
     expect(document.body.scrollTop).toBe(0);
+  });
+});
+
+describe("NavBar customization", () => {
+  it("marks the link matching activeHref as the current page", () => {
+    render(<NavBar links={links} activeHref="/blog" />);
+
+    for (const blog of screen.getAllByRole("link", { name: "Blog" })) {
+      expect(blog).toHaveAttribute("aria-current", "page");
+    }
+    for (const docs of screen.getAllByRole("link", { name: "Docs" })) {
+      expect(docs).not.toHaveAttribute("aria-current");
+    }
+  });
+
+  it("renders the floating variant as an inset card", () => {
+    render(<NavBar links={links} variant="floating" classNames={{ container: "custom-card" }} />);
+    const card = screen.getByRole("navigation").firstElementChild;
+
+    expect(card).toHaveClass("custom-card", "rounded-2xl", "border");
+  });
+
+  it("applies classNames to each part", async () => {
+    render(
+      <NavBar
+        links={links}
+        locales={locales}
+        cta={{ label: "Sign up", href: "/signup" }}
+        classNames={{
+          root: "custom-root",
+          link: "custom-link",
+          cta: "custom-cta",
+          languageTrigger: "custom-trigger",
+          languageContent: "custom-content",
+          languageItem: "custom-item",
+        }}
+      />,
+    );
+
+    expect(screen.getByRole("navigation")).toHaveClass("custom-root");
+    expect(screen.getAllByRole("link", { name: "Docs" })[0]).toHaveClass("custom-link");
+    expect(screen.getAllByRole("link", { name: "Sign up" })[0]).toHaveClass("custom-cta");
+
+    const trigger = screen.getAllByRole("button", { name: /Current language/ })[0];
+    expect(trigger).toHaveClass("custom-trigger");
+    await userEvent.click(trigger);
+    expect(screen.getByRole("listbox").parentElement).toHaveClass("custom-content");
+    expect(screen.getAllByRole("option")[0]).toHaveClass("custom-item");
+  });
+
+  it("shows a globe on the language triggers when flags are off", () => {
+    render(<NavBar locales={locales} showFlags={false} />);
+
+    for (const trigger of screen.getAllByRole("button", { name: /Current language/ })) {
+      expect(trigger.querySelector("svg")).not.toBeNull();
+      expect(trigger).not.toHaveTextContent("\u{1F1FA}\u{1F1F8}");
+    }
+  });
+
+  it("removes the mobile menu from the accessibility tree once closed", async () => {
+    render(<NavBar links={links} classNames={{ mobileMenu: "custom-mobile" }} />);
+    const toggle = screen.getByRole("button", { name: "Toggle menu" });
+
+    await userEvent.click(toggle);
+    const panel = document.getElementById(toggle.getAttribute("aria-controls")!);
+    expect(panel).toHaveClass("custom-mobile");
+
+    await userEvent.click(toggle);
+    expect(toggle).not.toHaveAttribute("aria-controls");
+    expect(screen.getAllByRole("link", { name: "Docs" })).toHaveLength(1);
+  });
+});
+
+describe("NavBar GitHub link", () => {
+  const githubLinks = () => screen.queryAllByRole("link", { name: "GitHub" });
+
+  it.each([
+    ["acme/website", "https://github.com/acme/website"],
+    ["acme", "https://github.com/acme"],
+    ["github.com/acme/website/", "https://github.com/acme/website"],
+    ["https://github.com/acme/website", "https://github.com/acme/website"],
+    ["https://gitlab.com/acme/website", "https://gitlab.com/acme/website"],
+  ])("resolves githubUrl=%s to %s", (githubUrl, href) => {
+    render(<NavBar showGitHub githubUrl={githubUrl} />);
+    expect(githubLinks()[0]).toHaveAttribute("href", href);
+  });
+
+  it("renders nothing and warns when showGitHub has no githubUrl", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    render(<NavBar showGitHub />);
+    expect(githubLinks()).toHaveLength(0);
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining("`showGitHub` needs `githubUrl`"));
+    warn.mockRestore();
+  });
+
+  it("stays hidden without showGitHub, even with a githubUrl", () => {
+    render(<NavBar githubUrl="acme/website" />);
+    expect(githubLinks()).toHaveLength(0);
   });
 });

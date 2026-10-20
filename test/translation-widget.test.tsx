@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as React from "react";
 import { TranslationWidget } from "@/registry/components";
@@ -345,5 +345,151 @@ describe("TranslationWidget", () => {
     expect(screen.getByRole("textbox", { name: /target text/i })).toHaveAttribute("dir", "rtl");
     expect(screen.getByRole("textbox", { name: /target text/i })).toHaveAttribute("lang", "ar");
     expect(screen.getByRole("button", { name: "Current language: Arabic" })).toBeInTheDocument();
+  });
+});
+
+describe("TranslationWidget toolbar", () => {
+  it("shows the source character count, with the limit when maxLength is set", () => {
+    const { rerender } = render(
+      <TranslationWidget sourceLocale="en" targetLocale="fr" sourceText="Hello" />,
+    );
+    expect(screen.getByRole("textbox", { name: /source text/i })).toHaveAccessibleDescription(
+      /^5\s*characters$/,
+    );
+
+    rerender(
+      <TranslationWidget sourceLocale="en" targetLocale="fr" sourceText="Hello" maxLength={10} />,
+    );
+    expect(screen.getByRole("textbox", { name: /source text/i })).toHaveAccessibleDescription(
+      /^5 \/ 10\s*characters$/,
+    );
+    expect(screen.getByRole("textbox", { name: /source text/i })).toHaveAttribute(
+      "maxlength",
+      "10",
+    );
+  });
+
+  it("hides the count with showCount={false}", () => {
+    render(
+      <TranslationWidget
+        sourceLocale="en"
+        targetLocale="fr"
+        sourceText="Hello"
+        showCount={false}
+      />,
+    );
+    expect(screen.getByRole("textbox", { name: /source text/i })).not.toHaveAttribute(
+      "aria-describedby",
+    );
+    expect(screen.queryByText("5")).not.toBeInTheDocument();
+  });
+
+  it("clears an editable source and refocuses it", async () => {
+    const onSourceChange = vi.fn();
+    render(
+      <TranslationWidget
+        sourceLocale="en"
+        targetLocale="fr"
+        sourceText="Hello"
+        onSourceChange={onSourceChange}
+      />,
+    );
+    await userEvent.click(screen.getByRole("button", { name: "Clear source text" }));
+    expect(onSourceChange).toHaveBeenLastCalledWith("");
+    expect(document.activeElement).toBe(screen.getByRole("textbox", { name: /source text/i }));
+  });
+
+  it("offers no clear button on a read-only source or with showClear={false}", () => {
+    const { rerender } = render(
+      <TranslationWidget sourceLocale="en" targetLocale="fr" sourceText="Hello" />,
+    );
+    expect(screen.queryByRole("button", { name: "Clear source text" })).not.toBeInTheDocument();
+
+    rerender(
+      <TranslationWidget
+        sourceLocale="en"
+        targetLocale="fr"
+        sourceText="Hello"
+        onSourceChange={() => {}}
+        showClear={false}
+      />,
+    );
+    expect(screen.queryByRole("button", { name: "Clear source text" })).not.toBeInTheDocument();
+  });
+
+  it("copies the target text and confirms it", async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, "clipboard", {
+      value: { writeText },
+      configurable: true,
+    });
+    const onTargetCopy = vi.fn();
+    render(
+      <TranslationWidget
+        sourceLocale="en"
+        targetLocale="fr"
+        defaultTargetText="Bonjour"
+        onTargetCopy={onTargetCopy}
+      />,
+    );
+
+    await act(async () => {
+      screen.getByRole("button", { name: "Copy translation" }).click();
+    });
+
+    expect(writeText).toHaveBeenCalledWith("Bonjour");
+    expect(onTargetCopy).toHaveBeenCalledWith("Bonjour");
+    expect(screen.getByRole("button", { name: "Copied" })).toBeInTheDocument();
+    expect(screen.getByRole("status")).toHaveTextContent("Translation copied to clipboard");
+  });
+
+  it("disables copy for an empty target and hides it with showCopy={false}", () => {
+    const { rerender } = render(<TranslationWidget sourceLocale="en" targetLocale="fr" />);
+    expect(screen.getByRole("button", { name: "Copy translation" })).toBeDisabled();
+
+    rerender(<TranslationWidget sourceLocale="en" targetLocale="fr" showCopy={false} />);
+    expect(screen.queryByRole("button", { name: "Copy translation" })).not.toBeInTheDocument();
+  });
+
+  it("marks the target pane busy while loading", () => {
+    render(
+      <TranslationWidget sourceLocale="en" targetLocale="fr" defaultTargetText="Bonjour" loading />,
+    );
+    expect(screen.getByRole("textbox", { name: /target text/i })).toHaveAttribute(
+      "aria-busy",
+      "true",
+    );
+    expect(screen.getByRole("button", { name: "Copy translation" })).toBeDisabled();
+  });
+
+  it("applies classNames to each part", () => {
+    const { container } = render(
+      <TranslationWidget
+        sourceLocale="en"
+        targetLocale="fr"
+        classNames={{ root: "x-root", header: "x-header", textarea: "x-textarea", chip: "x-chip" }}
+      />,
+    );
+    expect(container.firstElementChild).toHaveClass("x-root");
+    expect(container.firstElementChild?.firstElementChild).toHaveClass("x-header");
+    expect(screen.getByRole("textbox", { name: /source text/i })).toHaveClass("x-textarea");
+    expect(container.querySelectorAll(".x-chip")).toHaveLength(2);
+  });
+
+  it("seeds an uncontrolled, editable source pane from defaultSourceText", async () => {
+    const onSourceChange = vi.fn();
+    render(
+      <TranslationWidget
+        sourceLocale="en"
+        targetLocale="fr"
+        defaultSourceText="Hello"
+        onSourceChange={onSourceChange}
+      />,
+    );
+    const source = screen.getByRole("textbox", { name: /source text/i });
+    expect(source).toHaveValue("Hello");
+    await userEvent.type(source, "!");
+    expect(source).toHaveValue("Hello!");
+    expect(onSourceChange).toHaveBeenLastCalledWith("Hello!");
   });
 });

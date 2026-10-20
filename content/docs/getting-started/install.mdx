@@ -7,18 +7,43 @@ icon: Download
 import { Tabs, Tab } from "fumadocs-ui/components/tabs";
 
 Babelize Elements drops into any React + Tailwind CSS project — Next.js, Vite, Remix,
-or anything else that bundles React. The package ships TypeScript types, both ESM and
-CJS builds, and no runtime dependencies beyond React and Tailwind CSS.
+or anything else that bundles React. The package ships TypeScript types and both ESM and
+CJS builds. Runtime dependencies are small and standard in the shadcn ecosystem:
+`motion` for animation and `lucide-react` for icons.
 
 ## Package Manager
 
 Install the full library with your preferred package manager:
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
-  <Tab value="npm">```bash npm install @babelize/elements ```</Tab>
-  <Tab value="pnpm">```bash pnpm add @babelize/elements ```</Tab>
-  <Tab value="yarn">```bash yarn add @babelize/elements ```</Tab>
-  <Tab value="bun">```bash bun add @babelize/elements ```</Tab>
+  <Tab value="npm">
+
+```bash
+npm install @babelize/elements
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm add @babelize/elements
+```
+
+  </Tab>
+  <Tab value="yarn">
+
+```bash
+yarn add @babelize/elements
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bun add @babelize/elements
+```
+
+  </Tab>
 </Tabs>
 
 ## Tell Tailwind about the package
@@ -57,13 +82,105 @@ This step is only for the npm package. Components installed with the
 [shadcn CLI](/docs/getting-started/shadcn-cli) live in your own source tree, which
 Tailwind already scans.
 
+## Theme tokens
+
+Components are styled with [shadcn/ui](https://ui.shadcn.com/docs/theming) semantic
+tokens — `bg-popover`, `text-muted-foreground`, `ring-ring`, and so on — so they
+pick up your app's theme, radius, and dark mode automatically.
+
+**Already using shadcn/ui?** Nothing to do: `shadcn init` defined the tokens.
+
+**Not using shadcn/ui?** Add the tokens once to the CSS file that imports Tailwind.
+This is the shadcn neutral theme; change any value to match your brand.
+
+```css title="app/globals.css"
+/* Make `dark:` follow the `.dark` class, as the tokens below do. */
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+```
+
+On Tailwind v3, map the same variables under `theme.extend.colors` in
+`tailwind.config.js`, as in the
+[shadcn v3 guide](https://v3.shadcn.com/docs/theming). Components are designed for
+Tailwind v4; on v3 they work, but some v4-only utilities (such as `shadow-xs`) fall
+back to no effect.
+
+Every component also takes a `classNames` prop for per-part overrides, so you can
+restyle any slot without forking the source.
+
 ## Install individual components
 
 Prefer installing components one at a time, straight into your codebase? Use the [shadcn CLI](/docs/getting-started/shadcn-cli):
 
 ```bash
-npx shadcn@latest registry add @elements=https://elements.babelize.co/r/{name}.json
-npx shadcn@latest add @elements/language-switcher
+npx shadcn@latest add @babelize/language-switcher
 ```
 
 Or use the CLI that ships inside the package:
