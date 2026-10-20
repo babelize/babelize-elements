@@ -140,23 +140,6 @@ const ITEMS: ItemDef[] = [
     dependencies: ["clsx", "tailwind-merge"],
   },
   {
-    name: "locale-number",
-    title: "Locale Number",
-    description:
-      "Locale-aware number formatting for decimals, percentages, units, and compact notation.",
-    type: "registry:ui",
-    source: "registry/components/locale-number",
-    filePath: "ui/locale-number.tsx",
-  },
-  {
-    name: "relative-time",
-    title: "Relative Time",
-    description: "Locale-aware relative time formatting with optional live updates.",
-    type: "registry:ui",
-    source: "registry/components/relative-time",
-    filePath: "ui/relative-time.tsx",
-  },
-  {
     name: "locale-picker",
     title: "Locale Picker",
     description:
@@ -164,7 +147,7 @@ const ITEMS: ItemDef[] = [
     type: "registry:ui",
     source: "registry/components/locale-picker",
     filePath: "ui/locale-picker.tsx",
-    dependencies: ["clsx", "tailwind-merge"],
+    dependencies: ["clsx", "tailwind-merge", "lucide-react", "motion"],
     registryDependencies: [
       "locale-types",
       "locale-data",

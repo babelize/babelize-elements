@@ -22,13 +22,7 @@ export { NavBar } from "./navbar";
 export type { NavBarProps, NavBarClassNames, NavLink } from "./navbar";
 
 export { TranslationWidget } from "./translation-widget";
-export type { TranslationWidgetProps } from "./translation-widget";
-
-export { LocaleNumber } from "./locale-number";
-export type { LocaleNumberProps } from "./locale-number";
-
-export { RelativeTime } from "./relative-time";
-export type { RelativeTimeProps } from "./relative-time";
+export type { TranslationWidgetProps, TranslationWidgetClassNames } from "./translation-widget";
 
 export { LocalePicker } from "./locale-picker";
-export type { LocalePickerProps } from "./locale-picker";
+export type { LocalePickerProps, LocalePickerClassNames } from "./locale-picker";

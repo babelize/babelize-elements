@@ -1,10 +1,11 @@
-import { describe, expect, it, vi } from "vitest";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as React from "react";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { renderToString } from "react-dom/server";
+import { MotionGlobalConfig } from "motion/react";
 import { LocalePicker } from "@/registry/components";
 
 const regions = ["IN", "US", "GB", "DE", "JP"];
@@ -471,5 +472,185 @@ describe("LocalePicker first-day fallback table", () => {
     expect(FIRST_DAY_TABLE.AE).toBeUndefined();
     expect(FIRST_DAY_TABLE).toHaveProperty("IN", 7);
     expect(FIRST_DAY_TABLE).toHaveProperty("US", 7);
+  });
+});
+
+/**
+ * The popup panel — the listbox's parent, per the component's structure. Hidden
+ * elements are included so the panel can be found while it exits (`aria-hidden`).
+ */
+const popupPanel = () => screen.getByRole("listbox", { hidden: true }).parentElement as HTMLElement;
+
+describe("LocalePicker appearance props", () => {
+  it("applies the trigger variant and size", () => {
+    const { rerender } = render(<LocalePicker regions={regions} variant="outline" size="sm" />);
+    expect(trigger()).toHaveClass("border-input", "h-8");
+
+    rerender(<LocalePicker regions={regions} variant="ghost" size="default" />);
+    expect(trigger()).toHaveClass("hover:bg-accent", "h-9");
+    expect(trigger()).not.toHaveClass("border-input");
+
+    rerender(<LocalePicker regions={regions} variant="secondary" size="lg" />);
+    expect(trigger()).toHaveClass("bg-secondary", "h-10");
+  });
+
+  it("keeps the popup on the preferred side when the viewport has room", async () => {
+    render(<LocalePicker regions={regions} />);
+    await userEvent.click(trigger());
+
+    expect(popupPanel()).toHaveClass("top-full", "mt-1.5", "start-0");
+    expect(popupPanel()).toHaveAttribute("data-side", "bottom");
+  });
+
+  it("flips the popup to the other side when the preferred one has no room", async () => {
+    render(<LocalePicker regions={regions} />);
+    // Pin the trigger against the bottom of the viewport: there is no room below.
+    vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockReturnValue({
+      x: 0,
+      y: 700,
+      top: 700,
+      right: 100,
+      bottom: 765,
+      left: 0,
+      width: 100,
+      height: 65,
+      toJSON: () => ({}),
+    } as DOMRect);
+
+    await userEvent.click(trigger());
+
+    expect(popupPanel()).toHaveClass("bottom-full", "mb-1.5");
+    expect(popupPanel()).toHaveAttribute("data-side", "top");
+    vi.restoreAllMocks();
+  });
+
+  it("lines the popup up with the far edge of the trigger when asked", async () => {
+    render(<LocalePicker regions={regions} align="end" />);
+    await userEvent.click(trigger());
+
+    expect(popupPanel()).toHaveClass("end-0");
+    expect(popupPanel()).not.toHaveClass("start-0");
+  });
+});
+
+describe("LocalePicker popup props", () => {
+  it("honours searchPlaceholder", async () => {
+    render(<LocalePicker regions={regions} searchPlaceholder="Find a region" />);
+    await userEvent.click(trigger());
+    expect(searchBox()).toHaveAttribute("placeholder", "Find a region");
+  });
+
+  it("shows a custom emptyMessage when nothing matches", async () => {
+    render(<LocalePicker regions={regions} emptyMessage="Nothing here" />);
+    await userEvent.click(trigger());
+    await userEvent.type(searchBox(), "zzz");
+    expect(screen.getByText("Nothing here")).toBeInTheDocument();
+    expect(screen.queryAllByRole("option")).toHaveLength(0);
+  });
+
+  it("clears the search with the clear button and restores focus", async () => {
+    render(<LocalePicker regions={regions} />);
+    await userEvent.click(trigger());
+    await userEvent.type(searchBox(), "ger");
+    expect(screen.getAllByRole("option")).toHaveLength(1);
+
+    await userEvent.click(screen.getByRole("button", { name: "Clear search" }));
+
+    expect(searchBox()).toHaveValue("");
+    expect(screen.getAllByRole("option")).toHaveLength(5);
+    expect(document.activeElement).toBe(searchBox());
+  });
+
+  it("hides the search field when searchable is false and still lists regions", async () => {
+    render(<LocalePicker regions={regions} searchable={false} />);
+    await userEvent.click(trigger());
+
+    expect(screen.queryByRole("combobox")).toBeNull();
+    expect(screen.getByRole("listbox")).toHaveAttribute("aria-label", "Select region");
+    expect(screen.getAllByRole("option")).toHaveLength(5);
+  });
+
+  it("does not open when disabled", async () => {
+    render(<LocalePicker regions={regions} disabled />);
+    expect(trigger()).toBeDisabled();
+
+    await userEvent.click(trigger());
+    expect(screen.queryByRole("listbox")).toBeNull();
+  });
+
+  it("marks the selected option with a check icon", async () => {
+    render(<LocalePicker regions={regions} defaultValue="en-DE" />);
+    await userEvent.click(trigger());
+
+    const selected = screen.getByRole("option", { name: /Germany/ });
+    const other = screen.getByRole("option", { name: /India/ });
+    const selectedCheck = selected.querySelector("svg");
+    const otherCheck = other.querySelector("svg");
+
+    expect(selectedCheck).not.toBeNull();
+    expect(selectedCheck?.className.baseVal ?? selectedCheck?.getAttribute("class")).toContain(
+      "text-primary",
+    );
+    expect(selectedCheck?.getAttribute("class")).toContain("opacity-100");
+    expect(otherCheck?.getAttribute("class")).toContain("opacity-0");
+    expect(selected).toHaveAttribute("aria-selected", "true");
+  });
+
+  it("applies every classNames part to its element", async () => {
+    render(
+      <LocalePicker
+        regions={regions}
+        classNames={{
+          trigger: "PART_TRIGGER",
+          content: "PART_CONTENT",
+          search: "PART_SEARCH",
+          list: "PART_LIST",
+          item: "PART_ITEM",
+          empty: "PART_EMPTY",
+          summary: "PART_SUMMARY",
+        }}
+      />,
+    );
+
+    expect(trigger()).toHaveClass("PART_TRIGGER");
+    expect(screen.getByText("Currency").closest("dl")).toHaveClass("PART_SUMMARY");
+
+    await userEvent.click(trigger());
+    expect(popupPanel()).toHaveClass("PART_CONTENT");
+    expect(searchBox().parentElement).toHaveClass("PART_SEARCH");
+    expect(screen.getByRole("listbox")).toHaveClass("PART_LIST");
+    expect(screen.getAllByRole("option")[0]).toHaveClass("PART_ITEM");
+
+    await userEvent.type(searchBox(), "zzz");
+    expect(screen.getByText("No results")).toHaveClass("PART_EMPTY");
+  });
+});
+
+describe("LocalePicker closing motion", () => {
+  beforeEach(() => {
+    MotionGlobalConfig.skipAnimations = false;
+  });
+  afterEach(() => {
+    MotionGlobalConfig.skipAnimations = true;
+  });
+
+  it("marks the exiting popup aria-hidden until it is removed", async () => {
+    render(<LocalePicker regions={regions} />);
+    await userEvent.click(trigger());
+    expect(popupPanel()).not.toHaveAttribute("aria-hidden");
+
+    await userEvent.click(trigger()); // close — the exit animation starts
+
+    expect(popupPanel()).toHaveAttribute("aria-hidden", "true");
+    await waitFor(() => expect(screen.queryByRole("listbox")).toBeNull());
+  });
+
+  it("reopens mid-exit as the same clickable panel", async () => {
+    render(<LocalePicker regions={regions} />);
+    await userEvent.click(trigger());
+    await userEvent.click(trigger());
+    await userEvent.click(trigger());
+    await userEvent.click(screen.getByRole("option", { name: /Japan/ }));
+    expect(trigger()).toHaveAccessibleName("Current region: Japan");
   });
 });

@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MotionGlobalConfig } from "motion/react";
-import { LanguageSwitcher, NavBar, PhoneInput } from "@/registry/components";
+import { LocalePicker, LanguageSwitcher, NavBar, PhoneInput } from "@/registry/components";
 
 /**
  * A menu reopened while its exit animation is still running is the same element
@@ -36,6 +36,16 @@ describe("menus reopened mid-exit stay clickable", () => {
     await userEvent.click(trigger);
     await userEvent.click(screen.getByRole("option", { name: /India/ }));
     expect(trigger).toHaveTextContent("+91");
+  });
+
+  it("LocalePicker", async () => {
+    render(<LocalePicker regions={["IN", "US", "GB", "DE"]} />);
+    const trigger = screen.getByRole("button", { name: /Current region/ });
+    await userEvent.click(trigger);
+    await userEvent.click(trigger);
+    await userEvent.click(trigger);
+    await userEvent.click(screen.getByRole("option", { name: /Germany/ }));
+    expect(trigger).toHaveAccessibleName(/Germany/);
   });
 
   it("NavBar language menu", async () => {

@@ -1,13 +1,74 @@
 "use client";
 
 import * as React from "react";
+import {
+  AnimatePresence,
+  MotionConfig,
+  motion,
+  useIsPresent,
+  type HTMLMotionProps,
+} from "motion/react";
+import { CheckIcon, ChevronDownIcon, GlobeIcon, SearchIcon, XIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useControllableState } from "@/lib/use-controllable-state";
 import { useListboxNavigation } from "@/lib/use-listbox-navigation";
 import type { Locale } from "./types";
-import { isRtl } from "./locale-data";
+import { getFlag, isRtl } from "./locale-data";
 
 export type { Locale };
+
+/** Per-part class overrides, merged after the defaults with `cn`. */
+export interface LocalePickerClassNames {
+  /** The button that opens the region list */
+  trigger?: string;
+  /** The floating popup panel */
+  content?: string;
+  /** The search row, including its icon and clear button */
+  search?: string;
+  /** The scrolling option list */
+  list?: string;
+  /** Each option row */
+  item?: string;
+  /** The empty-state message */
+  empty?: string;
+  /** The summary card of derived locale preferences */
+  summary?: string;
+}
+
+/**
+ * The popup panel. While it plays its exit animation it is still mounted, so it
+ * leaves the accessibility tree first: a closing menu is not a menu.
+ */
+const MenuPanel = React.forwardRef<HTMLDivElement, HTMLMotionProps<"div">>(
+  function MenuPanel(props, ref) {
+    const isPresent = useIsPresent();
+    return (
+      <motion.div
+        ref={ref}
+        aria-hidden={isPresent ? undefined : true}
+        {...props}
+        // Set on render rather than animated: a panel reopened mid-exit is the
+        // same element, and must take clicks again immediately.
+        style={{ ...props.style, pointerEvents: isPresent ? undefined : "none" }}
+      />
+    );
+  },
+);
+
+const TRIGGER_VARIANTS = {
+  outline:
+    "border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground aria-expanded:bg-accent aria-expanded:text-accent-foreground dark:bg-input/30 dark:hover:bg-input/50 dark:aria-expanded:bg-input/50",
+  ghost:
+    "hover:bg-accent hover:text-accent-foreground aria-expanded:bg-accent aria-expanded:text-accent-foreground dark:hover:bg-accent/50",
+  secondary:
+    "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80 aria-expanded:bg-secondary/80",
+} as const;
+
+const TRIGGER_SIZES = {
+  sm: "h-8 gap-1.5 rounded-md px-2.5",
+  default: "h-9 gap-2 rounded-md px-3",
+  lg: "h-10 gap-2 rounded-md px-4",
+} as const;
 
 /** Sample amount behind the currency and number previews. */
 const SAMPLE_AMOUNT = 1234567.89;
@@ -201,15 +262,6 @@ type LocaleWithWeekInfo = {
   readonly weekInfo?: WeekInfo;
 };
 
-/** ISO 3166-1 alpha-2 → regional-indicator pair, or the globe for anything else. */
-function regionFlag(region: string): string {
-  if (!/^[A-Za-z]{2}$/.test(region)) return "\u{1F310}";
-  return String.fromCodePoint(
-    region.toUpperCase().charCodeAt(0) - 65 + 0x1f1e6,
-    region.toUpperCase().charCodeAt(1) - 65 + 0x1f1e6,
-  );
-}
-
 /** Canonicalizes a BCP 47 tag, falling back to `"en"` for malformed input. */
 function canonicalize(locale: string): string {
   try {
@@ -339,6 +391,27 @@ export interface LocalePickerProps extends Omit<
   showFlags?: boolean;
   /** Max height of the scrolling option list, before it scrolls (default: "15rem"). */
   maxHeight?: number | string;
+  /** Trigger style (default: "outline") */
+  variant?: "outline" | "ghost" | "secondary";
+  /** Trigger size (default: "default") */
+  size?: "sm" | "default" | "lg";
+  /** Edge of the trigger the popup lines up with, in reading direction (default: "start") */
+  align?: "start" | "end";
+  /**
+   * Preferred side for the popup (default: "bottom"). It flips to the other side
+   * when there is not enough room in the viewport.
+   */
+  side?: "top" | "bottom";
+  /** Show the search field (default: true) */
+  searchable?: boolean;
+  /** Placeholder for the search field (default: "Search regions...") */
+  searchPlaceholder?: string;
+  /** Content shown when the search matches nothing (default: "No results") */
+  emptyMessage?: React.ReactNode;
+  /** Disable the trigger */
+  disabled?: boolean;
+  /** Per-part class overrides */
+  classNames?: LocalePickerClassNames;
 }
 
 /** A region rendered as the shared `Locale` shape, plus search plumbing. */
@@ -359,6 +432,15 @@ export const LocalePicker = React.forwardRef<HTMLDivElement, LocalePickerProps>(
       label: labelMode = "english",
       showFlags = true,
       maxHeight = "15rem",
+      variant = "outline",
+      size = "default",
+      align = "start",
+      side: preferredSide = "bottom",
+      searchable = true,
+      searchPlaceholder = "Search regions...",
+      emptyMessage = "No results",
+      disabled = false,
+      classNames,
       className,
       onKeyDown,
       ...rest
@@ -372,9 +454,11 @@ export const LocalePicker = React.forwardRef<HTMLDivElement, LocalePickerProps>(
     );
     const [open, setOpen] = React.useState(false);
     const [search, setSearch] = React.useState("");
+    const [side, setSide] = React.useState(preferredSide);
     const ref = React.useRef<HTMLDivElement>(null);
     const inputRef = React.useRef<HTMLInputElement>(null);
     const triggerRef = React.useRef<HTMLButtonElement>(null);
+    const popupRef = React.useRef<HTMLDivElement>(null);
 
     React.useImperativeHandle(forwardedRef, () => ref.current as HTMLDivElement);
 
@@ -391,7 +475,9 @@ export const LocalePicker = React.forwardRef<HTMLDivElement, LocalePickerProps>(
         code,
         region: upper,
         label,
-        flag: regionFlag(upper),
+        // The full tag — `getFlag` resolves flags from a region subtag, and a
+        // bare region like "IN" would be read as a language code instead.
+        flag: getFlag(code),
         rtl: isRtl(code),
         // The BCP 47 tag is omitted: every option shares the active language
         // subtag, so it would match all of them. The region subtag is `upper`.
@@ -405,13 +491,16 @@ export const LocalePicker = React.forwardRef<HTMLDivElement, LocalePickerProps>(
     const nav = useListboxNavigation({
       count: filtered.length,
       open,
+      // Without a search field there is nothing to hold `aria-activedescendant`,
+      // so focus moves onto the options themselves.
+      strategy: searchable ? "activedescendant" : "roving",
       // Land on the current selection when the popup opens.
       initialIndex: filtered.findIndex((option) => option.region === region),
       onClose: () => {
         setOpen(false);
         setSearch("");
       },
-      onOpen: () => setOpen(true),
+      onOpen: () => !disabled && setOpen(true),
       onSelect: (index) => {
         const picked = filtered[index];
         if (picked) setLocale(picked.code);
@@ -434,159 +523,217 @@ export const LocalePicker = React.forwardRef<HTMLDivElement, LocalePickerProps>(
     }, []);
 
     React.useEffect(() => {
-      if (open) inputRef.current?.focus();
-    }, [open]);
+      if (open && searchable) inputRef.current?.focus();
+    }, [open, searchable]);
+
+    // Flip to the other side when the preferred one has no room. Measured before
+    // paint, so the popup never flashes on the wrong side.
+    React.useLayoutEffect(() => {
+      if (!open) return;
+      const trigger = triggerRef.current;
+      const popup = popupRef.current;
+      if (!trigger || !popup) return;
+      const rect = trigger.getBoundingClientRect();
+      const needed = popup.offsetHeight + 8;
+      const below = window.innerHeight - rect.bottom;
+      const above = rect.top;
+      if (preferredSide === "bottom" && below < needed && above > below) setSide("top");
+      else if (preferredSide === "top" && above < needed && below > above) setSide("bottom");
+      else setSide(preferredSide);
+    }, [open, preferredSide]);
+
+    const offset = side === "bottom" ? -4 : 4;
 
     return (
-      <div
-        ref={ref}
-        dir={dir}
-        className={cn("relative z-50 text-sm", className)}
-        onKeyDown={(event) => {
-          nav.onKeyDown(event);
-          onKeyDown?.(event);
-        }}
-        {...rest}
-      >
-        <button
-          ref={triggerRef}
-          type="button"
-          onClick={() => setOpen(!open)}
-          className={cn(
-            "inline-flex w-full items-center justify-between gap-2 rounded-lg border border-zinc-200 bg-zinc-100 px-3 py-2 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 dark:border-zinc-800 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700",
-          )}
-          aria-expanded={open}
-          aria-haspopup="listbox"
-          aria-label={`Current region: ${activeName}`}
+      <MotionConfig reducedMotion="user">
+        <div
+          ref={ref}
+          dir={dir}
+          className={cn("relative z-50 text-sm", className)}
+          onKeyDown={(event) => {
+            nav.onKeyDown(event);
+            onKeyDown?.(event);
+          }}
+          {...rest}
         >
-          <span className="inline-flex items-center gap-2">
-            {showFlags && region && <span className="text-base">{regionFlag(region)}</span>}
-            <span>{activeName}</span>
-          </span>
-          <svg
+          <button
+            ref={triggerRef}
+            type="button"
+            disabled={disabled}
+            onClick={() => setOpen(!open)}
+            data-state={open ? "open" : "closed"}
             className={cn(
-              "size-4 text-zinc-500 transition-transform dark:text-zinc-400",
-              open && "rotate-180",
+              "inline-flex w-full items-center justify-between text-sm font-medium whitespace-nowrap transition-[color,background-color,border-color,box-shadow] outline-none select-none",
+              "focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50",
+              "disabled:pointer-events-none disabled:opacity-50",
+              TRIGGER_VARIANTS[variant],
+              TRIGGER_SIZES[size],
+              classNames?.trigger,
             )}
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
+            aria-expanded={open}
+            aria-haspopup="listbox"
+            aria-label={`Current region: ${activeName}`}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
-        </button>
-
-        {open && (
-          <div className="absolute inset-x-0 z-50 mt-1 overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-xl dark:border-zinc-800 dark:bg-zinc-950">
-            <div className="border-b border-zinc-200 p-2 dark:border-zinc-800">
-              <input
-                ref={inputRef}
-                type="text"
-                placeholder="Search regions..."
-                aria-label="Search regions"
-                value={search}
-                onChange={(event) => {
-                  setSearch(event.target.value);
-                  nav.resetActive();
-                }}
-                {...nav.comboboxProps}
-                className="w-full rounded-lg bg-zinc-100 px-3 py-1.5 text-sm text-zinc-900 outline-none placeholder:text-zinc-400 focus:ring-1 focus:ring-emerald-500/50 dark:bg-zinc-800 dark:text-zinc-100 dark:placeholder:text-zinc-500"
-              />
-            </div>
-            {/* The listbox owns the options only — the search field above sits
-                outside it, per ARIA. It scrolls on its own: the page never does. */}
-            <div
-              className="overflow-y-auto p-1"
-              style={{ maxHeight }}
-              role="listbox"
-              aria-label="Select region"
-              {...nav.listboxProps}
-            >
-              {filtered.map((option, index) => {
-                const isCurrent = option.region === region;
-                const isActive = index === nav.activeIndex;
-                return (
-                  <button
-                    key={option.region}
-                    type="button"
-                    role="option"
-                    aria-selected={isCurrent}
-                    dir={option.rtl ? "rtl" : "ltr"}
-                    data-locale={option.code}
-                    onClick={() => nav.select(index)}
-                    {...nav.optionProps(index)}
-                    className={cn(
-                      "flex w-full items-center gap-2 rounded-lg px-3 py-2 text-start text-sm transition-colors",
-                      isCurrent
-                        ? "bg-emerald-500/10 font-medium text-emerald-600 dark:text-emerald-400"
-                        : isActive
-                          ? "bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
-                          : "text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100",
-                    )}
-                  >
-                    {showFlags && <span className="text-base">{option.flag}</span>}
-                    <span className="flex-1 truncate">{option.label}</span>
-                    {isCurrent && (
-                      <svg
-                        className="size-4 text-emerald-600 dark:text-emerald-400"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                    )}
-                  </button>
-                );
-              })}
-              {filtered.length === 0 && (
-                <div className="px-3 py-2 text-sm text-zinc-500 dark:text-zinc-400">No results</div>
-              )}
-            </div>
-          </div>
-        )}
-
-        <dl
-          className="mt-3 divide-y divide-zinc-200 rounded-xl border border-zinc-200 bg-zinc-50 px-3 text-xs dark:divide-zinc-800 dark:border-zinc-800 dark:bg-zinc-900/60"
-          aria-live="polite"
-        >
-          <div className="flex items-baseline justify-between gap-4 py-2">
-            <dt className="text-zinc-500 dark:text-zinc-400">Currency</dt>
-            <dd className="flex items-baseline justify-end gap-2 font-medium text-zinc-900 dark:text-zinc-100">
-              {preferences.currency ? (
-                <>
-                  <span className="font-mono text-[0.7rem] text-zinc-500 dark:text-zinc-400">
-                    {preferences.currency}
-                  </span>
-                  <span>{preferences.currencyPreview}</span>
-                </>
+            <span className="inline-flex items-center gap-2">
+              {showFlags && region ? (
+                <span className="text-base leading-none">{getFlag(active)}</span>
               ) : (
-                <span>—</span>
+                <GlobeIcon aria-hidden="true" className="size-4 shrink-0 text-muted-foreground" />
               )}
-            </dd>
-          </div>
-          <div className="flex items-baseline justify-between gap-4 py-2">
-            <dt className="text-zinc-500 dark:text-zinc-400">Date format</dt>
-            <dd className="font-medium text-zinc-900 dark:text-zinc-100">
-              {preferences.datePreview}
-            </dd>
-          </div>
-          <div className="flex items-baseline justify-between gap-4 py-2">
-            <dt className="text-zinc-500 dark:text-zinc-400">Number format</dt>
-            <dd className="font-medium text-zinc-900 dark:text-zinc-100">
-              {preferences.numberPreview}
-            </dd>
-          </div>
-          <div className="flex items-baseline justify-between gap-4 py-2">
-            <dt className="text-zinc-500 dark:text-zinc-400">Week starts on</dt>
-            <dd className="font-medium text-zinc-900 dark:text-zinc-100">
-              {preferences.firstWeekday}
-            </dd>
-          </div>
-        </dl>
-      </div>
+              <span>{activeName}</span>
+            </span>
+            <ChevronDownIcon
+              aria-hidden="true"
+              className={cn(
+                "-me-1 size-4 shrink-0 text-muted-foreground opacity-70 transition-transform duration-200",
+                open && "rotate-180",
+              )}
+            />
+          </button>
+
+          <AnimatePresence>
+            {open && (
+              <MenuPanel
+                ref={popupRef}
+                data-side={side}
+                initial={{ opacity: 0, y: offset }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: offset }}
+                transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                className={cn(
+                  "absolute z-50 w-max min-w-full overflow-hidden rounded-lg border bg-popover text-popover-foreground shadow-lg sm:min-w-56",
+                  side === "bottom" ? "top-full mt-1.5" : "bottom-full mb-1.5",
+                  align === "end" ? "end-0" : "start-0",
+                  classNames?.content,
+                )}
+              >
+                {searchable && (
+                  <div className={cn("flex items-center gap-2 border-b px-3", classNames?.search)}>
+                    <SearchIcon aria-hidden="true" className="size-4 shrink-0 opacity-50" />
+                    <input
+                      ref={inputRef}
+                      type="text"
+                      placeholder={searchPlaceholder}
+                      aria-label="Search regions"
+                      autoComplete="off"
+                      spellCheck={false}
+                      value={search}
+                      onChange={(event) => {
+                        setSearch(event.target.value);
+                        nav.resetActive();
+                      }}
+                      {...nav.comboboxProps}
+                      className="h-10 w-full min-w-0 bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground"
+                    />
+                    {search && (
+                      <button
+                        type="button"
+                        tabIndex={-1}
+                        aria-label="Clear search"
+                        onClick={() => {
+                          setSearch("");
+                          nav.resetActive();
+                          inputRef.current?.focus();
+                        }}
+                        className="-me-1 inline-flex size-6 shrink-0 items-center justify-center rounded-sm text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                      >
+                        <XIcon aria-hidden="true" className="size-3.5" />
+                      </button>
+                    )}
+                  </div>
+                )}
+                {/* The listbox owns the options only — the search field above sits
+                  outside it, per ARIA. It scrolls on its own: the page never does. */}
+                <div
+                  className={cn("overflow-y-auto overscroll-contain p-1", classNames?.list)}
+                  style={{ maxHeight }}
+                  role="listbox"
+                  aria-label="Select region"
+                  {...nav.listboxProps}
+                >
+                  {filtered.map((option, index) => {
+                    const isCurrent = option.region === region;
+                    return (
+                      <button
+                        key={option.region}
+                        type="button"
+                        role="option"
+                        aria-selected={isCurrent}
+                        dir={option.rtl ? "rtl" : "ltr"}
+                        data-locale={option.code}
+                        onClick={() => nav.select(index)}
+                        {...nav.optionProps(index)}
+                        className={cn(
+                          "relative flex w-full cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-start text-sm outline-none select-none",
+                          "data-[active=true]:bg-accent data-[active=true]:text-accent-foreground",
+                          isCurrent && "font-medium",
+                          classNames?.item,
+                        )}
+                      >
+                        {showFlags && <span className="text-base leading-none">{option.flag}</span>}
+                        <span className="flex-1 truncate">{option.label}</span>
+                        <CheckIcon
+                          aria-hidden="true"
+                          className={cn(
+                            "size-4 shrink-0 text-primary",
+                            isCurrent ? "opacity-100" : "opacity-0",
+                          )}
+                        />
+                      </button>
+                    );
+                  })}
+                  {filtered.length === 0 && (
+                    <div
+                      className={cn(
+                        "py-6 text-center text-sm text-muted-foreground",
+                        classNames?.empty,
+                      )}
+                    >
+                      {emptyMessage}
+                    </div>
+                  )}
+                </div>
+              </MenuPanel>
+            )}
+          </AnimatePresence>
+
+          <dl
+            className={cn(
+              "mt-3 divide-y divide-border rounded-lg border border-input bg-muted/40 px-3 text-xs",
+              classNames?.summary,
+            )}
+            aria-live="polite"
+          >
+            <div className="flex items-baseline justify-between gap-4 py-2">
+              <dt className="text-muted-foreground">Currency</dt>
+              <dd className="flex items-baseline justify-end gap-2 font-medium text-foreground">
+                {preferences.currency ? (
+                  <>
+                    <span className="font-mono text-[0.7rem] text-muted-foreground">
+                      {preferences.currency}
+                    </span>
+                    <span>{preferences.currencyPreview}</span>
+                  </>
+                ) : (
+                  <span>—</span>
+                )}
+              </dd>
+            </div>
+            <div className="flex items-baseline justify-between gap-4 py-2">
+              <dt className="text-muted-foreground">Date format</dt>
+              <dd className="font-medium text-foreground">{preferences.datePreview}</dd>
+            </div>
+            <div className="flex items-baseline justify-between gap-4 py-2">
+              <dt className="text-muted-foreground">Number format</dt>
+              <dd className="font-medium text-foreground">{preferences.numberPreview}</dd>
+            </div>
+            <div className="flex items-baseline justify-between gap-4 py-2">
+              <dt className="text-muted-foreground">Week starts on</dt>
+              <dd className="font-medium text-foreground">{preferences.firstWeekday}</dd>
+            </div>
+          </dl>
+        </div>
+      </MotionConfig>
     );
   },
 );
