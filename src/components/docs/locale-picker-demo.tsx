@@ -1,12 +1,11 @@
 "use client";
 
 import { LocalePicker } from "@/registry/components/locale-picker";
-import { regions } from "@/lib/elements-config";
 
 export function LocalePickerDemo() {
   return (
     <LocalePicker
-      regions={regions}
+      regions={["IN", "US", "GB", "DE", "JP"]} // your ISO 3166-1 alpha-2 regions
       defaultValue="en-IN"
       onValueChange={(locale) => console.log("Selected locale:", locale)}
       label="english" // native, english

@@ -21,9 +21,6 @@ export const pillLocales: Locale[] = [
   { code: "ar", label: "عربي" },
 ];
 
-/** ISO 3166-1 alpha-2 regions the LocalePicker demo offers. */
-export const regions = ["IN", "US", "GB", "DE", "JP"];
-
 /** NavBar links and CTA, translated for every demo locale. */
 export const navCopy: Record<string, { links: NavLink[]; cta: string }> = {
   en: { links: links("Product", "Docs", "Pricing"), cta: "Get started" },

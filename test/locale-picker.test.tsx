@@ -442,6 +442,11 @@ const weekInfoSupported =
   typeof (new Intl.Locale("en") as Intl.Locale & { getWeekInfo?(): unknown }).getWeekInfo ===
   "function";
 
+// The test below pins the fallback table to the *runtime's* CLDR week data.
+// A failure after a Node/ICU upgrade means the runtime's data moved — the
+// component prefers runtime `getWeekInfo` anyway and the table only backstops
+// older engines, so refresh REGION_FIRST_DAY to match the new runtime.
+
 describe("LocalePicker first-day fallback table", () => {
   it.skipIf(!weekInfoSupported)(
     "mirrors the runtime's week info for every currency-mapped region",
@@ -652,5 +657,86 @@ describe("LocalePicker closing motion", () => {
     await userEvent.click(trigger());
     await userEvent.click(screen.getByRole("option", { name: /Japan/ }));
     expect(trigger()).toHaveAccessibleName("Current region: Japan");
+  });
+});
+
+describe("LocalePicker labels", () => {
+  it("renders custom labels in place of the English defaults", async () => {
+    render(
+      <LocalePicker
+        regions={regions}
+        labels={{
+          searchPlaceholder: "Rechercher…",
+          searchLabel: "Rechercher une région",
+          clearSearch: "Effacer la recherche",
+          emptyMessage: "Aucune région trouvée",
+          listbox: "Choisir la région",
+          current: (name) => `Région actuelle : ${name}`,
+          currency: "Devise",
+          dateFormat: "Format de date",
+          numberFormat: "Format de nombre",
+          weekStart: "La semaine commence le",
+        }}
+      />,
+    );
+    await userEvent.click(screen.getByRole("button", { name: "Région actuelle : India" }));
+
+    const search = screen.getByRole("combobox", { name: "Rechercher une région" });
+    expect(search).toHaveAttribute("placeholder", "Rechercher…");
+    expect(screen.getByRole("listbox", { name: "Choisir la région" })).toBeInTheDocument();
+
+    await userEvent.type(search, "zzz");
+    expect(screen.getByText("Aucune région trouvée")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Effacer la recherche" })).toBeInTheDocument();
+
+    expect(screen.getByText("Devise")).toBeInTheDocument();
+    expect(screen.getByText("Format de date")).toBeInTheDocument();
+    expect(screen.getByText("Format de nombre")).toBeInTheDocument();
+    expect(screen.getByText("La semaine commence le")).toBeInTheDocument();
+  });
+
+  it("keeps the English default for any label left out", async () => {
+    render(<LocalePicker regions={regions} labels={{ listbox: "Choisir la région" }} />);
+    await userEvent.click(trigger());
+
+    expect(screen.getByRole("combobox", { name: "Search regions" })).toHaveAttribute(
+      "placeholder",
+      "Search regions...",
+    );
+    expect(screen.getByRole("listbox", { name: "Choisir la région" })).toBeInTheDocument();
+    expect(trigger()).toHaveAccessibleName("Current region: India");
+  });
+
+  it("lets the searchPlaceholder prop win over labels", async () => {
+    render(
+      <LocalePicker
+        regions={regions}
+        searchPlaceholder="Find a region"
+        labels={{ searchPlaceholder: "Rechercher…" }}
+      />,
+    );
+    await userEvent.click(trigger());
+
+    expect(searchBox()).toHaveAttribute("placeholder", "Find a region");
+  });
+});
+
+describe("LocalePicker summary card", () => {
+  it("renders by default and hides with showSummary={false}", () => {
+    const { rerender } = render(<LocalePicker regions={regions} />);
+    expect(screen.getByText("Currency")).toBeInTheDocument();
+
+    rerender(<LocalePicker regions={regions} showSummary={false} />);
+    expect(screen.queryByText("Currency")).toBeNull();
+    expect(screen.queryByText("Date format")).toBeNull();
+  });
+});
+
+describe("LocalePicker regions list", () => {
+  it("renders one option per distinct region", async () => {
+    render(<LocalePicker regions={["IN", "in", "US", "IN"]} />);
+    await userEvent.click(trigger());
+
+    expect(screen.getAllByRole("option")).toHaveLength(2);
   });
 });

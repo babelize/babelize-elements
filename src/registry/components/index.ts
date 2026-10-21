@@ -35,4 +35,8 @@ export type {
 } from "./translation-widget";
 
 export { LocalePicker } from "./locale-picker";
-export type { LocalePickerProps, LocalePickerClassNames } from "./locale-picker";
+export type {
+  LocalePickerProps,
+  LocalePickerClassNames,
+  LocalePickerLabels,
+} from "./locale-picker";

@@ -254,6 +254,35 @@ export interface TranslationWidgetLabels {
 }
 ```
 
+## Locale Picker
+
+### LocalePickerLabels
+
+```ts
+export interface LocalePickerLabels {
+  /** Placeholder for the search field (default: "Search regions...") */
+  searchPlaceholder: string;
+  /** Accessible label for the search field (default: "Search regions") */
+  searchLabel: string;
+  /** Accessible label for the button that clears the search (default: "Clear search") */
+  clearSearch: string;
+  /** Content shown when the search matches nothing (default: "No results") */
+  emptyMessage: React.ReactNode;
+  /** Accessible label for the option list (default: "Select region") */
+  listbox: string;
+  /** Accessible label for the trigger (default: "Current region: {name}") */
+  current: (name: string) => string;
+  /** Summary row label for the currency preview (default: "Currency") */
+  currency: string;
+  /** Summary row label for the date preview (default: "Date format") */
+  dateFormat: string;
+  /** Summary row label for the number preview (default: "Number format") */
+  numberFormat: string;
+  /** Summary row label for the first day of week (default: "Week starts on") */
+  weekStart: string;
+}
+```
+
 ## Extending Interfaces
 
 Because Babelize Elements components are fully owned by you once installed, you can extend these interfaces directly in the component files. For example, to add a custom `meta` field to each locale, add it to the `Locale` interface in your local copy:

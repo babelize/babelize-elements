@@ -35,6 +35,43 @@ export interface LocalePickerClassNames {
   summary?: string;
 }
 
+/** Built-in UI text. Every key is optional in `labels`; omitted keys keep the English default. */
+export interface LocalePickerLabels {
+  /** Placeholder for the search field (default: "Search regions...") */
+  searchPlaceholder: string;
+  /** Accessible label for the search field (default: "Search regions") */
+  searchLabel: string;
+  /** Accessible label for the button that clears the search (default: "Clear search") */
+  clearSearch: string;
+  /** Content shown when the search matches nothing (default: "No results") */
+  emptyMessage: React.ReactNode;
+  /** Accessible label for the option list (default: "Select region") */
+  listbox: string;
+  /** Accessible label for the trigger (default: "Current region: {name}") */
+  current: (name: string) => string;
+  /** Summary row label for the currency preview (default: "Currency") */
+  currency: string;
+  /** Summary row label for the date preview (default: "Date format") */
+  dateFormat: string;
+  /** Summary row label for the number preview (default: "Number format") */
+  numberFormat: string;
+  /** Summary row label for the first day of week (default: "Week starts on") */
+  weekStart: string;
+}
+
+const DEFAULT_LABELS: LocalePickerLabels = {
+  searchPlaceholder: "Search regions...",
+  searchLabel: "Search regions",
+  clearSearch: "Clear search",
+  emptyMessage: "No results",
+  listbox: "Select region",
+  current: (name) => `Current region: ${name}`,
+  currency: "Currency",
+  dateFormat: "Date format",
+  numberFormat: "Number format",
+  weekStart: "Week starts on",
+};
+
 /**
  * The popup panel. While it plays its exit animation it is still mounted, so it
  * leaves the accessibility tree first: a closing menu is not a menu.
@@ -412,6 +449,10 @@ export interface LocalePickerProps extends Omit<
   disabled?: boolean;
   /** Per-part class overrides */
   classNames?: LocalePickerClassNames;
+  /** Show the summary card of derived locale defaults (default: true) */
+  showSummary?: boolean;
+  /** Override the built-in English UI text; omitted keys keep their default */
+  labels?: Partial<LocalePickerLabels>;
 }
 
 /** A region rendered as the shared `Locale` shape, plus search plumbing. */
@@ -437,9 +478,11 @@ export const LocalePicker = React.forwardRef<HTMLDivElement, LocalePickerProps>(
       align = "start",
       side: preferredSide = "bottom",
       searchable = true,
-      searchPlaceholder = "Search regions...",
-      emptyMessage = "No results",
+      searchPlaceholder,
+      emptyMessage,
       disabled = false,
+      showSummary = true,
+      labels,
       classNames,
       className,
       onKeyDown,
@@ -464,26 +507,66 @@ export const LocalePicker = React.forwardRef<HTMLDivElement, LocalePickerProps>(
 
     const active = canonicalize(locale);
     const region = regionOf(active);
+
+    const text: LocalePickerLabels = {
+      searchPlaceholder:
+        searchPlaceholder ?? labels?.searchPlaceholder ?? DEFAULT_LABELS.searchPlaceholder,
+      searchLabel: labels?.searchLabel ?? DEFAULT_LABELS.searchLabel,
+      clearSearch: labels?.clearSearch ?? DEFAULT_LABELS.clearSearch,
+      emptyMessage:
+        emptyMessage !== undefined
+          ? emptyMessage
+          : (labels?.emptyMessage ?? DEFAULT_LABELS.emptyMessage),
+      listbox: labels?.listbox ?? DEFAULT_LABELS.listbox,
+      current: labels?.current ?? DEFAULT_LABELS.current,
+      currency: labels?.currency ?? DEFAULT_LABELS.currency,
+      dateFormat: labels?.dateFormat ?? DEFAULT_LABELS.dateFormat,
+      numberFormat: labels?.numberFormat ?? DEFAULT_LABELS.numberFormat,
+      weekStart: labels?.weekStart ?? DEFAULT_LABELS.weekStart,
+    };
     const activeName = regionDisplayName(region, active, labelMode) ?? active;
 
-    const options: RegionOption[] = regions.map((entry) => {
-      const upper = entry.toUpperCase();
-      const code = withRegion(active, upper);
-      const label = regionDisplayName(upper, active, labelMode) ?? upper;
-      const english = regionDisplayName(upper, active, "english") ?? upper;
-      return {
-        code,
-        region: upper,
-        label,
-        // The full tag — `getFlag` resolves flags from a region subtag, and a
-        // bare region like "IN" would be read as a language code instead.
-        flag: getFlag(code),
-        rtl: isRtl(code),
-        // The BCP 47 tag is omitted: every option shares the active language
-        // subtag, so it would match all of them. The region subtag is `upper`.
-        search: `${upper} ${label} ${english}`.toLowerCase(),
+    // Rebuilt only when the selection, the label mode, or the list itself
+    // changes — not on every search keystroke. One `DisplayNames` per mode
+    // serves the whole list instead of two instances per region.
+    const options: RegionOption[] = React.useMemo(() => {
+      const displayNames = (locales: string[]) => {
+        try {
+          return new Intl.DisplayNames(locales, { type: "region" });
+        } catch {
+          return undefined;
+        }
       };
-    });
+      const names = displayNames([active]);
+      const englishNames = displayNames(["en"]);
+      const nameOf = (instance: Intl.DisplayNames | undefined, code: string) => {
+        try {
+          return instance?.of(code) ?? code;
+        } catch {
+          return code;
+        }
+      };
+      // Repeated regions — the same code twice, or mixed case — would collide
+      // as React keys, so the list keeps one option per distinct code.
+      const unique = [...new Set(regions.map((entry) => entry.toUpperCase()))];
+      return unique.map((upper) => {
+        const code = withRegion(active, upper);
+        const label = nameOf(labelMode === "english" ? englishNames : names, upper);
+        const english = nameOf(englishNames, upper);
+        return {
+          code,
+          region: upper,
+          label,
+          // The full tag — `getFlag` resolves flags from a region subtag, and a
+          // bare region like "IN" would be read as a language code instead.
+          flag: getFlag(code),
+          rtl: isRtl(code),
+          // The BCP 47 tag is omitted: every option shares the active language
+          // subtag, so it would match all of them. The region subtag is `upper`.
+          search: `${upper} ${label} ${english}`.toLowerCase(),
+        };
+      });
+    }, [regions, active, labelMode]);
 
     const query = search.trim().toLowerCase();
     const filtered = query ? options.filter((option) => option.search.includes(query)) : options;
@@ -508,7 +591,7 @@ export const LocalePicker = React.forwardRef<HTMLDivElement, LocalePickerProps>(
       triggerRef: () => triggerRef.current,
     });
 
-    const preferences = derivePreferences(active, region);
+    const preferences = React.useMemo(() => derivePreferences(active, region), [active, region]);
     const dir = isRtl(active) ? "rtl" : "ltr";
 
     React.useEffect(() => {
@@ -575,7 +658,7 @@ export const LocalePicker = React.forwardRef<HTMLDivElement, LocalePickerProps>(
             )}
             aria-expanded={open}
             aria-haspopup="listbox"
-            aria-label={`Current region: ${activeName}`}
+            aria-label={text.current(activeName)}
           >
             <span className="inline-flex items-center gap-2">
               {showFlags && region ? (
@@ -616,8 +699,8 @@ export const LocalePicker = React.forwardRef<HTMLDivElement, LocalePickerProps>(
                     <input
                       ref={inputRef}
                       type="text"
-                      placeholder={searchPlaceholder}
-                      aria-label="Search regions"
+                      placeholder={text.searchPlaceholder}
+                      aria-label={text.searchLabel}
                       autoComplete="off"
                       spellCheck={false}
                       value={search}
@@ -632,7 +715,7 @@ export const LocalePicker = React.forwardRef<HTMLDivElement, LocalePickerProps>(
                       <button
                         type="button"
                         tabIndex={-1}
-                        aria-label="Clear search"
+                        aria-label={text.clearSearch}
                         onClick={() => {
                           setSearch("");
                           nav.resetActive();
@@ -651,7 +734,7 @@ export const LocalePicker = React.forwardRef<HTMLDivElement, LocalePickerProps>(
                   className={cn("overflow-y-auto overscroll-contain p-1", classNames?.list)}
                   style={{ maxHeight }}
                   role="listbox"
-                  aria-label="Select region"
+                  aria-label={text.listbox}
                   {...nav.listboxProps}
                 >
                   {filtered.map((option, index) => {
@@ -692,7 +775,7 @@ export const LocalePicker = React.forwardRef<HTMLDivElement, LocalePickerProps>(
                         classNames?.empty,
                       )}
                     >
-                      {emptyMessage}
+                      {text.emptyMessage}
                     </div>
                   )}
                 </div>
@@ -700,41 +783,43 @@ export const LocalePicker = React.forwardRef<HTMLDivElement, LocalePickerProps>(
             )}
           </AnimatePresence>
 
-          <dl
-            className={cn(
-              "mt-3 divide-y divide-border rounded-lg border border-input bg-muted/40 px-3 text-xs",
-              classNames?.summary,
-            )}
-            aria-live="polite"
-          >
-            <div className="flex items-baseline justify-between gap-4 py-2">
-              <dt className="text-muted-foreground">Currency</dt>
-              <dd className="flex items-baseline justify-end gap-2 font-medium text-foreground">
-                {preferences.currency ? (
-                  <>
-                    <span className="font-mono text-[0.7rem] text-muted-foreground">
-                      {preferences.currency}
-                    </span>
-                    <span>{preferences.currencyPreview}</span>
-                  </>
-                ) : (
-                  <span>—</span>
-                )}
-              </dd>
-            </div>
-            <div className="flex items-baseline justify-between gap-4 py-2">
-              <dt className="text-muted-foreground">Date format</dt>
-              <dd className="font-medium text-foreground">{preferences.datePreview}</dd>
-            </div>
-            <div className="flex items-baseline justify-between gap-4 py-2">
-              <dt className="text-muted-foreground">Number format</dt>
-              <dd className="font-medium text-foreground">{preferences.numberPreview}</dd>
-            </div>
-            <div className="flex items-baseline justify-between gap-4 py-2">
-              <dt className="text-muted-foreground">Week starts on</dt>
-              <dd className="font-medium text-foreground">{preferences.firstWeekday}</dd>
-            </div>
-          </dl>
+          {showSummary && (
+            <dl
+              className={cn(
+                "mt-3 divide-y divide-border rounded-lg border border-input bg-muted/40 px-3 text-xs",
+                classNames?.summary,
+              )}
+              aria-live="polite"
+            >
+              <div className="flex items-baseline justify-between gap-4 py-2">
+                <dt className="text-muted-foreground">{text.currency}</dt>
+                <dd className="flex items-baseline justify-end gap-2 font-medium text-foreground">
+                  {preferences.currency ? (
+                    <>
+                      <span className="font-mono text-[0.7rem] text-muted-foreground">
+                        {preferences.currency}
+                      </span>
+                      <span>{preferences.currencyPreview}</span>
+                    </>
+                  ) : (
+                    <span>—</span>
+                  )}
+                </dd>
+              </div>
+              <div className="flex items-baseline justify-between gap-4 py-2">
+                <dt className="text-muted-foreground">{text.dateFormat}</dt>
+                <dd className="font-medium text-foreground">{preferences.datePreview}</dd>
+              </div>
+              <div className="flex items-baseline justify-between gap-4 py-2">
+                <dt className="text-muted-foreground">{text.numberFormat}</dt>
+                <dd className="font-medium text-foreground">{preferences.numberPreview}</dd>
+              </div>
+              <div className="flex items-baseline justify-between gap-4 py-2">
+                <dt className="text-muted-foreground">{text.weekStart}</dt>
+                <dd className="font-medium text-foreground">{preferences.firstWeekday}</dd>
+              </div>
+            </dl>
+          )}
         </div>
       </MotionConfig>
     );

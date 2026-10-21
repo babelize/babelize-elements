@@ -90,12 +90,11 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
 
 ```tsx
 import { LocalePicker } from "@/components/ui/locale-picker";
-import { regions } from "@/lib/elements-config";
 ```
 
 ```tsx
 <LocalePicker
-  regions={regions}
+  regions={["IN", "US", "GB", "DE", "JP"]} // your ISO 3166-1 alpha-2 regions
   defaultValue="en-IN"
   onValueChange={(locale) => console.log("Selected locale:", locale)}
   label="english" // native, english
@@ -103,9 +102,6 @@ import { regions } from "@/lib/elements-config";
   size="default" // sm, default, lg
 />
 ```
-
-The sample `regions` list comes from the docs site's `lib/elements-config.ts`;
-point it at your own array of ISO 3166-1 alpha-2 codes.
 
 ## Props
 
@@ -126,6 +122,8 @@ point it at your own array of ISO 3166-1 alpha-2 codes.
 | `searchPlaceholder` | `string`                              | No       | `"Search regions..."` | Placeholder for the search field                                                     |
 | `emptyMessage`      | `React.ReactNode`                     | No       | `"No results"`        | Content shown when the search matches nothing                                        |
 | `disabled`          | `boolean`                             | No       | `false`               | Disable the trigger                                                                  |
+| `showSummary`       | `boolean`                             | No       | `true`                | Show the summary card of derived locale defaults                                     |
+| `labels`            | `Partial<LocalePickerLabels>`         | No       | —                     | Override the built-in English UI text (see below)                                    |
 | `classNames`        | `LocalePickerClassNames`              | No       | —                     | Per-part classes: `trigger`, `content`, `search`, `list`, `item`, `empty`, `summary` |
 | `className`         | `string`                              | No       | —                     | Additional CSS classes                                                               |
 
@@ -191,6 +189,40 @@ announced through `aria-activedescendant`.
 
 With `de-DE` selected, the trigger reads "Deutschland" and the options read
 "Vereinigte Staaten", "Vereinigtes Königreich", and so on.
+
+### Translated UI text
+
+The search placeholder, empty state, accessible labels and summary row labels
+default to English. Pass `labels` to translate them — any key you leave out
+keeps its English default. The `searchPlaceholder` and `emptyMessage` props
+still work, and win over `labels` when both are set.
+
+```tsx
+"use client";
+
+import { LocalePicker } from "@/components/ui/locale-picker";
+
+export default function App() {
+  return (
+    <LocalePicker
+      regions={["IN", "US", "GB", "DE", "JP"]}
+      defaultValue="en-IN"
+      labels={{
+        searchPlaceholder: "Rechercher une région…",
+        searchLabel: "Rechercher une région",
+        clearSearch: "Effacer la recherche",
+        emptyMessage: "Aucune région trouvée.",
+        listbox: "Choisir la région",
+        current: (name) => `Région actuelle : ${name}`,
+        currency: "Devise",
+        dateFormat: "Format de date",
+        numberFormat: "Format de nombre",
+        weekStart: "La semaine commence le",
+      }}
+    />
+  );
+}
+```
 
 ## Dependencies
 
