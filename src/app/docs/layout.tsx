@@ -26,8 +26,8 @@ function IconLink({ href, label, path }: { href: string; label: string; path: st
   );
 }
 
-// package.json is not bumped in the repo; the release workflow sets the version from the
-// git tag at publish time, so the latest npm release is the real current version.
+// Releases set the version from the git tag at publish time and never commit it back, so
+// package.json can lag; the latest npm release is the real current version.
 async function getLatestVersion() {
   try {
     const res = await fetch("https://registry.npmjs.org/@babelize/elements/latest", {
@@ -64,7 +64,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
               href="/llms-full.txt"
               className="ml-1 rounded-md border border-fd-border px-2 py-1 font-mono text-[0.6875rem] text-fd-muted-foreground transition-colors hover:border-fd-primary/40 hover:text-fd-primary"
             >
-              llms.txt
+              llms-full.txt
             </a>
             <span className="ml-auto font-mono text-[0.6875rem] text-fd-muted-foreground/60">
               v{version}
