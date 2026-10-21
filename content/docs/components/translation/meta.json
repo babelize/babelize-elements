@@ -1,6 +1,5 @@
 {
-  "title": "Translation",
+  "title": "Widgets",
   "icon": "Languages",
-  "pages": ["translation-widget"],
-  "collapsible": false
+  "pages": ["translation-widget"]
 }

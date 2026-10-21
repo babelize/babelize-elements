@@ -1,5 +1,4 @@
 {
   "title": "Components",
-  "pages": ["language-switchers", "navigation", "inputs", "translation"],
-  "collapsible": false
+  "pages": ["index", "language-switchers", "navigation", "inputs", "translation"]
 }
