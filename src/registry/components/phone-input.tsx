@@ -285,11 +285,13 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
   const caseLocale = regionNames?.resolvedOptions().locale;
   const lower = (s: string) => (caseLocale ? s.toLocaleLowerCase(caseLocale) : s.toLowerCase());
   const query = lower(search.trim());
+  // ISO codes are ASCII, so match them without locale rules ("ID" must not become "ıd").
+  const codeQuery = search.trim().toLowerCase();
   const filtered = countries.filter(
     (c) =>
       lower(getCountryName(c)).includes(query) ||
       c.dialCode.includes(query) ||
-      lower(c.code).includes(query),
+      c.code.toLowerCase().includes(codeQuery),
   );
 
   const nav = useListboxNavigation({

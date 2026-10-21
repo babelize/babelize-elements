@@ -355,4 +355,12 @@ describe("PhoneInput labels", () => {
     expect(screen.getAllByRole("option")).toHaveLength(1);
     expect(screen.getByRole("option", { name: /İsrail/ })).toBeInTheDocument();
   });
+
+  it("matches country codes without the display locale's case rules", async () => {
+    render(<PhoneInput displayLocale="tr" />);
+    await userEvent.click(screen.getByRole("button", { name: "Select country" }));
+    await userEvent.type(screen.getByRole("combobox"), "id");
+
+    expect(screen.getByRole("option", { name: /Endonezya/ })).toBeInTheDocument();
+  });
 });
