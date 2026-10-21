@@ -1,10 +1,4 @@
 {
   "title": "Components",
-  "pages": [
-    "index",
-    "language-switchers",
-    "navigation",
-    "inputs",
-    "translation"
-  ]
+  "pages": ["index", "language-switchers", "navigation", "inputs", "translation"]
 }

@@ -1,8 +1,5 @@
 {
   "title": "Language Switchers",
   "icon": "Globe",
-  "pages": [
-    "language-switcher",
-    "language-switcher-pill"
-  ]
+  "pages": ["language-switcher", "language-switcher-pill"]
 }
