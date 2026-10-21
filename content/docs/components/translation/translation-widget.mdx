@@ -298,8 +298,8 @@ async function translate(text: string) {
 
 The pane placeholders and labels have their own props (`sourcePlaceholder`,
 `sourceLabel` and so on). The rest of the built-in text — toolbar buttons, the copy
-announcement and the word read after the character count — comes from `labels`.
-Any key you leave out keeps its English default.
+announcement, the word read after the character count and the two language pickers —
+comes from `labels`. Any key you leave out keeps its English default.
 
 ```tsx
 <TranslationWidget
@@ -316,18 +316,24 @@ Any key you leave out keeps its English default.
     copiedStatus: "Traduction copiée dans le presse-papiers",
     clearSource: "Effacer le texte source",
     characters: (count) => (count === 1 ? "caractère" : "caractères"),
+    languageSwitcher: {
+      current: (name) => `Langue actuelle : ${name}`,
+      searchPlaceholder: "Rechercher des langues…",
+      emptyMessage: "Aucune langue trouvée.",
+    },
   }}
 />
 ```
 
-| Key            | Default                             | Used for                              |
-| -------------- | ----------------------------------- | ------------------------------------- |
-| `swap`         | `"Swap languages"`                  | Swap button accessible label          |
-| `copy`         | `"Copy translation"`                | Copy button accessible label          |
-| `copied`       | `"Copied"`                          | Copy button label right after a copy  |
-| `copiedStatus` | `"Translation copied to clipboard"` | Screen reader announcement after copy |
-| `clearSource`  | `"Clear source text"`               | Clear button accessible label         |
-| `characters`   | `(count) => "characters"`           | Read after the character count        |
+| Key                | Default                             | Used for                                                  |
+| ------------------ | ----------------------------------- | --------------------------------------------------------- |
+| `swap`             | `"Swap languages"`                  | Swap button accessible label                              |
+| `copy`             | `"Copy translation"`                | Copy button accessible label                              |
+| `copied`           | `"Copied"`                          | Copy button label right after a copy                      |
+| `copiedStatus`     | `"Translation copied to clipboard"` | Screen reader announcement after copy                     |
+| `clearSource`      | `"Clear source text"`               | Clear button accessible label                             |
+| `characters`       | `(count) => "characters"`           | Read after the character count; gets the count to plural  |
+| `languageSwitcher` | `LanguageSwitcher` defaults         | Both language pickers (`Partial<LanguageSwitcherLabels>`) |
 
 ## Customization
 

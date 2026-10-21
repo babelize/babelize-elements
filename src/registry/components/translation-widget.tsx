@@ -5,7 +5,7 @@ import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import { ArrowLeftRightIcon, CheckIcon, CopyIcon, XIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useControllableState } from "@/lib/use-controllable-state";
-import { LanguageSwitcher } from "./language-switcher";
+import { LanguageSwitcher, type LanguageSwitcherLabels } from "./language-switcher";
 import type { Locale } from "./types";
 import { getLanguageName, isRtl } from "./locale-data";
 
@@ -23,8 +23,13 @@ export interface TranslationWidgetLabels {
   copiedStatus: string;
   /** Accessible label for the clear button (default: "Clear source text") */
   clearSource: string;
-  /** Screen reader word read after the character count (default: "characters") */
+  /**
+   * Screen reader word read after the character count (default: "characters").
+   * Receives the count, so it can return the right plural form.
+   */
   characters: (count: number) => string;
+  /** UI text for both language pickers, passed through as their `labels` */
+  languageSwitcher?: Partial<LanguageSwitcherLabels>;
 }
 
 const DEFAULT_LABELS: TranslationWidgetLabels = {
@@ -204,6 +209,7 @@ export const TranslationWidget = React.forwardRef<HTMLDivElement, TranslationWid
       copiedStatus: labels?.copiedStatus ?? DEFAULT_LABELS.copiedStatus,
       clearSource: labels?.clearSource ?? DEFAULT_LABELS.clearSource,
       characters: labels?.characters ?? DEFAULT_LABELS.characters,
+      languageSwitcher: labels?.languageSwitcher,
     };
     const sourceRtl = isRtl(activeSourceLocale);
     const targetRtl = isRtl(activeTargetLocale);
@@ -316,6 +322,7 @@ export const TranslationWidget = React.forwardRef<HTMLDivElement, TranslationWid
                   onValueChange={setActiveSourceLocale}
                   variant="ghost"
                   size="sm"
+                  labels={text.languageSwitcher}
                 />
               ) : (
                 renderChip(activeSourceLocale)
@@ -355,6 +362,7 @@ export const TranslationWidget = React.forwardRef<HTMLDivElement, TranslationWid
                   variant="ghost"
                   size="sm"
                   align="end"
+                  labels={text.languageSwitcher}
                 />
               ) : (
                 renderChip(activeTargetLocale)

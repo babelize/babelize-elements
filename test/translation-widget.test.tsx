@@ -531,4 +531,29 @@ describe("TranslationWidget labels", () => {
     expect(screen.getByRole("button", { name: "Copié" })).toBeInTheDocument();
     expect(screen.getByRole("status")).toHaveTextContent("Traduction copiée");
   });
+
+  it("forwards languageSwitcher labels to both pickers", async () => {
+    const user = userEvent.setup();
+    render(
+      <TranslationWidget
+        locales={[{ code: "en" }, { code: "fr" }]}
+        defaultSourceLocale="en"
+        defaultTargetLocale="fr"
+        labels={{
+          languageSwitcher: {
+            current: (name) => `Langue actuelle : ${name}`,
+            searchPlaceholder: "Rechercher…",
+            emptyMessage: "Aucune langue trouvée.",
+          },
+        }}
+      />,
+    );
+
+    const triggers = screen.getAllByRole("button", { name: /^Langue actuelle : / });
+    expect(triggers).toHaveLength(2);
+
+    await user.click(triggers[1]);
+    await user.type(screen.getByPlaceholderText("Rechercher…"), "zzz");
+    expect(screen.getByText("Aucune langue trouvée.")).toBeInTheDocument();
+  });
 });
