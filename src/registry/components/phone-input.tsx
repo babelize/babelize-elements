@@ -24,6 +24,31 @@ export interface Country {
   flag: string;
 }
 
+/** Built-in UI text. Every key is optional in `labels`; omitted keys keep the English default. */
+export interface PhoneInputLabels {
+  /** Accessible label for the country trigger (default: "Select country") */
+  trigger: string;
+  /** Placeholder for the country search field (default: "Search countries...") */
+  searchPlaceholder: string;
+  /** Accessible label for the country search field (default: "Search countries") */
+  searchLabel: string;
+  /** Accessible label for the button that clears the search (default: "Clear search") */
+  clearSearch: string;
+  /** Content shown when the search matches nothing (default: "No countries found.") */
+  emptyMessage: React.ReactNode;
+  /** Accessible label for the country list (default: "Select country") */
+  listbox: string;
+}
+
+const DEFAULT_LABELS: PhoneInputLabels = {
+  trigger: "Select country",
+  searchPlaceholder: "Search countries...",
+  searchLabel: "Search countries",
+  clearSearch: "Clear search",
+  emptyMessage: "No countries found.",
+  listbox: "Select country",
+};
+
 /** Per-part class overrides, merged after the defaults with `cn`. */
 export interface PhoneInputClassNames {
   /** The outer wrapper that positions the menu */
@@ -78,10 +103,14 @@ export interface PhoneInputProps extends Omit<
    * when there is not enough room in the viewport.
    */
   side?: "top" | "bottom";
-  /** Placeholder for the country search field (default: "Search countries...") */
+  /** Placeholder for the country search field. Alias of `labels.searchPlaceholder`, wins over it */
   searchPlaceholder?: string;
-  /** Content shown when the search matches nothing (default: "No countries found.") */
+  /** Empty-search content. Alias of `labels.emptyMessage`, wins over it */
   emptyMessage?: React.ReactNode;
+  /** Override the built-in English UI text — any key you omit keeps its default */
+  labels?: Partial<PhoneInputLabels>;
+  /** BCP 47 locale used to display country names, e.g. "fr" (default: English names) */
+  displayLocale?: string;
   /** Per-part class overrides. `className` still targets the root. */
   classNames?: PhoneInputClassNames;
 }
@@ -197,8 +226,10 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
     size = "default",
     align = "start",
     side: preferredSide = "bottom",
-    searchPlaceholder = "Search countries...",
-    emptyMessage = "No countries found.",
+    searchPlaceholder,
+    emptyMessage,
+    labels,
+    displayLocale,
     classNames,
     ...rest
   },
@@ -222,12 +253,45 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
 
   React.useImperativeHandle(forwardedRef, () => inputRef.current as HTMLInputElement);
 
-  const query = search.trim().toLowerCase();
+  const text: PhoneInputLabels = {
+    trigger: labels?.trigger ?? DEFAULT_LABELS.trigger,
+    searchPlaceholder:
+      searchPlaceholder ?? labels?.searchPlaceholder ?? DEFAULT_LABELS.searchPlaceholder,
+    searchLabel: labels?.searchLabel ?? DEFAULT_LABELS.searchLabel,
+    clearSearch: labels?.clearSearch ?? DEFAULT_LABELS.clearSearch,
+    // `null` is a valid empty message (it renders nothing), so only `undefined` falls through.
+    emptyMessage:
+      emptyMessage !== undefined
+        ? emptyMessage
+        : labels?.emptyMessage !== undefined
+          ? labels.emptyMessage
+          : DEFAULT_LABELS.emptyMessage,
+    listbox: labels?.listbox ?? DEFAULT_LABELS.listbox,
+  };
+  const regionNames = React.useMemo(() => {
+    if (!displayLocale) return undefined;
+    // A malformed locale tag throws; fall back to the English names instead.
+    try {
+      return new Intl.DisplayNames([displayLocale], { type: "region", fallback: "none" });
+    } catch {
+      return undefined;
+    }
+  }, [displayLocale]);
+  const getCountryName = (c: Country) => regionNames?.of(c.code) ?? c.name;
+
+  // Lowercase with the display locale's rules, so a Turkish "İsrail" matches "israil".
+  // Without a display locale, keep plain lowercasing: the user's own locale could
+  // turn "India" into "ındia".
+  const caseLocale = regionNames?.resolvedOptions().locale;
+  const lower = (s: string) => (caseLocale ? s.toLocaleLowerCase(caseLocale) : s.toLowerCase());
+  const query = lower(search.trim());
+  // ISO codes are ASCII, so match them without locale rules ("ID" must not become "ıd").
+  const codeQuery = search.trim().toLowerCase();
   const filtered = countries.filter(
     (c) =>
-      c.name.toLowerCase().includes(query) ||
+      lower(getCountryName(c)).includes(query) ||
       c.dialCode.includes(query) ||
-      c.code.toLowerCase().includes(query),
+      c.code.toLowerCase().includes(codeQuery),
   );
 
   const nav = useListboxNavigation({
@@ -341,7 +405,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
               SEGMENT_SIZES[size],
               classNames?.trigger,
             )}
-            aria-label="Select country"
+            aria-label={text.trigger}
             aria-expanded={open}
             aria-haspopup="listbox"
           >
@@ -397,8 +461,8 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
                 <input
                   ref={searchRef}
                   type="text"
-                  placeholder={searchPlaceholder}
-                  aria-label="Search countries"
+                  placeholder={text.searchPlaceholder}
+                  aria-label={text.searchLabel}
                   autoComplete="off"
                   spellCheck={false}
                   value={search}
@@ -413,7 +477,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
                   <button
                     type="button"
                     tabIndex={-1}
-                    aria-label="Clear search"
+                    aria-label={text.clearSearch}
                     onClick={() => {
                       setSearch("");
                       nav.resetActive();
@@ -432,7 +496,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
                 className={cn("overflow-y-auto overscroll-contain p-1", classNames?.list)}
                 style={{ maxHeight }}
                 role="listbox"
-                aria-label="Select country"
+                aria-label={text.listbox}
                 {...nav.listboxProps}
               >
                 {filtered.map((country, index) => {
@@ -452,7 +516,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
                       )}
                     >
                       <span className="text-base leading-none">{country.flag}</span>
-                      <span className="flex-1 truncate">{country.name}</span>
+                      <span className="flex-1 truncate">{getCountryName(country)}</span>
                       <span className="text-xs text-muted-foreground tabular-nums">
                         {country.dialCode}
                       </span>
@@ -473,7 +537,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
                       classNames?.empty,
                     )}
                   >
-                    {emptyMessage}
+                    {text.emptyMessage}
                   </div>
                 )}
               </div>

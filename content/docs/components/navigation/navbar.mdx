@@ -137,6 +137,7 @@ export function SiteNav() {
 | `showFlags`     | `boolean`                         | No       | Show flags in language selector (default: `true`)                             |
 | `maxHeight`     | `number \| string`                | No       | Max height of the scrolling language menu (default: `"15rem"`)                |
 | `linkComponent` | `React.ElementType`               | No       | Component used for internal links (default: `"a"`)                            |
+| `labels`        | `Partial<NavBarLabels>`           | No       | Override the built-in English UI text (see below)                             |
 | `classNames`    | `NavBarClassNames`                | No       | Per-part class overrides (see below)                                          |
 | `className`     | `string`                          | No       | Additional CSS classes                                                        |
 
@@ -360,6 +361,40 @@ export default function App() {
   );
 }
 ```
+
+### Translated UI text
+
+The language menu, mobile menu button and GitHub link carry English accessible
+labels by default. Pass `labels` to translate them — any key you leave out keeps
+its English default.
+
+```tsx
+"use client";
+
+import { NavBar } from "@/components/ui/navbar";
+
+export default function App() {
+  return (
+    <NavBar
+      logo={<span className="font-bold">MyApp</span>}
+      locales={[{ code: "en" }, { code: "fr" }]}
+      defaultValue="fr"
+      labels={{
+        listbox: "Choisir la langue",
+        current: (name) => `Langue actuelle : ${name}`,
+        toggleMenu: "Ouvrir le menu",
+      }}
+    />
+  );
+}
+```
+
+| Key          | Default                                 | Used for                          |
+| ------------ | --------------------------------------- | --------------------------------- |
+| `listbox`    | `"Select language"`                     | Language menu accessible label    |
+| `current`    | `(name) => "Current language: " + name` | Language trigger accessible label |
+| `toggleMenu` | `"Toggle menu"`                         | Mobile menu button label          |
+| `github`     | `"GitHub"`                              | GitHub icon link label            |
 
 ## Keyboard support
 

@@ -130,6 +130,7 @@ export function LocaleSwitcher() {
 | `searchable`        | `boolean`                             | No       | Show the search field (default: `true`)                                              |
 | `searchPlaceholder` | `string`                              | No       | Search placeholder (default: `"Search languages..."`)                                |
 | `emptyMessage`      | `ReactNode`                           | No       | Shown when the search matches nothing (default: `"No languages found."`)             |
+| `labels`            | `Partial<LanguageSwitcherLabels>`     | No       | Override the built-in English UI text (see below)                                    |
 | `disabled`          | `boolean`                             | No       | Disable the trigger                                                                  |
 | `renderOption`      | `(locale, state) => ReactNode`        | No       | Replace each option row's content; `state` has `selected`, `active`, `label`, `flag` |
 | `classNames`        | `LanguageSwitcherClassNames`          | No       | Per-part classes: `trigger`, `content`, `search`, `list`, `item`, `empty`            |
@@ -266,6 +267,46 @@ The switcher is styled with shadcn theme tokens, so it follows your theme. Use
   )}
 />
 ```
+
+### Translated UI text
+
+The search placeholder, empty state and accessible labels default to English. Pass
+`labels` to translate them — any key you leave out keeps its English default. The
+`searchPlaceholder` and `emptyMessage` props still work, and win over `labels` when
+both are set.
+
+```tsx
+"use client";
+
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+
+export default function App() {
+  return (
+    <LanguageSwitcher
+      locales={[{ code: "en" }, { code: "fr" }, { code: "es" }]}
+      defaultValue="fr"
+      label="native"
+      labels={{
+        searchPlaceholder: "Rechercher une langue…",
+        searchLabel: "Rechercher une langue",
+        clearSearch: "Effacer la recherche",
+        emptyMessage: "Aucune langue trouvée.",
+        listbox: "Choisir la langue",
+        current: (name) => `Langue actuelle : ${name}`,
+      }}
+    />
+  );
+}
+```
+
+| Key                 | Default                                 | Used for                      |
+| ------------------- | --------------------------------------- | ----------------------------- |
+| `searchPlaceholder` | `"Search languages..."`                 | Search field placeholder      |
+| `searchLabel`       | `"Search languages"`                    | Search field accessible label |
+| `clearSearch`       | `"Clear search"`                        | Clear button accessible label |
+| `emptyMessage`      | `"No languages found."`                 | Shown when nothing matches    |
+| `listbox`           | `"Select language"`                     | Option list accessible label  |
+| `current`           | `(name) => "Current language: " + name` | Trigger accessible label      |
 
 ## Keyboard support
 

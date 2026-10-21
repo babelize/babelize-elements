@@ -128,6 +128,8 @@ export function PhoneField() {
 | `side`              | `"top" \| "bottom"`                         | No       | Preferred menu side; flips when there is no room (default: `"bottom"`)                              |
 | `searchPlaceholder` | `string`                                    | No       | Placeholder for the country search (default: `"Search countries..."`)                               |
 | `emptyMessage`      | `ReactNode`                                 | No       | Shown when the search matches nothing (default: `"No countries found."`)                            |
+| `labels`            | `Partial<PhoneInputLabels>`                 | No       | Override the built-in English UI text (see below)                                                   |
+| `displayLocale`     | `string`                                    | No       | Locale for country names, e.g. `"fr"` (default: English names)                                      |
 | `maxHeight`         | `number \| string`                          | No       | Max height of the scrolling country list (default: `"15rem"`)                                       |
 | `label`             | `string`                                    | No       | Accessible label for the input                                                                      |
 | `className`         | `string`                                    | No       | Classes for the root wrapper                                                                        |
@@ -255,6 +257,50 @@ Every part takes its own classes through `classNames`, merged after the defaults
   }}
 />
 ```
+
+### Translated UI text
+
+Pass `labels` to translate the country menu's text, and `displayLocale` to show
+country names in another language. Names come from the browser's
+[`Intl.DisplayNames`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DisplayNames),
+so their exact wording can vary slightly between browsers. Searching matches the
+translated name, while `onValueChange` still reports the country's English `name`.
+The `searchPlaceholder` and `emptyMessage` props still work, and win over `labels`
+when both are set.
+
+```tsx
+"use client";
+
+import { PhoneInput } from "@/components/ui/phone-input";
+
+export default function App() {
+  return (
+    <PhoneInput
+      defaultCountry="FR"
+      displayLocale="fr"
+      label="Numéro de téléphone"
+      placeholder="Numéro de téléphone"
+      labels={{
+        trigger: "Choisir un pays",
+        searchPlaceholder: "Rechercher un pays…",
+        searchLabel: "Rechercher un pays",
+        clearSearch: "Effacer la recherche",
+        emptyMessage: "Aucun pays trouvé.",
+        listbox: "Choisir un pays",
+      }}
+    />
+  );
+}
+```
+
+| Key                 | Default                 | Used for                      |
+| ------------------- | ----------------------- | ----------------------------- |
+| `trigger`           | `"Select country"`      | Country trigger label         |
+| `searchPlaceholder` | `"Search countries..."` | Search field placeholder      |
+| `searchLabel`       | `"Search countries"`    | Search field accessible label |
+| `clearSearch`       | `"Clear search"`        | Clear button accessible label |
+| `emptyMessage`      | `"No countries found."` | Shown when nothing matches    |
+| `listbox`           | `"Select country"`      | Country list accessible label |
 
 ## Keyboard support
 

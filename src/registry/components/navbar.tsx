@@ -24,6 +24,25 @@ export interface NavLink {
   href: string;
 }
 
+/** Built-in UI text. Every key is optional in `labels`; omitted keys keep the English default. */
+export interface NavBarLabels {
+  /** Accessible label for the language list (default: "Select language") */
+  listbox: string;
+  /** Accessible label for the language menu triggers (default: "Current language: {name}") */
+  current: (name: string) => string;
+  /** Accessible label for the mobile menu button (default: "Toggle menu") */
+  toggleMenu: string;
+  /** Accessible label for the GitHub icon link (default: "GitHub") */
+  github: string;
+}
+
+const DEFAULT_LABELS: NavBarLabels = {
+  listbox: "Select language",
+  current: (name) => `Current language: ${name}`,
+  toggleMenu: "Toggle menu",
+  github: "GitHub",
+};
+
 /** Per-part class overrides, merged after the defaults with `cn`. */
 export interface NavBarClassNames {
   /** The `<nav>` element (same as `className`) */
@@ -92,6 +111,8 @@ export interface NavBarProps extends Omit<
    * `next/link`) to get client-side navigation.
    */
   linkComponent?: React.ElementType;
+  /** Override the built-in English UI text — any key you omit keeps its default */
+  labels?: Partial<NavBarLabels>;
   /** Per-part class overrides */
   classNames?: NavBarClassNames;
 }
@@ -166,6 +187,7 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
     showFlags = true,
     maxHeight = "15rem",
     linkComponent: Link = "a",
+    labels,
     onKeyDown,
     ...rest
   },
@@ -193,6 +215,12 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
   const activeLocale = locales.find((l) => l.code === locale);
   const direction = dir ?? ((activeLocale?.rtl ?? isRtl(locale)) ? "rtl" : "ltr");
   const currentLocaleInfo = getLocaleInfo(locale, activeLocale);
+  const text: NavBarLabels = {
+    listbox: labels?.listbox ?? DEFAULT_LABELS.listbox,
+    current: labels?.current ?? DEFAULT_LABELS.current,
+    toggleMenu: labels?.toggleMenu ?? DEFAULT_LABELS.toggleMenu,
+    github: labels?.github ?? DEFAULT_LABELS.github,
+  };
   const floating = variant === "floating";
   const highlightedHref = hoveredHref ?? activeHref ?? null;
 
@@ -286,7 +314,7 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
         className="overflow-y-auto overscroll-contain p-1"
         style={{ maxHeight }}
         role="listbox"
-        aria-label="Select language"
+        aria-label={text.listbox}
         {...nav.listboxProps}
       >
         {locales.map((item, index) => {
@@ -342,7 +370,7 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
       target="_blank"
       rel="noopener noreferrer"
       className={cn(GHOST_BUTTON, "size-9")}
-      aria-label="GitHub"
+      aria-label={text.github}
     >
       <svg aria-hidden="true" className="size-4" viewBox="0 0 24 24" fill="currentColor">
         <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
@@ -448,7 +476,7 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
                     className={cn(GHOST_BUTTON, "h-9 gap-1.5 px-2.5", classNames?.languageTrigger)}
                     aria-expanded={langOpen === "desktop"}
                     aria-haspopup="listbox"
-                    aria-label={`Current language: ${currentLocaleInfo.label}`}
+                    aria-label={text.current(currentLocaleInfo.label)}
                   >
                     {flagOrGlobe(currentLocaleInfo.flag)}
                     <span>{currentLocaleInfo.label}</span>
@@ -494,7 +522,7 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
                     className={cn(GHOST_BUTTON, "size-9", classNames?.languageTrigger)}
                     aria-expanded={langOpen === "mobile"}
                     aria-haspopup="listbox"
-                    aria-label={`Current language: ${currentLocaleInfo.label}`}
+                    aria-label={text.current(currentLocaleInfo.label)}
                   >
                     {flagOrGlobe(currentLocaleInfo.flag)}
                   </button>
@@ -506,7 +534,7 @@ export const NavBar = React.forwardRef<HTMLElement, NavBarProps>(function NavBar
                 type="button"
                 className={cn(GHOST_BUTTON, "relative size-9 text-foreground")}
                 onClick={() => setMobileOpen(!mobileOpen)}
-                aria-label="Toggle menu"
+                aria-label={text.toggleMenu}
                 aria-expanded={mobileOpen}
                 aria-controls={mobileOpen ? menuId : undefined}
               >

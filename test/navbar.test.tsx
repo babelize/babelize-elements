@@ -448,3 +448,36 @@ describe("NavBar GitHub link", () => {
     expect(githubLinks()).toHaveLength(0);
   });
 });
+
+describe("NavBar labels", () => {
+  it("renders custom labels in place of the English defaults", async () => {
+    render(
+      <NavBar
+        locales={locales}
+        showGitHub
+        githubUrl="babelize/babelize-elements"
+        labels={{
+          listbox: "Choisir la langue",
+          current: (name) => `Langue actuelle : ${name}`,
+          toggleMenu: "Ouvrir le menu",
+          github: "GitHub (dépôt)",
+        }}
+      />,
+    );
+
+    const triggers = screen.getAllByRole("button", { name: "Langue actuelle : English" });
+    expect(triggers).toHaveLength(2);
+    expect(screen.getByRole("button", { name: "Ouvrir le menu" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "GitHub (dépôt)" })).toBeInTheDocument();
+
+    await userEvent.click(triggers[0]);
+    expect(screen.getByRole("listbox", { name: "Choisir la langue" })).toBeInTheDocument();
+  });
+
+  it("keeps the English default for a label passed as undefined", () => {
+    render(<NavBar locales={locales} labels={{ current: undefined, toggleMenu: undefined }} />);
+
+    expect(screen.getAllByRole("button", { name: "Current language: English" })).toHaveLength(2);
+    expect(screen.getByRole("button", { name: "Toggle menu" })).toBeInTheDocument();
+  });
+});

@@ -65,10 +65,34 @@ export interface LanguageSwitcherProps {
   showFlags?: boolean;
   /** Display labels in native language or English (default: "english") */
   label?: "native" | "english";
+  /** Override the built-in English UI text — any key you omit keeps its default */
+  labels?: Partial<LanguageSwitcherLabels>;
   /** Additional CSS classes */
   className?: string;
 }
 ```
+
+### LanguageSwitcherLabels
+
+```ts
+export interface LanguageSwitcherLabels {
+  /** Placeholder for the search field (default: "Search languages...") */
+  searchPlaceholder: string;
+  /** Accessible label for the search field (default: "Search languages") */
+  searchLabel: string;
+  /** Accessible label for the button that clears the search (default: "Clear search") */
+  clearSearch: string;
+  /** Content shown when the search matches nothing (default: "No languages found.") */
+  emptyMessage: React.ReactNode;
+  /** Accessible label for the option list (default: "Select language") */
+  listbox: string;
+  /** Accessible label for the trigger (default: "Current language: {name}") */
+  current: (name: string) => string;
+}
+```
+
+Pass any subset as `labels` — keys you omit keep their English default. The same
+holds for every `*Labels` interface below.
 
 ## Phone Input
 
@@ -109,6 +133,29 @@ export interface PhoneInputProps {
   showFlags?: boolean;
   /** Accessible label for the input */
   label?: string;
+  /** Override the built-in English UI text — any key you omit keeps its default */
+  labels?: Partial<PhoneInputLabels>;
+  /** BCP 47 locale used to display country names, e.g. "fr" (default: English names) */
+  displayLocale?: string;
+}
+```
+
+### PhoneInputLabels
+
+```ts
+export interface PhoneInputLabels {
+  /** Accessible label for the country trigger (default: "Select country") */
+  trigger: string;
+  /** Placeholder for the country search field (default: "Search countries...") */
+  searchPlaceholder: string;
+  /** Accessible label for the country search field (default: "Search countries") */
+  searchLabel: string;
+  /** Accessible label for the button that clears the search (default: "Clear search") */
+  clearSearch: string;
+  /** Content shown when the search matches nothing (default: "No countries found.") */
+  emptyMessage: React.ReactNode;
+  /** Accessible label for the country list (default: "Select country") */
+  listbox: string;
 }
 ```
 
@@ -159,8 +206,51 @@ export interface NavBarProps {
   sticky?: boolean;
   /** Show flags in language selector (default: true) */
   showFlags?: boolean;
+  /** Override the built-in English UI text — any key you omit keeps its default */
+  labels?: Partial<NavBarLabels>;
   /** Additional CSS classes */
   className?: string;
+}
+```
+
+### NavBarLabels
+
+```ts
+export interface NavBarLabels {
+  /** Accessible label for the language list (default: "Select language") */
+  listbox: string;
+  /** Accessible label for the language menu triggers (default: "Current language: {name}") */
+  current: (name: string) => string;
+  /** Accessible label for the mobile menu button (default: "Toggle menu") */
+  toggleMenu: string;
+  /** Accessible label for the GitHub icon link (default: "GitHub") */
+  github: string;
+}
+```
+
+## Translation Widget
+
+### TranslationWidgetLabels
+
+```ts
+export interface TranslationWidgetLabels {
+  /** Accessible label for the swap button (default: "Swap languages") */
+  swap: string;
+  /** Accessible label for the copy button (default: "Copy translation") */
+  copy: string;
+  /** Accessible label for the copy button right after a copy (default: "Copied") */
+  copied: string;
+  /** Screen reader announcement after a copy (default: "Translation copied to clipboard") */
+  copiedStatus: string;
+  /** Accessible label for the clear button (default: "Clear source text") */
+  clearSource: string;
+  /**
+   * Screen reader word read after the character count (default: "characters").
+   * Receives the count, so it can return the right plural form.
+   */
+  characters: (count: number) => string;
+  /** UI text for both language pickers, passed through as their `labels` */
+  languageSwitcher?: Partial<LanguageSwitcherLabels>;
 }
 ```
 

@@ -144,36 +144,37 @@ export function Translate() {
 
 ## Props
 
-| Prop                   | Type                          | Required | Description                                                                              |
-| ---------------------- | ----------------------------- | -------- | ---------------------------------------------------------------------------------------- |
-| `locales`              | `Locale[]`                    | No       | Locales for the per-pane language pickers; omit to show static chips                     |
-| `sourceLocale`         | `string`                      | No       | BCP 47 code of the source locale (e.g. `"en"`); provide to control it                    |
-| `defaultSourceLocale`  | `string`                      | No       | Initial source locale when uncontrolled (default: `locales[0]`, else `"en"`)             |
-| `onSourceLocaleChange` | `(code: string) => void`      | No       | Callback when the source locale changes                                                  |
-| `targetLocale`         | `string`                      | No       | BCP 47 code of the target locale (e.g. `"fr"`, `"ar"`); provide to control it            |
-| `defaultTargetLocale`  | `string`                      | No       | Initial target locale when uncontrolled (default: `locales[1]`, else `"en"`)             |
-| `onTargetLocaleChange` | `(code: string) => void`      | No       | Callback when the target locale changes                                                  |
-| `sourceText`           | `string`                      | No       | Source text — pass this to control the source pane                                       |
-| `defaultSourceText`    | `string`                      | No       | Initial source text when uncontrolled                                                    |
-| `onSourceChange`       | `(text: string) => void`      | No       | Callback when the source text changes; makes the pane editable                           |
-| `targetText`           | `string`                      | No       | Target text — pass this to control the target pane (read-only without `onTargetChange`)  |
-| `defaultTargetText`    | `string`                      | No       | Initial target text when uncontrolled                                                    |
-| `onTargetChange`       | `(text: string) => void`      | No       | Callback when the target text changes                                                    |
-| `onSwap`               | `() => void`                  | No       | Called after the swap button exchanges locales and texts                                 |
-| `sourcePlaceholder`    | `string`                      | No       | Placeholder for the source pane                                                          |
-| `targetPlaceholder`    | `string`                      | No       | Placeholder for the target pane                                                          |
-| `sourceLabel`          | `string`                      | No       | Accessible label for the source pane (default: `"Source text"`)                          |
-| `targetLabel`          | `string`                      | No       | Accessible label for the target pane (default: `"Target text"`)                          |
-| `readOnlySource`       | `boolean`                     | No       | Keep the source pane read-only even with `onSourceChange`                                |
-| `showCount`            | `boolean`                     | No       | Show the source character count (default: `true`)                                        |
-| `maxLength`            | `number`                      | No       | Character limit for both panes; the count shows `n / max`                                |
-| `showClear`            | `boolean`                     | No       | Show a clear button under an editable source (default: `true`)                           |
-| `showCopy`             | `boolean`                     | No       | Show a copy-to-clipboard button under the target (default: `true`)                       |
-| `onTargetCopy`         | `(text: string) => void`      | No       | Called with the target text after it is copied                                           |
-| `loading`              | `boolean`                     | No       | Show a skeleton in the target pane and mark it `aria-busy`                               |
-| `classNames`           | `TranslationWidgetClassNames` | No       | Per-part class overrides: `root`, `header`, `pane`, `textarea`, `footer`, `swap`, `chip` |
-| `dir`                  | `"ltr" \| "rtl"`              | No       | Override the auto-detected layout direction                                              |
-| `className`            | `string`                      | No       | Additional CSS classes                                                                   |
+| Prop                   | Type                               | Required | Description                                                                              |
+| ---------------------- | ---------------------------------- | -------- | ---------------------------------------------------------------------------------------- |
+| `locales`              | `Locale[]`                         | No       | Locales for the per-pane language pickers; omit to show static chips                     |
+| `sourceLocale`         | `string`                           | No       | BCP 47 code of the source locale (e.g. `"en"`); provide to control it                    |
+| `defaultSourceLocale`  | `string`                           | No       | Initial source locale when uncontrolled (default: `locales[0]`, else `"en"`)             |
+| `onSourceLocaleChange` | `(code: string) => void`           | No       | Callback when the source locale changes                                                  |
+| `targetLocale`         | `string`                           | No       | BCP 47 code of the target locale (e.g. `"fr"`, `"ar"`); provide to control it            |
+| `defaultTargetLocale`  | `string`                           | No       | Initial target locale when uncontrolled (default: `locales[1]`, else `"en"`)             |
+| `onTargetLocaleChange` | `(code: string) => void`           | No       | Callback when the target locale changes                                                  |
+| `sourceText`           | `string`                           | No       | Source text — pass this to control the source pane                                       |
+| `defaultSourceText`    | `string`                           | No       | Initial source text when uncontrolled                                                    |
+| `onSourceChange`       | `(text: string) => void`           | No       | Callback when the source text changes; makes the pane editable                           |
+| `targetText`           | `string`                           | No       | Target text — pass this to control the target pane (read-only without `onTargetChange`)  |
+| `defaultTargetText`    | `string`                           | No       | Initial target text when uncontrolled                                                    |
+| `onTargetChange`       | `(text: string) => void`           | No       | Callback when the target text changes                                                    |
+| `onSwap`               | `() => void`                       | No       | Called after the swap button exchanges locales and texts                                 |
+| `sourcePlaceholder`    | `string`                           | No       | Placeholder for the source pane                                                          |
+| `targetPlaceholder`    | `string`                           | No       | Placeholder for the target pane                                                          |
+| `sourceLabel`          | `string`                           | No       | Accessible label for the source pane (default: `"Source text"`)                          |
+| `targetLabel`          | `string`                           | No       | Accessible label for the target pane (default: `"Target text"`)                          |
+| `readOnlySource`       | `boolean`                          | No       | Keep the source pane read-only even with `onSourceChange`                                |
+| `showCount`            | `boolean`                          | No       | Show the source character count (default: `true`)                                        |
+| `maxLength`            | `number`                           | No       | Character limit for both panes; the count shows `n / max`                                |
+| `showClear`            | `boolean`                          | No       | Show a clear button under an editable source (default: `true`)                           |
+| `showCopy`             | `boolean`                          | No       | Show a copy-to-clipboard button under the target (default: `true`)                       |
+| `onTargetCopy`         | `(text: string) => void`           | No       | Called with the target text after it is copied                                           |
+| `labels`               | `Partial<TranslationWidgetLabels>` | No       | Override the built-in English UI text (see below)                                        |
+| `loading`              | `boolean`                          | No       | Show a skeleton in the target pane and mark it `aria-busy`                               |
+| `classNames`           | `TranslationWidgetClassNames`      | No       | Per-part class overrides: `root`, `header`, `pane`, `textarea`, `footer`, `swap`, `chip` |
+| `dir`                  | `"ltr" \| "rtl"`                   | No       | Override the auto-detected layout direction                                              |
+| `className`            | `string`                           | No       | Additional CSS classes                                                                   |
 
 Any other prop — `id`, `data-*`, `aria-*` — is spread onto the root element, and the
 ref is forwarded to it.
@@ -292,6 +293,47 @@ async function translate(text: string) {
 
 <TranslationWidget loading={loading} /* … */ />;
 ```
+
+## Translated UI text
+
+The pane placeholders and labels have their own props (`sourcePlaceholder`,
+`sourceLabel` and so on). The rest of the built-in text — toolbar buttons, the copy
+announcement, the word read after the character count and the two language pickers —
+comes from `labels`. Any key you leave out keeps its English default.
+
+```tsx
+<TranslationWidget
+  locales={locales}
+  defaultSourceLocale="fr"
+  defaultTargetLocale="en"
+  onSourceChange={(text) => console.log(text)}
+  sourcePlaceholder="Texte source"
+  sourceLabel="Texte source"
+  labels={{
+    swap: "Inverser les langues",
+    copy: "Copier la traduction",
+    copied: "Copié",
+    copiedStatus: "Traduction copiée dans le presse-papiers",
+    clearSource: "Effacer le texte source",
+    characters: (count) => (count === 1 ? "caractère" : "caractères"),
+    languageSwitcher: {
+      current: (name) => `Langue actuelle : ${name}`,
+      searchPlaceholder: "Rechercher des langues…",
+      emptyMessage: "Aucune langue trouvée.",
+    },
+  }}
+/>
+```
+
+| Key                | Default                             | Used for                                                  |
+| ------------------ | ----------------------------------- | --------------------------------------------------------- |
+| `swap`             | `"Swap languages"`                  | Swap button accessible label                              |
+| `copy`             | `"Copy translation"`                | Copy button accessible label                              |
+| `copied`           | `"Copied"`                          | Copy button label right after a copy                      |
+| `copiedStatus`     | `"Translation copied to clipboard"` | Screen reader announcement after copy                     |
+| `clearSource`      | `"Clear source text"`               | Clear button accessible label                             |
+| `characters`       | `(count) => "characters"`           | Read after the character count; gets the count to plural  |
+| `languageSwitcher` | `LanguageSwitcher` defaults         | Both language pickers (`Partial<LanguageSwitcherLabels>`) |
 
 ## Customization
 

@@ -295,3 +295,72 @@ describe("PhoneInput keyboard navigation", () => {
     expect(screen.queryByRole("listbox")).toBeNull();
   });
 });
+
+describe("PhoneInput labels", () => {
+  it("renders custom labels in place of the English defaults", async () => {
+    render(
+      <PhoneInput
+        labels={{
+          trigger: "Choisir un pays",
+          searchPlaceholder: "Rechercher des pays…",
+          searchLabel: "Rechercher un pays",
+          clearSearch: "Effacer la recherche",
+          emptyMessage: "Aucun pays trouvé",
+          listbox: "Liste des pays",
+        }}
+      />,
+    );
+    await userEvent.click(screen.getByRole("button", { name: "Choisir un pays" }));
+
+    const search = screen.getByRole("combobox", { name: "Rechercher un pays" });
+    expect(search).toHaveAttribute("placeholder", "Rechercher des pays…");
+    expect(screen.getByRole("listbox", { name: "Liste des pays" })).toBeInTheDocument();
+
+    await userEvent.type(search, "zzz");
+    expect(screen.getByText("Aucun pays trouvé")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Effacer la recherche" })).toBeInTheDocument();
+  });
+
+  it("shows and searches country names in displayLocale", async () => {
+    const onValueChange = vi.fn();
+    render(<PhoneInput displayLocale="fr" onValueChange={onValueChange} />);
+    await userEvent.click(screen.getByRole("button", { name: "Select country" }));
+
+    expect(screen.getByRole("option", { name: /Allemagne/ })).toBeInTheDocument();
+    expect(screen.queryByRole("option", { name: /Germany/ })).not.toBeInTheDocument();
+
+    await userEvent.type(screen.getByRole("combobox"), "Allem");
+    expect(screen.getAllByRole("option")).toHaveLength(1);
+
+    // The reported country keeps its stable English `name`.
+    await userEvent.click(screen.getByRole("option", { name: /Allemagne/ }));
+    expect(onValueChange).toHaveBeenCalledWith(
+      "",
+      expect.objectContaining({ code: "DE", name: "Germany" }),
+    );
+  });
+
+  it("falls back to English country names for a malformed displayLocale", async () => {
+    render(<PhoneInput displayLocale="not a locale" />);
+    await userEvent.click(screen.getByRole("button", { name: "Select country" }));
+
+    expect(screen.getByRole("option", { name: /Germany/ })).toBeInTheDocument();
+  });
+
+  it("matches searches with the display locale's case rules", async () => {
+    render(<PhoneInput displayLocale="tr" />);
+    await userEvent.click(screen.getByRole("button", { name: "Select country" }));
+    await userEvent.type(screen.getByRole("combobox"), "israil");
+
+    expect(screen.getAllByRole("option")).toHaveLength(1);
+    expect(screen.getByRole("option", { name: /İsrail/ })).toBeInTheDocument();
+  });
+
+  it("matches country codes without the display locale's case rules", async () => {
+    render(<PhoneInput displayLocale="tr" />);
+    await userEvent.click(screen.getByRole("button", { name: "Select country" }));
+    await userEvent.type(screen.getByRole("combobox"), "id");
+
+    expect(screen.getByRole("option", { name: /Endonezya/ })).toBeInTheDocument();
+  });
+});

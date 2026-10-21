@@ -418,3 +418,75 @@ describe("LanguageSwitcher keyboard navigation", () => {
     expect(screen.getByRole("listbox").style.maxHeight).toBe("200px");
   });
 });
+
+describe("LanguageSwitcher labels", () => {
+  it("renders custom labels in place of the English defaults", async () => {
+    render(
+      <LanguageSwitcher
+        locales={locales}
+        labels={{
+          searchPlaceholder: "Rechercher…",
+          searchLabel: "Rechercher une langue",
+          clearSearch: "Effacer la recherche",
+          emptyMessage: "Aucun résultat",
+          listbox: "Choisir la langue",
+          current: (name) => `Langue actuelle : ${name}`,
+        }}
+      />,
+    );
+    await userEvent.click(screen.getByRole("button", { name: "Langue actuelle : English" }));
+
+    const search = screen.getByRole("combobox", { name: "Rechercher une langue" });
+    expect(search).toHaveAttribute("placeholder", "Rechercher…");
+    expect(screen.getByRole("listbox", { name: "Choisir la langue" })).toBeInTheDocument();
+
+    await userEvent.type(search, "zzz");
+    expect(screen.getByText("Aucun résultat")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Effacer la recherche" })).toBeInTheDocument();
+  });
+
+  it("keeps the English default for any label left out", async () => {
+    render(<LanguageSwitcher locales={locales} labels={{ emptyMessage: "Aucun résultat" }} />);
+    await userEvent.click(screen.getByRole("button", { name: "Current language: English" }));
+
+    expect(screen.getByRole("combobox", { name: "Search languages" })).toHaveAttribute(
+      "placeholder",
+      "Search languages...",
+    );
+    expect(screen.getByRole("listbox", { name: "Select language" })).toBeInTheDocument();
+  });
+
+  it("lets searchPlaceholder and emptyMessage win over labels", async () => {
+    render(
+      <LanguageSwitcher
+        locales={locales}
+        searchPlaceholder="Find a language"
+        emptyMessage="Nothing here"
+        labels={{ searchPlaceholder: "Rechercher…", emptyMessage: "Aucun résultat" }}
+      />,
+    );
+    await userEvent.click(screen.getByRole("button", { name: /Current language/ }));
+
+    const search = screen.getByRole("combobox", { name: "Search languages" });
+    expect(search).toHaveAttribute("placeholder", "Find a language");
+    await userEvent.type(search, "zzz");
+    expect(screen.getByText("Nothing here")).toBeInTheDocument();
+  });
+
+  it("keeps the English default for a label passed as undefined", async () => {
+    render(
+      <LanguageSwitcher locales={locales} labels={{ current: undefined, listbox: undefined }} />,
+    );
+    await userEvent.click(screen.getByRole("button", { name: "Current language: English" }));
+
+    expect(screen.getByRole("listbox", { name: "Select language" })).toBeInTheDocument();
+  });
+
+  it("renders nothing for emptyMessage={null}", async () => {
+    render(<LanguageSwitcher locales={locales} emptyMessage={null} />);
+    await userEvent.click(screen.getByRole("button", { name: /Current language/ }));
+    await userEvent.type(screen.getByRole("combobox"), "zzz");
+
+    expect(screen.queryByText("No languages found.")).not.toBeInTheDocument();
+  });
+});

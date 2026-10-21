@@ -17,6 +17,31 @@ import { getFlag, getLanguageName, isRtl } from "./locale-data";
 
 export type { Locale };
 
+/** Built-in UI text. Every key is optional in `labels`; omitted keys keep the English default. */
+export interface LanguageSwitcherLabels {
+  /** Placeholder for the search field (default: "Search languages...") */
+  searchPlaceholder: string;
+  /** Accessible label for the search field (default: "Search languages") */
+  searchLabel: string;
+  /** Accessible label for the button that clears the search (default: "Clear search") */
+  clearSearch: string;
+  /** Content shown when the search matches nothing (default: "No languages found.") */
+  emptyMessage: React.ReactNode;
+  /** Accessible label for the option list (default: "Select language") */
+  listbox: string;
+  /** Accessible label for the trigger (default: "Current language: {name}") */
+  current: (name: string) => string;
+}
+
+const DEFAULT_LABELS: LanguageSwitcherLabels = {
+  searchPlaceholder: "Search languages...",
+  searchLabel: "Search languages",
+  clearSearch: "Clear search",
+  emptyMessage: "No languages found.",
+  listbox: "Select language",
+  current: (name) => `Current language: ${name}`,
+};
+
 /** Per-part class overrides, merged after the defaults with `cn`. */
 export interface LanguageSwitcherClassNames {
   /** The button that opens the menu */
@@ -78,10 +103,12 @@ export interface LanguageSwitcherProps extends Omit<
   side?: "top" | "bottom";
   /** Show the search field (default: true) */
   searchable?: boolean;
-  /** Placeholder for the search field (default: "Search languages...") */
+  /** Placeholder for the search field. Alias of `labels.searchPlaceholder`, wins over it */
   searchPlaceholder?: string;
-  /** Content shown when the search matches nothing (default: "No languages found.") */
+  /** Empty-search content. Alias of `labels.emptyMessage`, wins over it */
   emptyMessage?: React.ReactNode;
+  /** Override the built-in English UI text — any key you omit keeps its default */
+  labels?: Partial<LanguageSwitcherLabels>;
   /** Disable the trigger */
   disabled?: boolean;
   /** Replace the content of each option row. The row keeps its button, role and state. */
@@ -141,8 +168,9 @@ export const LanguageSwitcher = React.forwardRef<HTMLDivElement, LanguageSwitche
       align = "start",
       side: preferredSide = "bottom",
       searchable = true,
-      searchPlaceholder = "Search languages...",
-      emptyMessage = "No languages found.",
+      searchPlaceholder,
+      emptyMessage,
+      labels,
       disabled = false,
       renderOption,
       classNames,
@@ -167,6 +195,21 @@ export const LanguageSwitcher = React.forwardRef<HTMLDivElement, LanguageSwitche
 
     React.useImperativeHandle(forwardedRef, () => ref.current as HTMLDivElement);
 
+    const text: LanguageSwitcherLabels = {
+      searchPlaceholder:
+        searchPlaceholder ?? labels?.searchPlaceholder ?? DEFAULT_LABELS.searchPlaceholder,
+      searchLabel: labels?.searchLabel ?? DEFAULT_LABELS.searchLabel,
+      clearSearch: labels?.clearSearch ?? DEFAULT_LABELS.clearSearch,
+      // `null` is a valid empty message (it renders nothing), so only `undefined` falls through.
+      emptyMessage:
+        emptyMessage !== undefined
+          ? emptyMessage
+          : labels?.emptyMessage !== undefined
+            ? labels.emptyMessage
+            : DEFAULT_LABELS.emptyMessage,
+      listbox: labels?.listbox ?? DEFAULT_LABELS.listbox,
+      current: labels?.current ?? DEFAULT_LABELS.current,
+    };
     const resolveLabel = (l: Locale) => l.label ?? getLanguageName(l.code, labelMode) ?? l.code;
     const activeLocale = locales.find((l) => l.code === locale);
     const activeLabel = activeLocale ? resolveLabel(activeLocale) : locale;
@@ -259,7 +302,7 @@ export const LanguageSwitcher = React.forwardRef<HTMLDivElement, LanguageSwitche
             )}
             aria-expanded={open}
             aria-haspopup="listbox"
-            aria-label={`Current language: ${activeLabel}`}
+            aria-label={text.current(activeLabel)}
           >
             {showFlags ? (
               <span className="text-base leading-none">
@@ -300,8 +343,8 @@ export const LanguageSwitcher = React.forwardRef<HTMLDivElement, LanguageSwitche
                     <input
                       ref={inputRef}
                       type="text"
-                      placeholder={searchPlaceholder}
-                      aria-label="Search languages"
+                      placeholder={text.searchPlaceholder}
+                      aria-label={text.searchLabel}
                       autoComplete="off"
                       spellCheck={false}
                       value={search}
@@ -316,7 +359,7 @@ export const LanguageSwitcher = React.forwardRef<HTMLDivElement, LanguageSwitche
                       <button
                         type="button"
                         tabIndex={-1}
-                        aria-label="Clear search"
+                        aria-label={text.clearSearch}
                         onClick={() => {
                           setSearch("");
                           nav.resetActive();
@@ -335,7 +378,7 @@ export const LanguageSwitcher = React.forwardRef<HTMLDivElement, LanguageSwitche
                   className={cn("overflow-y-auto overscroll-contain p-1", classNames?.list)}
                   style={{ maxHeight }}
                   role="listbox"
-                  aria-label="Select language"
+                  aria-label={text.listbox}
                   {...nav.listboxProps}
                 >
                   {filtered.map((l, index) => {
@@ -396,7 +439,7 @@ export const LanguageSwitcher = React.forwardRef<HTMLDivElement, LanguageSwitche
                         classNames?.empty,
                       )}
                     >
-                      {emptyMessage}
+                      {text.emptyMessage}
                     </div>
                   )}
                 </div>

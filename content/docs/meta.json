@@ -1,4 +1,19 @@
 {
-  "pages": ["getting-started", "components", "customization"],
-  "collapsible": false
+  "pages": [
+    "---Get Started---",
+    "getting-started/index",
+    "getting-started/install",
+    "getting-started/shadcn-cli",
+    "---Components---",
+    "[LayoutGrid][Overview](/docs/components)",
+    "components/language-switchers",
+    "components/navigation",
+    "components/inputs",
+    "components/translation",
+    "---Customization---",
+    "customization/interfaces",
+    "---Contributing---",
+    "getting-started/contributing",
+    "getting-started/rulebook"
+  ]
 }
