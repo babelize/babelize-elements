@@ -644,7 +644,10 @@ describe("LocalePicker closing motion", () => {
     await userEvent.click(trigger());
     expect(popupPanel()).not.toHaveAttribute("aria-hidden");
 
-    await userEvent.click(trigger()); // close — the exit animation starts
+    // Synchronous close: nothing awaits before the assertion below, so the
+    // 0.15s exit animation cannot have unmounted the panel first — a real
+    // `userEvent.click` yields long enough for it to finish on slow machines.
+    fireEvent.click(trigger());
 
     expect(popupPanel()).toHaveAttribute("aria-hidden", "true");
     await waitFor(() => expect(screen.queryByRole("listbox")).toBeNull());
