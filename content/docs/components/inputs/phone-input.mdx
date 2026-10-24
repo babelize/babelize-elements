@@ -134,9 +134,11 @@ country to match, stripping the dial code from the field — the prefix the
   once the `1` lands — and the number keeps every digit it had.
 - The **longest** matching dial code wins, so `+880…` picks Bangladesh even if a
   shorter code also matches.
-- **Shared dial codes** (`+1` US/CA, `+7` RU/KZ) keep the currently selected
-  country when it is one of the sharing countries, and otherwise pick the first
-  one in the offered list.
+- **Shared dial codes** keep the currently selected country when it is one of
+  the countries sharing the matched code, and otherwise pick the first one in
+  the offered list — so `+1` never jumps away from US or CA mid-typing. The same
+  rule covers any shared code in a custom `countries` list, such as `+7` if you
+  offer both RU and KZ.
 - A dial code that is not in your `countries` list is left alone — the country
   only ever switches to a country you actually offer.
 - After a switch, the country menu still works normally: picking a country

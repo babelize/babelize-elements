@@ -104,7 +104,7 @@ describe("PhoneInput", () => {
   });
 });
 
-describe("PhoneInput controlled country", () => {
+describe("PhoneInput country control and detection", () => {
   const numberField = () => screen.getByRole<HTMLInputElement>("textbox", { name: "Phone number" });
 
   it("follows an externally changed country prop", async () => {
@@ -139,6 +139,49 @@ describe("PhoneInput controlled country", () => {
     await userEvent.click(screen.getByRole("button", { name: "Select country" }));
     await userEvent.click(screen.getByRole("option", { name: /India/ }));
     expect(onCountryChange).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not report a change for a lowercase country code's own country", async () => {
+    const onCountryChange = vi.fn();
+    render(<PhoneInput defaultCountry="gb" onCountryChange={onCountryChange} />);
+    expect(screen.getByText("+44")).toBeInTheDocument();
+
+    // "gb" resolves to GB for display — re-picking GB is not a transition.
+    await userEvent.click(screen.getByRole("button", { name: "Select country" }));
+    await userEvent.click(screen.getByRole("option", { name: /United Kingdom/ }));
+    expect(onCountryChange).not.toHaveBeenCalled();
+
+    // A country that actually differs still reports.
+    await userEvent.click(screen.getByRole("button", { name: "Select country" }));
+    await userEvent.click(screen.getByRole("option", { name: /France/ }));
+    expect(onCountryChange).toHaveBeenCalledTimes(1);
+    expect(onCountryChange).toHaveBeenCalledWith(expect.objectContaining({ code: "FR" }));
+  });
+
+  it("does not report a change when picking the country an unknown code falls back to", async () => {
+    const onCountryChange = vi.fn();
+    render(<PhoneInput defaultCountry="XX" onCountryChange={onCountryChange} />);
+    // An unknown code displays the first offered country.
+    expect(screen.getByText("+1")).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Select country" }));
+    await userEvent.click(screen.getByRole("option", { name: /United States/ }));
+    expect(onCountryChange).not.toHaveBeenCalled();
+  });
+
+  it("keeps a fixed controlled country when the parent ignores onCountryChange", async () => {
+    const onCountryChange = vi.fn();
+    render(<PhoneInput country="IN" onCountryChange={onCountryChange} />);
+    expect(screen.getByText("+91")).toBeInTheDocument();
+
+    await userEvent.click(numberField());
+    await userEvent.paste("+44 20 7946 0958");
+
+    // The parent owns the country, so the trigger stays put — but detection
+    // still strips the prefix and reports the country it intended.
+    expect(screen.getByText("+91")).toBeInTheDocument();
+    expect(numberField()).toHaveValue(" 20 7946 0958");
+    expect(onCountryChange).toHaveBeenCalledWith(expect.objectContaining({ code: "GB" }));
   });
 
   it("selects GB when a +44 number is pasted, stripping the prefix", async () => {

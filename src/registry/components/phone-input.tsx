@@ -214,7 +214,9 @@ const INPUT_SIZES = {
 } as const;
 
 function getCountryByCode(code: string, list: Country[] = COUNTRIES): Country | undefined {
-  return list.find((c) => c.code === code.toUpperCase());
+  // Case-insensitive on both sides: the lookup arg arrives in any case
+  // ("gb", "GB"), and a hand-written `countries` list may not be uppercase.
+  return list.find((c) => c.code.toUpperCase() === code.toUpperCase());
 }
 
 /**
@@ -312,9 +314,12 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
   // country, or keeping it across a shared dial code, is not a change.
   const pickCountry = React.useCallback(
     (next: Country) => {
-      if (next.code !== countryCode) setCountryCode(next.code);
+      // Compare against what is displayed, not the raw code: `country="gb"`
+      // resolves to GB, and an unknown code falls back to `countries[0]` —
+      // either way the visible country must match before we report a change.
+      if (next.code !== selectedCountry.code) setCountryCode(next.code);
     },
-    [countryCode, setCountryCode],
+    [selectedCountry.code, setCountryCode],
   );
   const [inputValue, setInputValue] = useControllableState(value, defaultValue ?? "", undefined);
   const [open, setOpen] = React.useState(false);
