@@ -124,10 +124,10 @@ switch countries.
 ### Dial-code detection
 
 Type or paste a number that starts with `+` and the component switches the
-country to match, stripping the dial code from the field — the prefix the
-`+` declares outranks a manually picked country:
+country to match, stripping the dial code and the separator right after it from
+the field — the prefix the `+` declares outranks a manually picked country:
 
-- Pasting `+44 20 7946 0958` selects GB and leaves ` 20 7946 0958` in the field.
+- Pasting `+44 20 7946 0958` selects GB and leaves `20 7946 0958` in the field.
 - A `+` typed in front of digits that are **already in the field** never strips
   them: the dial code is only consumed when its digits were entered after the
   `+`. Type `+1` in front of an existing number and the country switches to US

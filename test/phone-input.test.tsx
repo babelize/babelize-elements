@@ -180,7 +180,7 @@ describe("PhoneInput country control and detection", () => {
     // The parent owns the country, so the trigger stays put — but detection
     // still strips the prefix and reports the country it intended.
     expect(screen.getByText("+91")).toBeInTheDocument();
-    expect(numberField()).toHaveValue(" 20 7946 0958");
+    expect(numberField()).toHaveValue("20 7946 0958");
     expect(onCountryChange).toHaveBeenCalledWith(expect.objectContaining({ code: "GB" }));
   });
 
@@ -192,12 +192,12 @@ describe("PhoneInput country control and detection", () => {
     await userEvent.click(numberField());
     await userEvent.paste("+44 20 7946 0958");
 
-    expect(numberField()).toHaveValue(" 20 7946 0958");
+    expect(numberField()).toHaveValue("20 7946 0958");
     expect(screen.getByText("+44")).toBeInTheDocument();
     expect(onCountryChange).toHaveBeenCalledTimes(1);
     expect(onCountryChange).toHaveBeenCalledWith(expect.objectContaining({ code: "GB" }));
     expect(onValueChange).toHaveBeenLastCalledWith(
-      " 20 7946 0958",
+      "20 7946 0958",
       expect.objectContaining({ code: "GB" }),
     );
   });
@@ -209,6 +209,57 @@ describe("PhoneInput country control and detection", () => {
 
     expect(screen.getByText("+91")).toBeInTheDocument();
     expect(numberField()).toHaveValue("9876543210");
+  });
+
+  it("drops a dash typed right after the dial code is stripped", async () => {
+    render(<PhoneInput />);
+
+    await userEvent.type(numberField(), "+91-9876543210");
+
+    expect(screen.getByText("+91")).toBeInTheDocument();
+    expect(numberField()).toHaveValue("9876543210");
+  });
+
+  it("drops a dot typed right after the dial code is stripped", async () => {
+    render(<PhoneInput />);
+
+    await userEvent.type(numberField(), "+91.9876543210");
+
+    expect(screen.getByText("+91")).toBeInTheDocument();
+    expect(numberField()).toHaveValue("9876543210");
+  });
+
+  it("drops a space typed right after the dial code is stripped", async () => {
+    render(<PhoneInput />);
+
+    await userEvent.type(numberField(), "+91 9876543210");
+
+    expect(screen.getByText("+91")).toBeInTheDocument();
+    expect(numberField()).toHaveValue("9876543210");
+  });
+
+  it("trims only the separator directly after a pasted dial code", async () => {
+    const onCountryChange = vi.fn();
+    render(<PhoneInput onCountryChange={onCountryChange} />);
+
+    await userEvent.click(numberField());
+    await userEvent.paste("+44-20-7946");
+
+    // The dash after +44 is consumed with the code; the one inside the number
+    // is the user's formatting and stays.
+    expect(screen.getByText("+44")).toBeInTheDocument();
+    expect(numberField()).toHaveValue("20-7946");
+    expect(onCountryChange).toHaveBeenCalledWith(expect.objectContaining({ code: "GB" }));
+  });
+
+  it("leaves anything that is not whitespace, dash or dot after the dial code", async () => {
+    render(<PhoneInput />);
+
+    await userEvent.click(numberField());
+    await userEvent.paste("+1 (416) 555");
+
+    expect(screen.getByText("+1")).toBeInTheDocument();
+    expect(numberField()).toHaveValue("(416) 555");
   });
 
   it("keeps CA when a +1 number is pasted while CA is selected", async () => {
@@ -229,7 +280,7 @@ describe("PhoneInput country control and detection", () => {
     expect(screen.getByText("\u{1F1E8}\u{1F1E6}")).toBeInTheDocument();
     expect(onCountryChange).not.toHaveBeenCalled();
     expect(onValueChange).toHaveBeenLastCalledWith(
-      " 416 555 0123",
+      "416 555 0123",
       expect.objectContaining({ code: "CA" }),
     );
   });
@@ -241,7 +292,7 @@ describe("PhoneInput country control and detection", () => {
     await userEvent.paste("+91 98765 43210");
 
     expect(screen.getByText("+91")).toBeInTheDocument();
-    expect(numberField()).toHaveValue(" 98765 43210");
+    expect(numberField()).toHaveValue("98765 43210");
   });
 
   it("matches the longest dial code when the offered list has overlapping codes", async () => {

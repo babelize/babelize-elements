@@ -221,9 +221,11 @@ function getCountryByCode(code: string, list: Country[] = COUNTRIES): Country | 
 
 /**
  * Detect an explicit `+` dial-code prefix in what the user typed or pasted.
- * Returns the country it resolves to plus the value with the prefix stripped,
- * or `undefined` when the input does not start with a dial code that is
- * actually offered — detection must never land on a country outside `countries`.
+ * Returns the country it resolves to plus the value with the prefix stripped —
+ * including any separator that immediately followed the code (`+44 20` leaves
+ * `20`, not ` 20`) — or `undefined` when the input does not start with a dial
+ * code that is actually offered: detection must never land on a country
+ * outside `countries`.
  *
  * The longest matching dial code wins (`+880` beats `+8` for a list that has
  * both). Shared dial codes (`+1`, `+7`) keep `current` when it is one of the
@@ -245,7 +247,10 @@ function detectCountryPrefix(
   const withCode = countries.filter((c) => c.dialCode === bestDialCode);
   const country = withCode.find((c) => c.code === current.code) ?? withCode[0];
   if (!country) return undefined;
-  return { country, rest: input.slice(bestDialCode.length) };
+  return {
+    country,
+    rest: input.slice(bestDialCode.length).replace(/^[\s.-]+/, ""),
+  };
 }
 
 /**
@@ -343,6 +348,10 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
   // programmatic set) and its "+"-run has unknown provenance — restart the
   // fresh count at 0 rather than trusting a stale one.
   const handledValueRef = React.useRef<string | null>(null);
+  // True when the last thing we did was strip a dial code, so the separator
+  // the user types next — one event later, once the value is already empty —
+  // still belongs to the prefix rather than opening the number.
+  const stripJustHappenedRef = React.useRef(false);
 
   React.useImperativeHandle(forwardedRef, () => inputRef.current as HTMLInputElement);
 
@@ -447,6 +456,23 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
     const wroteBefore = handledValueRef.current;
     handledValueRef.current = next;
 
+    // A separator typed right after the dial code was stripped belongs to the
+    // prefix the code just claimed: drop it instead of letting it open the
+    // number. Only a separator arriving at the front of an otherwise empty,
+    // unbroken value counts — a dash typed mid-number is the user's own
+    // formatting, and a value we did not write is not ours to swallow.
+    if (
+      stripJustHappenedRef.current &&
+      wroteBefore !== null &&
+      wroteBefore === prev &&
+      prev === "" &&
+      /^[\s.-]+$/.test(next)
+    ) {
+      handledValueRef.current = "";
+      return;
+    }
+    stripJustHappenedRef.current = false;
+
     // Keep the count of characters typed after the leading "+" in step with
     // the edit, before any detection runs on the result.
     let fresh = wroteBefore === null || wroteBefore === prev ? freshDigitsRef.current : 0;
@@ -499,6 +525,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
     pickCountry(match.country);
     setInputValue(match.rest);
     handledValueRef.current = match.rest;
+    stripJustHappenedRef.current = true;
     // The strip leaves a new run behind: if it still starts with "+", that
     // plus now sits at index 0 with the not-yet-consumed typed digits after it.
     freshDigitsRef.current = match.rest.startsWith("+") ? Math.max(0, fresh - dialLen) : 0;
