@@ -104,6 +104,318 @@ describe("PhoneInput", () => {
   });
 });
 
+describe("PhoneInput country control and detection", () => {
+  const numberField = () => screen.getByRole<HTMLInputElement>("textbox", { name: "Phone number" });
+
+  it("follows an externally changed country prop", async () => {
+    function Harness() {
+      const [code, setCode] = React.useState("IN");
+      return (
+        <>
+          <button type="button" onClick={() => setCode("GB")}>
+            set
+          </button>
+          <PhoneInput country={code} />
+        </>
+      );
+    }
+    render(<Harness />);
+    expect(screen.getByText("+91")).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "set" }));
+    expect(screen.getByText("+44")).toBeInTheDocument();
+  });
+
+  it("reports a picked country through onCountryChange, and only on a real change", async () => {
+    const onCountryChange = vi.fn();
+    render(<PhoneInput onCountryChange={onCountryChange} />);
+    await userEvent.click(screen.getByRole("button", { name: "Select country" }));
+    await userEvent.click(screen.getByRole("option", { name: /India/ }));
+
+    expect(onCountryChange).toHaveBeenCalledTimes(1);
+    expect(onCountryChange).toHaveBeenCalledWith(expect.objectContaining({ code: "IN" }));
+
+    // Re-picking the country that is already selected is not a change.
+    await userEvent.click(screen.getByRole("button", { name: "Select country" }));
+    await userEvent.click(screen.getByRole("option", { name: /India/ }));
+    expect(onCountryChange).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not report a change for a lowercase country code's own country", async () => {
+    const onCountryChange = vi.fn();
+    render(<PhoneInput defaultCountry="gb" onCountryChange={onCountryChange} />);
+    expect(screen.getByText("+44")).toBeInTheDocument();
+
+    // "gb" resolves to GB for display — re-picking GB is not a transition.
+    await userEvent.click(screen.getByRole("button", { name: "Select country" }));
+    await userEvent.click(screen.getByRole("option", { name: /United Kingdom/ }));
+    expect(onCountryChange).not.toHaveBeenCalled();
+
+    // A country that actually differs still reports.
+    await userEvent.click(screen.getByRole("button", { name: "Select country" }));
+    await userEvent.click(screen.getByRole("option", { name: /France/ }));
+    expect(onCountryChange).toHaveBeenCalledTimes(1);
+    expect(onCountryChange).toHaveBeenCalledWith(expect.objectContaining({ code: "FR" }));
+  });
+
+  it("does not report a change when picking the country an unknown code falls back to", async () => {
+    const onCountryChange = vi.fn();
+    render(<PhoneInput defaultCountry="XX" onCountryChange={onCountryChange} />);
+    // An unknown code displays the first offered country.
+    expect(screen.getByText("+1")).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Select country" }));
+    await userEvent.click(screen.getByRole("option", { name: /United States/ }));
+    expect(onCountryChange).not.toHaveBeenCalled();
+  });
+
+  it("keeps a fixed controlled country when the parent ignores onCountryChange", async () => {
+    const onCountryChange = vi.fn();
+    render(<PhoneInput country="IN" onCountryChange={onCountryChange} />);
+    expect(screen.getByText("+91")).toBeInTheDocument();
+
+    await userEvent.click(numberField());
+    await userEvent.paste("+44 20 7946 0958");
+
+    // The parent owns the country, so the trigger stays put — but detection
+    // still strips the prefix and reports the country it intended.
+    expect(screen.getByText("+91")).toBeInTheDocument();
+    expect(numberField()).toHaveValue("20 7946 0958");
+    expect(onCountryChange).toHaveBeenCalledWith(expect.objectContaining({ code: "GB" }));
+  });
+
+  it("selects GB when a +44 number is pasted, stripping the prefix", async () => {
+    const onValueChange = vi.fn();
+    const onCountryChange = vi.fn();
+    render(<PhoneInput onValueChange={onValueChange} onCountryChange={onCountryChange} />);
+
+    await userEvent.click(numberField());
+    await userEvent.paste("+44 20 7946 0958");
+
+    expect(numberField()).toHaveValue("20 7946 0958");
+    expect(screen.getByText("+44")).toBeInTheDocument();
+    expect(onCountryChange).toHaveBeenCalledTimes(1);
+    expect(onCountryChange).toHaveBeenCalledWith(expect.objectContaining({ code: "GB" }));
+    expect(onValueChange).toHaveBeenLastCalledWith(
+      "20 7946 0958",
+      expect.objectContaining({ code: "GB" }),
+    );
+  });
+
+  it("detects a dial code typed character by character", async () => {
+    render(<PhoneInput />);
+
+    await userEvent.type(numberField(), "+919876543210");
+
+    expect(screen.getByText("+91")).toBeInTheDocument();
+    expect(numberField()).toHaveValue("9876543210");
+  });
+
+  it("drops a dash typed right after the dial code is stripped", async () => {
+    render(<PhoneInput />);
+
+    await userEvent.type(numberField(), "+91-9876543210");
+
+    expect(screen.getByText("+91")).toBeInTheDocument();
+    expect(numberField()).toHaveValue("9876543210");
+  });
+
+  it("drops a dot typed right after the dial code is stripped", async () => {
+    render(<PhoneInput />);
+
+    await userEvent.type(numberField(), "+91.9876543210");
+
+    expect(screen.getByText("+91")).toBeInTheDocument();
+    expect(numberField()).toHaveValue("9876543210");
+  });
+
+  it("drops a space typed right after the dial code is stripped", async () => {
+    render(<PhoneInput />);
+
+    await userEvent.type(numberField(), "+91 9876543210");
+
+    expect(screen.getByText("+91")).toBeInTheDocument();
+    expect(numberField()).toHaveValue("9876543210");
+  });
+
+  it("trims only the separator directly after a pasted dial code", async () => {
+    const onCountryChange = vi.fn();
+    render(<PhoneInput onCountryChange={onCountryChange} />);
+
+    await userEvent.click(numberField());
+    await userEvent.paste("+44-20-7946");
+
+    // The dash after +44 is consumed with the code; the one inside the number
+    // is the user's formatting and stays.
+    expect(screen.getByText("+44")).toBeInTheDocument();
+    expect(numberField()).toHaveValue("20-7946");
+    expect(onCountryChange).toHaveBeenCalledWith(expect.objectContaining({ code: "GB" }));
+  });
+
+  it("leaves anything that is not whitespace, dash or dot after the dial code", async () => {
+    render(<PhoneInput />);
+
+    await userEvent.click(numberField());
+    await userEvent.paste("+1 (416) 555");
+
+    expect(screen.getByText("+1")).toBeInTheDocument();
+    expect(numberField()).toHaveValue("(416) 555");
+  });
+
+  it("keeps CA when a +1 number is pasted while CA is selected", async () => {
+    const onValueChange = vi.fn();
+    const onCountryChange = vi.fn();
+    render(
+      <PhoneInput
+        defaultCountry="CA"
+        onValueChange={onValueChange}
+        onCountryChange={onCountryChange}
+      />,
+    );
+
+    await userEvent.click(numberField());
+    await userEvent.paste("+1 416 555 0123");
+
+    // The shared +1 code keeps Canada — the flag in the trigger says so.
+    expect(screen.getByText("\u{1F1E8}\u{1F1E6}")).toBeInTheDocument();
+    expect(onCountryChange).not.toHaveBeenCalled();
+    expect(onValueChange).toHaveBeenLastCalledWith(
+      "416 555 0123",
+      expect.objectContaining({ code: "CA" }),
+    );
+  });
+
+  it("switches away from a manually picked country when the pasted prefix says otherwise", async () => {
+    render(<PhoneInput defaultCountry="GB" />);
+
+    await userEvent.click(numberField());
+    await userEvent.paste("+91 98765 43210");
+
+    expect(screen.getByText("+91")).toBeInTheDocument();
+    expect(numberField()).toHaveValue("98765 43210");
+  });
+
+  it("matches the longest dial code when the offered list has overlapping codes", async () => {
+    const overlapping = [
+      { code: "AA", dialCode: "+1", name: "Alpha", flag: "\u{1F1E6}\u{1F1E7}" },
+      { code: "BB", dialCode: "+123", name: "Beta", flag: "\u{1F1E7}\u{1F1E8}" },
+    ];
+    const onCountryChange = vi.fn();
+    render(
+      <PhoneInput countries={overlapping} defaultCountry="AA" onCountryChange={onCountryChange} />,
+    );
+
+    await userEvent.click(numberField());
+    await userEvent.paste("+12345");
+
+    expect(onCountryChange).toHaveBeenCalledWith(expect.objectContaining({ code: "BB" }));
+    expect(screen.getByText("+123")).toBeInTheDocument();
+    expect(numberField()).toHaveValue("45");
+  });
+
+  it("ignores a pasted dial code that is not among the offered countries", async () => {
+    const subset = COUNTRIES.filter((c) => ["US", "CA"].includes(c.code));
+    const onCountryChange = vi.fn();
+    render(<PhoneInput countries={subset} onCountryChange={onCountryChange} />);
+
+    await userEvent.click(numberField());
+    await userEvent.paste("+44 20 7946 0958");
+
+    expect(screen.getByText("\u{1F1FA}\u{1F1F8}")).toBeInTheDocument();
+    expect(onCountryChange).not.toHaveBeenCalled();
+    expect(numberField()).toHaveValue("+44 20 7946 0958");
+  });
+
+  it("does not consume digits that were already in the field when + is typed", async () => {
+    const onValueChange = vi.fn();
+    const onCountryChange = vi.fn();
+    render(
+      <PhoneInput
+        defaultValue="9192"
+        defaultCountry="IN"
+        onValueChange={onValueChange}
+        onCountryChange={onCountryChange}
+      />,
+    );
+
+    const input = numberField();
+    await userEvent.click(input);
+    input.setSelectionRange(0, 0);
+    await userEvent.keyboard("+");
+
+    // The 91 under the caret is part of the number, not a declared code: the
+    // value and the country must both stay put until the code is typed in full.
+    expect(input).toHaveValue("+9192");
+    expect(onCountryChange).not.toHaveBeenCalled();
+    expect(onValueChange).toHaveBeenLastCalledWith(
+      "+9192",
+      expect.objectContaining({ code: "IN" }),
+    );
+  });
+
+  it("switches to US when +1 is typed in front of an existing number", async () => {
+    const onValueChange = vi.fn();
+    const onCountryChange = vi.fn();
+    render(
+      <PhoneInput
+        defaultValue="9192"
+        defaultCountry="IN"
+        onValueChange={onValueChange}
+        onCountryChange={onCountryChange}
+      />,
+    );
+
+    const input = numberField();
+    await userEvent.click(input);
+    input.setSelectionRange(0, 0);
+    // "+" alone changes nothing, then "1" completes a code the user typed.
+    await userEvent.keyboard("+1");
+
+    expect(input).toHaveValue("9192");
+    expect(screen.getByText("+1")).toBeInTheDocument();
+    expect(onCountryChange).toHaveBeenCalledTimes(1);
+    expect(onCountryChange).toHaveBeenCalledWith(expect.objectContaining({ code: "US" }));
+    expect(onValueChange).toHaveBeenLastCalledWith("9192", expect.objectContaining({ code: "US" }));
+  });
+
+  it("never lets a typed code span digits that were already there", async () => {
+    const onCountryChange = vi.fn();
+    render(
+      <PhoneInput defaultValue="9192" defaultCountry="IN" onCountryChange={onCountryChange} />,
+    );
+
+    const input = numberField();
+    await userEvent.click(input);
+    input.setSelectionRange(0, 0);
+    // "+4" would read as +49 (Germany) only by borrowing the old 9 — refused.
+    await userEvent.keyboard("+4");
+    expect(input).toHaveValue("+49192");
+    expect(onCountryChange).not.toHaveBeenCalled();
+
+    // A second 4 makes it +44 with both digits typed after the "+" — GB, and
+    // the pre-existing tail survives the strip.
+    await userEvent.keyboard("4");
+    expect(input).toHaveValue("9192");
+    expect(onCountryChange).toHaveBeenCalledTimes(1);
+    expect(onCountryChange).toHaveBeenCalledWith(expect.objectContaining({ code: "GB" }));
+  });
+
+  it("leaves a + typed at the end of the number alone", async () => {
+    const onCountryChange = vi.fn();
+    render(
+      <PhoneInput defaultValue="9192" defaultCountry="IN" onCountryChange={onCountryChange} />,
+    );
+
+    const input = numberField();
+    await userEvent.click(input);
+    input.setSelectionRange(input.value.length, input.value.length);
+    await userEvent.keyboard("+");
+
+    expect(input).toHaveValue("9192+");
+    expect(onCountryChange).not.toHaveBeenCalled();
+  });
+});
+
 describe("PhoneInput keyboard navigation", () => {
   const searchBox = () => screen.getByRole("combobox", { name: "Search countries" });
   const activeOptionId = () => searchBox().getAttribute("aria-activedescendant");

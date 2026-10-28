@@ -96,44 +96,80 @@ import { PhoneInput } from "@/components/ui/phone-input";
 
 export function PhoneField() {
   const [phone, setPhone] = useState("");
+  const [countryCode, setCountryCode] = useState("US");
 
   return (
     <PhoneInput
-      defaultCountry="US"
-      placeholder="Enter phone number"
       value={phone} // omit for uncontrolled
+      country={countryCode} // omit for uncontrolled (or use defaultCountry)
       onValueChange={(value, country) => {
         setPhone(value);
         console.log(country.dialCode);
       }}
+      onCountryChange={(country) => setCountryCode(country.code)}
+      placeholder="Enter phone number"
     />
   );
 }
 ```
 
+### Country control
+
+The country follows the same controlled/uncontrolled convention as the number:
+pass `country` + `onCountryChange` to control it, or `defaultCountry` to seed
+the uncontrolled default. When `country` is controlled, the parent has the final
+say — honour `onCountryChange` if you want dial-code detection (below) to
+switch countries.
+
+### Dial-code detection
+
+Type or paste a number that starts with `+` and the component switches the
+country to match, stripping the dial code and the separator right after it from
+the field — the prefix the `+` declares outranks a manually picked country:
+
+- Pasting `+44 20 7946 0958` selects GB and leaves `20 7946 0958` in the field.
+- A `+` typed in front of digits that are **already in the field** never strips
+  them: the dial code is only consumed when its digits were entered after the
+  `+`. Type `+1` in front of an existing number and the country switches to US
+  once the `1` lands — and the number keeps every digit it had.
+- The **longest** matching dial code wins, so `+880…` picks Bangladesh even if a
+  shorter code also matches.
+- **Shared dial codes** keep the currently selected country when it is one of
+  the countries sharing the matched code, and otherwise pick the first one in
+  the offered list — so `+1` never jumps away from US or CA mid-typing. The same
+  rule covers any shared code in a custom `countries` list, such as `+7` if you
+  offer both RU and KZ.
+- A dial code that is not in your `countries` list is left alone — the country
+  only ever switches to a country you actually offer.
+- After a switch, the country menu still works normally: picking a country
+  overrides the detected one, and nothing re-detects until the next time the
+  value starts with `+`.
+
 ## Props
 
-| Prop                | Type                                        | Required | Description                                                                                         |
-| ------------------- | ------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `value`             | `string`                                    | No       | Phone number — pass this to control the component                                                   |
-| `defaultValue`      | `string`                                    | No       | Initial phone number when uncontrolled                                                              |
-| `onValueChange`     | `(phone: string, country: Country) => void` | No       | Callback when phone number or country changes                                                       |
-| `defaultCountry`    | `string`                                    | No       | Default country code (ISO 3166-1 alpha-2, e.g. `"US"`, `"GB"`, `"IN"`)                              |
-| `countries`         | `Country[]`                                 | No       | Countries offered, in display order (default: `COUNTRIES`)                                          |
-| `placeholder`       | `string`                                    | No       | Placeholder text                                                                                    |
-| `disabled`          | `boolean`                                   | No       | Disable the input                                                                                   |
-| `showFlags`         | `boolean`                                   | No       | Show country flag next to dial code (default: `true`)                                               |
-| `size`              | `"sm" \| "default" \| "lg"`                 | No       | Field height (default: `"default"`)                                                                 |
-| `align`             | `"start" \| "end"`                          | No       | Edge of the field the menu lines up with (default: `"start"`)                                       |
-| `side`              | `"top" \| "bottom"`                         | No       | Preferred menu side; flips when there is no room (default: `"bottom"`)                              |
-| `searchPlaceholder` | `string`                                    | No       | Placeholder for the country search (default: `"Search countries..."`)                               |
-| `emptyMessage`      | `ReactNode`                                 | No       | Shown when the search matches nothing (default: `"No countries found."`)                            |
-| `labels`            | `Partial<PhoneInputLabels>`                 | No       | Override the built-in English UI text (see below)                                                   |
-| `displayLocale`     | `string`                                    | No       | Locale for country names, e.g. `"fr"` (default: English names)                                      |
-| `maxHeight`         | `number \| string`                          | No       | Max height of the scrolling country list (default: `"15rem"`)                                       |
-| `label`             | `string`                                    | No       | Accessible label for the input                                                                      |
-| `className`         | `string`                                    | No       | Classes for the root wrapper                                                                        |
-| `classNames`        | `PhoneInputClassNames`                      | No       | Per-part classes: `root`, `field`, `trigger`, `input`, `content`, `search`, `list`, `item`, `empty` |
+| Prop                | Type                                        | Required | Description                                                                                               |
+| ------------------- | ------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------- |
+| `value`             | `string`                                    | No       | Phone number — pass this to control the component                                                         |
+| `defaultValue`      | `string`                                    | No       | Initial phone number when uncontrolled                                                                    |
+| `onValueChange`     | `(phone: string, country: Country) => void` | No       | Callback when phone number or country changes                                                             |
+| `country`           | `string`                                    | No       | Selected country code (ISO 3166-1 alpha-2) — pass this to control the country                             |
+| `onCountryChange`   | `(country: Country) => void`                | No       | Callback when the selected country changes — from the menu or dial-code detection                         |
+| `defaultCountry`    | `string`                                    | No       | Initial country code when uncontrolled (ISO 3166-1 alpha-2, e.g. `"US"`, `"GB"`, `"IN"`; default: `"US"`) |
+| `countries`         | `Country[]`                                 | No       | Countries offered, in display order (default: `COUNTRIES`)                                                |
+| `placeholder`       | `string`                                    | No       | Placeholder text                                                                                          |
+| `disabled`          | `boolean`                                   | No       | Disable the input                                                                                         |
+| `showFlags`         | `boolean`                                   | No       | Show country flag next to dial code (default: `true`)                                                     |
+| `size`              | `"sm" \| "default" \| "lg"`                 | No       | Field height (default: `"default"`)                                                                       |
+| `align`             | `"start" \| "end"`                          | No       | Edge of the field the menu lines up with (default: `"start"`)                                             |
+| `side`              | `"top" \| "bottom"`                         | No       | Preferred menu side; flips when there is no room (default: `"bottom"`)                                    |
+| `searchPlaceholder` | `string`                                    | No       | Placeholder for the country search (default: `"Search countries..."`)                                     |
+| `emptyMessage`      | `ReactNode`                                 | No       | Shown when the search matches nothing (default: `"No countries found."`)                                  |
+| `labels`            | `Partial<PhoneInputLabels>`                 | No       | Override the built-in English UI text (see below)                                                         |
+| `displayLocale`     | `string`                                    | No       | Locale for country names, e.g. `"fr"` (default: English names)                                            |
+| `maxHeight`         | `number \| string`                          | No       | Max height of the scrolling country list (default: `"15rem"`)                                             |
+| `label`             | `string`                                    | No       | Accessible label for the input                                                                            |
+| `className`         | `string`                                    | No       | Classes for the root wrapper                                                                              |
+| `classNames`        | `PhoneInputClassNames`                      | No       | Per-part classes: `root`, `field`, `trigger`, `input`, `content`, `search`, `list`, `item`, `empty`       |
 
 Any other prop — `name`, `required`, `autoComplete`, `aria-invalid`, `data-*` — is
 spread onto the underlying `<input>`, and the ref is forwarded to it, so the
@@ -158,22 +194,30 @@ Pair Phone Input with the [Babelize SDK](https://docs.babelize.co/sdk) for local
 ```tsx
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PhoneInput } from "@/components/ui/phone-input";
 import { useBabelize } from "@babelize/sdk/react";
 
 export function ContactPhone() {
   const { locale } = useBabelize();
   const [phone, setPhone] = useState("");
+  const [countryCode, setCountryCode] = useState("US");
+
+  // The locale picks the country — until the user overrides it through the
+  // menu or by pasting a `+` number, which `onCountryChange` must honour.
+  useEffect(() => {
+    setCountryCode(locale === "en" ? "US" : locale === "de" ? "DE" : "GB");
+  }, [locale]);
 
   return (
     <PhoneInput
       value={phone}
+      country={countryCode}
+      onCountryChange={(country) => setCountryCode(country.code)}
       onValueChange={(value, country) => {
         setPhone(value);
         // Validate against locale-specific rules
       }}
-      defaultCountry={locale === "en" ? "US" : locale === "de" ? "DE" : "GB"}
       placeholder="Enter phone number"
     />
   );
@@ -332,7 +376,8 @@ scrolls.
 - **ARIA labels** — `role="combobox"` search field with `aria-activedescendant`, plus `aria-expanded`, `aria-haspopup`, and `aria-selected`
 - **Themeable** — styled with shadcn/ui tokens (`border-input`, `bg-popover`, `ring-ring`), so it follows your theme and dark mode
 - **Animated menu** — fades in and out with `motion`, honouring reduced-motion settings, and flips upward when there is no room below
-- **Controlled/uncontrolled** — works with or without `value` prop
+- **Controlled/uncontrolled** — works with or without `value` and `country`
+- **Dial-code detection** — typing or pasting `+44…` switches the country to GB and strips the prefix; shared codes (`+1`, `+7`) keep the current selection
 
 ## Supported Countries
 

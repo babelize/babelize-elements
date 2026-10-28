@@ -81,7 +81,14 @@ export interface PhoneInputProps extends Omit<
   defaultValue?: string;
   /** Callback when the number or the selected country changes */
   onValueChange?: (phone: string, country: Country) => void;
-  /** ISO 3166-1 alpha-2 code of the initially selected country (default: "US") */
+  /**
+   * Selected country code (ISO 3166-1 alpha-2). Provide this to control the
+   * component — pair it with `onCountryChange`.
+   */
+  country?: string;
+  /** Callback when the selected country changes — from the menu or dial-code detection */
+  onCountryChange?: (country: Country) => void;
+  /** Initial selected country code when uncontrolled (default: "US") */
   defaultCountry?: string;
   /**
    * Countries offered in the menu, in display order (default: `COUNTRIES`).
@@ -207,7 +214,69 @@ const INPUT_SIZES = {
 } as const;
 
 function getCountryByCode(code: string, list: Country[] = COUNTRIES): Country | undefined {
-  return list.find((c) => c.code === code.toUpperCase());
+  // Case-insensitive on both sides: the lookup arg arrives in any case
+  // ("gb", "GB"), and a hand-written `countries` list may not be uppercase.
+  return list.find((c) => c.code.toUpperCase() === code.toUpperCase());
+}
+
+/**
+ * Detect an explicit `+` dial-code prefix in what the user typed or pasted.
+ * Returns the country it resolves to plus the value with the prefix stripped —
+ * including any separator that immediately followed the code (`+44 20` leaves
+ * `20`, not ` 20`) — or `undefined` when the input does not start with a dial
+ * code that is actually offered: detection must never land on a country
+ * outside `countries`.
+ *
+ * The longest matching dial code wins (`+880` beats `+8` for a list that has
+ * both). Shared dial codes (`+1`, `+7`) keep `current` when it is one of the
+ * sharing countries, otherwise the first one in the offered list wins.
+ */
+function detectCountryPrefix(
+  input: string,
+  countries: Country[],
+  current: Country,
+): { country: Country; rest: string } | undefined {
+  if (!input.startsWith("+")) return undefined;
+  let bestDialCode: string | undefined;
+  for (const c of countries) {
+    if (input.startsWith(c.dialCode) && c.dialCode.length > (bestDialCode?.length ?? 0)) {
+      bestDialCode = c.dialCode;
+    }
+  }
+  if (!bestDialCode) return undefined;
+  const withCode = countries.filter((c) => c.dialCode === bestDialCode);
+  const country = withCode.find((c) => c.code === current.code) ?? withCode[0];
+  if (!country) return undefined;
+  return {
+    country,
+    rest: input.slice(bestDialCode.length).replace(/^[\s.-]+/, ""),
+  };
+}
+
+/**
+ * Describe how `prev` became `next` as one insertion and one deletion at the
+ * same index: the common prefix comes off the front, the common suffix off
+ * the back. Digit ambiguity ("9192" → "+99192" aligns at 1 or 2) biases `at`
+ * to the right, which under-counts fresh characters — the safe direction,
+ * because an under-count skips detection instead of eating a digit.
+ */
+function diffAt(prev: string, next: string): { at: number; inserted: string; deleted: string } {
+  let at = 0;
+  const front = Math.min(prev.length, next.length);
+  while (at < front && prev[at] === next[at]) at += 1;
+  let back = 0;
+  while (
+    back < prev.length - at &&
+    back < next.length - at &&
+    prev[prev.length - 1 - back] === next[next.length - 1 - back]
+  ) {
+    back += 1;
+  }
+  return {
+    at,
+    inserted: next.slice(at, next.length - back),
+    deleted: prev.slice(at, prev.length - back),
+  };
 }
 
 export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(function PhoneInput(
@@ -215,6 +284,8 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
     value,
     defaultValue,
     onValueChange,
+    country,
+    onCountryChange,
     defaultCountry = "US",
     countries = COUNTRIES,
     placeholder = "Phone number",
@@ -235,8 +306,25 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
   },
   forwardedRef,
 ) {
-  const [selectedCountry, setSelectedCountry] = React.useState<Country>(
-    () => getCountryByCode(defaultCountry, countries) ?? countries[0] ?? COUNTRIES[0],
+  const [countryCode, setCountryCode] = useControllableState(country, defaultCountry, (code) => {
+    // An unknown code resolves the same way the display does, so a callback
+    // never reports a country the field is not showing.
+    onCountryChange?.(getCountryByCode(code, countries) ?? countries[0] ?? COUNTRIES[0]);
+  });
+  const selectedCountry = React.useMemo(
+    () => getCountryByCode(countryCode, countries) ?? countries[0] ?? COUNTRIES[0],
+    [countryCode, countries],
+  );
+  // Report a country change only on a real transition: re-picking the current
+  // country, or keeping it across a shared dial code, is not a change.
+  const pickCountry = React.useCallback(
+    (next: Country) => {
+      // Compare against what is displayed, not the raw code: `country="gb"`
+      // resolves to GB, and an unknown code falls back to `countries[0]` —
+      // either way the visible country must match before we report a change.
+      if (next.code !== selectedCountry.code) setCountryCode(next.code);
+    },
+    [selectedCountry.code, setCountryCode],
   );
   const [inputValue, setInputValue] = useControllableState(value, defaultValue ?? "", undefined);
   const [open, setOpen] = React.useState(false);
@@ -250,6 +338,20 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
   const searchRef = React.useRef<HTMLInputElement>(null);
   const triggerRef = React.useRef<HTMLButtonElement>(null);
   const popupRef = React.useRef<HTMLDivElement>(null);
+  // Characters entered after the current leading "+". Dial-code detection may
+  // only consume a code whose digits all live in that zone: digits that were
+  // already in the field when the "+" was typed are part of the number, not a
+  // prefix the user declared. See handleInputChange.
+  const freshDigitsRef = React.useRef(0);
+  // The last value this handler wrote. When the next event sees a different
+  // one, the value changed externally (a controlled `value` prop, a
+  // programmatic set) and its "+"-run has unknown provenance — restart the
+  // fresh count at 0 rather than trusting a stale one.
+  const handledValueRef = React.useRef<string | null>(null);
+  // True when the last thing we did was strip a dial code, so the separator
+  // the user types next — one event later, once the value is already empty —
+  // still belongs to the prefix rather than opening the number.
+  const stripJustHappenedRef = React.useRef(false);
 
   React.useImperativeHandle(forwardedRef, () => inputRef.current as HTMLInputElement);
 
@@ -310,7 +412,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
     onSelect: (index) => {
       const picked = filtered[index];
       if (!picked) return;
-      setSelectedCountry(picked);
+      pickCountry(picked);
       onValueChange?.(inputValue, picked);
       inputRef.current?.focus();
     },
@@ -349,9 +451,85 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
   }, [open, preferredSide]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
-    setInputValue(newValue);
-    onValueChange?.(newValue, selectedCountry);
+    const next = e.target.value;
+    const prev = inputValue;
+    const wroteBefore = handledValueRef.current;
+    handledValueRef.current = next;
+
+    // A separator typed right after the dial code was stripped belongs to the
+    // prefix the code just claimed: drop it instead of letting it open the
+    // number. Only a separator arriving at the front of an otherwise empty,
+    // unbroken value counts — a dash typed mid-number is the user's own
+    // formatting, and a value we did not write is not ours to swallow.
+    if (
+      stripJustHappenedRef.current &&
+      wroteBefore !== null &&
+      wroteBefore === prev &&
+      prev === "" &&
+      /^[\s.-]+$/.test(next)
+    ) {
+      handledValueRef.current = "";
+      return;
+    }
+    stripJustHappenedRef.current = false;
+
+    // Keep the count of characters typed after the leading "+" in step with
+    // the edit, before any detection runs on the result.
+    let fresh = wroteBefore === null || wroteBefore === prev ? freshDigitsRef.current : 0;
+    if (!next.startsWith("+")) {
+      fresh = 0;
+    } else if (!prev.startsWith("+")) {
+      // The leading "+" just appeared. Everything the value already held was
+      // revealed under it — except characters this same event inserted after
+      // it, which is how a pasted code counts as declared.
+      const { inserted } = diffAt(prev, next);
+      fresh = inserted.startsWith("+") ? Math.max(0, inserted.length - 1) : 0;
+    } else {
+      const { at, inserted, deleted } = diffAt(prev, next);
+      const boundary = 1 + fresh; // first index of the pre-existing tail
+      if (inserted && deleted) {
+        // Replacement: grow for the new characters only when they land at or
+        // before the boundary, and only give back the deleted part that was
+        // inside the fresh zone.
+        if (at <= boundary) {
+          fresh += inserted.length - Math.min(deleted.length, Math.max(0, boundary - at));
+          fresh = Math.max(0, fresh);
+        }
+      } else if (inserted) {
+        if (at <= boundary) fresh += inserted.length;
+      } else if (deleted) {
+        if (at < boundary) fresh = Math.max(0, fresh - deleted.length);
+      }
+    }
+    freshDigitsRef.current = fresh;
+
+    const match = detectCountryPrefix(next, countries, selectedCountry);
+    if (!match) {
+      setInputValue(next);
+      onValueChange?.(next, selectedCountry);
+      return;
+    }
+    const dialLen = next.length - match.rest.length;
+    if (dialLen > 1 + fresh) {
+      // The digits of this "code" were already in the field before the "+":
+      // they belong to the number, so the "+" is an ordinary character here.
+      // Leave the value and the country alone — no switch, no strip.
+      setInputValue(next);
+      onValueChange?.(next, selectedCountry);
+      return;
+    }
+    // An explicit `+` prefix outranks a manually picked country: switch (or
+    // confirm, for a shared dial code), then strip what the trigger now shows.
+    // With `country` controlled, the parent's next `country` prop has the final
+    // say — `onCountryChange` fires with the intended country either way.
+    pickCountry(match.country);
+    setInputValue(match.rest);
+    handledValueRef.current = match.rest;
+    stripJustHappenedRef.current = true;
+    // The strip leaves a new run behind: if it still starts with "+", that
+    // plus now sits at index 0 with the not-yet-consumed typed digits after it.
+    freshDigitsRef.current = match.rest.startsWith("+") ? Math.max(0, fresh - dialLen) : 0;
+    onValueChange?.(match.rest, match.country);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
