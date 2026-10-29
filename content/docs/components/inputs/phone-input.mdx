@@ -1,6 +1,6 @@
 ---
 title: Phone Input
-description: International phone number input with country selector, flag emojis, and dial code search. Supports 50 countries with built-in formatting and validation.
+description: International phone number input with country selector, flag emojis, and dial code search. Covers every E.164 country (~244 entries) with optional E.164 validation.
 ---
 
 import { PreviewComponents } from "@/components/docs/preview-components";
@@ -121,6 +121,28 @@ the uncontrolled default. When `country` is controlled, the parent has the final
 say — honour `onCountryChange` if you want dial-code detection (below) to
 switch countries.
 
+### Country list
+
+`PhoneInput` ships with every ITU-T E.164 country (~244 entries), so any dial
+code can be selected. Each country's English name comes from
+[`Intl.DisplayNames`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DisplayNames)
+and its flag is derived from the ISO code — neither is stored in the bundle.
+
+Restrict or reorder the menu with `countries`, which accepts full `Country`
+objects or bare ISO codes:
+
+```tsx
+<PhoneInput countries={["IN", "US", "GB"]} defaultCountry="IN" />
+```
+
+Pin always-available markets to the top with `preferredCountries`. Preferred
+entries are placed above a divider, deduplicated, and **added** to the menu even
+when they are not in `countries`:
+
+```tsx
+<PhoneInput countries={["US", "CA"]} preferredCountries={["IN", "GB"]} />
+```
+
 ### Dial-code detection
 
 Type or paste a number that starts with `+` and the component switches the
@@ -145,31 +167,57 @@ the field — the prefix the `+` declares outranks a manually picked country:
   overrides the detected one, and nothing re-detects until the next time the
   value starts with `+`.
 
+## Validation
+
+Basic E.164 validation is built in, with no extra dependencies. The component
+normalizes the number (stripping spaces, dashes, dots, and parentheses), treats
+the remainder as digits-only, and enforces the E.164 maximum of 15 digits
+including the country code. Per-country length rules (`libphonenumber`) are
+deliberately out of scope.
+
+- Pass `onValidityChange` to receive `(valid, e164)` whenever the digits change.
+  `e164` is `"+"` plus every digit, the country code included — for example
+  `"+15550001111"`. It does not fire on mount, nor for an edit that leaves the
+  normalized number unchanged (formatting only).
+- Pass `validate` to also set `aria-invalid` on the input when a **non-empty**
+  number is malformed. The field turns red through the same token styling as
+  shadcn's `Input`; an empty field is never marked invalid, since "required" is
+  the form's concern. Your own `aria-invalid` always wins.
+- A well-formed but incomplete number is valid — validation checks shape, not
+  whether the number is dialable.
+
+```tsx
+<PhoneInput validate onValidityChange={(valid, e164) => setPhone(valid ? e164 : "")} />
+```
+
 ## Props
 
-| Prop                | Type                                        | Required | Description                                                                                               |
-| ------------------- | ------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------- |
-| `value`             | `string`                                    | No       | Phone number — pass this to control the component                                                         |
-| `defaultValue`      | `string`                                    | No       | Initial phone number when uncontrolled                                                                    |
-| `onValueChange`     | `(phone: string, country: Country) => void` | No       | Callback when phone number or country changes                                                             |
-| `country`           | `string`                                    | No       | Selected country code (ISO 3166-1 alpha-2) — pass this to control the country                             |
-| `onCountryChange`   | `(country: Country) => void`                | No       | Callback when the selected country changes — from the menu or dial-code detection                         |
-| `defaultCountry`    | `string`                                    | No       | Initial country code when uncontrolled (ISO 3166-1 alpha-2, e.g. `"US"`, `"GB"`, `"IN"`; default: `"US"`) |
-| `countries`         | `Country[]`                                 | No       | Countries offered, in display order (default: `COUNTRIES`)                                                |
-| `placeholder`       | `string`                                    | No       | Placeholder text                                                                                          |
-| `disabled`          | `boolean`                                   | No       | Disable the input                                                                                         |
-| `showFlags`         | `boolean`                                   | No       | Show country flag next to dial code (default: `true`)                                                     |
-| `size`              | `"sm" \| "default" \| "lg"`                 | No       | Field height (default: `"default"`)                                                                       |
-| `align`             | `"start" \| "end"`                          | No       | Edge of the field the menu lines up with (default: `"start"`)                                             |
-| `side`              | `"top" \| "bottom"`                         | No       | Preferred menu side; flips when there is no room (default: `"bottom"`)                                    |
-| `searchPlaceholder` | `string`                                    | No       | Placeholder for the country search (default: `"Search countries..."`)                                     |
-| `emptyMessage`      | `ReactNode`                                 | No       | Shown when the search matches nothing (default: `"No countries found."`)                                  |
-| `labels`            | `Partial<PhoneInputLabels>`                 | No       | Override the built-in English UI text (see below)                                                         |
-| `displayLocale`     | `string`                                    | No       | Locale for country names, e.g. `"fr"` (default: English names)                                            |
-| `maxHeight`         | `number \| string`                          | No       | Max height of the scrolling country list (default: `"15rem"`)                                             |
-| `label`             | `string`                                    | No       | Accessible label for the input                                                                            |
-| `className`         | `string`                                    | No       | Classes for the root wrapper                                                                              |
-| `classNames`        | `PhoneInputClassNames`                      | No       | Per-part classes: `root`, `field`, `trigger`, `input`, `content`, `search`, `list`, `item`, `empty`       |
+| Prop                 | Type                                        | Required | Description                                                                                               |
+| -------------------- | ------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------- |
+| `value`              | `string`                                    | No       | Phone number — pass this to control the component                                                         |
+| `defaultValue`       | `string`                                    | No       | Initial phone number when uncontrolled                                                                    |
+| `onValueChange`      | `(phone: string, country: Country) => void` | No       | Callback when phone number or country changes                                                             |
+| `country`            | `string`                                    | No       | Selected country code (ISO 3166-1 alpha-2) — pass this to control the country                             |
+| `onCountryChange`    | `(country: Country) => void`                | No       | Callback when the selected country changes — from the menu or dial-code detection                         |
+| `validate`           | `boolean`                                   | No       | Mark the input `aria-invalid` when a non-empty number is malformed (default: `false`)                     |
+| `onValidityChange`   | `(valid: boolean, e164: string) => void`    | No       | Callback with basic E.164 validity and the normalized number, whenever the digits change                  |
+| `defaultCountry`     | `string`                                    | No       | Initial country code when uncontrolled (ISO 3166-1 alpha-2, e.g. `"US"`, `"GB"`, `"IN"`; default: `"US"`) |
+| `countries`          | `(Country \| string)[]`                     | No       | Countries offered, in display order; entries are `Country` objects or ISO codes (default: `COUNTRIES`)    |
+| `preferredCountries` | `(Country \| string)[]`                     | No       | Countries pinned above a divider at the top; added even when not in `countries`, and deduplicated         |
+| `placeholder`        | `string`                                    | No       | Placeholder text                                                                                          |
+| `disabled`           | `boolean`                                   | No       | Disable the input                                                                                         |
+| `showFlags`          | `boolean`                                   | No       | Show country flag next to dial code (default: `true`)                                                     |
+| `size`               | `"sm" \| "default" \| "lg"`                 | No       | Field height (default: `"default"`)                                                                       |
+| `align`              | `"start" \| "end"`                          | No       | Edge of the field the menu lines up with (default: `"start"`)                                             |
+| `side`               | `"top" \| "bottom"`                         | No       | Preferred menu side; flips when there is no room (default: `"bottom"`)                                    |
+| `searchPlaceholder`  | `string`                                    | No       | Placeholder for the country search (default: `"Search countries..."`)                                     |
+| `emptyMessage`       | `ReactNode`                                 | No       | Shown when the search matches nothing (default: `"No countries found."`)                                  |
+| `labels`             | `Partial<PhoneInputLabels>`                 | No       | Override the built-in English UI text (see below)                                                         |
+| `displayLocale`      | `string`                                    | No       | Locale for country names, e.g. `"fr"` (default: English names)                                            |
+| `maxHeight`          | `number \| string`                          | No       | Max height of the scrolling country list (default: `"15rem"`)                                             |
+| `label`              | `string`                                    | No       | Accessible label for the input                                                                            |
+| `className`          | `string`                                    | No       | Classes for the root wrapper                                                                              |
+| `classNames`         | `PhoneInputClassNames`                      | No       | Per-part classes: `root`, `field`, `trigger`, `input`, `content`, `search`, `list`, `item`, `empty`       |
 
 Any other prop — `name`, `required`, `autoComplete`, `aria-invalid`, `data-*` — is
 spread onto the underlying `<input>`, and the ref is forwarded to it, so the
@@ -369,9 +417,11 @@ scrolls.
 
 ## Features
 
-- **50 countries** — pre-loaded with dial codes, flags, and names
+- **Every E.164 country** — ~244 entries, with flags derived from the ISO code and English names from `Intl.DisplayNames`
 - **Dropdown search** — filter countries by name or dial code
 - **Flag emojis** — auto-detected from country code, with `showFlags` toggle
+- **Preferred countries** — pin markets above a divider with `preferredCountries`
+- **Basic E.164 validation** — digits-only, ≤ 15 digits, with `onValidityChange` and opt-in `aria-invalid` via `validate`
 - **Keyboard accessible** — arrow keys, Home / End, Enter, and Escape navigation
 - **ARIA labels** — `role="combobox"` search field with `aria-activedescendant`, plus `aria-expanded`, `aria-haspopup`, and `aria-selected`
 - **Themeable** — styled with shadcn/ui tokens (`border-input`, `bg-popover`, `ring-ring`), so it follows your theme and dark mode

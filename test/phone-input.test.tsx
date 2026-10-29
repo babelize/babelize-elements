@@ -76,7 +76,7 @@ describe("PhoneInput", () => {
   it("focuses the number field after a country is picked by click", async () => {
     render(<PhoneInput />);
     await userEvent.click(screen.getByRole("button", { name: "Select country" }));
-    await userEvent.click(screen.getByRole("option", { name: /India/ }));
+    await userEvent.click(screen.getByRole("option", { name: /India\+\d/ }));
 
     expect(screen.queryByRole("listbox")).toBeNull();
     expect(document.activeElement).toBe(screen.getByRole("textbox", { name: "Phone number" }));
@@ -130,14 +130,14 @@ describe("PhoneInput country control and detection", () => {
     const onCountryChange = vi.fn();
     render(<PhoneInput onCountryChange={onCountryChange} />);
     await userEvent.click(screen.getByRole("button", { name: "Select country" }));
-    await userEvent.click(screen.getByRole("option", { name: /India/ }));
+    await userEvent.click(screen.getByRole("option", { name: /India\+\d/ }));
 
     expect(onCountryChange).toHaveBeenCalledTimes(1);
     expect(onCountryChange).toHaveBeenCalledWith(expect.objectContaining({ code: "IN" }));
 
     // Re-picking the country that is already selected is not a change.
     await userEvent.click(screen.getByRole("button", { name: "Select country" }));
-    await userEvent.click(screen.getByRole("option", { name: /India/ }));
+    await userEvent.click(screen.getByRole("option", { name: /India\+\d/ }));
     expect(onCountryChange).toHaveBeenCalledTimes(1);
   });
 
@@ -437,7 +437,7 @@ describe("PhoneInput keyboard navigation", () => {
     render(<PhoneInput defaultCountry="IN" />);
     await userEvent.click(screen.getByRole("button", { name: "Select country" }));
 
-    expect(activeOptionId()).toBe(screen.getByRole("option", { name: /India/ }).id);
+    expect(activeOptionId()).toBe(screen.getByRole("option", { name: /India\+\d/ }).id);
   });
 
   it("ignores ArrowDown typed into the number field", async () => {
@@ -459,7 +459,7 @@ describe("PhoneInput keyboard navigation", () => {
     expect(activeOptionId()).toBe(screen.getByRole("option", { name: /United Kingdom/ }).id);
 
     await userEvent.keyboard("{ArrowUp}{ArrowUp}");
-    expect(activeOptionId()).toBe(screen.getByRole("option", { name: /Belgium/ }).id);
+    expect(activeOptionId()).toBe(screen.getByRole("option", { name: /Zimbabwe/ }).id);
 
     await userEvent.keyboard("{ArrowDown}");
     expect(activeOptionId()).toBe(screen.getByRole("option", { name: /United States/ }).id);
@@ -470,7 +470,7 @@ describe("PhoneInput keyboard navigation", () => {
     await userEvent.click(screen.getByRole("button", { name: "Select country" }));
 
     await userEvent.keyboard("{End}");
-    expect(activeOptionId()).toBe(screen.getByRole("option", { name: /Belgium/ }).id);
+    expect(activeOptionId()).toBe(screen.getByRole("option", { name: /Zimbabwe/ }).id);
 
     await userEvent.keyboard("{Home}");
     expect(activeOptionId()).toBe(screen.getByRole("option", { name: /United States/ }).id);
@@ -674,5 +674,211 @@ describe("PhoneInput labels", () => {
     await userEvent.type(screen.getByRole("combobox"), "id");
 
     expect(screen.getByRole("option", { name: /Endonezya/ })).toBeInTheDocument();
+  });
+});
+
+// The accessible name of a country row is `flag + name + dialCode`, with no
+// separators. Rebuild it from a code so expectations track the derived names.
+function optText(code: string): string {
+  const c = COUNTRIES.find((x) => x.code === code)!;
+  return `${c.flag}${c.name}${c.dialCode}`;
+}
+
+describe("PhoneInput full country list", () => {
+  // Regional-indicator symbols back to the two ISO letters they were built from.
+  const flagToCode = (flag: string) =>
+    Array.from(flag)
+      .map((ch) => String.fromCodePoint((ch.codePointAt(0) ?? 0) - 0x1f1e6 + 65))
+      .join("");
+
+  it("exports a full E.164 table with derived names and flags", () => {
+    expect(COUNTRIES.length).toBeGreaterThanOrEqual(240);
+
+    const seen = new Set<string>();
+    for (const c of COUNTRIES) {
+      expect(c.code).toMatch(/^[A-Z]{2}$/);
+      expect(c.dialCode).toMatch(/^\+\d{1,4}$/);
+      expect(c.name).not.toBe("");
+      expect(c.flag).not.toBe("");
+      // The flag is derived from the ISO code, not stored.
+      expect(flagToCode(c.flag)).toBe(c.code);
+      expect(seen.has(c.code)).toBe(false);
+      seen.add(c.code);
+    }
+  });
+
+  it("offers the countries the issue called out as missing", () => {
+    const byCode = Object.fromEntries(COUNTRIES.map((c) => [c.code, c]));
+    expect(byCode.LK.dialCode).toBe("+94"); // Sri Lanka
+    expect(byCode.NP.dialCode).toBe("+977"); // Nepal
+    expect(byCode.PE.dialCode).toBe("+51"); // Peru
+    expect(byCode.MA.dialCode).toBe("+212"); // Morocco
+    expect(byCode.UA.dialCode).toBe("+380"); // Ukraine
+  });
+});
+
+describe("PhoneInput countries and preferredCountries", () => {
+  const numberField = () => screen.getByRole<HTMLInputElement>("textbox", { name: "Phone number" });
+
+  it("accepts bare ISO codes in the countries prop, in order", async () => {
+    render(<PhoneInput countries={["IN", "US", "GB"]} defaultCountry="IN" />);
+    expect(screen.getByText("+91")).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Select country" }));
+    expect(screen.getAllByRole("option").map((o) => o.textContent)).toEqual([
+      optText("IN"),
+      optText("US"),
+      optText("GB"),
+    ]);
+  });
+
+  it("resolves lowercase codes and drops unknown ones", async () => {
+    render(<PhoneInput countries={["in", "us", "XX"]} defaultCountry="in" />);
+    expect(screen.getByText("+91")).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Select country" }));
+    expect(screen.getAllByRole("option")).toHaveLength(2); // "XX" is dropped
+  });
+
+  it("pins preferredCountries on top, unions, and dedupes against countries", async () => {
+    render(
+      <PhoneInput
+        countries={["US", "GB", "IN"]}
+        preferredCountries={["IN", "FR"]}
+        defaultCountry="US"
+      />,
+    );
+    await userEvent.click(screen.getByRole("button", { name: "Select country" }));
+
+    // Preferred (IN, FR) lead; FR is unioned in even though it is not in
+    // `countries`; IN is deduplicated out of the body.
+    expect(screen.getAllByRole("option").map((o) => o.textContent)).toEqual([
+      optText("IN"),
+      optText("FR"),
+      optText("US"),
+      optText("GB"),
+    ]);
+  });
+
+  it("separates the preferred block with a divider", async () => {
+    render(<PhoneInput countries={["US", "GB"]} preferredCountries={["IN"]} defaultCountry="US" />);
+    await userEvent.click(screen.getByRole("button", { name: "Select country" }));
+
+    const listbox = screen.getByRole("listbox");
+    expect(listbox.querySelector('[role="presentation"]')).toBeInTheDocument();
+  });
+
+  it("detects a preferred country's dial code even when it is not in countries", async () => {
+    const onCountryChange = vi.fn();
+    render(
+      <PhoneInput
+        countries={["US"]}
+        preferredCountries={["IN"]}
+        onCountryChange={onCountryChange}
+      />,
+    );
+    await userEvent.click(numberField());
+    await userEvent.paste("+91 98765 43210");
+
+    expect(onCountryChange).toHaveBeenCalledWith(expect.objectContaining({ code: "IN" }));
+  });
+});
+
+describe("PhoneInput E.164 validation", () => {
+  const numberField = () => screen.getByRole<HTMLInputElement>("textbox", { name: "Phone number" });
+
+  it("reports a normalized e164 as digits are typed", async () => {
+    const onValidityChange = vi.fn();
+    render(<PhoneInput defaultCountry="US" onValidityChange={onValidityChange} />);
+
+    await userEvent.type(numberField(), "5550001111");
+    expect(onValidityChange).toHaveBeenLastCalledWith(true, "+15550001111");
+  });
+
+  it("strips formatting characters before building the number", async () => {
+    const onValidityChange = vi.fn();
+    render(<PhoneInput defaultCountry="US" onValidityChange={onValidityChange} />);
+
+    await userEvent.click(numberField());
+    await userEvent.paste("(555) 000-1111");
+    expect(onValidityChange).toHaveBeenLastCalledWith(true, "+15550001111");
+  });
+
+  it("marks a number over the 15-digit limit invalid when validate is on", async () => {
+    const onValidityChange = vi.fn();
+    render(<PhoneInput validate defaultCountry="US" onValidityChange={onValidityChange} />);
+    const input = numberField();
+
+    // 14 national digits plus the US country code = 15 total: still valid.
+    await userEvent.type(input, "55500011112222");
+    expect(input).not.toHaveAttribute("aria-invalid");
+
+    // One more digit pushes the total to 16: invalid, and the field says so.
+    await userEvent.type(input, "3");
+    expect(onValidityChange).toHaveBeenLastCalledWith(false, "+1555000111122223");
+    expect(input).toHaveAttribute("aria-invalid", "true");
+  });
+
+  it("treats a stray letter as malformed", async () => {
+    const onValidityChange = vi.fn();
+    render(<PhoneInput validate onValidityChange={onValidityChange} />);
+    const input = numberField();
+
+    await userEvent.type(input, "55a");
+    expect(onValidityChange).toHaveBeenLastCalledWith(false, "+155");
+    expect(input).toHaveAttribute("aria-invalid", "true");
+  });
+
+  it("reports an empty field invalid but never marks it aria-invalid", async () => {
+    const onValidityChange = vi.fn();
+    render(<PhoneInput validate onValidityChange={onValidityChange} />);
+    const input = numberField();
+
+    await userEvent.type(input, "5"); // mount is silent; this makes it valid
+    await userEvent.clear(input); // back to empty: invalid, but blank is not malformed
+    expect(onValidityChange).toHaveBeenLastCalledWith(false, "");
+    expect(input).not.toHaveAttribute("aria-invalid");
+  });
+
+  it("does not fire for an edit that leaves the digits unchanged", async () => {
+    const onValidityChange = vi.fn();
+    render(<PhoneInput defaultCountry="US" onValidityChange={onValidityChange} />);
+    const input = numberField();
+
+    await userEvent.type(input, "555");
+    onValidityChange.mockClear();
+    // A trailing space changes the value but not the normalized number.
+    await userEvent.type(input, " ");
+    expect(onValidityChange).not.toHaveBeenCalled();
+  });
+
+  it("recomputes validity when the country changes the total length", async () => {
+    const onValidityChange = vi.fn();
+    render(
+      <PhoneInput
+        validate
+        defaultCountry="US"
+        defaultValue="55500011112222"
+        onValidityChange={onValidityChange}
+      />,
+    );
+    const input = numberField();
+    expect(onValidityChange).not.toHaveBeenCalled(); // mounting is silent
+
+    // Switch to India (+91): the same digits now total 16, which is too long.
+    await userEvent.click(screen.getByRole("button", { name: "Select country" }));
+    await userEvent.click(screen.getByRole("option", { name: /India\+\d/ }));
+    expect(onValidityChange).toHaveBeenLastCalledWith(false, "+9155500011112222");
+    expect(input).toHaveAttribute("aria-invalid", "true");
+  });
+
+  it("lets a consumer-supplied aria-invalid win over validate", () => {
+    render(<PhoneInput validate aria-invalid="false" defaultValue="555" />);
+    expect(numberField()).toHaveAttribute("aria-invalid", "false");
+  });
+
+  it("leaves aria-invalid off unless validate is set", () => {
+    render(<PhoneInput defaultValue="55a" />);
+    expect(numberField()).not.toHaveAttribute("aria-invalid");
   });
 });
