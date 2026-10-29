@@ -13,6 +13,8 @@ interface PreviewCardProps {
   registryName: string;
   /** Skip the centered padding — for components that span the full width, like NavBar. */
   fullBleed?: boolean;
+  /** Additional classes for the stage container. */
+  stageClassName?: string;
   children: ReactNode;
 }
 
@@ -42,7 +44,12 @@ function openWith(target: "v0" | "lovable" | "bolt", registryName: string) {
   window.open(url, "_blank", "noopener,noreferrer");
 }
 
-export function PreviewCard({ registryName, fullBleed, children }: PreviewCardProps) {
+export function PreviewCard({
+  registryName,
+  fullBleed,
+  stageClassName,
+  children,
+}: PreviewCardProps) {
   const { theme, dark, setTheme, setDark } = usePreviewPrefs();
   const [replayKey, setReplayKey] = useState(0);
   const [themeOpen, setThemeOpen] = useState(false);
@@ -157,9 +164,14 @@ export function PreviewCard({ registryName, fullBleed, children }: PreviewCardPr
       >
         <div key={replayKey}>
           {fullBleed ? (
-            <div className="min-h-[340px]">{children}</div>
+            <div className={cn("min-h-[22rem]", stageClassName)}>{children}</div>
           ) : (
-            <div className="flex min-h-[420px] flex-col items-center justify-center gap-8 px-4 py-14 sm:px-10">
+            <div
+              className={cn(
+                "flex min-h-[420px] flex-col items-center justify-center gap-8 px-4 py-14 sm:px-10",
+                stageClassName,
+              )}
+            >
               {children}
             </div>
           )}

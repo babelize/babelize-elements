@@ -14,6 +14,8 @@ interface PreviewComponentsProps {
   demo?: string;
   /** Skip the centered padding around the demo — for full-width components. */
   fullBleed?: boolean;
+  /** Additional classes for the preview stage container. */
+  stageClassName?: string;
   children: React.ReactNode;
 }
 
@@ -29,6 +31,7 @@ export function PreviewComponents({
   registryName,
   demo,
   fullBleed,
+  stageClassName,
   children,
 }: PreviewComponentsProps) {
   const path = demo ?? `components/docs/${registryName}-demo.tsx`;
@@ -39,7 +42,11 @@ export function PreviewComponents({
   return (
     <Tabs items={["Preview", "Code"]} className="border-none bg-transparent">
       <Tab value="Preview" className="mt-3 border-none bg-transparent p-0">
-        <PreviewCard registryName={registryName} fullBleed={fullBleed}>
+        <PreviewCard
+          registryName={registryName}
+          fullBleed={fullBleed}
+          stageClassName={stageClassName}
+        >
           {children}
         </PreviewCard>
       </Tab>
