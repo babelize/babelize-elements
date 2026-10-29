@@ -692,7 +692,8 @@ describe("PhoneInput full country list", () => {
       .join("");
 
   it("exports a full E.164 table with derived names and flags", () => {
-    expect(COUNTRIES.length).toBeGreaterThanOrEqual(240);
+    // Update this expected count whenever the ITU-T E.164 country list changes.
+    expect(COUNTRIES.length).toBe(244);
 
     const seen = new Set<string>();
     for (const c of COUNTRIES) {

@@ -498,8 +498,10 @@ function resolveCountries(
 
 // Characters a user may legitimately type as visual formatting are stripped
 // before the digits-only check; anything beyond those and a leading "+" makes
-// the number malformed.
-const UNEXPECTED = /[^0-9 \-().+]/;
+// the number malformed. The leading "+" is removed first, so any "+" that
+// remains (e.g. "1+2") is unexpected.
+const FORMATTING = /[ \-().]/g;
+const UNEXPECTED = /[^0-9 ]/;
 
 /**
  * Basic E.164 normalization. Formatting characters are stripped, the result
@@ -508,9 +510,12 @@ const UNEXPECTED = /[^0-9 \-().+]/;
  * selected country's dial code is not prepended on top of it.
  */
 function toE164(input: string, dialCode: string): { e164: string; valid: boolean } {
-  const digits = input.replace(/\D/g, "");
-  const hasUnexpected = UNEXPECTED.test(input);
+  // A leading "+" declares its own country code; strip it (and the formatting
+  // characters) before the digits-only / unexpected-character checks.
   const declaresOwn = input.trim().startsWith("+");
+  const stripped = input.replace(FORMATTING, "").replace(declaresOwn ? /^\+/ : /^$/, "");
+  const digits = stripped.replace(/\D/g, "");
+  const hasUnexpected = UNEXPECTED.test(stripped);
   const all = (declaresOwn ? "" : dialCode.replace(/\D/g, "")) + digits;
   // With no digits typed there is no number yet, whatever the dial code says.
   return {
@@ -617,12 +622,14 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
     () => resolveCountries(preferredCountries, []),
     [preferredCountries],
   );
+  // One normalized (uppercase) preferred-code set, so a hand-written lowercase
+  // `Country.code` still matches its `baseList` twin and is deduplicated out.
   const preferredCodes = React.useMemo(
-    () => new Set(preferredList.map((c) => c.code)),
+    () => new Set(preferredList.map((c) => c.code.toUpperCase())),
     [preferredList],
   );
   const offered = React.useMemo(
-    () => [...preferredList, ...baseList.filter((c) => !preferredCodes.has(c.code))],
+    () => [...preferredList, ...baseList.filter((c) => !preferredCodes.has(c.code.toUpperCase()))],
     [preferredList, preferredCodes, baseList],
   );
 
