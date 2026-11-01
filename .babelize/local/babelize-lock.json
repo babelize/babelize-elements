@@ -2333,7 +2333,7 @@
       "languages": {
         "es": "Babelize Elements. Hecho con",
         "ar": "Babelize Elements. صُنع بـ",
-        "ja": "Babelize Elements。"
+        "ja": "Babelize Elements は"
       },
       "metadata": {
         "es": {
@@ -2355,7 +2355,7 @@
       "translatedAt": "2026-11-01T11:10:51.123Z",
       "languages": {
         "es": "por desarrolladores de Babelize, para desarrolladores.",
-        "ja": "Babelize の開発者が、開発者のために作りました。",
+        "ja": "を込めて Babelize の開発者が開発者のために作りました。",
         "ar": "من تطوير فريق Babelize، للمطورين."
       },
       "metadata": {

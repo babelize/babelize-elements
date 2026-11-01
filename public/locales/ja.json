@@ -109,8 +109,8 @@
   "footer": {
     "babelize": "Babelize",
     "babelizeElements": "Babelize Elements",
-    "babelizeElementsMadeWith": "Babelize Elements。",
-    "byDevelopersAtBabelizeFor": "Babelize の開発者が、開発者のために作りました。",
+    "babelizeElementsMadeWith": "Babelize Elements は",
+    "byDevelopersAtBabelizeFor": "を込めて Babelize の開発者が開発者のために作りました。",
     "community": "コミュニティ",
     "openSourceReactComponentsForModern": "ローカライゼーションと国際化管理のためのオープンソース React コンポーネント",
     "resources": "リソース"
