@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import * as React from "react";
 import { Star, GitFork, GitPullRequest } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -68,12 +69,17 @@ export function GitHubCounter({
   className,
   ...props
 }: GitHubCounterProps) {
+  const t = useTranslations();
   const config = metricConfig[metric] ?? metricConfig.stars;
   const formattedCount = formatGitHubCount(count);
   const MetricIcon = config.icon;
 
   const ariaLabel = formattedCount
-    ? `${config.label} (${formattedCount} ${config.noun})`
+    ? t("github-counter.labelFormattedcountNoun", {
+        label: config.label,
+        formattedCount,
+        noun: config.noun,
+      })
     : config.label;
 
   return (
@@ -178,6 +184,7 @@ export function RotatingGitHubCounter({
   className,
   ...props
 }: RotatingGitHubCounterProps) {
+  const t = useTranslations();
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [isPaused, setIsPaused] = React.useState(false);
   const prefersReducedMotion = React.useSyncExternalStore(
@@ -227,7 +234,11 @@ export function RotatingGitHubCounter({
   const MetricIcon = config.icon;
 
   const ariaLabel = formattedCount
-    ? `${config.label} (${formattedCount} ${config.noun})`
+    ? t("github-counter.labelFormattedcountNoun_2", {
+        label: config.label,
+        formattedCount,
+        noun: config.noun,
+      })
     : config.label;
 
   return (
