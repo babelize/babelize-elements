@@ -161,5 +161,9 @@
     "gettingStarted": "はじめに",
     "home": "ホーム",
     "toggleMenu": "メニューの切り替え"
+  },
+  "languageSwitcher": {
+    "listbox": "言語を選択",
+    "current": "現在の言語: {name}"
   }
 }

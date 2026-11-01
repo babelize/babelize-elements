@@ -161,5 +161,9 @@
     "gettingStarted": "البدء",
     "home": "الرئيسية",
     "toggleMenu": "تبديل القائمة"
+  },
+  "languageSwitcher": {
+    "listbox": "اختيار اللغة",
+    "current": "اللغة الحالية: {name}"
   }
 }
