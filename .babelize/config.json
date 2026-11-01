@@ -1,0 +1,5 @@
+{
+  "sourceLocale": "en",
+  "targetLocales": ["es", "ja", "ar"],
+  "include": ["src/app/page.tsx", "src/components/landing/**"]
+}
