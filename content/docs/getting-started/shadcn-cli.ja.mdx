@@ -1,0 +1,66 @@
+---
+title: ShadCN CLI 連携
+description: "shadcn CLI で Babelize Elements をインストールします。@babelize レジストリを追加してから、言語スイッチャー、入力コンポーネント、翻訳ウィジェットをプロジェクトに取り込みます。"
+icon: Terminal
+---
+
+import { Callout } from "fumadocs-ui/components/callout";
+
+shadcn CLI を使って、個々の Babelize Elements コンポーネントをプロジェクトに直接インストールします。
+
+## `@babelize` レジストリ
+
+Babelize Elements は [shadcn レジストリディレクトリ](https://ui.shadcn.com/docs/directory)に `@babelize` として掲載されているため、shadcn CLI は設定なしでこれを解決できます。
+
+古いバージョンの CLI を使用している場合、またはレジストリを明示的に固定したい場合は、`components.json` の `registries` フィールドに追加してください:
+
+```json
+{
+  "registries": {
+    "@babelize": "https://elements.babelize.co/r/{name}.json"
+  }
+}
+```
+
+## コンポーネントをインストールする
+
+任意のコンポーネントをインストールします:
+
+```bash
+npx shadcn@latest add @babelize/language-switcher
+npx shadcn@latest add @babelize/language-switcher-pill
+npx shadcn@latest add @babelize/phone-input
+npx shadcn@latest add @babelize/navbar
+```
+
+CLI は各コンポーネントの依存関係（`cn` ユーティリティを含む）を解決し、各ファイルをその種類に応じたエイリアスに書き込みます。コンポーネントは `ui` エイリアスに、`useControllableState` や `useListboxNavigation` などの共有フックは `lib` に書き込まれます。`components.json` で `ui` を移動している場合は、コンポーネントもそれに従います。
+
+<Callout title="`cn` はそのまま残ります">
+  コンポーネントは `cn` を `utils` エイリアス経由でインポートし、それがすでに存在することを前提とします。これは shadcn 自身のコンポーネントも同じ前提に立っており、`shadcn init` が作成します。 カスタマイズの有無にかかわらず、お使いのバージョンが上書きされることはありません。
+
+同梱の `@babelize/elements` CLI は、ファイルが本当に存在しない場合に限り、`cn` も追加で作成します。そのため、`shadcn init` を一度も実行したことがないプロジェクトでも動作します。
+
+</Callout>
+
+直接の URL を指定してインストールすることもできます:
+
+```bash
+npx shadcn@latest add https://elements.babelize.co/r/language-switcher.json
+```
+
+## インポート
+
+```tsx
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+```
+
+## Babelize Elements CLI を使用する
+
+専用の CLI をお好みですか？ `@babelize/elements` パッケージに含まれています:
+
+```bash
+npx @babelize/elements add language-switcher
+npx @babelize/elements list
+```
+
+同じ作業を行います。レジストリの項目を解決し、コンポーネントを `components/ui/` に書き込み、その npm 依存関係をインストールします。

@@ -1,0 +1,262 @@
+---
+title: Manual del colaborador
+description: Antes de programar, lee las reglas. Así trabajamos juntos en Babelize Elements.
+icon: BookOpen
+---
+
+import { Steps, Step } from "fumadocs-ui/components/steps";
+import {
+  BookOpen,
+  Box,
+  CircleCheck,
+  CircleHelp,
+  Code2,
+  Eraser,
+  FileSearch,
+  FileText,
+  FlaskConical,
+  GitFork,
+  GitMerge,
+  Lightbulb,
+  Layers,
+  MessageCircle,
+  MessageSquare,
+  RefreshCw,
+  Send,
+  Star,
+  Target,
+  Terminal,
+  TriangleAlert,
+  Type,
+  User,
+  Users,
+  Feather,
+} from "lucide-react";
+
+<RulebookDownload />
+
+## 01 · Habla antes de programar
+
+¿Encontraste un error? ¿Tienes una idea? ¿Quieres crear una función? Todavía no empieces a programar.
+
+<Flow
+  steps={[
+    { label: "Check", icon: <FileSearch /> },
+    { label: "Discuss", icon: <MessageSquare /> },
+    { label: "Claim", icon: <User /> },
+    { label: "Code", icon: <Code2 /> },
+  ]}
+/>
+
+<Steps>
+  <Step>Revisa los [issues existentes](https://github.com/babelize/babelize-elements/issues).</Step>
+  <Step>Busca o crea el issue relevante.</Step>
+  <Step>Comenta en qué planeas trabajar.</Step>
+  <Step>Espera a que un mantenedor lo confirme.</Step>
+  <Step>Entonces empieza a programar.</Step>
+</Steps>
+
+<Takeaway title="Evita trabajo duplicado.">Mantén las contribuciones coordinadas.</Takeaway>
+
+## 02 · Abre un PR
+
+Un PR. Un cambio claro. Mantén tu PR:
+
+<Cards>
+  <Card icon={<Target />} title="Enfocado">
+    Resuelve un solo problema. Limita tus cambios a un único issue o función.
+  </Card>
+  <Card icon={<FileText />} title="Claro">
+    Explica qué cambió y por qué. Añade contexto, capturas de pantalla si hace falta, y enlaza el issue.
+  </Card>
+  <Card icon={<CircleCheck />} title="Probado">
+    Asegúrate de que tu código funciona como se espera y no rompe la funcionalidad existente.
+  </Card>
+  <Card icon={<Users />} title="Revisable">
+    Mantenlo pequeño y limpio. Sin cambios de formato ni refactorizaciones no relacionadas.
+  </Card>
+</Cards>
+
+<Takeaway title="Los PR pequeños y enfocados son más fáciles de revisar.">
+  Mantienen el historial limpio y se fusionan más rápido.
+</Takeaway>
+
+## 03 · Calidad del código
+
+Escribe código que podamos mantener. Antes de abrir tu PR:
+
+<Cards>
+  <Card icon={<Layers />} title="Sigue los patrones existentes">
+    Mantén el código coherente con el proyecto.
+  </Card>
+  <Card icon={<Box />} title="Mantén los componentes reutilizables">
+    Construye piezas flexibles y componibles.
+  </Card>
+  <Card icon={<Type />} title="Usa nombres consistentes">
+    Sigue las convenciones de nombres.
+  </Card>
+  <Card icon={<Feather />} title="Evita dependencias adicionales">
+    Mantén el proyecto ligero.
+  </Card>
+  <Card icon={<TriangleAlert />} title="Gestiona los casos límite">
+    Piensa en los estados de error y en los escenarios.
+  </Card>
+  <Card icon={<Eraser />} title="Elimina el código no utilizado">
+    Mantén la base de código limpia y mínima.
+  </Card>
+  <Card icon={<CircleCheck />} title="Prueba tus cambios">
+    Asegúrate de que todo funciona.
+  </Card>
+  <Card icon={<BookOpen />} title="Actualiza la documentación cuando sea necesario">
+    Ayuda a otros a entender tus cambios.
+  </Card>
+</Cards>
+
+¿Nuevo componente? Parte de la [plantilla de componente](/docs/getting-started/contributing#component-template).
+
+<Takeaway title="Legible > ingenioso.">Escribe código para personas, no solo para máquinas.</Takeaway>
+
+## 04 · Revisión de PR
+
+Un PR no es la meta final.
+
+<Flow
+  steps={[
+    { label: "Submit", icon: <Send /> },
+    { label: "Review", icon: <MessageSquare /> },
+    { label: "Feedback", icon: <FileText /> },
+    { label: "Improve", icon: <RefreshCw /> },
+    { label: "Merge", icon: <GitMerge /> },
+  ]}
+/>
+
+Los revisores pueden pedir:
+
+<Cards>
+  <Card icon={<Code2 />} title="Cambios en el código">
+    Refina la implementación o corrige problemas.
+  </Card>
+  <Card icon={<FlaskConical />} title="Pruebas adicionales">
+    Añade o mejora la cobertura de pruebas.
+  </Card>
+  <Card icon={<FileText />} title="Actualizaciones de la documentación">
+    Actualiza la documentación, los comentarios o los README.
+  </Card>
+  <Card icon={<CircleHelp />} title="Aclaración">
+    Aporta más contexto o explicación.
+  </Card>
+  <Card icon={<MessageSquare />} title="Enfoques diferentes">
+    Debate soluciones alternativas.
+  </Card>
+</Cards>
+
+<Takeaway title="Los comentarios forman parte de contribuir.">
+  Sé abierto, responde a tiempo y mantén un tono constructivo.
+</Takeaway>
+
+## 05 · Normas de la comunidad
+
+Construye con personas, no solo con código.
+
+<Cards>
+  <Card icon={<Users />} title="Sé respetuoso">
+    Trata con respeto a los colaboradores y mantenedores.
+  </Card>
+  <Card icon={<MessageSquare />} title="Sé constructivo">
+    Señala problemas y ayuda a encontrar soluciones.
+  </Card>
+  <Card icon={<FileText />} title="Aporta contexto">
+    Explica tu razonamiento.
+  </Card>
+  <Card icon={<BookOpen />} title="Ayuda a otros">
+    Comparte lo que sabes.
+  </Card>
+  <Card icon={<Target />} title="Mantén el foco">
+    Mantén las discusiones relevantes.
+  </Card>
+</Cards>
+
+Consulta también nuestro [Código de conducta](https://github.com/babelize/babelize-elements/blob/main/CODE_OF_CONDUCT.md).
+
+<Takeaway title="El buen código importa.">La buena colaboración también importa.</Takeaway>
+
+## 06 · Estrella y fork
+
+Apoya el proyecto.
+
+<Cards>
+  <Card icon={<Star />} title="Dale una estrella al repo" href="https://github.com/babelize/babelize-elements">
+    Una estrella muestra tu apoyo y ayuda a más desarrolladores a descubrir Babelize Elements.
+  </Card>
+  <Card
+    icon={<GitFork />}
+    title="Haz fork del repo"
+    href="https://github.com/babelize/babelize-elements/fork"
+  >
+    Tu propia copia para experimentar, hacer cambios y abrir PR.
+  </Card>
+</Cards>
+
+<Flow
+  steps={[
+    { label: "Star", icon: <Star /> },
+    { label: "Fork", icon: <GitFork /> },
+    { label: "Clone", icon: <Terminal /> },
+    { label: "Build", icon: <Code2 /> },
+  ]}
+/>
+
+```bash
+git clone https://github.com/<your-username>/babelize-elements.git
+cd babelize-elements
+```
+
+<Takeaway title="Pequeñas acciones. Gran impacto.">
+  Construyamos juntos una internet más inclusiva.
+</Takeaway>
+
+## 07 · Únete a la comunidad
+
+No construyas solo. Únete al [Discord de Babelize](https://discord.gg/Qqzr2g4KGx) y dirígete al canal **#elements** para:
+
+<Cards>
+  <Card icon={<MessageCircle />} title="Preguntas">
+    Haz preguntas y pide ayuda a otros.
+  </Card>
+  <Card icon={<Lightbulb />} title="Ideas">
+    Comparte ideas y sugerencias.
+  </Card>
+  <Card icon={<Code2 />} title="Contribuciones">
+    Toma issues y contribuye.
+  </Card>
+  <Card icon={<MessageSquare />} title="Retroalimentación">
+    Ayúdanos a crecer.
+  </Card>
+  <Card icon={<TriangleAlert />} title="Issues">
+    Reporta errores y debate soluciones.
+  </Card>
+  <Card icon={<Users />} title="Obtener ayuda">
+    ¿Atascado? Pregunta a la comunidad.
+  </Card>
+</Cards>
+
+<Takeaway title="Tu contribución empieza con una conversación.">
+  Las ideas crecen más rápido juntas.
+</Takeaway>
+
+## 08 · Empieza a contribuir
+
+¿Listo para construir?
+
+<Steps>
+  <Step>**Dale una estrella al repo** — muestra tu apoyo, ayúdanos a crecer.</Step>
+  <Step>**Haz fork del repo** — crea tu propio espacio de trabajo.</Step>
+  <Step>**Únete a Discord** — forma parte de la comunidad.</Step>
+  <Step>**Busca un issue** — busca `good first issue`.</Step>
+  <Step>**Comenta primero** — avísanos de que lo estás haciendo.</Step>
+  <Step>**Constrúyelo** — escribe, prueba y mantenlo enfocado.</Step>
+  <Step>**Abre un PR** — explica qué y por qué.</Step>
+  <Step>**Revisión y fusión** — atiende los comentarios y consigue que se fusione.</Step>
+</Steps>
+
+<Takeaway title="Código abierto. Más personas.">Un futuro más global. Construye con nosotros.</Takeaway>

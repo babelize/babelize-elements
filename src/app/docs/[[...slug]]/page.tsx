@@ -1,5 +1,6 @@
 import { DocsBody, DocsDescription, DocsPage, DocsTitle } from "fumadocs-ui/page";
 import { notFound } from "next/navigation";
+import { getLocale } from "next-intl/server";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import { source } from "@/lib/source";
 import { LanguageSwitcherDemo } from "@/components/docs/language-switcher-demo";
@@ -22,7 +23,8 @@ const customComponents = {
 
 export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
   const params = await props.params;
-  const page = source.getPage(params.slug);
+  // The URL's language (/ja/docs/… is served here by the locale proxy); English without a translation.
+  const page = source.getPage(params.slug, await getLocale());
 
   if (!page) {
     notFound();
@@ -42,12 +44,12 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
 }
 
 export async function generateStaticParams() {
-  return source.generateParams();
+  return source.getPages().map((page) => ({ slug: page.slugs }));
 }
 
 export async function generateMetadata(props: { params: Promise<{ slug?: string[] }> }) {
   const params = await props.params;
-  const page = source.getPage(params.slug);
+  const page = source.getPage(params.slug, await getLocale());
   if (!page) notFound();
 
   return {

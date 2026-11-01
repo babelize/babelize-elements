@@ -1,0 +1,434 @@
+---
+title: 言語スイッチャー
+description: "ドロップダウン、検索、RTL サポート、完全なアクセシビリティを備えた、コピー＆ペーストで使える React 向けの言語スイッチャーです。next-intl、react-i18next、その他の i18n 設定で動作します。"
+---
+
+import { PreviewComponents } from "@/components/docs/preview-components";
+import { LanguageSwitcherDemo } from "@/components/docs/language-switcher-demo";
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+<PreviewComponents registryName="language-switcher">
+  <LanguageSwitcherDemo />
+</PreviewComponents>
+
+## インストール
+
+<Tabs
+  items={["shadcn", "Elements CLI"]}
+  defaultValue="shadcn"
+  className="bg-transparent border-none"
+>
+  <Tab value="shadcn" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="installation-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx shadcn@latest add @babelize/language-switcher
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx shadcn@latest add @babelize/language-switcher
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx shadcn@latest add @babelize/language-switcher
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx shadcn@latest add @babelize/language-switcher
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+  <Tab value="Elements CLI" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="elements-cli-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx @babelize/elements add language-switcher
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx @babelize/elements add language-switcher
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx @babelize/elements add language-switcher
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx @babelize/elements add language-switcher
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+</Tabs>
+
+## 使い方
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+
+const locales = [{ code: "en" }, { code: "fr" }, { code: "es" }, { code: "ja" }, { code: "ar" }];
+
+export function LocaleSwitcher() {
+  const [locale, setLocale] = useState("en");
+
+  return (
+    <LanguageSwitcher
+      locales={locales} // only `code` is required, labels and flags are auto-resolved
+      value={locale} // omit for uncontrolled, use defaultValue instead
+      onValueChange={setLocale}
+      label="native" // or "english" (default)
+      showFlags
+    />
+  );
+}
+```
+
+## Props
+
+| Prop                | 型                                  | 必須 | 説明                                                                          |
+| ------------------- | ------------------------------------- | -------- | ------------------------------------------------------------------------------------ |
+| `locales`           | `Locale[]`                            | はい      | 利用可能なロケールの配列です。必須なのは `code` のみです                                 |
+| `value`             | `string`                              | いいえ       | 選択中のロケールコード。コンポーネントを制御するにはこの値を渡します                            |
+| `defaultValue`      | `string`                              | いいえ       | 初期選択ロケールコード（デフォルト: 最初のロケールのコード）                          |
+| `onValueChange`     | `(code: string) => void`              | いいえ       | ロケールが変更されたときのコールバック                                                         |
+| `label`             | `"native" \| "english"`               | いいえ       | 表示ラベルをネイティブ言語または英語で表示します（デフォルト: `"english"`）                           |
+| `showFlags`         | `boolean`                             | いいえ       | 国旗の絵文字を表示します（デフォルト: `false`）                                                  |
+| `maxHeight`         | `number \| string`                    | いいえ       | スクロールする選択肢一覧の最大の高さ（デフォルト: `"15rem"`）                         |
+| `showCode`          | `boolean`                             | いいえ       | 各選択肢の横にロケールコードを表示します（デフォルト: `false`）                           |
+| `variant`           | `"outline" \| "ghost" \| "secondary"` | いいえ       | トリガーのスタイル（デフォルト: `"outline"`）                                                 |
+| `size`              | `"sm" \| "default" \| "lg"`           | いいえ       | トリガーのサイズ（デフォルト: `"default"`）                                                  |
+| `align`             | `"start" \| "end"`                    | いいえ       | メニューを揃えるトリガーの辺（デフォルト: `"start"`）                      |
+| `side`              | `"top" \| "bottom"`                   | いいえ       | 優先するメニューの表示側。スペースがない場合は反転します（デフォルト: `"bottom"`）               |
+| `searchable`        | `boolean`                             | いいえ       | 検索欄を表示します（デフォルト: `true`）                                              |
+| `searchPlaceholder` | `string`                              | いいえ       | 検索欄のプレースホルダー（デフォルト: `"Search languages..."`）                                |
+| `emptyMessage`      | `ReactNode`                           | いいえ       | 検索に一致する項目がない場合に表示されます（デフォルト: `"No languages found."`）             |
+| `labels`            | `Partial<LanguageSwitcherLabels>`     | いいえ       | 組み込みの英語 UI テキストを上書きします（下記参照）                                    |
+| `disabled`          | `boolean`                             | いいえ       | トリガーを無効にします                                                                  |
+| `renderOption`      | `(locale, state) => ReactNode`        | いいえ       | 各選択肢の行の内容を置き換えます。`state` には `selected`、`active`、`label`、`flag` があります |
+| `classNames`        | `LanguageSwitcherClassNames`          | いいえ       | パーツごとのクラス: `trigger`、`content`、`search`、`list`、`item`、`empty`            |
+| `className`         | `string`                              | いいえ       | ルートに追加する CSS クラス                                                   |
+
+### Locale オブジェクト
+
+| プロパティ | 型      | 説明                                                                |
+| -------- | --------- | -------------------------------------------------------------------------- |
+| `code`   | `string`  | ISO 639-1 / BCP 47 コード（例: `"en"`、`"fr-FR"`、`"ar-SA"`）— **必須** |
+| `label`  | `string`  | 表示名を上書きします（省略時は組み込みのマッピングから自動で解決されます）     |
+| `flag`   | `string`  | 国旗の絵文字を上書きします（省略時はコードから自動検出されます）                   |
+| `rtl`    | `boolean` | RTL を上書きします（省略時はコードから自動検出されます）                          |
+
+## 使用例
+
+### Babelize SDK を使う場合
+
+自動翻訳のために、言語スイッチャーを [Babelize SDK](https://docs.babelize.co/sdk) と組み合わせます:
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+import { useBabelize } from "@babelize/sdk/react";
+
+const locales = [
+  { code: "en", label: "English", flag: "🇺🇸" },
+  { code: "fr", label: "Français", flag: "🇫🇷" },
+  { code: "es", label: "Español", flag: "🇪🇸" },
+  { code: "de", label: "Deutsch", flag: "🇩🇪" },
+  { code: "ja", label: "日本語", flag: "🇯🇵" },
+  { code: "ar", label: "العربية", flag: "🇸🇦" },
+];
+
+export function LocaleSwitcher() {
+  const router = useRouter();
+  const { locale, setLocale } = useBabelize();
+
+  return (
+    <LanguageSwitcher
+      locales={locales}
+      value={locale}
+      onValueChange={(code) => {
+        setLocale(code);
+        router.push(`/${code}`);
+      }}
+    />
+  );
+}
+```
+
+### next-intl を使う場合
+
+```tsx
+"use client";
+
+import { useRouter } from "next/navigation";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+
+export function LocaleSwitcher() {
+  const router = useRouter();
+
+  return (
+    <LanguageSwitcher
+      locales={[{ code: "en" }, { code: "fr" }]}
+      defaultValue="en"
+      onValueChange={(code) => router.push(`/${code}`)}
+    />
+  );
+}
+```
+
+### react-i18next を使う場合
+
+```tsx
+"use client";
+
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+
+export function LocaleSwitcher() {
+  const { i18n } = useTranslation();
+
+  return (
+    <LanguageSwitcher
+      locales={[{ code: "en" }, { code: "fr" }]}
+      value={i18n.language}
+      onValueChange={(code) => i18n.changeLanguage(code)}
+    />
+  );
+}
+```
+
+### ネイティブラベル＋国旗
+
+```tsx
+"use client";
+
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+
+export default function App() {
+  return (
+    <LanguageSwitcher
+      locales={[{ code: "en" }, { code: "fr" }, { code: "es" }]}
+      defaultValue="en"
+      label="native"
+      showFlags
+    />
+  );
+}
+```
+
+### パーツのカスタマイズ
+
+このスイッチャーは shadcn のテーマトークンでスタイル設定されているため、お使いのテーマに追従します。 任意のパーツのスタイルを変更するには `classNames` を、各行に表示する内容を変更するには `renderOption` を使用します:
+
+```tsx
+<LanguageSwitcher
+  locales={locales}
+  variant="ghost"
+  size="sm"
+  align="end"
+  classNames={{ content: "w-64", item: "py-2" }}
+  renderOption={(locale, { label, flag, selected }) => (
+    <>
+      <span className="text-base leading-none">{flag}</span>
+      <span className="flex-1">{label}</span>
+      <span className="text-xs text-muted-foreground">{selected ? "Current" : locale.code}</span>
+    </>
+  )}
+/>
+```
+
+### 翻訳された UI テキスト
+
+検索欄のプレースホルダー、空の状態、アクセシブルなラベルは、デフォルトで英語です。 翻訳するには `labels` を渡します。 省略したキーは英語のデフォルトのままになります。 `searchPlaceholder` と `emptyMessage` の props も引き続き使用でき、両方が設定されている場合は `labels` より優先されます。
+
+```tsx
+"use client";
+
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+
+export default function App() {
+  return (
+    <LanguageSwitcher
+      locales={[{ code: "en" }, { code: "fr" }, { code: "es" }]}
+      defaultValue="fr"
+      label="native"
+      labels={{
+        searchPlaceholder: "Rechercher une langue…",
+        searchLabel: "Rechercher une langue",
+        clearSearch: "Effacer la recherche",
+        emptyMessage: "Aucune langue trouvée.",
+        listbox: "Choisir la langue",
+        current: (name) => `Langue actuelle : ${name}`,
+      }}
+    />
+  );
+}
+```
+
+| キー                 | デフォルト                                 | 用途                      |
+| ------------------- | --------------------------------------- | ----------------------------- |
+| `searchPlaceholder` | `"Search languages..."`                 | 検索欄のプレースホルダー      |
+| `searchLabel`       | `"Search languages"`                    | 検索欄のアクセシブルなラベル |
+| `clearSearch`       | `"Clear search"`                        | クリアボタンのアクセシブルなラベル |
+| `emptyMessage`      | `"No languages found."`                 | 一致する項目がない場合に表示    |
+| `listbox`           | `"Select language"`                     | 選択肢一覧のアクセシブルなラベル  |
+| `current`           | `(name) => "Current language: " + name` | トリガーのアクセシブルなラベル      |
+
+## キーボード操作
+
+ポップアップは WAI-ARIA のコンボボックスパターンに従います。 フォーカスは検索欄に留まり、検索欄は `role="combobox"` として公開されます。 ハイライトされた選択肢は `aria-activedescendant` を通じて読み上げられます。
+
+| キー                              | 操作                                                        |
+| -------------------------------- | ------------------------------------------------------------- |
+| `Enter`、`Space`、またはクリック       | トリガーからポップアップを開きます                               |
+| `ArrowDown` / `ArrowUp`（閉じている状態） | 最初または最後のロケールがハイライトされた状態で開きます                 |
+| `ArrowDown` / `ArrowUp`          | ハイライトを移動します。両端で循環します                     |
+| `Home` / `End`                   | 最初または最後のロケールをハイライトします                             |
+| `Enter`                          | ハイライトされたロケールを選択し、フォーカスをトリガーに戻します |
+| `Escape`                         | ポップアップを閉じ、フォーカスをトリガーに戻します               |
+| 入力                           | 名前またはコードで絞り込みます。ハイライトは先頭に戻ります     |
+
+ハイライトは、メニューを開いたときに表示されていた行に留まります。 ネイティブのメニューのように、一覧はその下でスクロールします。 ページ自体はスクロールしません。`maxHeight` を渡すと、スクロールが始まるまでの一覧の高さを変更できます。
+
+## 機能
+
+- **設定不要** — コードを渡すだけで、ラベルと国旗は自動的に解決されます
+- **検索付きドロップダウン** — 名前またはコードでロケールを絞り込み
+- **RTL 対応** — RTL のロケール（ar、he、fa、ur）を自動検出し、レイアウトを調整します
+- **キーボードでの操作に対応** — 矢印キー、Home / End、Enter、Escape で操作可能
+- **ARIA ラベル** — `aria-activedescendant` を持つ `role="combobox"` 検索欄に加え、`aria-expanded`、`aria-haspopup`、`aria-selected`
+- **ダークモード** — Tailwind CSS で構築されており、ダークモードに対応しています
+- **ライブラリ非依存** — コールバックを通じて、任意の i18n 設定で動作します
+
+## 対応している言語
+
+ラベルと国旗は言語コードから自動検出されます。コードだけを渡してください:
+
+| コード | 言語         | 国旗 | RTL |
+| ---- | ---------------- | ---- | --- |
+| `en` | English          | 🇺🇸   |     |
+| `fr` | Français         | 🇫🇷   |     |
+| `es` | Español          | 🇪🇸   |     |
+| `de` | Deutsch          | 🇩🇪   |     |
+| `ja` | 日本語           | 🇯🇵   |     |
+| `ko` | 한국어           | 🇰🇷   |     |
+| `zh` | 中文             | 🇨🇳   |     |
+| `ar` | العربية          | 🇸🇦   | ✓   |
+| `pt` | Português        | 🇧🇷   |     |
+| `it` | Italiano         | 🇮🇹   |     |
+| `nl` | Nederlands       | 🇳🇱   |     |
+| `ru` | Русский          | 🇷🇺   |     |
+| `pl` | Polski           | 🇵🇱   |     |
+| `tr` | Türkçe           | 🇹🇷   |     |
+| `vi` | Tiếng Việt       | 🇻🇳   |     |
+| `th` | ไทย              | 🇹🇭   |     |
+| `id` | Bahasa Indonesia | 🇮🇩   |     |
+| `hi` | हिन्दी           | 🇮🇳   |     |
+| `bn` | বাংলা            | 🇧🇩   |     |
+| `uk` | Українська       | 🇺🇦   |     |
+| `cs` | Čeština          | 🇨🇿   |     |
+| `sv` | Svenska          | 🇸🇪   |     |
+| `da` | Dansk            | 🇩🇰   |     |
+| `fi` | Suomi            | 🇫🇮   |     |
+| `no` | Norsk            | 🇳🇴   |     |
+| `el` | Ελληνικά         | 🇬🇷   |     |
+| `he` | עברית            | 🇮🇱   | ✓   |
+| `fa` | فارسی            | 🇮🇷   | ✓   |
+| `ro` | Română           | 🇷🇴   |     |
+| `hu` | Magyar           | 🇭🇺   |     |
+| `sk` | Slovenčina       | 🇸🇰   |     |
+| `bg` | Български        | 🇧🇬   |     |
+| `hr` | Hrvatski         | 🇭🇷   |     |
+| `sr` | Српски           | 🇷🇸   |     |
+| `sl` | Slovenščina      | 🇸🇮   |     |
+| `lt` | Lietuvių         | 🇱🇹   |     |
+| `lv` | Latviešu         | 🇱🇻   |     |
+| `et` | Eesti            | 🇪🇪   |     |
+| `ga` | Gaeilge          | 🇮🇪   |     |
+| `ca` | Català           | 🇪🇸   |     |
+| `is` | Íslenska         | 🇮🇸   |     |
+| `sw` | Kiswahili        | 🇹🇿   |     |
+| `am` | አማርኛ             | 🇪🇹   |     |
+| `ne` | नेपाली           | 🇳🇵   |     |
+| `si` | සිංහල            | 🇱🇰   |     |
+| `my` | မြန်မာ           | 🇲🇲   |     |
+| `km` | ខ្មែរ            | 🇰🇭   |     |
+| `lo` | ລາວ              | 🇱🇦   |     |
+| `ka` | ქართული          | 🇬🇪   |     |
+| `hy` | Հայերեն          | 🇦🇲   |     |
+| `kk` | Қазақ            | 🇰🇿   |     |
+| `uz` | Oʻzbek           | 🇺🇿   |     |
+| `mn` | Монгол           | 🇲🇳   |     |
+| `ur` | اردو             | 🇵🇰   | ✓   |
+| `ml` | മലയാളം           | 🇮🇳   |     |
+| `ta` | தமிழ்            | 🇮🇳   |     |
+| `te` | తెలుగు           | 🇮🇳   |     |
+| `kn` | ಕನ್ನಡ            | 🇮🇳   |     |
+| `mr` | मराठी            | 🇮🇳   |     |
+| `gu` | ગુજરાતી          | 🇮🇳   |     |
+| `pa` | ਪੰਜਾਬੀ           | 🇮🇳   |     |
+| `yo` | Yorùbá           | 🇳🇬   |     |
+| `ig` | Igbo             | 🇳🇬   |     |
+| `zu` | isiZulu          | 🇿🇦   |     |
+| `af` | Afrikaans        | 🇿🇦   |     |
+| `ha` | Hausa            | 🇳🇬   |     |
+| `tl` | Filipino         | 🇵🇭   |     |
+| `mi` | Te Reo Māori     | 🇳🇿   |     |
+| `sm` | Gagana Samoa     | 🇼🇸   |     |
+| `to` | Lea Faka-Tonga   | 🇹🇴   |     |
+| `eo` | Esperanto        | 🌐   |     |
+
+一覧にない言語が必要ですか？ カスタムの `label` と `flag` を渡して上書きします:
+
+```tsx
+<LanguageSwitcher
+  locales={[{ code: "xyz", label: "My Language", flag: "🏴" }]}
+  defaultValue="xyz"
+/>
+```
+
+## 依存関係
+
+このコンポーネントは次を使用しています:
+
+- `clsx` と `tailwind-merge`（dependencies としてバンドル）
+
+peerDependencies:
+
+- `react` >= 18
+- `react-dom` >= 18
+- `tailwindcss` >= 3
+
+## クレジット
+
+作成者: [sapatmohit](https://github.com/sapatmohit)。

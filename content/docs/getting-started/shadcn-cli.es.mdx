@@ -1,0 +1,66 @@
+---
+title: Integración con la CLI de ShadCN
+description: "Instala Babelize Elements con la CLI de shadcn: añade el registro @babelize y luego incorpora a tu proyecto selectores de idioma, campos de entrada y widgets de traducción."
+icon: Terminal
+---
+
+import { Callout } from "fumadocs-ui/components/callout";
+
+Instala componentes individuales de Babelize Elements directamente en tu proyecto con la CLI de shadcn.
+
+## El registro `@babelize`
+
+Babelize Elements aparece en el [directorio de registros de shadcn](https://ui.shadcn.com/docs/directory) como `@babelize`, así que la CLI de shadcn lo resuelve sin configuración adicional.
+
+En una CLI más antigua, o para fijar el registro de forma explícita, añádelo al campo `registries` de tu `components.json`:
+
+```json
+{
+  "registries": {
+    "@babelize": "https://elements.babelize.co/r/{name}.json"
+  }
+}
+```
+
+## Instala un componente
+
+Instala cualquier componente:
+
+```bash
+npx shadcn@latest add @babelize/language-switcher
+npx shadcn@latest add @babelize/language-switcher-pill
+npx shadcn@latest add @babelize/phone-input
+npx shadcn@latest add @babelize/navbar
+```
+
+La CLI resuelve las dependencias de cada componente (incluida la utilidad `cn`) y escribe cada archivo en el alias que corresponde a su tipo: los componentes en tu alias `ui`, y los hooks compartidos como `useControllableState` y `useListboxNavigation` en `lib`. Si has reubicado `ui` en `components.json`, los componentes lo seguirán.
+
+<Callout title="Tu `cn` no se modifica">
+  Los componentes importan `cn` a través de tu alias `utils` y esperan que ya esté presente: la misma suposición que hacen los componentes de shadcn, ya que `shadcn init` lo crea. No se sobrescribe nada de tu versión, sin importar cómo la hayas personalizado.
+
+La CLI `@babelize/elements` incluida además escribe `cn` por ti si el archivo realmente falta, así que funciona en proyectos que nunca ejecutaron `shadcn init`.
+
+</Callout>
+
+También puedes instalar mediante una URL directa:
+
+```bash
+npx shadcn@latest add https://elements.babelize.co/r/language-switcher.json
+```
+
+## Importar
+
+```tsx
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+```
+
+## Usar la CLI de Babelize Elements
+
+¿Prefieres una CLI específica? El paquete `@babelize/elements` incluye una:
+
+```bash
+npx @babelize/elements add language-switcher
+npx @babelize/elements list
+```
+
+Hace lo mismo: resuelve el elemento del registro, escribe el componente en `components/ui/` e instala sus dependencias de npm.

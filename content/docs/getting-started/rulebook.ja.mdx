@@ -1,0 +1,262 @@
+---
+title: コントリビューター規約
+description: コードを書く前に、ルールをお読みください。Babelize Elements における協働の方法です。
+icon: BookOpen
+---
+
+import { Steps, Step } from "fumadocs-ui/components/steps";
+import {
+  BookOpen,
+  Box,
+  CircleCheck,
+  CircleHelp,
+  Code2,
+  Eraser,
+  FileSearch,
+  FileText,
+  FlaskConical,
+  GitFork,
+  GitMerge,
+  Lightbulb,
+  Layers,
+  MessageCircle,
+  MessageSquare,
+  RefreshCw,
+  Send,
+  Star,
+  Target,
+  Terminal,
+  TriangleAlert,
+  Type,
+  User,
+  Users,
+  Feather,
+} from "lucide-react";
+
+<RulebookDownload />
+
+## 01 · コードを書く前に相談する
+
+バグを見つけましたか？ アイデアがありますか？ 機能を作りたいですか？ まだコーディングは始めないでください。
+
+<Flow
+  steps={[
+    { label: "Check", icon: <FileSearch /> },
+    { label: "Discuss", icon: <MessageSquare /> },
+    { label: "Claim", icon: <User /> },
+    { label: "Code", icon: <Code2 /> },
+  ]}
+/>
+
+<Steps>
+  <Step>[既存の Issue](https://github.com/babelize/babelize-elements/issues) を確認してください。</Step>
+  <Step>関連する Issue を探すか、作成してください。</Step>
+  <Step>取り組む予定の内容をコメントしてください。</Step>
+  <Step>メンテナーの確認を待ってください。</Step>
+  <Step>その後、コーディングを始めてください。</Step>
+</Steps>
+
+<Takeaway title="作業の重複を避けます。">コントリビューションを調整された状態に保ちます。</Takeaway>
+
+## 02 · PR を作成する
+
+1つの PR に、1つの明確な変更を。PR は次の状態を保ってください:
+
+<Cards>
+  <Card icon={<Target />} title="集中している">
+    1つの問題を解決します。変更範囲は1つの Issue または機能に絞ってください。
+  </Card>
+  <Card icon={<FileText />} title="明確である">
+    何がなぜ変わったのかを説明してください。必要に応じて背景情報やスクリーンショットを追加し、Issue をリンクしてください。
+  </Card>
+  <Card icon={<CircleCheck />} title="テスト済みである">
+    コードが期待どおりに動作し、既存の機能を壊さないことを確認してください。
+  </Card>
+  <Card icon={<Users />} title="レビューしやすい">
+    小さく、きれいな状態に保ってください。フォーマットの変更や無関係なリファクタリングは含めないでください。
+  </Card>
+</Cards>
+
+<Takeaway title="小さく焦点を絞った PR は、レビューしやすくなります。">
+  履歴をすっきり保ち、より早くマージされます。
+</Takeaway>
+
+## 03 · コードの品質
+
+保守しやすいコードを書いてください。PR を作成する前に:
+
+<Cards>
+  <Card icon={<Layers />} title="既存のパターンに従う">
+    プロジェクトとの一貫性を保ちます。
+  </Card>
+  <Card icon={<Box />} title="コンポーネントを再利用可能に保つ">
+    柔軟で組み合わせ可能なパーツを作成します。
+  </Card>
+  <Card icon={<Type />} title="命名を統一する">
+    命名規則に従ってください。
+  </Card>
+  <Card icon={<Feather />} title="余分な依存関係を避ける">
+    プロジェクトを軽量に保ちます。
+  </Card>
+  <Card icon={<TriangleAlert />} title="エッジケースを処理する">
+    エラー状態やさまざまなシナリオを考慮してください。
+  </Card>
+  <Card icon={<Eraser />} title="未使用のコードを削除する">
+    コードベースをクリーンかつ最小限に保ちます。
+  </Card>
+  <Card icon={<CircleCheck />} title="変更をテストする">
+    すべてが動作することを確認してください。
+  </Card>
+  <Card icon={<BookOpen />} title="必要に応じてドキュメントを更新する">
+    変更内容を他の人が理解できるようにしてください。
+  </Card>
+</Cards>
+
+新しいコンポーネントですか？ [コンポーネントテンプレート](/docs/getting-started/contributing#component-template)から始めてください。
+
+<Takeaway title="読みやすさ > 賢さ。">コードは機械だけでなく、人のために書いてください。</Takeaway>
+
+## 04 · PR レビュー
+
+PR を出したら終わりではありません。
+
+<Flow
+  steps={[
+    { label: "Submit", icon: <Send /> },
+    { label: "Review", icon: <MessageSquare /> },
+    { label: "Feedback", icon: <FileText /> },
+    { label: "Improve", icon: <RefreshCw /> },
+    { label: "Merge", icon: <GitMerge /> },
+  ]}
+/>
+
+レビュアーから次のような依頼があることがあります:
+
+<Cards>
+  <Card icon={<Code2 />} title="コードの変更">
+    実装を改善するか、問題を修正します。
+  </Card>
+  <Card icon={<FlaskConical />} title="テストの追加">
+    テストカバレッジを追加または改善します。
+  </Card>
+  <Card icon={<FileText />} title="ドキュメントの更新">
+    ドキュメント、コメント、README を更新します。
+  </Card>
+  <Card icon={<CircleHelp />} title="説明の補足">
+    より詳しい背景や説明を提供します。
+  </Card>
+  <Card icon={<MessageSquare />} title="別のアプローチ">
+    代替案について話し合います。
+  </Card>
+</Cards>
+
+<Takeaway title="フィードバックもコントリビューションの一部です。">
+  オープンな姿勢で臨み、迅速に応答し、建設的なやり取りを心がけてください。
+</Takeaway>
+
+## 05 · コミュニティガイドライン
+
+コードだけでなく、人とともに作ってください。
+
+<Cards>
+  <Card icon={<Users />} title="敬意を持つ">
+    コントリビューターとメンテナーに敬意をもって接してください。
+  </Card>
+  <Card icon={<MessageSquare />} title="建設的であること">
+    問題を指摘し、解決策を一緒に見つけてください。
+  </Card>
+  <Card icon={<FileText />} title="背景を伝える">
+    判断の理由を説明してください。
+  </Card>
+  <Card icon={<BookOpen />} title="他の人を助ける">
+    知っていることを共有してください。
+  </Card>
+  <Card icon={<Target />} title="焦点を絞る">
+    議論は関連する内容に留めてください。
+  </Card>
+</Cards>
+
+あわせて [行動規範](https://github.com/babelize/babelize-elements/blob/main/CODE_OF_CONDUCT.md) もご覧ください。
+
+<Takeaway title="良いコードは大切です。">良い協働も同じくらい大切です。</Takeaway>
+
+## 06 · スターとフォーク
+
+プロジェクトを応援してください。
+
+<Cards>
+  <Card icon={<Star />} title="リポジトリにスターを付ける" href="https://github.com/babelize/babelize-elements">
+    スターはあなたの応援の証となり、より多くの開発者が Babelize Elements を見つけるきっかけになります。
+  </Card>
+  <Card
+    icon={<GitFork />}
+    title="リポジトリをフォークする"
+    href="https://github.com/babelize/babelize-elements/fork"
+  >
+    自分のコピーで試したり、変更を加えたり、PR を作成したりできます。
+  </Card>
+</Cards>
+
+<Flow
+  steps={[
+    { label: "Star", icon: <Star /> },
+    { label: "Fork", icon: <GitFork /> },
+    { label: "Clone", icon: <Terminal /> },
+    { label: "Build", icon: <Code2 /> },
+  ]}
+/>
+
+```bash
+git clone https://github.com/<your-username>/babelize-elements.git
+cd babelize-elements
+```
+
+<Takeaway title="小さな行動が、大きな効果を生みます。">
+  より包摂的なインターネットを、ともに作っていきましょう。
+</Takeaway>
+
+## 07 · コミュニティに参加する
+
+1人で作る必要はありません。[Babelize Discord](https://discord.gg/Qqzr2g4KGx) に参加して、次の目的で **#elements** チャンネルへ行ってください:
+
+<Cards>
+  <Card icon={<MessageCircle />} title="質問">
+    他の人に質問して助けを得ます。
+  </Card>
+  <Card icon={<Lightbulb />} title="アイデア">
+    アイデアや提案を共有します。
+  </Card>
+  <Card icon={<Code2 />} title="コントリビューション">
+    Issue を引き受けて、コントリビュートします。
+  </Card>
+  <Card icon={<MessageSquare />} title="フィードバック">
+    私たちの成長を手伝ってください。
+  </Card>
+  <Card icon={<TriangleAlert />} title="Issue">
+    バグを報告し、修正について話し合います。
+  </Card>
+  <Card icon={<Users />} title="ヘルプを得る">
+    行き詰まったら、コミュニティに聞いてください。
+  </Card>
+</Cards>
+
+<Takeaway title="コントリビューションは対話から始まります。">
+  アイデアは一緒に育てる方が速く成長します。
+</Takeaway>
+
+## 08 · コントリビュートを始める
+
+作る準備はできましたか？
+
+<Steps>
+  <Step>**リポジトリにスターを付ける** — 応援の気持ちを示し、私たちの成長を助けてください。</Step>
+  <Step>**リポジトリをフォークする** — 自分専用の作業環境を作成します。</Step>
+  <Step>**Discord に参加する** — コミュニティの一員になりましょう。</Step>
+  <Step>**Issue を探す** — `good first issue` を探してください。</Step>
+  <Step>**まずコメントする** — 取り組む旨を教えてください。</Step>
+  <Step>**作成する** — 書いて、テストして、焦点を絞った内容に保ちます。</Step>
+  <Step>**PR を作成する** — 何を、なぜ行ったかを説明します。</Step>
+  <Step>**レビューとマージ** — フィードバックに対応し、マージされます。</Step>
+</Steps>
+
+<Takeaway title="オープンソース。より多くの人へ。">よりグローバルな未来を。私たちと一緒に作りましょう。</Takeaway>

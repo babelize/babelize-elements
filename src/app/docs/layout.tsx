@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { DocsLayout } from "fumadocs-ui/layouts/docs";
+import { getLocale } from "next-intl/server";
 import { source } from "@/lib/source";
 import { baseOptions } from "../layout.config";
 import { version as localVersion } from "../../../package.json";
@@ -42,11 +43,11 @@ async function getLatestVersion() {
 }
 
 export default async function Layout({ children }: { children: ReactNode }) {
-  const version = await getLatestVersion();
+  const [version, locale] = await Promise.all([getLatestVersion(), getLocale()]);
 
   return (
     <DocsLayout
-      tree={source.pageTree}
+      tree={source.getPageTree(locale)}
       {...baseOptions}
       sidebar={{
         footer: (

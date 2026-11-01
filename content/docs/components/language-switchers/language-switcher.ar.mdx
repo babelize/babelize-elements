@@ -1,0 +1,434 @@
+---
+title: مبدّل اللغة
+description: "مبدّل لغة لـ React جاهز للنسخ واللصق، مع قائمة منسدلة وبحث ودعم RTL وإمكانية وصول كاملة. يعمل مع next-intl وreact-i18next وأي إعداد i18n."
+---
+
+import { PreviewComponents } from "@/components/docs/preview-components";
+import { LanguageSwitcherDemo } from "@/components/docs/language-switcher-demo";
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+<PreviewComponents registryName="language-switcher">
+  <LanguageSwitcherDemo />
+</PreviewComponents>
+
+## التثبيت
+
+<Tabs
+  items={["shadcn", "Elements CLI"]}
+  defaultValue="shadcn"
+  className="bg-transparent border-none"
+>
+  <Tab value="shadcn" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="installation-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx shadcn@latest add @babelize/language-switcher
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx shadcn@latest add @babelize/language-switcher
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx shadcn@latest add @babelize/language-switcher
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx shadcn@latest add @babelize/language-switcher
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+  <Tab value="Elements CLI" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="elements-cli-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx @babelize/elements add language-switcher
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx @babelize/elements add language-switcher
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx @babelize/elements add language-switcher
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx @babelize/elements add language-switcher
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+</Tabs>
+
+## الاستخدام
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+
+const locales = [{ code: "en" }, { code: "fr" }, { code: "es" }, { code: "ja" }, { code: "ar" }];
+
+export function LocaleSwitcher() {
+  const [locale, setLocale] = useState("en");
+
+  return (
+    <LanguageSwitcher
+      locales={locales} // only `code` is required, labels and flags are auto-resolved
+      value={locale} // omit for uncontrolled, use defaultValue instead
+      onValueChange={setLocale}
+      label="native" // or "english" (default)
+      showFlags
+    />
+  );
+}
+```
+
+## الخصائص
+
+| الخاصية                | النوع                                  | مطلوب | الوصف                                                                          |
+| ------------------- | ------------------------------------- | -------- | ------------------------------------------------------------------------------------ |
+| `locales`           | `Locale[]`                            | نعم      | مصفوفة الإعدادات المحلية المتاحة — `code` فقط مطلوب                                 |
+| `value`             | `string`                              | لا       | رمز الإعدادات المحلية المحدد — مرّره للتحكم في المكوّن                            |
+| `defaultValue`      | `string`                              | لا       | رمز الإعدادات المحلية المحدد الأولي (الافتراضي: رمز أول إعدادات محلية)                          |
+| `onValueChange`     | `(code: string) => void`              | لا       | دالة استدعاء عند تغيّر الإعدادات المحلية                                                         |
+| `label`             | `"native" \| "english"`               | لا       | عرض التسميات باللغة الأصلية أو الإنجليزية (الافتراضي: `"english"`)                           |
+| `showFlags`         | `boolean`                             | لا       | إظهار أعلام emoji (الافتراضي: `false`)                                                  |
+| `maxHeight`         | `number \| string`                    | لا       | أقصى ارتفاع لقائمة الخيارات القابلة للتمرير (الافتراضي: `"15rem"`)                         |
+| `showCode`          | `boolean`                             | لا       | إظهار رمز الإعدادات المحلية بجانب كل خيار (الافتراضي: `false`)                           |
+| `variant`           | `"outline" \| "ghost" \| "secondary"` | لا       | نمط الزر المُشغّل (الافتراضي: `"outline"`)                                                 |
+| `size`              | `"sm" \| "default" \| "lg"`           | لا       | حجم الزر المُشغّل (الافتراضي: `"default"`)                                                  |
+| `align`             | `"start" \| "end"`                    | لا       | الحافة التي تصطف القائمة معها في الزر المُشغّل (الافتراضي: `"start"`)                      |
+| `side`              | `"top" \| "bottom"`                   | لا       | الجانب المفضل للقائمة؛ يتبدّل عند عدم وجود مساحة (الافتراضي: `"bottom"`)               |
+| `searchable`        | `boolean`                             | لا       | إظهار حقل البحث (الافتراضي: `true`)                                              |
+| `searchPlaceholder` | `string`                              | لا       | النص النائب للبحث (الافتراضي: `"Search languages..."`)                                |
+| `emptyMessage`      | `ReactNode`                           | لا       | يُعرض عندما لا يطابق البحث أي نتيجة (الافتراضي: `"No languages found."`)             |
+| `labels`            | `Partial<LanguageSwitcherLabels>`     | لا       | تجاوز نصوص الواجهة الإنجليزية المدمجة (انظر أدناه)                                    |
+| `disabled`          | `boolean`                             | لا       | تعطيل الزر المُشغّل                                                                  |
+| `renderOption`      | `(locale, state) => ReactNode`        | لا       | استبدال محتوى كل صف خيار؛ يحوي `state` على `selected` و`active` و`label` و`flag` |
+| `classNames`        | `LanguageSwitcherClassNames`          | لا       | أصناف لكل جزء: `trigger`، `content`، `search`، `list`، `item`، `empty`            |
+| `className`         | `string`                              | لا       | أصناف CSS إضافية على الجذر                                                   |
+
+### كائن الإعدادات المحلية
+
+| الخاصية | النوع      | الوصف                                                                |
+| -------- | --------- | -------------------------------------------------------------------------- |
+| `code`   | `string`  | رمز ISO 639-1 / BCP 47 (مثل `"en"`، `"fr-FR"`، `"ar-SA"`) — **مطلوب** |
+| `label`  | `string`  | تجاوز اسم العرض (يُحدَّد تلقائيًا من الجدول المدمج عند الحذف)     |
+| `flag`   | `string`  | تجاوز علم emoji (يُكتشف تلقائيًا من الرمز عند الحذف)                   |
+| `rtl`    | `boolean` | تجاوز RTL (يُكتشف تلقائيًا من الرمز عند الحذف)                          |
+
+## أمثلة
+
+### مع Babelize SDK
+
+اقرن مبدّل اللغة مع [Babelize SDK](https://docs.babelize.co/sdk) للترجمة التلقائية:
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+import { useBabelize } from "@babelize/sdk/react";
+
+const locales = [
+  { code: "en", label: "English", flag: "🇺🇸" },
+  { code: "fr", label: "Français", flag: "🇫🇷" },
+  { code: "es", label: "Español", flag: "🇪🇸" },
+  { code: "de", label: "Deutsch", flag: "🇩🇪" },
+  { code: "ja", label: "日本語", flag: "🇯🇵" },
+  { code: "ar", label: "العربية", flag: "🇸🇦" },
+];
+
+export function LocaleSwitcher() {
+  const router = useRouter();
+  const { locale, setLocale } = useBabelize();
+
+  return (
+    <LanguageSwitcher
+      locales={locales}
+      value={locale}
+      onValueChange={(code) => {
+        setLocale(code);
+        router.push(`/${code}`);
+      }}
+    />
+  );
+}
+```
+
+### مع next-intl
+
+```tsx
+"use client";
+
+import { useRouter } from "next/navigation";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+
+export function LocaleSwitcher() {
+  const router = useRouter();
+
+  return (
+    <LanguageSwitcher
+      locales={[{ code: "en" }, { code: "fr" }]}
+      defaultValue="en"
+      onValueChange={(code) => router.push(`/${code}`)}
+    />
+  );
+}
+```
+
+### مع react-i18next
+
+```tsx
+"use client";
+
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+
+export function LocaleSwitcher() {
+  const { i18n } = useTranslation();
+
+  return (
+    <LanguageSwitcher
+      locales={[{ code: "en" }, { code: "fr" }]}
+      value={i18n.language}
+      onValueChange={(code) => i18n.changeLanguage(code)}
+    />
+  );
+}
+```
+
+### التسميات الأصلية + الأعلام
+
+```tsx
+"use client";
+
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+
+export default function App() {
+  return (
+    <LanguageSwitcher
+      locales={[{ code: "en" }, { code: "fr" }, { code: "es" }]}
+      defaultValue="en"
+      label="native"
+      showFlags
+    />
+  );
+}
+```
+
+### تخصيص الأجزاء
+
+يُنسَّق المبدّل برموز سمة shadcn، فيتبع سمتك. استخدم `classNames` لإعادة تنسيق أي جزء، أو `renderOption` لتغيير ما يعرضه كل صف:
+
+```tsx
+<LanguageSwitcher
+  locales={locales}
+  variant="ghost"
+  size="sm"
+  align="end"
+  classNames={{ content: "w-64", item: "py-2" }}
+  renderOption={(locale, { label, flag, selected }) => (
+    <>
+      <span className="text-base leading-none">{flag}</span>
+      <span className="flex-1">{label}</span>
+      <span className="text-xs text-muted-foreground">{selected ? "Current" : locale.code}</span>
+    </>
+  )}
+/>
+```
+
+### نصوص الواجهة المترجمة
+
+تكون النصوص النائبة للبحث وحالة الفراغ وتسميات إمكانية الوصول بالإنجليزية افتراضيًا. مرّر `labels` لترجمتها — وأي مفتاح تتركه يحتفظ بقيمته الإنجليزية الافتراضية. وتظل الخاصيتان `searchPlaceholder` و`emptyMessage` تعملان، وتتغلبان على `labels` عند ضبطهما معًا.
+
+```tsx
+"use client";
+
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+
+export default function App() {
+  return (
+    <LanguageSwitcher
+      locales={[{ code: "en" }, { code: "fr" }, { code: "es" }]}
+      defaultValue="fr"
+      label="native"
+      labels={{
+        searchPlaceholder: "Rechercher une langue…",
+        searchLabel: "Rechercher une langue",
+        clearSearch: "Effacer la recherche",
+        emptyMessage: "Aucune langue trouvée.",
+        listbox: "Choisir la langue",
+        current: (name) => `Langue actuelle : ${name}`,
+      }}
+    />
+  );
+}
+```
+
+| المفتاح                 | الافتراضي                                 | يُستخدم في                      |
+| ------------------- | --------------------------------------- | ----------------------------- |
+| `searchPlaceholder` | `"Search languages..."`                 | النص النائب لحقل البحث      |
+| `searchLabel`       | `"Search languages"`                    | تسمية إمكانية الوصول لحقل البحث |
+| `clearSearch`       | `"Clear search"`                        | تسمية إمكانية الوصول لزر المسح |
+| `emptyMessage`      | `"No languages found."`                 | يُعرض عند عدم وجود تطابق    |
+| `listbox`           | `"Select language"`                     | تسمية إمكانية الوصول لقائمة الخيارات  |
+| `current`           | `(name) => "Current language: " + name` | تسمية إمكانية الوصول للزر المُشغّل      |
+
+## دعم لوحة المفاتيح
+
+تتبع النافذة المنبثقة نمط combobox في WAI-ARIA: يبقى التركيز في حقل البحث، الذي يُعرض كـ `role="combobox"`، ويُعلَن عن الخيار المميّز عبر `aria-activedescendant`.
+
+| المفتاح                              | الإجراء                                                        |
+| -------------------------------- | ------------------------------------------------------------- |
+| `Enter`، `Space`، أو النقر       | افتح النافذة المنبثقة من الزر المُشغّل                               |
+| `ArrowDown` / `ArrowUp` (مغلقة) | افتح مع تمييز أول إعدادات محلية / آخرها                 |
+| `ArrowDown` / `ArrowUp`          | انقل التمييز، مع الالتفاف عند الطرفين                     |
+| `Home` / `End`                   | مميّز أول إعدادات محلية / آخرها                             |
+| `Enter`                          | اختر الإعدادات المحلية المميّزة وأعد التركيز إلى الزر المُشغّل |
+| `Escape`                         | أغلق النافذة المنبثقة وأعد التركيز إلى الزر المُشغّل               |
+| الكتابة                           | صفِّ حسب الاسم أو الرمز؛ يبدأ التمييز من الأعلى مجددًا     |
+
+يبقى التمييز على الصف الذي ظهر فيه عند فتح القائمة — وتتمرر القائمة أسفله، كالقائمة الأصلية — ولا تتمرر الصفحة نفسها أبدًا. مرّر `maxHeight` لتغيير ارتفاع القائمة قبل أن تبدأ بالتمرير.
+
+## الميزات
+
+- **بلا إعداد** — مرّر الرموز فقط، وتُحدَّد التسميات والأعلام تلقائيًا
+- **قائمة منسدلة مع بحث** — صفِّ الإعدادات المحلية حسب الاسم أو الرمز
+- **يراعي RTL** — يكتشف الإعدادات المحلية من نوع RTL (ar وhe وfa وur) ويعدّل التخطيط
+- **متاح عبر لوحة المفاتيح** — التنقل بمفاتيح الأسهم وHome / End وEnter وEscape
+- **تسميات ARIA** — حقل البحث `role="combobox"` مع `aria-activedescendant`، إضافةً إلى `aria-expanded` و`aria-haspopup` و`aria-selected`
+- **الوضع الداكن** — مبني بـ Tailwind CSS ومتوافق مع الوضع الداكن
+- **مستقل عن المكتبات** — يعمل مع أي إعداد i18n عبر دالة الاستدعاء
+
+## اللغات المدعومة
+
+تُكتشف التسميات والأعلام تلقائيًا من رمز اللغة. مرّر الرمز فقط:
+
+| الرمز | اللغة         | العلم | RTL |
+| ---- | ---------------- | ---- | --- |
+| `en` | English          | 🇺🇸   |     |
+| `fr` | Français         | 🇫🇷   |     |
+| `es` | Español          | 🇪🇸   |     |
+| `de` | Deutsch          | 🇩🇪   |     |
+| `ja` | 日本語           | 🇯🇵   |     |
+| `ko` | 한국어           | 🇰🇷   |     |
+| `zh` | 中文             | 🇨🇳   |     |
+| `ar` | العربية          | 🇸🇦   | ✓   |
+| `pt` | Português        | 🇧🇷   |     |
+| `it` | Italiano         | 🇮🇹   |     |
+| `nl` | Nederlands       | 🇳🇱   |     |
+| `ru` | Русский          | 🇷🇺   |     |
+| `pl` | Polski           | 🇵🇱   |     |
+| `tr` | Türkçe           | 🇹🇷   |     |
+| `vi` | Tiếng Việt       | 🇻🇳   |     |
+| `th` | ไทย              | 🇹🇭   |     |
+| `id` | Bahasa Indonesia | 🇮🇩   |     |
+| `hi` | हिन्दी           | 🇮🇳   |     |
+| `bn` | বাংলা            | 🇧🇩   |     |
+| `uk` | Українська       | 🇺🇦   |     |
+| `cs` | Čeština          | 🇨🇿   |     |
+| `sv` | Svenska          | 🇸🇪   |     |
+| `da` | Dansk            | 🇩🇰   |     |
+| `fi` | Suomi            | 🇫🇮   |     |
+| `no` | Norsk            | 🇳🇴   |     |
+| `el` | Ελληνικά         | 🇬🇷   |     |
+| `he` | עברית            | 🇮🇱   | ✓   |
+| `fa` | فارسی            | 🇮🇷   | ✓   |
+| `ro` | Română           | 🇷🇴   |     |
+| `hu` | Magyar           | 🇭🇺   |     |
+| `sk` | Slovenčina       | 🇸🇰   |     |
+| `bg` | Български        | 🇧🇬   |     |
+| `hr` | Hrvatski         | 🇭🇷   |     |
+| `sr` | Српски           | 🇷🇸   |     |
+| `sl` | Slovenščina      | 🇸🇮   |     |
+| `lt` | Lietuvių         | 🇱🇹   |     |
+| `lv` | Latviešu         | 🇱🇻   |     |
+| `et` | Eesti            | 🇪🇪   |     |
+| `ga` | Gaeilge          | 🇮🇪   |     |
+| `ca` | Català           | 🇪🇸   |     |
+| `is` | Íslenska         | 🇮🇸   |     |
+| `sw` | Kiswahili        | 🇹🇿   |     |
+| `am` | አማርኛ             | 🇪🇹   |     |
+| `ne` | नेपाली           | 🇳🇵   |     |
+| `si` | සිංහල            | 🇱🇰   |     |
+| `my` | မြန်မာ           | 🇲🇲   |     |
+| `km` | ខ្មែរ            | 🇰🇭   |     |
+| `lo` | ລາວ              | 🇱🇦   |     |
+| `ka` | ქართული          | 🇬🇪   |     |
+| `hy` | Հայերեն          | 🇦🇲   |     |
+| `kk` | Қазақ            | 🇰🇿   |     |
+| `uz` | Oʻzbek           | 🇺🇿   |     |
+| `mn` | Монгол           | 🇲🇳   |     |
+| `ur` | اردو             | 🇵🇰   | ✓   |
+| `ml` | മലയാളം           | 🇮🇳   |     |
+| `ta` | தமிழ்            | 🇮🇳   |     |
+| `te` | తెలుగు           | 🇮🇳   |     |
+| `kn` | ಕನ್ನಡ            | 🇮🇳   |     |
+| `mr` | मराठी            | 🇮🇳   |     |
+| `gu` | ગુજરાતી          | 🇮🇳   |     |
+| `pa` | ਪੰਜਾਬੀ           | 🇮🇳   |     |
+| `yo` | Yorùbá           | 🇳🇬   |     |
+| `ig` | Igbo             | 🇳🇬   |     |
+| `zu` | isiZulu          | 🇿🇦   |     |
+| `af` | Afrikaans        | 🇿🇦   |     |
+| `ha` | Hausa            | 🇳🇬   |     |
+| `tl` | Filipino         | 🇵🇭   |     |
+| `mi` | Te Reo Māori     | 🇳🇿   |     |
+| `sm` | Gagana Samoa     | 🇼🇸   |     |
+| `to` | Lea Faka-Tonga   | 🇹🇴   |     |
+| `eo` | Esperanto        | 🌐   |     |
+
+تحتاج لغة غير مدرجة؟ مرّر `label` و`flag` مخصصين للتجاوز:
+
+```tsx
+<LanguageSwitcher
+  locales={[{ code: "xyz", label: "My Language", flag: "🏴" }]}
+  defaultValue="xyz"
+/>
+```
+
+## الاعتماديات
+
+يستخدم هذا المكوّن:
+
+- `clsx` و`tailwind-merge` (مُضمّنة كاعتماديات)
+
+الاعتماديات النظيرة:
+
+- `react` >= 18
+- `react-dom` >= 18
+- `tailwindcss` >= 3
+
+## الإسناد
+
+من إنشاء [sapatmohit](https://github.com/sapatmohit).

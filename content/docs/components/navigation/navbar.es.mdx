@@ -1,0 +1,434 @@
+---
+title: Navbar
+description: Barra de navegación completa con selector de idioma integrado, menú móvil, botón CTA y enlace a GitHub.
+---
+
+import { PreviewComponents } from "@/components/docs/preview-components";
+import { NavBarDemo } from "@/components/docs/navbar-demo";
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+<PreviewComponents registryName="navbar" fullBleed stageClassName="min-h-[26rem]">
+  <NavBarDemo />
+</PreviewComponents>
+
+## Instalación
+
+<Tabs
+  items={["shadcn", "Elements CLI"]}
+  defaultValue="shadcn"
+  className="bg-transparent border-none"
+>
+  <Tab value="shadcn" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="installation-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx shadcn@latest add @babelize/navbar
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx shadcn@latest add @babelize/navbar
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx shadcn@latest add @babelize/navbar
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx shadcn@latest add @babelize/navbar
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+  <Tab value="Elements CLI" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="elements-cli-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx @babelize/elements add navbar
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx @babelize/elements add navbar
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx @babelize/elements add navbar
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx @babelize/elements add navbar
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+</Tabs>
+
+## Uso
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { NavBar } from "@/components/ui/navbar";
+
+const links = [
+  { label: "Home", href: "/" },
+  { label: "Docs", href: "/docs" },
+  { label: "Pricing", href: "/pricing" },
+];
+
+export function SiteNav() {
+  const [locale, setLocale] = useState("en");
+
+  return (
+    <NavBar
+      logo={<span className="text-lg font-bold">MyApp</span>}
+      links={links}
+      locales={[{ code: "en" }, { code: "fr" }, { code: "es" }]}
+      value={locale} // omit for uncontrolled, use defaultValue instead
+      onValueChange={setLocale}
+      cta={{ label: "Get Started", href: "/signup" }}
+      showGitHub
+      githubUrl="your-org/your-repo" // or a full URL
+    />
+  );
+}
+```
+
+## Props
+
+| Prop            | Tipo                              | Obligatorio | Descripción                                                                   |
+| --------------- | --------------------------------- | -------- | ----------------------------------------------------------------------------- |
+| `logo`          | `React.ReactNode`                 | No       | Elemento de logotipo (se renderiza antes de los enlaces de navegación)                                       |
+| `links`         | `NavLink[]`                       | No       | Enlaces de navegación                                                              |
+| `activeHref`    | `string`                          | No       | `href` de la página actual: recibe `aria-current` y un resaltado              |
+| `locales`       | `Locale[]`                        | No       | Configuraciones regionales disponibles para el selector de idioma                                       |
+| `value`         | `string`                          | No       | Código de configuración regional seleccionado: pásalo para controlar el componente                     |
+| `defaultValue`  | `string`                          | No       | Código de configuración regional inicial cuando no está controlado (predeterminado: primera configuración regional)                 |
+| `onValueChange` | `(code: string) => void`          | No       | Callback que se ejecuta cuando cambia la configuración regional                                                  |
+| `cta`           | `{ label: string; href: string }` | No       | Botón CTA                                                                    |
+| `showGitHub`    | `boolean`                         | No       | Muestra el botón de icono de GitHub. Necesita `githubUrl`; sin él, no se renderiza nada |
+| `githubUrl`     | `string`                          | No       | URL completa, o la forma abreviada `"owner"` / `"owner/repo"` para github.com              |
+| `sticky`        | `boolean`                         | No       | Hace que la barra de navegación quede fija en la parte superior (por defecto: `true`)                                   |
+| `variant`       | `"default" \| "floating"`         | No       | Barra de ancho completo o tarjeta flotante insertada (por defecto: `"default"`)                  |
+| `showFlags`     | `boolean`                         | No       | Muestra banderas en el selector de idioma (por defecto: `true`)                             |
+| `maxHeight`     | `number \| string`                | No       | Altura máxima del menú de idiomas con desplazamiento (por defecto: `"15rem"`)                |
+| `linkComponent` | `React.ElementType`               | No       | Componente usado para los enlaces internos (por defecto: `"a"`)                            |
+| `labels`        | `Partial<NavBarLabels>`           | No       | Sustituye el texto de interfaz en inglés integrado (consulta más abajo)                             |
+| `classNames`    | `NavBarClassNames`                | No       | Sobrescrituras de clases por parte (ver abajo)                                          |
+| `className`     | `string`                          | No       | Clases CSS adicionales                                                        |
+
+Cualquier otra prop se propaga al elemento `<nav>` subyacente, y la ref se reenvía a él.
+
+### Navegación del lado del cliente
+
+Los enlaces se renderizan como elementos `<a>` simples, así que `NavBar` funciona en cualquier aplicación React sin router instalado. Pasa el componente de enlace de tu router para activar la navegación del lado del cliente:
+
+```tsx
+import Link from "next/link";
+
+<NavBar links={links} linkComponent={Link} />;
+```
+
+### Estilizar las partes
+
+`classNames` combina clases adicionales en cada parte con `cn`, así que tus clases tienen prioridad sobre los valores por defecto:
+
+| Clave               | Parte                                                      |
+| ----------------- | --------------------------------------------------------- |
+| `root`            | El elemento `<nav>` (igual que `className`)                 |
+| `container`       | La barra en sí: la fila de ancho completo o la tarjeta flotante |
+| `links`           | El grupo de enlaces de escritorio                                    |
+| `link`            | Cada enlace, en escritorio y en el menú móvil              |
+| `actions`         | El grupo de escritorio con el menú de idiomas, GitHub y el CTA  |
+| `cta`             | El botón de llamada a la acción                                 |
+| `languageTrigger` | Los disparadores del menú de idiomas                                |
+| `languageContent` | El panel del menú de idiomas                                   |
+| `languageItem`    | Cada opción de idioma                                      |
+| `mobileMenu`      | El panel del menú móvil                                     |
+
+```tsx
+<NavBar
+  links={links}
+  classNames={{
+    container: "max-w-4xl",
+    cta: "rounded-full",
+    link: "text-base",
+  }}
+/>
+```
+
+### NavLink Object
+
+| Propiedad | Tipo     | Descripción              |
+| -------- | -------- | ------------------------ |
+| `label`  | `string` | Texto del enlace — **obligatorio** |
+| `href`   | `string` | URL del enlace — **obligatorio**  |
+
+### Objeto de configuración regional
+
+| Propiedad | Tipo     | Descripción                                                     |
+| -------- | -------- | --------------------------------------------------------------- |
+| `code`   | `string` | Código ISO 639-1 / BCP 47 (p. ej. `"en"`, `"fr-FR"`) — **obligatorio** |
+| `label`  | `string` | Sobrescribe el nombre para mostrar (se resuelve automáticamente si se omite)                |
+| `flag`   | `string` | Sobrescribe el emoji de bandera (se detecta automáticamente si se omite)                  |
+
+## Ejemplos
+
+### Con el SDK de Babelize
+
+Combina NavBar con el [SDK de Babelize](https://docs.babelize.co/sdk) para el enrutamiento automático por configuración regional:
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { NavBar } from "@/components/ui/navbar";
+import { useBabelize } from "@babelize/sdk/react";
+
+const links = [
+  { label: "Home", href: "/" },
+  { label: "Docs", href: "/docs" },
+  { label: "Pricing", href: "/pricing" },
+];
+
+const locales = [
+  { code: "en" },
+  { label: "English", flag: "🇺🇸" },
+  { label: "Français", flag: "🇫🇷" },
+  { label: "Español", flag: "🇪🇸" },
+  { label: "Deutsch", flag: "🇩🇪" },
+  { label: "日本語", flag: "🇯🇵" },
+  { label: "العربية", flag: "🇸🇦" },
+];
+
+export default function App() {
+  const router = useRouter();
+  const { locale, setLocale } = useBabelize();
+
+  return (
+    <NavBar
+      logo={<span className="font-bold">MyApp</span>}
+      links={links}
+      locales={locales}
+      value={locale}
+      onValueChange={(code) => {
+        setLocale(code);
+        router.push(`/${code}`);
+      }}
+      cta={{ label: "Get Started", href: "/signup" }}
+      showGitHub
+      githubUrl="your-org/your-repo"
+    />
+  );
+}
+```
+
+### Con next-intl
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { NavBar } from "@/components/ui/navbar";
+
+export function AppNavBar() {
+  const router = useRouter();
+  const [locale, setLocale] = useState("en");
+
+  return (
+    <NavBar
+      logo={<span className="font-bold">MyApp</span>}
+      links={[
+        { label: "Home", href: "/" },
+        { label: "About", href: "/about" },
+      ]}
+      locales={[{ code: "en" }, { code: "fr" }]}
+      value={locale}
+      onValueChange={(code) => {
+        setLocale(code);
+        router.push(`/${code}`);
+      }}
+    />
+  );
+}
+```
+
+### Con react-i18next
+
+```tsx
+"use client";
+
+import { useTranslation } from "react-i18next";
+import { NavBar } from "@/components/ui/navbar";
+
+export function AppNavBar() {
+  const { i18n } = useTranslation();
+
+  return (
+    <NavBar
+      logo={<span className="font-bold">MyApp</span>}
+      links={[{ label: "Home", href: "/" }]}
+      locales={[{ code: "en" }, { code: "fr" }]}
+      value={i18n.language}
+      onValueChange={(code) => i18n.changeLanguage(code)}
+    />
+  );
+}
+```
+
+### Flotante
+
+Una barra redondeada e insertada que flota sobre la página; combínala con `activeHref` para resaltar la página actual:
+
+```tsx
+"use client";
+
+import { NavBar } from "@/components/ui/navbar";
+
+export default function App() {
+  return (
+    <NavBar
+      variant="floating"
+      logo={<span className="font-bold">MyApp</span>}
+      links={[
+        { label: "Home", href: "/" },
+        { label: "Docs", href: "/docs" },
+      ]}
+      activeHref="/docs"
+      cta={{ label: "Get Started", href: "/signup" }}
+    />
+  );
+}
+```
+
+### Enlace de GitHub
+
+`showGitHub` añade un botón de icono que enlaza a `githubUrl`. Pasa `"owner/repo"` para un repositorio, `"owner"` para un perfil u organización, o cualquier URL completa.
+
+```tsx
+<NavBar showGitHub githubUrl="acme/website" />
+<NavBar showGitHub githubUrl="https://github.com/acme" />
+```
+
+`showGitHub` sin `githubUrl` no renderiza ningún botón y registra una advertencia.
+
+### No fijo
+
+```tsx
+"use client";
+
+import { NavBar } from "@/components/ui/navbar";
+
+export default function App() {
+  return (
+    <NavBar
+      logo={<span className="font-bold">MyApp</span>}
+      links={[{ label: "Home", href: "/" }]}
+      sticky={false}
+    />
+  );
+}
+```
+
+### Texto de interfaz traducido
+
+El menú de idiomas, el botón del menú móvil y el enlace de GitHub tienen por defecto etiquetas accesibles en inglés. Pasa `labels` para traducirlas; cualquier clave que omitas conserva su valor por defecto en inglés.
+
+```tsx
+"use client";
+
+import { NavBar } from "@/components/ui/navbar";
+
+export default function App() {
+  return (
+    <NavBar
+      logo={<span className="font-bold">MyApp</span>}
+      locales={[{ code: "en" }, { code: "fr" }]}
+      defaultValue="fr"
+      labels={{
+        listbox: "Choisir la langue",
+        current: (name) => `Langue actuelle : ${name}`,
+        toggleMenu: "Ouvrir le menu",
+      }}
+    />
+  );
+}
+```
+
+| Clave          | Predeterminado                                 | Se usa para                          |
+| ------------ | --------------------------------------- | --------------------------------- |
+| `listbox`    | `"Select language"`                     | Etiqueta accesible del menú de idiomas    |
+| `current`    | `(name) => "Current language: " + name` | Etiqueta accesible del disparador de idioma |
+| `toggleMenu` | `"Toggle menu"`                         | Etiqueta del botón del menú móvil          |
+| `github`     | `"GitHub"`                              | Etiqueta del enlace de icono de GitHub            |
+
+## Soporte de teclado
+
+El menú de idiomas sigue el patrón listbox de WAI-ARIA. Como no hay un campo de texto en el menú, las teclas de flecha mueven el foco real del DOM entre las opciones en lugar de seguir un resaltado desde un cuadro de búsqueda. Las mismas teclas funcionan en la barra de escritorio y en la móvil.
+
+| Clave                              | Acción                                                               |
+| -------------------------------- | -------------------------------------------------------------------- |
+| `Enter`, `Space` o clic       | Abre el menú desde el disparador de idioma                              |
+| `ArrowDown` / `ArrowUp` (cerrado) | Abre con la primera / última configuración regional enfocada                            |
+| `ArrowDown` / `ArrowUp`          | Mueve el foco entre configuraciones regionales, dando la vuelta en ambos extremos                    |
+| `Home` / `End`                   | Enfoca la primera / última configuración regional                                        |
+| `Enter`                          | Selecciona la configuración regional enfocada y devuelve el foco al disparador            |
+| `Escape`                         | Cierra el menú (y el menú móvil) y devuelve el foco al disparador |
+
+El resaltado se mantiene en su fila mientras la lista se desplaza por debajo: una lista larga nunca desplaza la página. Pasa `maxHeight` para definir la altura máxima del menú.
+
+## Características
+
+- **Adaptable** — menú hamburguesa en móvil, diseño completo en escritorio
+- **Selector de idioma integrado** — el mismo componente desplegable que LanguageSwitcher
+- **Compatible con RTL** — detecta automáticamente las configuraciones regionales RTL y ajusta el diseño
+- **Botón CTA** — llamada a la acción opcional con texto y href personalizables
+- **Enlace de GitHub** — botón de icono opcional que enlaza a tu repositorio
+- **Fijo / no fijo** — activa o desactiva que la barra se mantenga fija en la parte superior
+- **Accesible con teclado** — navegación con flechas, Inicio / Fin, Intro y Escape
+- **Etiquetas ARIA** — `aria-expanded`, `aria-haspopup`, `aria-selected`, y foco roving sobre las opciones
+- **Personalizable con temas** — estilizado con tokens de shadcn/ui, así que sigue tu tema y el modo oscuro
+- **Dos variantes** — barra de ancho completo o tarjeta flotante insertada
+- **Animado** — el resaltado al pasar el cursor se desliza entre enlaces, con menú móvil y menú de idiomas animados; respeta `prefers-reduced-motion`
+- **Independiente del router** — pasa `next/link` (o cualquier enlace) mediante `linkComponent`
+
+## Dependencias
+
+- `motion` — animaciones
+- `lucide-react` — iconos
+
+Dependencias de pares:
+
+- `react` >= 18
+- `react-dom` >= 18
+- `tailwindcss` >= 3
+
+## Créditos
+
+Creado por [sapatmohit](https://github.com/sapatmohit).

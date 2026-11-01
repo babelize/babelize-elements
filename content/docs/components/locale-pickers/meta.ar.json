@@ -1,0 +1,8 @@
+{
+  "title": "منتقيات الإعدادات المحلية",
+  "icon": "MapPin",
+  "pages": [
+    "locale-picker"
+  ],
+  "collapsible": false
+}

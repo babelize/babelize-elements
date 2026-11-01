@@ -1,0 +1,284 @@
+---
+title: كبسولة مبدّل اللغة
+description: مبدّل لغة متحرك بأسلوب الكبسولة لـ React مع التنقل بلوحة المفاتيح ودعم RTL.
+---
+
+import { PreviewComponents } from "@/components/docs/preview-components";
+import { LanguageSwitcherPillDemo } from "@/components/docs/language-switcher-pill-demo";
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+<PreviewComponents registryName="language-switcher-pill">
+  <LanguageSwitcherPillDemo />
+</PreviewComponents>
+
+## التثبيت
+
+<Tabs
+  items={["shadcn", "Elements CLI"]}
+  defaultValue="shadcn"
+  className="bg-transparent border-none"
+>
+  <Tab value="shadcn" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="installation-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx shadcn@latest add @babelize/language-switcher-pill
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+        ```bash
+        pnpm dlx shadcn@latest add @babelize/language-switcher-pill
+        ```
+
+      </Tab>
+      <Tab value="yarn">
+
+        ```bash
+        yarn dlx shadcn@latest add @babelize/language-switcher-pill
+        ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx shadcn@latest add @babelize/language-switcher-pill
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+  <Tab value="Elements CLI" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="elements-cli-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx @babelize/elements add language-switcher-pill
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx @babelize/elements add language-switcher-pill
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx @babelize/elements add language-switcher-pill
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx @babelize/elements add language-switcher-pill
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+</Tabs>
+
+## الاستخدام
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { LanguageSwitcherPill } from "@/components/ui/language-switcher-pill";
+
+const locales = [
+  { code: "en", label: "English" },
+  { code: "fr", label: "Français" },
+  { code: "ar", label: "العربية", rtl: true }, // rtl auto-detected, override optional
+];
+
+export function LocalePill() {
+  const [locale, setLocale] = useState("en");
+
+  return (
+    <LanguageSwitcherPill
+      locales={locales}
+      locale={locale} // omit for uncontrolled, use defaultLocale instead
+      onLocaleChange={setLocale}
+    />
+  );
+}
+```
+
+## الخصائص
+
+| الخاصية             | النوع                             | مطلوب | الوصف                                                                   |
+| ---------------- | -------------------------------- | -------- | ----------------------------------------------------------------------------- |
+| `locales`        | `Locale[]`                       | نعم      | مصفوفة الإعدادات المحلية المتاحة — `code` فقط مطلوب                          |
+| `locale`         | `string`                         | لا       | رمز الإعدادات المحلية المحدد — مرّره للتحكم في المكوّن                     |
+| `defaultLocale`  | `string`                         | لا       | رمز الإعدادات المحلية المحدد الأولي عند عدم التحكم (الافتراضي: رمز أول إعدادات محلية) |
+| `onLocaleChange` | `(code: string) => void`         | لا       | دالة استدعاء عند تغيّر الإعدادات المحلية المحددة                                     |
+| `variant`        | `"default" \| "outline"`         | لا       | مسار مقسّم خافت أو مسار بإطار (الافتراضي: `"default"`)                |
+| `size`           | `"sm" \| "default" \| "lg"`      | لا       | حجم الكبسولة (الافتراضي: `"default"`)                                              |
+| `showFlags`      | `boolean`                        | لا       | إظهار علم emoji لكل إعدادات محلية قبل تسميتها (الافتراضي: `false`)             |
+| `disabled`       | `boolean`                        | لا       | تعطيل كل الكبسولات                                                            |
+| `aria-label`     | `string`                         | لا       | تسمية إمكانية الوصول لمجموعة الأزرار (الافتراضي: `"Select language"`)           |
+| `classNames`     | `LanguageSwitcherPillClassNames` | لا       | تجاوزات الأصناف لكل جزء — انظر أدناه                                          |
+| `className`      | `string`                         | لا       | أصناف CSS إضافية لحاوية الكبسولات                                 |
+
+تُمرَّر خصائص `div` المتبقية إلى العنصر الجذري.
+
+### أسماء الأصناف
+
+يأخذ كل جزء أصنافه الخاصة، وتُدمج بعد القيم الافتراضية، فتستطيع إعادة تنسيق جزء واحد دون تعديل المكوّن نفسه:
+
+| الفتحة         | العنصر                                       |
+| ------------ | --------------------------------------------- |
+| `root`       | المسار الذي يحوي كل الكبسولات               |
+| `item`       | كل كبسولة إعدادات محلية                              |
+| `activeItem` | الكبسولة المحددة فقط                        |
+| `indicator`  | المؤشر المتحرك بنظام الزنبرك خلف الكبسولة |
+| `flag`       | العلم المعروض عند ضبط `showFlags`        |
+
+```tsx
+<LanguageSwitcherPill
+  locales={locales}
+  classNames={{
+    indicator: "bg-primary",
+    activeItem: "text-primary-foreground",
+  }}
+/>
+```
+
+يُنسَّق المكوّن برموز سمة shadcn/ui (`bg-muted`، `bg-background`، `text-muted-foreground`، `ring-ring`)، فيأخذ سمتك تلقائيًا.
+
+### كائن الإعدادات المحلية
+
+| الخاصية | النوع      | الوصف                                                          |
+| -------- | --------- | -------------------------------------------------------------------- |
+| `code`   | `string`  | رمز ISO 639-1 / BCP 47 (مثل `"en"`، `"fr"`، `"ar"`) — **مطلوب** |
+| `label`  | `string`  | اسم العرض لكبسولة اللغة                                   |
+| `flag`   | `string`  | علم emoji يُعرض مع `showFlags` (يُحدَّد تلقائيًا عند الحذف)         |
+| `rtl`    | `boolean` | تجاوز اتجاه RTL لتشكيل النص (يُكتشف تلقائيًا عند الحذف)   |
+
+## أمثلة
+
+### مع Babelize SDK
+
+اقرن كبسولة مبدّل اللغة مع [Babelize SDK](https://docs.babelize.co/sdk) للترجمة التلقائية:
+
+```tsx
+"use client";
+
+import { useRouter } from "next/navigation";
+import { LanguageSwitcherPill } from "@/components/ui/language-switcher-pill";
+import { useBabelize } from "@babelize/sdk/react";
+
+const locales = [
+  { code: "en", label: "English" },
+  { code: "fr", label: "Français" },
+  { code: "es", label: "Español" },
+  { code: "de", label: "Deutsch" },
+  { code: "ar", label: "العربية" },
+];
+
+export function LocaleSwitcher() {
+  const router = useRouter();
+  const { locale, setLocale } = useBabelize();
+
+  return (
+    <LanguageSwitcherPill
+      locales={locales}
+      locale={locale}
+      onLocaleChange={(code) => {
+        setLocale(code);
+        router.push(`/${code}`);
+      }}
+    />
+  );
+}
+```
+
+### مع next-intl
+
+```tsx
+"use client";
+
+import { useRouter } from "next/navigation";
+import { LanguageSwitcherPill } from "@/components/ui/language-switcher-pill";
+
+export function LocaleSwitcher() {
+  const router = useRouter();
+
+  return (
+    <LanguageSwitcherPill
+      locales={[
+        { code: "en", label: "EN" },
+        { code: "fr", label: "FR" },
+        { code: "de", label: "DE" },
+      ]}
+      defaultLocale="en"
+      onLocaleChange={(code) => router.push(`/${code}`)}
+    />
+  );
+}
+```
+
+### مع react-i18next
+
+```tsx
+"use client";
+
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcherPill } from "@/components/ui/language-switcher-pill";
+
+export function LocaleSwitcher() {
+  const { i18n } = useTranslation();
+
+  return (
+    <LanguageSwitcherPill
+      locales={[
+        { code: "en", label: "English" },
+        { code: "fr", label: "Français" },
+        { code: "es", label: "Español" },
+      ]}
+      locale={i18n.language}
+      onLocaleChange={(code) => i18n.changeLanguage(code)}
+    />
+  );
+}
+```
+
+### المتغيرات والأحجام
+
+```tsx
+<LanguageSwitcherPill locales={locales} variant="outline" size="sm" showFlags />
+<LanguageSwitcherPill locales={locales} size="lg" />
+```
+
+## التنقل بلوحة المفاتيح
+
+- **سهم لليمين** — الانتقال إلى اللغة التالية (أو السابقة في تخطيطات RTL).
+- **سهم لليسار** — الانتقال إلى اللغة السابقة (أو التالية في تخطيطات RTL).
+- **Home** — الانتقال إلى أول لغة.
+- **End** — الانتقال إلى آخر لغة.
+- **Enter / Space** — اختيار اللغة المركّزة.
+
+## دعم RTL
+
+يدعم المكوّن اللغات التي تُكتب من اليمين إلى اليسار، مثل العربية والعبرية والفارسية والأردية والباشتو والسندية واليديشية.
+
+يُطبَّق اتجاه كل إعدادات محلية على كبسولاتها الفردية لتشكيل النص بشكل صحيح، بينما يحترم التخطيط العام والتنقل بالأسهم اتجاه المستند أو الحاوية `dir`.
+
+```tsx
+const locales = [
+  { code: "en", label: "English" },
+  { code: "ar", label: "العربية", rtl: true },
+  { code: "he", label: "עברית", rtl: true },
+];
+
+<LanguageSwitcherPill locales={locales} defaultLocale="en" />;
+```

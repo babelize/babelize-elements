@@ -1,0 +1,300 @@
+---
+title: Interfaces de TypeScript
+description: "Interfaces de TypeScript principales exportadas por los componentes de Babelize Elements: props, tipos de configuración regional y opciones de formateadores para tipar tus propios componentes React de i18n."
+icon: FileCode
+---
+
+## Descripción general
+
+Babelize Elements está construido con soporte completo de TypeScript. Cada componente exporta sus propias interfaces de props y de datos, así que obtienes seguridad de tipos completa e IntelliSense.
+
+Instala la biblioteca o un componente y luego importa los tipos que necesites:
+
+Desde el paquete de npm:
+
+```ts
+import {
+  LanguageSwitcher,
+  PhoneInput,
+  NavBar,
+  type Locale,
+  type Country,
+  type NavLink,
+} from "@babelize/elements";
+```
+
+O, si copiaste los componentes con la CLI:
+
+```ts
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+import { PhoneInput, type Country } from "@/components/ui/phone-input";
+import { NavBar, type NavLink } from "@/components/ui/navbar";
+import type { Locale } from "@/components/ui/types";
+```
+
+## Selector de idioma
+
+### Configuración regional
+
+```ts
+export interface Locale {
+  /** ISO 639-1 / BCP 47 code (e.g. "en", "fr-FR", "ar-SA") — required */
+  code: string;
+  /** Override display name (auto-resolved from built-in mapping if omitted) */
+  label?: string;
+  /** Override flag emoji (auto-detected from code if omitted) */
+  flag?: string;
+  /** Override RTL (auto-detected from code if omitted) */
+  rtl?: boolean;
+}
+```
+
+### LanguageSwitcherProps
+
+```ts
+export interface LanguageSwitcherProps {
+  /** Array of available locales — only `code` is required */
+  locales: Locale[];
+  /** Selected locale code. Provide this to control the component. */
+  value?: string;
+  /** Initial selected locale code when uncontrolled (default: first locale's code) */
+  defaultValue?: string;
+  /** Callback when locale changes */
+  onValueChange?: (code: string) => void;
+  /** Show flag emojis next to locale names (default: false) */
+  showFlags?: boolean;
+  /** Display labels in native language or English (default: "english") */
+  label?: "native" | "english";
+  /** Override the built-in English UI text — any key you omit keeps its default */
+  labels?: Partial<LanguageSwitcherLabels>;
+  /** Additional CSS classes */
+  className?: string;
+}
+```
+
+### LanguageSwitcherLabels
+
+```ts
+export interface LanguageSwitcherLabels {
+  /** Placeholder for the search field (default: "Search languages...") */
+  searchPlaceholder: string;
+  /** Accessible label for the search field (default: "Search languages") */
+  searchLabel: string;
+  /** Accessible label for the button that clears the search (default: "Clear search") */
+  clearSearch: string;
+  /** Content shown when the search matches nothing (default: "No languages found.") */
+  emptyMessage: React.ReactNode;
+  /** Accessible label for the option list (default: "Select language") */
+  listbox: string;
+  /** Accessible label for the trigger (default: "Current language: {name}") */
+  current: (name: string) => string;
+}
+```
+
+Pasa cualquier subconjunto como `labels`; las claves que omitas conservan su valor por defecto en inglés. Lo mismo vale para todas las interfaces `*Labels` de abajo.
+
+## Entrada de teléfono
+
+### País
+
+```ts
+export interface Country {
+  /** ISO 3166-1 alpha-2 code (e.g. "US", "GB", "IN") */
+  code: string;
+  /** Dial code (e.g. "+1", "+44", "+91") */
+  dialCode: string;
+  /** Country name */
+  name: string;
+  /** Flag emoji */
+  flag: string;
+}
+```
+
+### PhoneInputProps
+
+```ts
+export interface PhoneInputProps {
+  /** Phone number. Provide this to control the component. */
+  value?: string;
+  /** Initial phone number when uncontrolled */
+  defaultValue?: string;
+  /** Callback when the number or the selected country changes */
+  onValueChange?: (phone: string, country: Country) => void;
+  /** Default country code (default: "US") */
+  defaultCountry?: string;
+  /** Placeholder text */
+  placeholder?: string;
+  /** Disable the input */
+  disabled?: boolean;
+  /** Additional CSS classes */
+  className?: string;
+  /** Show country flag next to dial code (default: true) */
+  showFlags?: boolean;
+  /** Accessible label for the input */
+  label?: string;
+  /** Override the built-in English UI text — any key you omit keeps its default */
+  labels?: Partial<PhoneInputLabels>;
+  /** BCP 47 locale used to display country names, e.g. "fr" (default: English names) */
+  displayLocale?: string;
+}
+```
+
+### PhoneInputLabels
+
+```ts
+export interface PhoneInputLabels {
+  /** Accessible label for the country trigger (default: "Select country") */
+  trigger: string;
+  /** Placeholder for the country search field (default: "Search countries...") */
+  searchPlaceholder: string;
+  /** Accessible label for the country search field (default: "Search countries") */
+  searchLabel: string;
+  /** Accessible label for the button that clears the search (default: "Clear search") */
+  clearSearch: string;
+  /** Content shown when the search matches nothing (default: "No countries found.") */
+  emptyMessage: React.ReactNode;
+  /** Accessible label for the country list (default: "Select country") */
+  listbox: string;
+}
+```
+
+## NavBar
+
+### NavLink
+
+```ts
+export interface NavLink {
+  /** Link text — required */
+  label: string;
+  /** Link URL — required */
+  href: string;
+}
+```
+
+> `NavBar` usa la misma interfaz compartida `Locale` que `LanguageSwitcher`. La antigua
+> El alias `NavBarLocale` se eliminó en `1.1.0`; importa `Locale` en su lugar.
+>
+> `NavBar`: `currentLocale` / `onLocaleChange` y `PhoneInput`: `onChange` /
+> `showFlag` se eliminaron en `1.1.3`. Usa `value` / `onValueChange` / `showFlags`.
+
+### NavBarProps
+
+```ts
+export interface NavBarProps {
+  /** Logo element (renders before nav links) */
+  logo?: React.ReactNode;
+  /** Navigation links */
+  links?: NavLink[];
+  /** Available locales for language selector */
+  locales?: Locale[];
+  /** Selected locale code. Provide this to control the component. */
+  value?: string;
+  /** Initial locale code when uncontrolled (default: first locale's code) */
+  defaultValue?: string;
+  /** Callback when locale changes */
+  onValueChange?: (code: string) => void;
+  /** Component used to render internal links (default: "a") */
+  linkComponent?: React.ElementType;
+  /** CTA button */
+  cta?: { label: string; href: string };
+  /** Show GitHub icon button. Needs `githubUrl`; without one, nothing renders */
+  showGitHub?: boolean;
+  /** Full URL, or "owner" / "owner/repo" shorthand for github.com */
+  githubUrl?: string;
+  /** Make navbar sticky at top (default: true) */
+  sticky?: boolean;
+  /** Show flags in language selector (default: true) */
+  showFlags?: boolean;
+  /** Override the built-in English UI text — any key you omit keeps its default */
+  labels?: Partial<NavBarLabels>;
+  /** Additional CSS classes */
+  className?: string;
+}
+```
+
+### NavBarLabels
+
+```ts
+export interface NavBarLabels {
+  /** Accessible label for the language list (default: "Select language") */
+  listbox: string;
+  /** Accessible label for the language menu triggers (default: "Current language: {name}") */
+  current: (name: string) => string;
+  /** Accessible label for the mobile menu button (default: "Toggle menu") */
+  toggleMenu: string;
+  /** Accessible label for the GitHub icon link (default: "GitHub") */
+  github: string;
+}
+```
+
+## Widget de traducción
+
+### TranslationWidgetLabels
+
+```ts
+export interface TranslationWidgetLabels {
+  /** Accessible label for the swap button (default: "Swap languages") */
+  swap: string;
+  /** Accessible label for the copy button (default: "Copy translation") */
+  copy: string;
+  /** Accessible label for the copy button right after a copy (default: "Copied") */
+  copied: string;
+  /** Screen reader announcement after a copy (default: "Translation copied to clipboard") */
+  copiedStatus: string;
+  /** Accessible label for the clear button (default: "Clear source text") */
+  clearSource: string;
+  /**
+   * Screen reader word read after the character count (default: "characters").
+   * Receives the count, so it can return the right plural form.
+   */
+  characters: (count: number) => string;
+  /** UI text for both language pickers, passed through as their `labels` */
+  languageSwitcher?: Partial<LanguageSwitcherLabels>;
+}
+```
+
+## Selector de configuración regional
+
+Texto de la interfaz del [selector de configuración regional](/docs/components/locale-pickers/locale-picker).
+
+### LocalePickerLabels
+
+```ts
+export interface LocalePickerLabels {
+  /** Placeholder for the search field (default: "Search regions...") */
+  searchPlaceholder: string;
+  /** Accessible label for the search field (default: "Search regions") */
+  searchLabel: string;
+  /** Accessible label for the button that clears the search (default: "Clear search") */
+  clearSearch: string;
+  /** Content shown when the search matches nothing (default: "No results") */
+  emptyMessage: React.ReactNode;
+  /** Accessible label for the option list (default: "Select region") */
+  listbox: string;
+  /** Accessible label for the trigger (default: "Current region: {name}") */
+  current: (name: string) => string;
+  /** Summary row label for the currency preview (default: "Currency") */
+  currency: string;
+  /** Summary row label for the date preview (default: "Date format") */
+  dateFormat: string;
+  /** Summary row label for the number preview (default: "Number format") */
+  numberFormat: string;
+  /** Summary row label for the first day of week (default: "Week starts on") */
+  weekStart: string;
+}
+```
+
+## Extender interfaces
+
+Como los componentes de Babelize Elements son totalmente tuyos una vez instalados, puedes extender estas interfaces directamente en los archivos de componentes. Por ejemplo, para añadir un campo `meta` personalizado a cada configuración regional, añádelo a la interfaz `Locale` en tu copia local:
+
+```ts
+export interface Locale {
+  code: string;
+  label?: string;
+  flag?: string;
+  rtl?: boolean;
+  /** Your custom field */
+  meta?: Record<string, string>;
+}
+```
