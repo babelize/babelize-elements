@@ -4,11 +4,3 @@ dist
 .source
 .vercel
 CHANGELOG.md
-# Written by `babelize translate` from the English pages and .babelize/local/docs-lock.json
-content/docs/**/*.es.mdx
-content/docs/**/*.ja.mdx
-content/docs/**/*.ar.mdx
-content/docs/**/meta.es.json
-content/docs/**/meta.ja.json
-content/docs/**/meta.ar.json
-.babelize/local/docs-lock.json

@@ -113,37 +113,37 @@ export function LocaleSwitcher() {
 
 ## Props [#props]
 
-| Prop                | 型                                  | 必須 | 説明                                                                          |
-| ------------------- | ------------------------------------- | -------- | ------------------------------------------------------------------------------------ |
-| `locales`           | `Locale[]`                            | はい      | 利用可能なロケールの配列です。必須なのは `code` のみです                                 |
-| `value`             | `string`                              | いいえ       | 選択中のロケールコード。コンポーネントを制御するにはこの値を渡します                            |
-| `defaultValue`      | `string`                              | いいえ       | 初期選択ロケールコード（デフォルト: 最初のロケールのコード）                          |
-| `onValueChange`     | `(code: string) => void`              | いいえ       | ロケールが変更されたときのコールバック                                                         |
-| `label`             | `"native" \| "english"`               | いいえ       | 表示ラベルをネイティブ言語または英語で表示します（デフォルト: `"english"`）                           |
-| `showFlags`         | `boolean`                             | いいえ       | 国旗の絵文字を表示します（デフォルト: `false`）                                                  |
-| `maxHeight`         | `number \| string`                    | いいえ       | スクロールする選択肢一覧の最大の高さ（デフォルト: `"15rem"`）                         |
-| `showCode`          | `boolean`                             | いいえ       | 各選択肢の横にロケールコードを表示します（デフォルト: `false`）                           |
-| `variant`           | `"outline" \| "ghost" \| "secondary"` | いいえ       | トリガーのスタイル（デフォルト: `"outline"`）                                                 |
-| `size`              | `"sm" \| "default" \| "lg"`           | いいえ       | トリガーのサイズ（デフォルト: `"default"`）                                                  |
-| `align`             | `"start" \| "end"`                    | いいえ       | メニューを揃えるトリガーの辺（デフォルト: `"start"`）                      |
-| `side`              | `"top" \| "bottom"`                   | いいえ       | 優先するメニューの表示側。スペースがない場合は反転します（デフォルト: `"bottom"`）               |
-| `searchable`        | `boolean`                             | いいえ       | 検索欄を表示します（デフォルト: `true`）                                              |
-| `searchPlaceholder` | `string`                              | いいえ       | 検索欄のプレースホルダー（デフォルト: `"Search languages..."`）                                |
-| `emptyMessage`      | `ReactNode`                           | いいえ       | 検索に一致する項目がない場合に表示されます（デフォルト: `"No languages found."`）             |
-| `labels`            | `Partial<LanguageSwitcherLabels>`     | いいえ       | 組み込みの英語 UI テキストを上書きします（下記参照）                                    |
-| `disabled`          | `boolean`                             | いいえ       | トリガーを無効にします                                                                  |
-| `renderOption`      | `(locale, state) => ReactNode`        | いいえ       | 各選択肢の行の内容を置き換えます。`state` には `selected`、`active`、`label`、`flag` があります |
-| `classNames`        | `LanguageSwitcherClassNames`          | いいえ       | パーツごとのクラス: `trigger`、`content`、`search`、`list`、`item`、`empty`            |
-| `className`         | `string`                              | いいえ       | ルートに追加する CSS クラス                                                   |
+| Prop                | 型                                    | 必須   | 説明                                                                                            |
+| ------------------- | ------------------------------------- | ------ | ----------------------------------------------------------------------------------------------- |
+| `locales`           | `Locale[]`                            | はい   | 利用可能なロケールの配列です。必須なのは `code` のみです                                        |
+| `value`             | `string`                              | いいえ | 選択中のロケールコード。コンポーネントを制御するにはこの値を渡します                            |
+| `defaultValue`      | `string`                              | いいえ | 初期選択ロケールコード（デフォルト: 最初のロケールのコード）                                    |
+| `onValueChange`     | `(code: string) => void`              | いいえ | ロケールが変更されたときのコールバック                                                          |
+| `label`             | `"native" \| "english"`               | いいえ | 表示ラベルをネイティブ言語または英語で表示します（デフォルト: `"english"`）                     |
+| `showFlags`         | `boolean`                             | いいえ | 国旗の絵文字を表示します（デフォルト: `false`）                                                 |
+| `maxHeight`         | `number \| string`                    | いいえ | スクロールする選択肢一覧の最大の高さ（デフォルト: `"15rem"`）                                   |
+| `showCode`          | `boolean`                             | いいえ | 各選択肢の横にロケールコードを表示します（デフォルト: `false`）                                 |
+| `variant`           | `"outline" \| "ghost" \| "secondary"` | いいえ | トリガーのスタイル（デフォルト: `"outline"`）                                                   |
+| `size`              | `"sm" \| "default" \| "lg"`           | いいえ | トリガーのサイズ（デフォルト: `"default"`）                                                     |
+| `align`             | `"start" \| "end"`                    | いいえ | メニューを揃えるトリガーの辺（デフォルト: `"start"`）                                           |
+| `side`              | `"top" \| "bottom"`                   | いいえ | 優先するメニューの表示側。スペースがない場合は反転します（デフォルト: `"bottom"`）              |
+| `searchable`        | `boolean`                             | いいえ | 検索欄を表示します（デフォルト: `true`）                                                        |
+| `searchPlaceholder` | `string`                              | いいえ | 検索欄のプレースホルダー（デフォルト: `"Search languages..."`）                                 |
+| `emptyMessage`      | `ReactNode`                           | いいえ | 検索に一致する項目がない場合に表示されます（デフォルト: `"No languages found."`）               |
+| `labels`            | `Partial<LanguageSwitcherLabels>`     | いいえ | 組み込みの英語 UI テキストを上書きします（下記参照）                                            |
+| `disabled`          | `boolean`                             | いいえ | トリガーを無効にします                                                                          |
+| `renderOption`      | `(locale, state) => ReactNode`        | いいえ | 各選択肢の行の内容を置き換えます。`state` には `selected`、`active`、`label`、`flag` があります |
+| `classNames`        | `LanguageSwitcherClassNames`          | いいえ | パーツごとのクラス: `trigger`、`content`、`search`、`list`、`item`、`empty`                     |
+| `className`         | `string`                              | いいえ | ルートに追加する CSS クラス                                                                     |
 
 ### Locale オブジェクト [#locale-object]
 
-| プロパティ | 型      | 説明                                                                |
-| -------- | --------- | -------------------------------------------------------------------------- |
-| `code`   | `string`  | ISO 639-1 / BCP 47 コード（例: `"en"`、`"fr-FR"`、`"ar-SA"`）— **必須** |
-| `label`  | `string`  | 表示名を上書きします（省略時は組み込みのマッピングから自動で解決されます）     |
-| `flag`   | `string`  | 国旗の絵文字を上書きします（省略時はコードから自動検出されます）                   |
-| `rtl`    | `boolean` | RTL を上書きします（省略時はコードから自動検出されます）                          |
+| プロパティ | 型        | 説明                                                                       |
+| ---------- | --------- | -------------------------------------------------------------------------- |
+| `code`     | `string`  | ISO 639-1 / BCP 47 コード（例: `"en"`、`"fr-FR"`、`"ar-SA"`）— **必須**    |
+| `label`    | `string`  | 表示名を上書きします（省略時は組み込みのマッピングから自動で解決されます） |
+| `flag`     | `string`  | 国旗の絵文字を上書きします（省略時はコードから自動検出されます）           |
+| `rtl`      | `boolean` | RTL を上書きします（省略時はコードから自動検出されます）                   |
 
 ## 使用例 [#examples]
 
@@ -295,28 +295,28 @@ export default function App() {
 }
 ```
 
-| キー                 | デフォルト                                 | 用途                      |
-| ------------------- | --------------------------------------- | ----------------------------- |
-| `searchPlaceholder` | `"Search languages..."`                 | 検索欄のプレースホルダー      |
-| `searchLabel`       | `"Search languages"`                    | 検索欄のアクセシブルなラベル |
+| キー                | デフォルト                              | 用途                               |
+| ------------------- | --------------------------------------- | ---------------------------------- |
+| `searchPlaceholder` | `"Search languages..."`                 | 検索欄のプレースホルダー           |
+| `searchLabel`       | `"Search languages"`                    | 検索欄のアクセシブルなラベル       |
 | `clearSearch`       | `"Clear search"`                        | クリアボタンのアクセシブルなラベル |
-| `emptyMessage`      | `"No languages found."`                 | 一致する項目がない場合に表示    |
-| `listbox`           | `"Select language"`                     | 選択肢一覧のアクセシブルなラベル  |
-| `current`           | `(name) => "Current language: " + name` | トリガーのアクセシブルなラベル      |
+| `emptyMessage`      | `"No languages found."`                 | 一致する項目がない場合に表示       |
+| `listbox`           | `"Select language"`                     | 選択肢一覧のアクセシブルなラベル   |
+| `current`           | `(name) => "Current language: " + name` | トリガーのアクセシブルなラベル     |
 
 ## キーボード操作 [#keyboard-support]
 
 ポップアップは WAI-ARIA のコンボボックスパターンに従います。 フォーカスは検索欄に留まり、検索欄は `role="combobox"` として公開されます。 ハイライトされた選択肢は `aria-activedescendant` を通じて読み上げられます。
 
-| キー                              | 操作                                                        |
-| -------------------------------- | ------------------------------------------------------------- |
-| `Enter`、`Space`、またはクリック       | トリガーからポップアップを開きます                               |
-| `ArrowDown` / `ArrowUp`（閉じている状態） | 最初または最後のロケールがハイライトされた状態で開きます                 |
-| `ArrowDown` / `ArrowUp`          | ハイライトを移動します。両端で循環します                     |
-| `Home` / `End`                   | 最初または最後のロケールをハイライトします                             |
-| `Enter`                          | ハイライトされたロケールを選択し、フォーカスをトリガーに戻します |
-| `Escape`                         | ポップアップを閉じ、フォーカスをトリガーに戻します               |
-| 入力                           | 名前またはコードで絞り込みます。ハイライトは先頭に戻ります     |
+| キー                                      | 操作                                                             |
+| ----------------------------------------- | ---------------------------------------------------------------- |
+| `Enter`、`Space`、またはクリック          | トリガーからポップアップを開きます                               |
+| `ArrowDown` / `ArrowUp`（閉じている状態） | 最初または最後のロケールがハイライトされた状態で開きます         |
+| `ArrowDown` / `ArrowUp`                   | ハイライトを移動します。両端で循環します                         |
+| `Home` / `End`                            | 最初または最後のロケールをハイライトします                       |
+| `Enter`                                   | ハイライトされたロケールを選択し、フォーカスをトリガーに戻します |
+| `Escape`                                  | ポップアップを閉じ、フォーカスをトリガーに戻します               |
+| 入力                                      | 名前またはコードで絞り込みます。ハイライトは先頭に戻ります       |
 
 ハイライトは、メニューを開いたときに表示されていた行に留まります。 ネイティブのメニューのように、一覧はその下でスクロールします。 ページ自体はスクロールしません。`maxHeight` を渡すと、スクロールが始まるまでの一覧の高さを変更できます。
 
@@ -334,79 +334,79 @@ export default function App() {
 
 ラベルと国旗は言語コードから自動検出されます。コードだけを渡してください:
 
-| コード | 言語         | 国旗 | RTL |
-| ---- | ---------------- | ---- | --- |
-| `en` | English          | 🇺🇸   |     |
-| `fr` | Français         | 🇫🇷   |     |
-| `es` | Español          | 🇪🇸   |     |
-| `de` | Deutsch          | 🇩🇪   |     |
-| `ja` | 日本語           | 🇯🇵   |     |
-| `ko` | 한국어           | 🇰🇷   |     |
-| `zh` | 中文             | 🇨🇳   |     |
-| `ar` | العربية          | 🇸🇦   | ✓   |
-| `pt` | Português        | 🇧🇷   |     |
-| `it` | Italiano         | 🇮🇹   |     |
-| `nl` | Nederlands       | 🇳🇱   |     |
-| `ru` | Русский          | 🇷🇺   |     |
-| `pl` | Polski           | 🇵🇱   |     |
-| `tr` | Türkçe           | 🇹🇷   |     |
-| `vi` | Tiếng Việt       | 🇻🇳   |     |
-| `th` | ไทย              | 🇹🇭   |     |
-| `id` | Bahasa Indonesia | 🇮🇩   |     |
-| `hi` | हिन्दी           | 🇮🇳   |     |
-| `bn` | বাংলা            | 🇧🇩   |     |
-| `uk` | Українська       | 🇺🇦   |     |
-| `cs` | Čeština          | 🇨🇿   |     |
-| `sv` | Svenska          | 🇸🇪   |     |
-| `da` | Dansk            | 🇩🇰   |     |
-| `fi` | Suomi            | 🇫🇮   |     |
-| `no` | Norsk            | 🇳🇴   |     |
-| `el` | Ελληνικά         | 🇬🇷   |     |
-| `he` | עברית            | 🇮🇱   | ✓   |
-| `fa` | فارسی            | 🇮🇷   | ✓   |
-| `ro` | Română           | 🇷🇴   |     |
-| `hu` | Magyar           | 🇭🇺   |     |
-| `sk` | Slovenčina       | 🇸🇰   |     |
-| `bg` | Български        | 🇧🇬   |     |
-| `hr` | Hrvatski         | 🇭🇷   |     |
-| `sr` | Српски           | 🇷🇸   |     |
-| `sl` | Slovenščina      | 🇸🇮   |     |
-| `lt` | Lietuvių         | 🇱🇹   |     |
-| `lv` | Latviešu         | 🇱🇻   |     |
-| `et` | Eesti            | 🇪🇪   |     |
-| `ga` | Gaeilge          | 🇮🇪   |     |
-| `ca` | Català           | 🇪🇸   |     |
-| `is` | Íslenska         | 🇮🇸   |     |
-| `sw` | Kiswahili        | 🇹🇿   |     |
-| `am` | አማርኛ             | 🇪🇹   |     |
-| `ne` | नेपाली           | 🇳🇵   |     |
-| `si` | සිංහල            | 🇱🇰   |     |
-| `my` | မြန်မာ           | 🇲🇲   |     |
-| `km` | ខ្មែរ            | 🇰🇭   |     |
-| `lo` | ລາວ              | 🇱🇦   |     |
-| `ka` | ქართული          | 🇬🇪   |     |
-| `hy` | Հայերեն          | 🇦🇲   |     |
-| `kk` | Қазақ            | 🇰🇿   |     |
-| `uz` | Oʻzbek           | 🇺🇿   |     |
-| `mn` | Монгол           | 🇲🇳   |     |
-| `ur` | اردو             | 🇵🇰   | ✓   |
-| `ml` | മലയാളം           | 🇮🇳   |     |
-| `ta` | தமிழ்            | 🇮🇳   |     |
-| `te` | తెలుగు           | 🇮🇳   |     |
-| `kn` | ಕನ್ನಡ            | 🇮🇳   |     |
-| `mr` | मराठी            | 🇮🇳   |     |
-| `gu` | ગુજરાતી          | 🇮🇳   |     |
-| `pa` | ਪੰਜਾਬੀ           | 🇮🇳   |     |
-| `yo` | Yorùbá           | 🇳🇬   |     |
-| `ig` | Igbo             | 🇳🇬   |     |
-| `zu` | isiZulu          | 🇿🇦   |     |
-| `af` | Afrikaans        | 🇿🇦   |     |
-| `ha` | Hausa            | 🇳🇬   |     |
-| `tl` | Filipino         | 🇵🇭   |     |
-| `mi` | Te Reo Māori     | 🇳🇿   |     |
-| `sm` | Gagana Samoa     | 🇼🇸   |     |
-| `to` | Lea Faka-Tonga   | 🇹🇴   |     |
-| `eo` | Esperanto        | 🌐   |     |
+| コード | 言語             | 国旗 | RTL |
+| ------ | ---------------- | ---- | --- |
+| `en`   | English          | 🇺🇸   |     |
+| `fr`   | Français         | 🇫🇷   |     |
+| `es`   | Español          | 🇪🇸   |     |
+| `de`   | Deutsch          | 🇩🇪   |     |
+| `ja`   | 日本語           | 🇯🇵   |     |
+| `ko`   | 한국어           | 🇰🇷   |     |
+| `zh`   | 中文             | 🇨🇳   |     |
+| `ar`   | العربية          | 🇸🇦   | ✓   |
+| `pt`   | Português        | 🇧🇷   |     |
+| `it`   | Italiano         | 🇮🇹   |     |
+| `nl`   | Nederlands       | 🇳🇱   |     |
+| `ru`   | Русский          | 🇷🇺   |     |
+| `pl`   | Polski           | 🇵🇱   |     |
+| `tr`   | Türkçe           | 🇹🇷   |     |
+| `vi`   | Tiếng Việt       | 🇻🇳   |     |
+| `th`   | ไทย              | 🇹🇭   |     |
+| `id`   | Bahasa Indonesia | 🇮🇩   |     |
+| `hi`   | हिन्दी           | 🇮🇳   |     |
+| `bn`   | বাংলা            | 🇧🇩   |     |
+| `uk`   | Українська       | 🇺🇦   |     |
+| `cs`   | Čeština          | 🇨🇿   |     |
+| `sv`   | Svenska          | 🇸🇪   |     |
+| `da`   | Dansk            | 🇩🇰   |     |
+| `fi`   | Suomi            | 🇫🇮   |     |
+| `no`   | Norsk            | 🇳🇴   |     |
+| `el`   | Ελληνικά         | 🇬🇷   |     |
+| `he`   | עברית            | 🇮🇱   | ✓   |
+| `fa`   | فارسی            | 🇮🇷   | ✓   |
+| `ro`   | Română           | 🇷🇴   |     |
+| `hu`   | Magyar           | 🇭🇺   |     |
+| `sk`   | Slovenčina       | 🇸🇰   |     |
+| `bg`   | Български        | 🇧🇬   |     |
+| `hr`   | Hrvatski         | 🇭🇷   |     |
+| `sr`   | Српски           | 🇷🇸   |     |
+| `sl`   | Slovenščina      | 🇸🇮   |     |
+| `lt`   | Lietuvių         | 🇱🇹   |     |
+| `lv`   | Latviešu         | 🇱🇻   |     |
+| `et`   | Eesti            | 🇪🇪   |     |
+| `ga`   | Gaeilge          | 🇮🇪   |     |
+| `ca`   | Català           | 🇪🇸   |     |
+| `is`   | Íslenska         | 🇮🇸   |     |
+| `sw`   | Kiswahili        | 🇹🇿   |     |
+| `am`   | አማርኛ             | 🇪🇹   |     |
+| `ne`   | नेपाली           | 🇳🇵   |     |
+| `si`   | සිංහල            | 🇱🇰   |     |
+| `my`   | မြန်မာ           | 🇲🇲   |     |
+| `km`   | ខ្មែរ            | 🇰🇭   |     |
+| `lo`   | ລາວ              | 🇱🇦   |     |
+| `ka`   | ქართული          | 🇬🇪   |     |
+| `hy`   | Հայերեն          | 🇦🇲   |     |
+| `kk`   | Қазақ            | 🇰🇿   |     |
+| `uz`   | Oʻzbek           | 🇺🇿   |     |
+| `mn`   | Монгол           | 🇲🇳   |     |
+| `ur`   | اردو             | 🇵🇰   | ✓   |
+| `ml`   | മലയാളം           | 🇮🇳   |     |
+| `ta`   | தமிழ்            | 🇮🇳   |     |
+| `te`   | తెలుగు           | 🇮🇳   |     |
+| `kn`   | ಕನ್ನಡ            | 🇮🇳   |     |
+| `mr`   | मराठी            | 🇮🇳   |     |
+| `gu`   | ગુજરાતી          | 🇮🇳   |     |
+| `pa`   | ਪੰਜਾਬੀ           | 🇮🇳   |     |
+| `yo`   | Yorùbá           | 🇳🇬   |     |
+| `ig`   | Igbo             | 🇳🇬   |     |
+| `zu`   | isiZulu          | 🇿🇦   |     |
+| `af`   | Afrikaans        | 🇿🇦   |     |
+| `ha`   | Hausa            | 🇳🇬   |     |
+| `tl`   | Filipino         | 🇵🇭   |     |
+| `mi`   | Te Reo Māori     | 🇳🇿   |     |
+| `sm`   | Gagana Samoa     | 🇼🇸   |     |
+| `to`   | Lea Faka-Tonga   | 🇹🇴   |     |
+| `eo`   | Esperanto        | 🌐   |     |
 
 一覧にない言語が必要ですか？ カスタムの `label` と `flag` を渡して上書きします:
 

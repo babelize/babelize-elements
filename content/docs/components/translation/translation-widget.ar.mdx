@@ -144,37 +144,37 @@ export function Translate() {
 
 ## الخصائص [#props]
 
-| الخاصية                   | النوع                               | مطلوب | الوصف                                                                              |
-| ---------------------- | ---------------------------------- | -------- | ---------------------------------------------------------------------------------------- |
-| `locales`              | `Locale[]`                         | لا       | اللغات المحلية لمحددات اللغة في كل لوحة؛ احذفها لعرض رقائق ثابتة                     |
-| `sourceLocale`         | `string`                           | لا       | رمز BCP 47 للغة المحلية المصدر (مثل `"en"`)؛ مرّره للتحكم بها                    |
-| `defaultSourceLocale`  | `string`                           | لا       | اللغة المحلية المصدر الأولية عند عدم التحكم (القيمة الافتراضية: `locales[0]`، وإلا `"en"`)             |
-| `onSourceLocaleChange` | `(code: string) => void`           | لا       | دالة استدعاء عند تغيّر اللغة المحلية المصدر                                                  |
-| `targetLocale`         | `string`                           | لا       | رمز BCP 47 للغة المحلية الهدف (مثل `"fr"`، `"ar"`)؛ مرّره للتحكم بها            |
-| `defaultTargetLocale`  | `string`                           | لا       | اللغة المحلية الهدف الأولية عند عدم التحكم (القيمة الافتراضية: `locales[1]`، وإلا `"en"`)             |
-| `onTargetLocaleChange` | `(code: string) => void`           | لا       | دالة استدعاء عند تغيّر اللغة المحلية الهدف                                                  |
-| `sourceText`           | `string`                           | لا       | نص المصدر — مرّره للتحكم في لوحة المصدر                                       |
-| `defaultSourceText`    | `string`                           | لا       | نص المصدر الأولي عند عدم التحكم                                                    |
-| `onSourceChange`       | `(text: string) => void`           | لا       | دالة استدعاء عند تغيّر نص المصدر؛ تجعل اللوحة قابلة للتحرير                           |
-| `targetText`           | `string`                           | لا       | نص الهدف — مرّره للتحكم في لوحة الهدف (للقراءة فقط بدون `onTargetChange`)  |
-| `defaultTargetText`    | `string`                           | لا       | نص الهدف الأولي عند عدم التحكم                                                    |
-| `onTargetChange`       | `(text: string) => void`           | لا       | دالة استدعاء عند تغيّر نص الهدف                                                    |
-| `onSwap`               | `() => void`                       | لا       | تُستدعى بعد أن يتبادل زر التبديل اللغات المحلية والنصوص                                 |
-| `sourcePlaceholder`    | `string`                           | لا       | نص توضيحي للوحة المصدر                                                          |
-| `targetPlaceholder`    | `string`                           | لا       | نص توضيحي للوحة الهدف                                                          |
-| `sourceLabel`          | `string`                           | لا       | تسمية إمكانية الوصول للوحة المصدر (القيمة الافتراضية: `"Source text"`)                          |
-| `targetLabel`          | `string`                           | لا       | تسمية إمكانية الوصول للوحة الهدف (القيمة الافتراضية: `"Target text"`)                          |
-| `readOnlySource`       | `boolean`                          | لا       | أبقِ لوحة المصدر للقراءة فقط حتى مع `onSourceChange`                                |
-| `showCount`            | `boolean`                          | لا       | أظهر عداد أحرف المصدر (القيمة الافتراضية: `true`)                                        |
-| `maxLength`            | `number`                           | لا       | حد الأحرف للوحتين معًا؛ يعرض العداد `n / max`                                |
-| `showClear`            | `boolean`                          | لا       | أظهر زر مسح أسفل المصدر القابل للتحرير (القيمة الافتراضية: `true`)                           |
-| `showCopy`             | `boolean`                          | لا       | أظهر زر النسخ إلى الحافظة أسفل الهدف (القيمة الافتراضية: `true`)                       |
-| `onTargetCopy`         | `(text: string) => void`           | لا       | تُستدعى بنص الهدف بعد نسخه                                           |
-| `labels`               | `Partial<TranslationWidgetLabels>` | لا       | تجاوز نصوص الواجهة الإنجليزية المدمجة (انظر أدناه)                                        |
-| `loading`              | `boolean`                          | لا       | أظهر هيكل تحميل في لوحة الهدف وسمه بـ `aria-busy`                               |
-| `classNames`           | `TranslationWidgetClassNames`      | لا       | تجاوزات الأصناف لكل جزء: `root`، `header`، `pane`، `textarea`، `footer`، `swap`، `chip` |
-| `dir`                  | `"ltr" \| "rtl"`                   | لا       | تجاوز اتجاه التخطيط المكتشف تلقائيًا                                              |
-| `className`            | `string`                           | لا       | أصناف CSS إضافية                                                                   |
+| الخاصية                | النوع                              | مطلوب | الوصف                                                                                      |
+| ---------------------- | ---------------------------------- | ----- | ------------------------------------------------------------------------------------------ |
+| `locales`              | `Locale[]`                         | لا    | اللغات المحلية لمحددات اللغة في كل لوحة؛ احذفها لعرض رقائق ثابتة                           |
+| `sourceLocale`         | `string`                           | لا    | رمز BCP 47 للغة المحلية المصدر (مثل `"en"`)؛ مرّره للتحكم بها                              |
+| `defaultSourceLocale`  | `string`                           | لا    | اللغة المحلية المصدر الأولية عند عدم التحكم (القيمة الافتراضية: `locales[0]`، وإلا `"en"`) |
+| `onSourceLocaleChange` | `(code: string) => void`           | لا    | دالة استدعاء عند تغيّر اللغة المحلية المصدر                                                |
+| `targetLocale`         | `string`                           | لا    | رمز BCP 47 للغة المحلية الهدف (مثل `"fr"`، `"ar"`)؛ مرّره للتحكم بها                       |
+| `defaultTargetLocale`  | `string`                           | لا    | اللغة المحلية الهدف الأولية عند عدم التحكم (القيمة الافتراضية: `locales[1]`، وإلا `"en"`)  |
+| `onTargetLocaleChange` | `(code: string) => void`           | لا    | دالة استدعاء عند تغيّر اللغة المحلية الهدف                                                 |
+| `sourceText`           | `string`                           | لا    | نص المصدر — مرّره للتحكم في لوحة المصدر                                                    |
+| `defaultSourceText`    | `string`                           | لا    | نص المصدر الأولي عند عدم التحكم                                                            |
+| `onSourceChange`       | `(text: string) => void`           | لا    | دالة استدعاء عند تغيّر نص المصدر؛ تجعل اللوحة قابلة للتحرير                                |
+| `targetText`           | `string`                           | لا    | نص الهدف — مرّره للتحكم في لوحة الهدف (للقراءة فقط بدون `onTargetChange`)                  |
+| `defaultTargetText`    | `string`                           | لا    | نص الهدف الأولي عند عدم التحكم                                                             |
+| `onTargetChange`       | `(text: string) => void`           | لا    | دالة استدعاء عند تغيّر نص الهدف                                                            |
+| `onSwap`               | `() => void`                       | لا    | تُستدعى بعد أن يتبادل زر التبديل اللغات المحلية والنصوص                                    |
+| `sourcePlaceholder`    | `string`                           | لا    | نص توضيحي للوحة المصدر                                                                     |
+| `targetPlaceholder`    | `string`                           | لا    | نص توضيحي للوحة الهدف                                                                      |
+| `sourceLabel`          | `string`                           | لا    | تسمية إمكانية الوصول للوحة المصدر (القيمة الافتراضية: `"Source text"`)                     |
+| `targetLabel`          | `string`                           | لا    | تسمية إمكانية الوصول للوحة الهدف (القيمة الافتراضية: `"Target text"`)                      |
+| `readOnlySource`       | `boolean`                          | لا    | أبقِ لوحة المصدر للقراءة فقط حتى مع `onSourceChange`                                       |
+| `showCount`            | `boolean`                          | لا    | أظهر عداد أحرف المصدر (القيمة الافتراضية: `true`)                                          |
+| `maxLength`            | `number`                           | لا    | حد الأحرف للوحتين معًا؛ يعرض العداد `n / max`                                              |
+| `showClear`            | `boolean`                          | لا    | أظهر زر مسح أسفل المصدر القابل للتحرير (القيمة الافتراضية: `true`)                         |
+| `showCopy`             | `boolean`                          | لا    | أظهر زر النسخ إلى الحافظة أسفل الهدف (القيمة الافتراضية: `true`)                           |
+| `onTargetCopy`         | `(text: string) => void`           | لا    | تُستدعى بنص الهدف بعد نسخه                                                                 |
+| `labels`               | `Partial<TranslationWidgetLabels>` | لا    | تجاوز نصوص الواجهة الإنجليزية المدمجة (انظر أدناه)                                         |
+| `loading`              | `boolean`                          | لا    | أظهر هيكل تحميل في لوحة الهدف وسمه بـ `aria-busy`                                          |
+| `classNames`           | `TranslationWidgetClassNames`      | لا    | تجاوزات الأصناف لكل جزء: `root`، `header`، `pane`، `textarea`، `footer`، `swap`، `chip`    |
+| `dir`                  | `"ltr" \| "rtl"`                   | لا    | تجاوز اتجاه التخطيط المكتشف تلقائيًا                                                       |
+| `className`            | `string`                           | لا    | أصناف CSS إضافية                                                                           |
 
 أي خاصية أخرى — `id`، `data-*`، `aria-*` — تُمرَّر إلى العنصر الجذري، ويُعاد توجيه المرجع (ref) إليه.
 
@@ -305,15 +305,15 @@ async function translate(text: string) {
 />
 ```
 
-| المفتاح                | الافتراضي                             | يُستخدم في                                                  |
-| ------------------ | ----------------------------------- | --------------------------------------------------------- |
-| `swap`             | `"Swap languages"`                  | تسمية إمكانية الوصول لزر التبديل                              |
-| `copy`             | `"Copy translation"`                | تسمية إمكانية الوصول لزر النسخ                              |
-| `copied`           | `"Copied"`                          | تسمية زر النسخ مباشرة بعد النسخ                      |
-| `copiedStatus`     | `"Translation copied to clipboard"` | إعلان قارئ الشاشة بعد النسخ                     |
-| `clearSource`      | `"Clear source text"`               | تسمية إمكانية الوصول لزر المسح                             |
-| `characters`       | `(count) => "characters"`           | ما يُقرأ بعد عداد الأحرف؛ يأخذ العدد صيغة الجمع  |
-| `languageSwitcher` | الإعدادات الافتراضية لـ `LanguageSwitcher`         | محددا اللغة كلاهما (`Partial<LanguageSwitcherLabels>`) |
+| المفتاح            | الافتراضي                                  | يُستخدم في                                             |
+| ------------------ | ------------------------------------------ | ------------------------------------------------------ |
+| `swap`             | `"Swap languages"`                         | تسمية إمكانية الوصول لزر التبديل                       |
+| `copy`             | `"Copy translation"`                       | تسمية إمكانية الوصول لزر النسخ                         |
+| `copied`           | `"Copied"`                                 | تسمية زر النسخ مباشرة بعد النسخ                        |
+| `copiedStatus`     | `"Translation copied to clipboard"`        | إعلان قارئ الشاشة بعد النسخ                            |
+| `clearSource`      | `"Clear source text"`                      | تسمية إمكانية الوصول لزر المسح                         |
+| `characters`       | `(count) => "characters"`                  | ما يُقرأ بعد عداد الأحرف؛ يأخذ العدد صيغة الجمع        |
+| `languageSwitcher` | الإعدادات الافتراضية لـ `LanguageSwitcher` | محددا اللغة كلاهما (`Partial<LanguageSwitcherLabels>`) |
 
 ## التخصيص [#customization]
 

@@ -105,27 +105,27 @@ import { LocalePicker } from "@/components/ui/locale-picker";
 
 ## Props [#props]
 
-| Prop                | 型                                  | 必須 | デフォルト               | 説明                                                                          |
-| ------------------- | ------------------------------------- | -------- | --------------------- | ------------------------------------------------------------------------------------ |
-| `regions`           | `string[]`                            | はい      | —                     | 選択できる地域。ISO 3166-1 alpha-2 コードで指定します                                     |
-| `value`             | `string`                              | いいえ       | —                     | 選択中のロケール（BCP 47）。コンポーネントを制御するにはこの値を渡します                        |
-| `defaultValue`      | `string`                              | いいえ       | `en-<first region>`   | 非制御時の初期選択ロケール                                            |
-| `onValueChange`     | `(locale: string) => void`            | いいえ       | —                     | 地域が変更されたときのコールバック。新しい BCP 47 タグを受け取ります                       |
-| `label`             | `"native" \| "english"`               | いいえ       | `"english"`           | 地域名を英語で表示するか、選択中のロケールに合わせてローカライズして表示します                         |
-| `showFlags`         | `boolean`                             | いいえ       | `true`                | 地域名の横に国旗の絵文字を表示します                                        |
-| `maxHeight`         | `number \| string`                    | いいえ       | `"15rem"`             | スクロールが始まるまでの、スクロールする選択肢一覧の最大の高さ                           |
-| `variant`           | `"outline" \| "ghost" \| "secondary"` | いいえ       | `"outline"`           | トリガーのスタイル                                                                        |
-| `size`              | `"sm" \| "default" \| "lg"`           | いいえ       | `"default"`           | トリガーのサイズ                                                                         |
-| `align`             | `"start" \| "end"`                    | いいえ       | `"start"`             | ポップアップを揃えるトリガーの辺                                          |
-| `side`              | `"top" \| "bottom"`                   | いいえ       | `"bottom"`            | ポップアップの優先表示側。ビューポートに十分なスペースがない場合は反転します                           |
-| `searchable`        | `boolean`                             | いいえ       | `true`                | 検索欄を表示します                                                                |
-| `searchPlaceholder` | `string`                              | いいえ       | `"Search regions..."` | 検索欄のプレースホルダー                                                     |
-| `emptyMessage`      | `React.ReactNode`                     | いいえ       | `"No results"`        | 検索に一致する項目がない場合に表示される内容                                        |
-| `disabled`          | `boolean`                             | いいえ       | `false`               | トリガーを無効にします                                                                  |
-| `showSummary`       | `boolean`                             | いいえ       | `true`                | 導出されたロケールのデフォルト値のサマリーカードを表示します                                     |
-| `labels`            | `Partial<LocalePickerLabels>`         | いいえ       | —                     | 組み込みの英語 UI テキストを上書きします（下記参照）                                    |
-| `classNames`        | `LocalePickerClassNames`              | いいえ       | —                     | パーツごとのクラス: `trigger`、`content`、`search`、`list`、`item`、`empty`、`summary` |
-| `className`         | `string`                              | いいえ       | —                     | 追加の CSS クラス                                                               |
+| Prop                | 型                                    | 必須   | デフォルト            | 説明                                                                                   |
+| ------------------- | ------------------------------------- | ------ | --------------------- | -------------------------------------------------------------------------------------- |
+| `regions`           | `string[]`                            | はい   | —                     | 選択できる地域。ISO 3166-1 alpha-2 コードで指定します                                  |
+| `value`             | `string`                              | いいえ | —                     | 選択中のロケール（BCP 47）。コンポーネントを制御するにはこの値を渡します               |
+| `defaultValue`      | `string`                              | いいえ | `en-<first region>`   | 非制御時の初期選択ロケール                                                             |
+| `onValueChange`     | `(locale: string) => void`            | いいえ | —                     | 地域が変更されたときのコールバック。新しい BCP 47 タグを受け取ります                   |
+| `label`             | `"native" \| "english"`               | いいえ | `"english"`           | 地域名を英語で表示するか、選択中のロケールに合わせてローカライズして表示します         |
+| `showFlags`         | `boolean`                             | いいえ | `true`                | 地域名の横に国旗の絵文字を表示します                                                   |
+| `maxHeight`         | `number \| string`                    | いいえ | `"15rem"`             | スクロールが始まるまでの、スクロールする選択肢一覧の最大の高さ                         |
+| `variant`           | `"outline" \| "ghost" \| "secondary"` | いいえ | `"outline"`           | トリガーのスタイル                                                                     |
+| `size`              | `"sm" \| "default" \| "lg"`           | いいえ | `"default"`           | トリガーのサイズ                                                                       |
+| `align`             | `"start" \| "end"`                    | いいえ | `"start"`             | ポップアップを揃えるトリガーの辺                                                       |
+| `side`              | `"top" \| "bottom"`                   | いいえ | `"bottom"`            | ポップアップの優先表示側。ビューポートに十分なスペースがない場合は反転します           |
+| `searchable`        | `boolean`                             | いいえ | `true`                | 検索欄を表示します                                                                     |
+| `searchPlaceholder` | `string`                              | いいえ | `"Search regions..."` | 検索欄のプレースホルダー                                                               |
+| `emptyMessage`      | `React.ReactNode`                     | いいえ | `"No results"`        | 検索に一致する項目がない場合に表示される内容                                           |
+| `disabled`          | `boolean`                             | いいえ | `false`               | トリガーを無効にします                                                                 |
+| `showSummary`       | `boolean`                             | いいえ | `true`                | 導出されたロケールのデフォルト値のサマリーカードを表示します                           |
+| `labels`            | `Partial<LocalePickerLabels>`         | いいえ | —                     | 組み込みの英語 UI テキストを上書きします（下記参照）                                   |
+| `classNames`        | `LocalePickerClassNames`              | いいえ | —                     | パーツごとのクラス: `trigger`、`content`、`search`、`list`、`item`、`empty`、`summary` |
+| `className`         | `string`                              | いいえ | —                     | 追加の CSS クラス                                                                      |
 
 選択された値は完全な BCP 47 タグです。 その **地域** サブタグは選んだ地域になり、**言語** サブタグは地域を変更しても保持されます。 `en-IN` からドイツを選ぶと `en-DE` になり、`fr-JP` から選ぶと `fr-DE` になります。
 
@@ -133,12 +133,12 @@ import { LocalePicker } from "@/components/ui/locale-picker";
 
 サマリーカードは、選択中のロケールから `Intl` を通じてすべての値を導出します。 通貨コードには ISO 4217 のフォールバックテーブルのみを同梱しており、それ以外のデータは同梱していません:
 
-| 行            | 取得元                                                                           |
-| -------------- | -------------------------------------------------------------------------------- |
-| 通貨       | 地域 → ISO 4217 コード。`Intl.NumberFormat`（`style: "currency"`）でプレビュー |
-| 日付の書式    | 固定のサンプル日付における `Intl.DateTimeFormat`（`dateStyle: "medium"`）             |
-| 数値の書式  | 固定のサンプル金額における `Intl.NumberFormat`                                     |
-| 週の開始曜日 | 利用可能な場合は `Intl.Locale#getWeekInfo()`、それ以外は地域のフォールバック            |
+| 行           | 取得元                                                                         |
+| ------------ | ------------------------------------------------------------------------------ |
+| 通貨         | 地域 → ISO 4217 コード。`Intl.NumberFormat`（`style: "currency"`）でプレビュー |
+| 日付の書式   | 固定のサンプル日付における `Intl.DateTimeFormat`（`dateStyle: "medium"`）      |
+| 数値の書式   | 固定のサンプル金額における `Intl.NumberFormat`                                 |
+| 週の開始曜日 | 利用可能な場合は `Intl.Locale#getWeekInfo()`、それ以外は地域のフォールバック   |
 
 通貨の対応付けがない地域では、推測せずにダッシュ（—）を表示します。
 
@@ -146,15 +146,15 @@ import { LocalePicker } from "@/components/ui/locale-picker";
 
 ポップアップは WAI-ARIA のコンボボックスパターンに従います。 フォーカスは検索欄に留まり、検索欄は `role="combobox"` として公開されます。 ハイライトされた選択肢は `aria-activedescendant` を通じて読み上げられます。
 
-| キー                              | 操作                                                        |
-| -------------------------------- | ------------------------------------------------------------- |
-| `Enter`、`Space`、またはクリック       | トリガーからポップアップを開きます                               |
-| `ArrowDown` / `ArrowUp`（閉じている状態） | 最初または最後の地域がハイライトされた状態で開きます                 |
-| `ArrowDown` / `ArrowUp`          | ハイライトを移動します。両端で循環します                     |
-| `Home` / `End`                   | 最初または最後の地域をハイライトします                             |
-| `Enter`                          | ハイライトされた地域を選択し、フォーカスをトリガーに戻します |
-| `Escape`                         | ポップアップを閉じ、フォーカスをトリガーに戻します               |
-| 入力                           | 名前またはコードで絞り込みます。ハイライトは先頭に戻ります     |
+| キー                                      | 操作                                                         |
+| ----------------------------------------- | ------------------------------------------------------------ |
+| `Enter`、`Space`、またはクリック          | トリガーからポップアップを開きます                           |
+| `ArrowDown` / `ArrowUp`（閉じている状態） | 最初または最後の地域がハイライトされた状態で開きます         |
+| `ArrowDown` / `ArrowUp`                   | ハイライトを移動します。両端で循環します                     |
+| `Home` / `End`                            | 最初または最後の地域をハイライトします                       |
+| `Enter`                                   | ハイライトされた地域を選択し、フォーカスをトリガーに戻します |
+| `Escape`                                  | ポップアップを閉じ、フォーカスをトリガーに戻します           |
+| 入力                                      | 名前またはコードで絞り込みます。ハイライトは先頭に戻ります   |
 
 ## 機能 [#features]
 

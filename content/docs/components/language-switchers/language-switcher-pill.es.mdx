@@ -115,19 +115,19 @@ export function LocalePill() {
 
 ## Props [#props]
 
-| Prop             | Tipo                             | Obligatorio | Descripción                                                                   |
-| ---------------- | -------------------------------- | -------- | ----------------------------------------------------------------------------- |
-| `locales`        | `Locale[]`                       | Sí      | Array de configuraciones regionales disponibles; solo `code` es obligatorio                          |
-| `locale`         | `string`                         | No       | Código de configuración regional seleccionado: pásalo para controlar el componente                     |
-| `defaultLocale`  | `string`                         | No       | Código de configuración regional inicial cuando no está controlado (predeterminado: código de la primera configuración regional) |
-| `onLocaleChange` | `(code: string) => void`         | No       | Callback que se ejecuta cuando cambia la configuración regional seleccionada                                     |
-| `variant`        | `"default" \| "outline"`         | No       | Riel segmentado sin borde o con borde (predeterminado: `"default"`)                |
-| `size`           | `"sm" \| "default" \| "lg"`      | No       | Tamaño de la píldora (predeterminado: `"default"`)                                              |
-| `showFlags`      | `boolean`                        | No       | Muestra el emoji de bandera de cada configuración regional antes de su etiqueta (predeterminado: `false`)             |
-| `disabled`       | `boolean`                        | No       | Desactiva todas las píldoras                                                            |
-| `aria-label`     | `string`                         | No       | Etiqueta accesible del grupo de radio (predeterminado: `"Select language"`)           |
-| `classNames`     | `LanguageSwitcherPillClassNames` | No       | Sustituciones de clases por parte; consulta más abajo                                          |
-| `className`      | `string`                         | No       | Clases CSS adicionales para el contenedor de píldoras                                 |
+| Prop             | Tipo                             | Obligatorio | Descripción                                                                                                                      |
+| ---------------- | -------------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `locales`        | `Locale[]`                       | Sí          | Array de configuraciones regionales disponibles; solo `code` es obligatorio                                                      |
+| `locale`         | `string`                         | No          | Código de configuración regional seleccionado: pásalo para controlar el componente                                               |
+| `defaultLocale`  | `string`                         | No          | Código de configuración regional inicial cuando no está controlado (predeterminado: código de la primera configuración regional) |
+| `onLocaleChange` | `(code: string) => void`         | No          | Callback que se ejecuta cuando cambia la configuración regional seleccionada                                                     |
+| `variant`        | `"default" \| "outline"`         | No          | Riel segmentado sin borde o con borde (predeterminado: `"default"`)                                                              |
+| `size`           | `"sm" \| "default" \| "lg"`      | No          | Tamaño de la píldora (predeterminado: `"default"`)                                                                               |
+| `showFlags`      | `boolean`                        | No          | Muestra el emoji de bandera de cada configuración regional antes de su etiqueta (predeterminado: `false`)                        |
+| `disabled`       | `boolean`                        | No          | Desactiva todas las píldoras                                                                                                     |
+| `aria-label`     | `string`                         | No          | Etiqueta accesible del grupo de radio (predeterminado: `"Select language"`)                                                      |
+| `classNames`     | `LanguageSwitcherPillClassNames` | No          | Sustituciones de clases por parte; consulta más abajo                                                                            |
+| `className`      | `string`                         | No          | Clases CSS adicionales para el contenedor de píldoras                                                                            |
 
 El resto de las props de `div` se reenvían al elemento raíz.
 
@@ -135,13 +135,13 @@ El resto de las props de `div` se reenvían al elemento raíz.
 
 Cada parte admite sus propias clases, que se combinan después de los valores predeterminados, para que puedas cambiar el estilo de una pieza sin bifurcar el componente:
 
-| Slot         | Elemento                                       |
-| ------------ | --------------------------------------------- |
-| `root`       | El riel que contiene todas las píldoras               |
-| `item`       | Cada píldora de configuración regional                              |
-| `activeItem` | Solo la píldora seleccionada                        |
+| Slot         | Elemento                                                   |
+| ------------ | ---------------------------------------------------------- |
+| `root`       | El riel que contiene todas las píldoras                    |
+| `item`       | Cada píldora de configuración regional                     |
+| `activeItem` | Solo la píldora seleccionada                               |
 | `indicator`  | El indicador con animación de resorte detrás de la píldora |
-| `flag`       | La bandera que se muestra cuando `showFlags` está definido        |
+| `flag`       | La bandera que se muestra cuando `showFlags` está definido |
 
 ```tsx
 <LanguageSwitcherPill
@@ -157,12 +157,12 @@ El componente usa los tokens de tema de shadcn/ui (`bg-muted`, `bg-background`, 
 
 ### Objeto de configuración regional [#locale-object]
 
-| Propiedad | Tipo      | Descripción                                                          |
-| -------- | --------- | -------------------------------------------------------------------- |
-| `code`   | `string`  | Código ISO 639-1 / BCP 47 (p. ej. `"en"`, `"fr"`, `"ar"`) — **obligatorio** |
-| `label`  | `string`  | Nombre visible para la píldora de idioma                                   |
-| `flag`   | `string`  | Emoji de bandera que se muestra con `showFlags` (se resuelve automáticamente si se omite)         |
-| `rtl`    | `boolean` | Sustituye la dirección RTL para el formateo de texto (se detecta automáticamente si se omite)   |
+| Propiedad | Tipo      | Descripción                                                                                   |
+| --------- | --------- | --------------------------------------------------------------------------------------------- |
+| `code`    | `string`  | Código ISO 639-1 / BCP 47 (p. ej. `"en"`, `"fr"`, `"ar"`) — **obligatorio**                   |
+| `label`   | `string`  | Nombre visible para la píldora de idioma                                                      |
+| `flag`    | `string`  | Emoji de bandera que se muestra con `showFlags` (se resuelve automáticamente si se omite)     |
+| `rtl`     | `boolean` | Sustituye la dirección RTL para el formateo de texto (se detecta automáticamente si se omite) |
 
 ## Ejemplos [#examples]
 
