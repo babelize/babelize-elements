@@ -7,10 +7,23 @@ import { Faq } from "@/components/landing/faq";
 import { Footer } from "@/components/landing/footer";
 
 import { getGitHubStats } from "@/lib/github";
+import { getLocale, getTranslations } from "next-intl/server";
+import { baseOpenGraph, languageAlternates, pathInLocale } from "@/lib/locale-path";
 
-export const metadata: Metadata = {
-  alternates: { canonical: "/" },
-};
+// Each language's own URL is canonical (/ja, not /), with the others as hreflang alternates.
+export async function generateMetadata(): Promise<Metadata> {
+  const [locale, t] = await Promise.all([getLocale(), getTranslations("meta")]);
+  const url = pathInLocale("/", locale);
+  return {
+    alternates: { canonical: url, languages: languageAlternates("/") },
+    openGraph: {
+      ...baseOpenGraph(locale),
+      url,
+      title: t("title"),
+      description: t("ogDescription"),
+    },
+  };
+}
 
 export default async function Home() {
   const stats = await getGitHubStats();

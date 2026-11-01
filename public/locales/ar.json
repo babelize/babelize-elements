@@ -157,6 +157,11 @@
     "current": "اللغة الحالية: {name}",
     "listbox": "اختيار اللغة"
   },
+  "meta": {
+    "description": "مكوّنات واجهة التوطين مفتوحة المصدر لـ React و Tailwind CSS: مبدّلات اللغة ومنتقيات الإعدادات المحلية وأدوات الترجمة وغير ذلك، من تطوير المجتمع.",
+    "ogDescription": "مكوّنات واجهة التوطين مفتوحة المصدر لـ React و Tailwind CSS، من تطوير المجتمع.",
+    "title": "Babelize Elements - مكوّنات واجهة التوطين مفتوحة المصدر"
+  },
   "navbar": {
     "babelizeElements": "Babelize Elements",
     "components": "مكوّنات",

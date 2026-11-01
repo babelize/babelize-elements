@@ -157,6 +157,11 @@
     "current": "現在の言語: {name}",
     "listbox": "言語を選択"
   },
+  "meta": {
+    "description": "React と Tailwind CSS 向けのオープンソースのローカライゼーション UI コンポーネント。言語スイッチャー、ロケールピッカー、翻訳ウィジェットなどを、コミュニティと一緒に開発しています。",
+    "ogDescription": "React と Tailwind CSS 向けのオープンソースのローカライゼーション UI コンポーネント。コミュニティによる開発。",
+    "title": "Babelize Elements - オープンソースのローカライゼーション UI コンポーネント"
+  },
   "navbar": {
     "babelizeElements": "Babelize Elements",
     "components": "コンポーネント",

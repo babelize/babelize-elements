@@ -4,6 +4,8 @@ import { getLocale } from "next-intl/server";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import { source } from "@/lib/source";
 import { localizedHref } from "@/lib/localized-href";
+import { baseOpenGraph, languageAlternates } from "@/lib/locale-path";
+import { locales } from "@/i18n/locales";
 import type { ComponentProps } from "react";
 import { LanguageSwitcherDemo } from "@/components/docs/language-switcher-demo";
 import { Flow, RulebookDownload, Takeaway } from "@/components/docs/rulebook";
@@ -66,13 +68,27 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(props: { params: Promise<{ slug?: string[] }> }) {
   const params = await props.params;
-  const page = source.getPage(params.slug, await getLocale());
+  const locale = await getLocale();
+  const page = source.getPage(params.slug, locale);
   if (!page) notFound();
 
   return {
+    openGraph: {
+      ...baseOpenGraph(locale),
+      url: page.url,
+      title: page.data.title,
+      description: page.data.description,
+    },
     title: page.data.title,
     description: page.data.description,
     // Self-referencing canonical; resolves against metadataBase in the root layout.
-    alternates: { canonical: page.url },
+    // hreflang only for the languages this page is translated into.
+    alternates: {
+      canonical: page.url,
+      languages: languageAlternates(
+        page.url,
+        locales.filter((l) => source.getPage(params.slug, l)?.locale === l),
+      ),
+    },
   };
 }

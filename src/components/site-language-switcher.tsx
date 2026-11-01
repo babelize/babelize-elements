@@ -2,18 +2,11 @@
 
 import { useLocale, useTranslations } from "next-intl";
 import { LanguageSwitcher } from "@/registry/components/language-switcher";
-import { locales, sourceLocale } from "@/i18n/locales";
+import { locales } from "@/i18n/locales";
+import { pathInLocale } from "@/lib/locale-path";
 
 const ONE_YEAR = 60 * 60 * 24 * 365;
 const siteLocales = locales.map((code) => ({ code }));
-
-/** `pathname` in `locale`: `/docs/x` → `/ja/docs/x`; English has no prefix. */
-export function pathInLocale(pathname: string, locale: string): string {
-  const [, first = "", ...rest] = pathname.split("/");
-  const bare = locales.includes(first) && first !== sourceLocale ? `/${rest.join("/")}` : pathname;
-  if (locale === sourceLocale) return bare;
-  return bare === "/" ? `/${locale}` : `/${locale}${bare}`;
-}
 
 /**
  * The site's language dropdown, built on our own LanguageSwitcher. Remembers
