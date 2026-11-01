@@ -3,6 +3,68 @@
   "targetLocales": ["es", "ja", "ar"],
   "include": ["src/app/page.tsx", "src/components/landing/**"],
   "glossary": {
-    "neverTranslate": ["Babelize", "Babelize Elements", "React", "Tailwind CSS", "GitHub", "npm", "shadcn"]
+    "neverTranslate": [
+      "Babelize",
+      "Babelize Elements",
+      "React",
+      "Tailwind CSS",
+      "GitHub",
+      "npm",
+      "shadcn",
+      "i18n",
+      "pull request",
+      "next-intl",
+      "react-i18next"
+    ],
+    "alwaysTranslateAs": [
+      {
+        "term": "localization",
+        "translations": {
+          "es": "localización",
+          "ja": "ローカライゼーション",
+          "ar": "التوطين"
+        }
+      },
+      {
+        "term": "language switcher",
+        "translations": {
+          "es": "selector de idioma",
+          "ja": "言語スイッチャー",
+          "ar": "مبدّل اللغة"
+        }
+      },
+      {
+        "term": "locale picker",
+        "translations": {
+          "es": "selector de configuración regional",
+          "ja": "ロケールピッカー",
+          "ar": "منتقي الإعدادات المحلية"
+        }
+      },
+      {
+        "term": "open issues",
+        "translations": {
+          "es": "issues abiertos",
+          "ja": "未解決のIssue",
+          "ar": "المشكلات المفتوحة"
+        }
+      },
+      {
+        "term": "component",
+        "translations": {
+          "es": "componente",
+          "ja": "コンポーネント",
+          "ar": "مكوّن"
+        }
+      },
+      {
+        "term": "components",
+        "translations": {
+          "es": "componentes",
+          "ja": "コンポーネント",
+          "ar": "مكوّنات"
+        }
+      }
+    ]
   }
 }

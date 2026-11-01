@@ -1,4 +1,5 @@
 "use client";
+import { useTranslations } from "next-intl";
 
 import { useState } from "react";
 import { Plus } from "lucide-react";
@@ -7,38 +8,33 @@ import { cn } from "@/lib/utils";
 
 const faqs = [
   {
-    question: "How do I install Babelize Elements?",
-    answer:
-      "Install the full library with `npm install @babelize/elements`, or add individual components with `npx shadcn@latest add @babelize/language-switcher` (or `npx @babelize/elements add language-switcher`). Works with Next.js, Remix, and any React app.",
+    question: "faq.howDoIInstallBabelize",
+    answer: "faq.installTheFullLibraryWith",
   },
   {
-    question: "Can I customize the language switcher and locale picker components?",
-    answer:
-      "Absolutely. Since you own the code, every component is fully customizable with Tailwind CSS classes and props. Change colors, spacing, animations, and behavior however you like. No design constraints.",
+    question: "faq.canICustomizeTheLanguage",
+    answer: "faq.absolutelySinceYouOwnThe",
   },
   {
-    question: "Are these React i18n components production-ready?",
-    answer:
-      "Every merged component is reviewed by maintainers and follows our accessibility, TypeScript, and localization checklist before it's documented. They're used in production apps worldwide.",
+    question: "faq.areTheseReactI18nComponents",
+    answer: "faq.everyMergedComponentIsReviewed",
   },
   {
-    question: "Is Babelize Elements really free and open source?",
-    answer:
-      "Yes — MIT-licensed and free forever. The code lives on GitHub, contributions are welcome, and you can use the components in any project, commercial or not. No attribution required.",
+    question: "faq.isBabelizeElementsReallyFree",
+    answer: "faq.yesMitLicensedAndFree",
   },
   {
-    question: "Which internationalization (i18n) libraries are supported?",
-    answer:
-      "Babelize Elements works with every major i18n library: next-intl, react-i18next, react-intl, LinguiJS, FormatJS, and more. The components are library-agnostic — pass your own locale state and callbacks.",
+    question: "faq.whichInternationalizationI18nLibrariesAre",
+    answer: "faq.babelizeElementsWorksWithEvery",
   },
   {
-    question: "How do I contribute a component to Babelize Elements?",
-    answer:
-      "Browse the open issues on GitHub, build the component following the contribution guide, and open a pull request. Maintainers review and merge it, and it ships to the docs for everyone.",
+    question: "faq.howDoIContributeA",
+    answer: "faq.browseTheOpenIssuesOn",
   },
 ];
 
 export function Faq() {
+  const t = useTranslations();
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
@@ -53,21 +49,23 @@ export function Faq() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
                 </span>
-                Support
+                {t("faq.support")}
               </div>
             </Reveal>
             <Reveal delay={0.1}>
               <h2 className="text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-                Frequently asked{" "}
-                <span className="bg-gradient-to-r from-emerald-300 to-emerald-600 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(52,211,153,0.2)]">
-                  questions
-                </span>
+                {t.rich("faq.frequentlyAskedQuestions", {
+                  span: (chunks) => (
+                    <span className="bg-gradient-to-r from-emerald-300 to-emerald-600 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(52,211,153,0.2)]">
+                      {chunks}
+                    </span>
+                  ),
+                })}
               </h2>
             </Reveal>
             <Reveal delay={0.2}>
               <p className="mt-5 max-w-xl text-base leading-relaxed text-white/50">
-                Everything you need to know about using Babelize Elements in your React projects.
-                Can&apos;t find what you&apos;re looking for? Check out our GitHub discussions.
+                {t("faq.everythingYouNeedToKnow")}
               </p>
             </Reveal>
           </div>
@@ -97,7 +95,7 @@ export function Faq() {
                           isOpen ? "text-emerald-400" : "text-white group-hover:text-white/80",
                         )}
                       >
-                        {faq.question}
+                        {t(faq.question)}
                       </span>
                       <div
                         className={cn(
@@ -118,7 +116,7 @@ export function Faq() {
                     >
                       <div className="overflow-hidden">
                         <p className="px-6 pb-6 text-sm leading-relaxed text-white/50">
-                          {faq.answer}
+                          {t(faq.answer)}
                         </p>
                       </div>
                     </div>

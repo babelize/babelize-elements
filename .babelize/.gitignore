@@ -1,0 +1,2 @@
+# Babelize: the QA report of the last local run (the lockfile next to it is committed).
+local/report.json

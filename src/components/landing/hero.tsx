@@ -1,4 +1,5 @@
 "use client";
+import { useTranslations } from "next-intl";
 
 import { useEffect } from "react";
 import Link from "next/link";
@@ -7,6 +8,7 @@ import { motion } from "motion/react";
 import { Copy, CornerDownLeft } from "lucide-react";
 
 export function Hero() {
+  const t = useTranslations();
   const router = useRouter();
 
   useEffect(() => {
@@ -50,7 +52,7 @@ export function Hero() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              Open Source • MIT Licensed
+              {t("hero.openSourceMitLicensed")}
             </motion.div>
 
             {/* Heading area */}
@@ -61,10 +63,13 @@ export function Hero() {
                 transition={{ duration: 0.5, delay: 0.1 }}
                 className="mx-auto max-w-4xl text-[2.75rem] leading-[1.1] font-bold tracking-tight text-white sm:text-6xl md:text-7xl lg:text-[5rem]"
               >
-                Localization UI Components{" "}
-                <span className="bg-gradient-to-r from-emerald-400 to-emerald-500 bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(52,211,153,0.2)]">
-                  for React.
-                </span>
+                {t.rich("hero.localizationUiComponentsForReact", {
+                  span: (chunks) => (
+                    <span className="bg-gradient-to-r from-emerald-400 to-emerald-500 bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(52,211,153,0.2)]">
+                      {chunks}
+                    </span>
+                  ),
+                })}
               </motion.h1>
 
               <motion.p
@@ -73,9 +78,7 @@ export function Hero() {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="mx-auto mt-6 max-w-3xl text-[1.1rem] leading-relaxed text-neutral-400"
               >
-                Open-source React components for internationalization (i18n). Build language
-                switchers, locale pickers, and RTL layouts in minutes — MIT licensed,
-                community-driven.
+                {t("hero.openSourceReactComponentsForInternationalization")}
               </motion.p>
 
               <motion.div
@@ -88,7 +91,7 @@ export function Hero() {
                   href="/docs/getting-started"
                   className="group flex h-11 items-center justify-center gap-3 rounded-xl bg-[#EDEDED] px-5 font-semibold text-black transition-all hover:bg-white"
                 >
-                  Get Started
+                  {t("hero.getStarted")}
                   <span className="flex size-6 items-center justify-center rounded-md bg-neutral-700/80 text-white transition-colors group-hover:bg-neutral-800">
                     <CornerDownLeft className="size-3.5" />
                   </span>
@@ -97,10 +100,13 @@ export function Hero() {
                   href="/docs/components"
                   className="group flex h-11 items-center gap-3 rounded-xl border border-white/[0.08] bg-[#1a1a1a] px-5 font-medium text-white backdrop-blur-md transition-all hover:bg-white/[0.1]"
                 >
-                  Browse Components
-                  <span className="flex size-6 items-center justify-center rounded-md bg-white/10 text-[11px] font-bold text-white/70 transition-colors group-hover:bg-white/20">
-                    B
-                  </span>
+                  {t.rich("hero.browseComponentsb", {
+                    span: (chunks) => (
+                      <span className="flex size-6 items-center justify-center rounded-md bg-white/10 text-[11px] font-bold text-white/70 transition-colors group-hover:bg-white/20">
+                        {chunks}
+                      </span>
+                    ),
+                  })}
                 </Link>
               </motion.div>
             </div>
@@ -124,34 +130,34 @@ export function Hero() {
                   </div>
                   <button className="flex items-center gap-1.5 rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-neutral-400 transition-colors hover:bg-white/10 hover:text-white">
                     <Copy className="size-3" />
-                    Copy
+                    {t("hero.copy")}
                   </button>
                 </div>
                 <div className="overflow-x-auto p-6">
                   <pre className="font-mono text-[13px] leading-relaxed">
                     <code>
-                      <span className="text-[#c678dd]">import</span>
+                      <span className="text-[#c678dd]">{t("hero.import")}</span>
                       <span className="text-[#abb2bf]"> {"{ "}</span>
-                      <span className="text-emerald-400">LanguageSwitcher</span>
+                      <span className="text-emerald-400">{t("hero.languageswitcher")}</span>
                       <span className="text-[#abb2bf]">{" } "}</span>
-                      <span className="text-[#c678dd]">from</span>
+                      <span className="text-[#c678dd]">{t("hero.from")}</span>
                       <span className="text-[#98c379]"> &apos;@babelize/elements&apos;</span>
                       <span className="text-[#abb2bf]">;</span>
                       {"\n\n"}
-                      <span className="text-[#c678dd]">export default function</span>
-                      <span className="text-[#61afef]"> App</span>
+                      <span className="text-[#c678dd]">{t("hero.exportDefaultFunction")}</span>
+                      <span className="text-[#61afef]"> {t("hero.app")}</span>
                       <span className="text-[#abb2bf]">() {"{"}</span>
                       {"\n"}
                       <span className="text-[#abb2bf]">{"  "}</span>
-                      <span className="text-[#c678dd]">return</span>
+                      <span className="text-[#c678dd]">{t("hero.return")}</span>
                       <span className="text-[#abb2bf]"> (</span>
                       {"\n"}
                       <span className="text-[#abb2bf]">{"    "}&lt;</span>
-                      <span className="text-emerald-400">LanguageSwitcher</span>
+                      <span className="text-emerald-400">{t("hero.languageswitcher_2")}</span>
                       <span className="text-[#abb2bf]"> </span>
-                      <span className="text-[#d19a66]">variant</span>
+                      <span className="text-[#d19a66]">{t("hero.variant")}</span>
                       <span className="text-[#abb2bf]">={'"'}</span>
-                      <span className="text-[#98c379]">dropdown</span>
+                      <span className="text-[#98c379]">{t("hero.dropdown")}</span>
                       <span className="text-[#abb2bf]">={'"'} /&gt;</span>
                       {"\n"}
                       <span className="text-[#abb2bf]">{"  "});</span>

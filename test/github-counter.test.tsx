@@ -1,10 +1,21 @@
-import { render, screen, fireEvent, act } from "@testing-library/react";
+import { render as rtlRender, screen, fireEvent, act } from "@testing-library/react";
+import type { ReactElement } from "react";
+import { NextIntlClientProvider } from "next-intl";
+import messages from "../public/locales/en.json";
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 import {
   GitHubCounter,
   RotatingGitHubCounter,
   formatGitHubCount,
 } from "../src/components/landing/github-counter";
+
+// The landing components translate with next-intl: render them as the app does.
+const render = (ui: ReactElement) =>
+  rtlRender(
+    <NextIntlClientProvider locale="en" messages={messages}>
+      {ui}
+    </NextIntlClientProvider>,
+  );
 
 describe("formatGitHubCount", () => {
   it("formats counts according to friendly bucket rules", () => {
