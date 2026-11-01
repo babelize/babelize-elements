@@ -136,28 +136,28 @@ export function Hero() {
                 <div className="overflow-x-auto p-6">
                   <pre className="font-mono text-[13px] leading-relaxed">
                     <code>
-                      <span className="text-[#c678dd]">{t("hero.import")}</span>
+                      <span className="text-[#c678dd]">{"import"}</span>
                       <span className="text-[#abb2bf]"> {"{ "}</span>
-                      <span className="text-emerald-400">{t("hero.languageswitcher")}</span>
+                      <span className="text-emerald-400">{"LanguageSwitcher"}</span>
                       <span className="text-[#abb2bf]">{" } "}</span>
-                      <span className="text-[#c678dd]">{t("hero.from")}</span>
+                      <span className="text-[#c678dd]">{"from"}</span>
                       <span className="text-[#98c379]"> &apos;@babelize/elements&apos;</span>
                       <span className="text-[#abb2bf]">;</span>
                       {"\n\n"}
-                      <span className="text-[#c678dd]">{t("hero.exportDefaultFunction")}</span>
-                      <span className="text-[#61afef]"> {t("hero.app")}</span>
+                      <span className="text-[#c678dd]">{"export default function"}</span>
+                      <span className="text-[#61afef]"> {"App"}</span>
                       <span className="text-[#abb2bf]">() {"{"}</span>
                       {"\n"}
                       <span className="text-[#abb2bf]">{"  "}</span>
-                      <span className="text-[#c678dd]">{t("hero.return")}</span>
+                      <span className="text-[#c678dd]">{"return"}</span>
                       <span className="text-[#abb2bf]"> (</span>
                       {"\n"}
                       <span className="text-[#abb2bf]">{"    "}&lt;</span>
-                      <span className="text-emerald-400">{t("hero.languageswitcher_2")}</span>
+                      <span className="text-emerald-400">{"LanguageSwitcher"}</span>
                       <span className="text-[#abb2bf]"> </span>
-                      <span className="text-[#d19a66]">{t("hero.variant")}</span>
+                      <span className="text-[#d19a66]">{"variant"}</span>
                       <span className="text-[#abb2bf]">={'"'}</span>
-                      <span className="text-[#98c379]">{t("hero.dropdown")}</span>
+                      <span className="text-[#98c379]">{"dropdown"}</span>
                       <span className="text-[#abb2bf]">={'"'} /&gt;</span>
                       {"\n"}
                       <span className="text-[#abb2bf]">{"  "});</span>

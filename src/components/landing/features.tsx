@@ -136,94 +136,94 @@ export function Features() {
               <div className="p-8">
                 <pre className="font-mono text-sm leading-[1.8]">
                   <code>
-                    <span className="text-[#a5d6ff]">{t("features.useClient")}</span>
+                    <span className="text-[#a5d6ff]">{'"use client"'}</span>
                     <span className="text-[#c9d1d9]">;</span>
                     {"\n\n"}
-                    <span className="text-[#ff7b72]">{t("features.import")}</span>
+                    <span className="text-[#ff7b72]">{"import"}</span>
                     <span className="text-[#c9d1d9]"> {"{ "}</span>
-                    <span className="text-[#c9d1d9]">{t("features.languageswitcher")}</span>
+                    <span className="text-[#c9d1d9]">{"LanguageSwitcher"}</span>
                     <span className="text-[#c9d1d9]">{" } "}</span>
-                    <span className="text-[#ff7b72]">{t("features.from")}</span>
-                    <span className="text-[#a5d6ff]"> {t("features.babelizeElements")}</span>
+                    <span className="text-[#ff7b72]">{"from"}</span>
+                    <span className="text-[#a5d6ff]"> {'"@babelize/elements"'}</span>
                     <span className="text-[#c9d1d9]">;</span>
                     {"\n\n"}
-                    <span className="text-[#ff7b72]">{t("features.exportDefaultFunction")}</span>
-                    <span className="text-[#d2a8ff]"> {t("features.app")}</span>
+                    <span className="text-[#ff7b72]">{"export default function"}</span>
+                    <span className="text-[#d2a8ff]"> {"App"}</span>
                     <span className="text-[#c9d1d9]">() {"{"}</span>
                     {"\n"}
                     <span className="text-[#c9d1d9]"> </span>
-                    <span className="text-[#ff7b72]">{t("features.return")}</span>
+                    <span className="text-[#ff7b72]">{"return"}</span>
                     <span className="text-[#c9d1d9]"> (</span>
                     {"\n"}
                     <span className="text-[#c9d1d9]"> &lt;</span>
-                    <span className="text-[#a5d6ff]">{t("features.languageswitcher_2")}</span>
+                    <span className="text-[#a5d6ff]">{"LanguageSwitcher"}</span>
                     {"\n"}
-                    <span className="text-[#d2a8ff]"> {t("features.locales")}</span>
+                    <span className="text-[#d2a8ff]"> {"locales"}</span>
                     <span className="text-[#ff7b72]">=</span>
                     <span className="text-[#c9d1d9]">{"{["}</span>
                     {"\n"}
                     <span className="text-[#c9d1d9]"> {"{ "}</span>
-                    <span className="text-[#c9d1d9]">{t("features.code")}</span>
-                    <span className="text-[#a5d6ff]"> {t("features.en")}</span>
+                    <span className="text-[#c9d1d9]">{"code:"}</span>
+                    <span className="text-[#a5d6ff]"> {'"en"'}</span>
                     <span className="text-[#c9d1d9]">{" },"}</span>
                     {"\n"}
                     <span className="text-[#c9d1d9]"> {"{ "}</span>
-                    <span className="text-[#c9d1d9]">{t("features.code_2")}</span>
-                    <span className="text-[#a5d6ff]"> {t("features.fr")}</span>
+                    <span className="text-[#c9d1d9]">{"code:"}</span>
+                    <span className="text-[#a5d6ff]"> {'"fr"'}</span>
                     <span className="text-[#c9d1d9]">{" },"}</span>
                     {"\n"}
                     <span className="text-[#c9d1d9]"> {"{ "}</span>
-                    <span className="text-[#c9d1d9]">{t("features.code_3")}</span>
-                    <span className="text-[#a5d6ff]"> {t("features.es")}</span>
+                    <span className="text-[#c9d1d9]">{"code:"}</span>
+                    <span className="text-[#a5d6ff]"> {'"es"'}</span>
                     <span className="text-[#c9d1d9]">{" },"}</span>
                     {"\n"}
                     <span className="text-[#c9d1d9]"> {"{ "}</span>
-                    <span className="text-[#c9d1d9]">{t("features.code_4")}</span>
-                    <span className="text-[#a5d6ff]"> {t("features.de")}</span>
+                    <span className="text-[#c9d1d9]">{"code:"}</span>
+                    <span className="text-[#a5d6ff]"> {'"de"'}</span>
                     <span className="text-[#c9d1d9]">{" },"}</span>
                     {"\n"}
                     <span className="text-[#c9d1d9]"> {"{ "}</span>
-                    <span className="text-[#c9d1d9]">{t("features.code_5")}</span>
-                    <span className="text-[#a5d6ff]"> {t("features.ja")}</span>
+                    <span className="text-[#c9d1d9]">{"code:"}</span>
+                    <span className="text-[#a5d6ff]"> {'"ja"'}</span>
                     <span className="text-[#c9d1d9]">{" },"}</span>
                     {"\n"}
                     <span className="text-[#c9d1d9]"> {"{ "}</span>
-                    <span className="text-[#c9d1d9]">{t("features.code_6")}</span>
-                    <span className="text-[#a5d6ff]"> {t("features.ar")}</span>
+                    <span className="text-[#c9d1d9]">{"code:"}</span>
+                    <span className="text-[#a5d6ff]"> {'"ar"'}</span>
                     <span className="text-[#c9d1d9]">{" },"}</span>
                     {"\n"}
                     <span className="text-[#c9d1d9]"> {"]}"}</span>
                     {"\n"}
-                    <span className="text-[#d2a8ff]"> {t("features.defaultvalue")}</span>
+                    <span className="text-[#d2a8ff]"> {"defaultValue"}</span>
                     <span className="text-[#ff7b72]">=</span>
-                    <span className="text-[#a5d6ff]">{t("features.en_2")}</span>
+                    <span className="text-[#a5d6ff]">{'"en"'}</span>
                     {"\n"}
-                    <span className="text-[#d2a8ff]"> {t("features.onvaluechange")}</span>
+                    <span className="text-[#d2a8ff]"> {"onValueChange"}</span>
                     <span className="text-[#ff7b72]">=</span>
                     <span className="text-[#c9d1d9]">{"{("}</span>
-                    <span className="text-[#ffa657]">{t("features.code_7")}</span>
+                    <span className="text-[#ffa657]">{"code"}</span>
                     <span className="text-[#c9d1d9]">) </span>
                     <span className="text-[#ff7b72]">=&gt;</span>
                     <span className="text-[#c9d1d9]"> {"{"}</span>
                     {"\n"}
                     <span className="text-[#8b949e]">{"// next-intl"}</span>
                     {"\n"}
-                    <span className="text-[#c9d1d9]"> {t("features.router")}</span>
-                    <span className="text-[#d2a8ff]">{t("features.push")}</span>
+                    <span className="text-[#c9d1d9]"> {"router."}</span>
+                    <span className="text-[#d2a8ff]">{"push"}</span>
                     <span className="text-[#c9d1d9]">(</span>
-                    <span className="text-[#a5d6ff]">{t("features.untitled")}</span>
+                    <span className="text-[#a5d6ff]">{"`/$"}</span>
                     <span className="text-[#c9d1d9]">{"{"}</span>
-                    <span className="text-[#c9d1d9]">{t("features.code_8")}</span>
+                    <span className="text-[#c9d1d9]">{"code"}</span>
                     <span className="text-[#c9d1d9]">{"}"}</span>
                     <span className="text-[#a5d6ff]">`</span>
                     <span className="text-[#c9d1d9]">);</span>
                     {"\n"}
                     <span className="text-[#8b949e]">{"// react-i18next"}</span>
                     {"\n"}
-                    <span className="text-[#c9d1d9]"> {t("features.i18n")}</span>
-                    <span className="text-[#d2a8ff]">{t("features.changelanguage")}</span>
+                    <span className="text-[#c9d1d9]"> {"i18n."}</span>
+                    <span className="text-[#d2a8ff]">{"changeLanguage"}</span>
                     <span className="text-[#c9d1d9]">(</span>
-                    <span className="text-[#c9d1d9]">{t("features.code_9")}</span>
+                    <span className="text-[#c9d1d9]">{"code"}</span>
                     <span className="text-[#c9d1d9]">);</span>
                     {"\n"}
                     <span className="text-[#c9d1d9]"> {"}}"}</span>

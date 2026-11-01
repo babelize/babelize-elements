@@ -165,9 +165,7 @@
       "sourceHash": "b64ac05f17e64d037db81a98f51e2688216e292ae9748f979f04dfbac49fd7fc",
       "translatedAt": "2026-11-01T11:10:51.123Z",
       "languages": {
-        "es": "Vivir en vivo",
-        "ja": "[{#0} ライブ",
-        "ar": "[{#0} على قيد الحياة"
+        "es": "Vivir en vivo"
       },
       "metadata": {}
     },
@@ -264,9 +262,7 @@
       "sourceHash": "60acc53f13a5d1bf115878c4a785e9a43e8286c4139a8402a6ac7d23966f9153",
       "translatedAt": "2026-11-01T11:10:51.123Z",
       "languages": {
-        "es": "Es oscuro",
-        "ja": "[{#0} ダーク",
-        "ar": "[{#0} مظلمة"
+        "es": "Es oscuro"
       },
       "metadata": {}
     },
@@ -520,8 +516,7 @@
       "translatedAt": "2026-11-01T11:10:51.123Z",
       "languages": {
         "es": "Contribuir",
-        "ja": "貢献する",
-        "ar": "[{#0} مساهمة"
+        "ja": "貢献する"
       },
       "metadata": {}
     },
@@ -656,7 +651,6 @@
       "translatedAt": "2026-11-01T11:10:51.123Z",
       "languages": {
         "es": "Editación en contexto",
-        "ja": "[{#0} 文脈編集",
         "ar": "في السياق التحرير"
       },
       "metadata": {}
@@ -686,7 +680,6 @@
       "translatedAt": "2026-11-01T11:10:51.123Z",
       "languages": {
         "es": "No hay cambio de contexto, no hay búsqueda de archivos de traducción.",
-        "ja": "[{#0}文脈交換なし 文脈交換なし",
         "ar": "لا تغيير السياق. لا صيد من خلال ملفات الترجمة."
       },
       "metadata": {}
@@ -1035,7 +1028,6 @@
       "translatedAt": "2026-11-01T11:10:51.123Z",
       "languages": {
         "es": "Poderoso por defecto",
-        "ja": "[{#0} デフォルトで強力で",
         "ar": "قوية بشكل افتراضي"
       },
       "metadata": {}

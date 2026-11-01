@@ -53,8 +53,10 @@ export function proxy(request: NextRequest) {
   if (isSourceOnly(pathname)) return NextResponse.next({ request: { headers } });
 
   // An unprefixed URL is the source language, unless the visitor chose another.
+  // "/" always stays English, so English is reachable before there is a
+  // language switcher to change NEXT_LOCALE.
   const chosen = request.cookies.get("NEXT_LOCALE")?.value;
-  if (chosen && chosen !== sourceLocale && locales.includes(chosen)) {
+  if (pathname !== "/" && chosen && chosen !== sourceLocale && locales.includes(chosen)) {
     const url = request.nextUrl.clone();
     url.pathname = localized(pathname, chosen);
     return NextResponse.redirect(url);
