@@ -550,9 +550,7 @@
       "sourceHash": "7891fb07a7ead3b1101699dc080cfd75ed2393ec7363acbd8986186ee90b0094",
       "translatedAt": "2026-11-01T11:10:51.123Z",
       "languages": {
-        "es": "Leer la guía de contribuciones",
-        "ja": "[貢献ガイドを読む {#0}",
-        "ar": "[اقرأ دليل المساهمة {#0} قراءة دليل المساهمة"
+        "es": "Leer la guía de contribuciones"
       },
       "metadata": {}
     },
@@ -1798,9 +1796,7 @@
       "sourceHash": "3b73900b8d29f963dece78edd4bd9529d855e50f2a3fcc39b3d66cd657630905",
       "translatedAt": "2026-11-01T11:10:51.123Z",
       "languages": {
-        "es": "[Explorar {#0} Explorar",
-        "ja": "探求する",
-        "ar": "استكشاف {#0} استكشاف"
+        "ja": "探求する"
       },
       "metadata": {}
     },

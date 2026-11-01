@@ -54,8 +54,7 @@
   "contribute": {
     "browseOpenIssues": "تفتيش المشكلات المفتوحة",
     "builtByTheCommunityFor": "تم بناؤها بواسطة <span>community</span> لكل تطبيق محلي",
-    "joinTheBabelizeElementsOpenSource": "انضموا إلى المساهمين المفتوحين Babelize Elements، اختروا مسألة، وبنوا React i18n مكوّن، وأرسلوها إلى المطورين في جميع أنحاء العالم.",
-    "readTheContributionGuide": "[اقرأ دليل المساهمة {#0} قراءة دليل المساهمة"
+    "joinTheBabelizeElementsOpenSource": "انضموا إلى المساهمين المفتوحين Babelize Elements، اختروا مسألة، وبنوا React i18n مكوّن، وأرسلوها إلى المطورين في جميع أنحاء العالم."
   },
   "editing": {
     "babelizeConsole": "Babelize أجهزة التحكم",
@@ -116,7 +115,6 @@
     "de": "دي",
     "dropdown": "النزول إلى أسفل",
     "en": "ين",
-    "explore": "استكشاف {#0} استكشاف",
     "fr": "فر",
     "keepLanguageSwitchingAndLocalization": "الحفاظ على تغيير اللغة والتفاعلات المحلية بشكل مرئي بدلاً من الحفاظ على تنفيذات مختلفة في جميع أنحاء المنتج.",
     "languagesLocalesAndRtl": "اللغات والمناطق، و RTL معالجة.",

@@ -57,8 +57,7 @@
     "browseOpenIssues": "ブラウズ 未解決のIssue",
     "builtByTheCommunityFor": "<span>community</span>で作られています",
     "contribute": "貢献する",
-    "joinTheBabelizeElementsOpenSource": "オープンソースの Babelize Elements への参加 問題を選択して React i18n コンポーネント を構築し,世界中の開発者に送信します",
-    "readTheContributionGuide": "[貢献ガイドを読む {#0}"
+    "joinTheBabelizeElementsOpenSource": "オープンソースの Babelize Elements への参加 問題を選択して React i18n コンポーネント を構築し,世界中の開発者に送信します"
   },
   "editing": {
     "babelizeConsole": "Babelize コンソール",
