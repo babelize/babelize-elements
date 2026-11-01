@@ -1,5 +1,8 @@
 {
   "sourceLocale": "en",
   "targetLocales": ["es", "ja", "ar"],
-  "include": ["src/app/page.tsx", "src/components/landing/**"]
+  "include": ["src/app/page.tsx", "src/components/landing/**"],
+  "glossary": {
+    "neverTranslate": ["Babelize", "Babelize Elements", "React", "Tailwind CSS", "GitHub", "npm", "shadcn"]
+  }
 }
