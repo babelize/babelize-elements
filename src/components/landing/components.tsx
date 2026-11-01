@@ -1,4 +1,5 @@
 "use client";
+import { useTranslations } from "next-intl";
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
@@ -16,9 +17,19 @@ const languages = [
   { code: "ar", label: "العربية", flag: "🇸🇦", rtl: true },
 ];
 
+const languagesLabelKeys: Record<string, string> = {
+  English: "components.english",
+  Français: "components.français",
+  Español: "components.español",
+  Deutsch: "components.deutsch",
+  日本語: "components.untitled",
+  العربية: "components.untitled_2",
+};
+
 /* ── Shared app window chrome for realistic previews ── */
 
 function MiniApp({ title, children }: { title: string; children: React.ReactNode }) {
+  const t = useTranslations();
   return (
     <div className="relative mx-auto w-full max-w-2xl rounded-2xl border border-white/[0.08] shadow-[0_40px_100px_rgba(0,0,0,0.5)]">
       <div className="absolute inset-0 -z-10 rounded-2xl bg-[#0A0A0A]" />
@@ -29,7 +40,7 @@ function MiniApp({ title, children }: { title: string; children: React.ReactNode
           <span className="size-2.5 rounded-full bg-white/15" />
           <span className="ml-2 font-mono text-[11px] text-white/30">{title}</span>
         </div>
-        <span className="font-mono text-[11px] text-white/25">preview</span>
+        <span className="font-mono text-[11px] text-white/25">{t("components.preview")}</span>
       </div>
       {children}
     </div>
@@ -54,6 +65,7 @@ const pillMessages: Record<string, { greeting: string; name: string; desc: strin
 };
 
 function PillPreview() {
+  const tr = useTranslations();
   const [lang, setLang] = useState("en");
   const t = pillMessages[lang] ?? pillMessages.en;
 
@@ -65,8 +77,8 @@ function PillPreview() {
             B
           </span>
           <div>
-            <p className="text-sm font-semibold text-white">Babelize Console</p>
-            <p className="text-[11px] text-white/40">Localization workspace</p>
+            <p className="text-sm font-semibold text-white">{tr("components.babelizeConsole")}</p>
+            <p className="text-[11px] text-white/40">{tr("components.localizationWorkspace")}</p>
           </div>
         </div>
         <div className="inline-flex rounded-full border border-white/10 bg-white/5 p-1">
@@ -110,7 +122,7 @@ function PillPreview() {
           </div>
           <span className="flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-1 text-[11px] font-medium text-emerald-400">
             <span className="size-1.5 rounded-full bg-emerald-400" />
-            Live
+            {tr("components.live")}
           </span>
         </div>
         <div className="flex gap-2">
@@ -125,6 +137,7 @@ function PillPreview() {
 /* ── Dropdown Picker inside a settings screen ── */
 
 function DropdownPreview() {
+  const t = useTranslations();
   const [lang, setLang] = useState("en");
   const [open, setOpen] = useState(false);
   const current = languages.find((l) => l.code === lang)!;
@@ -132,15 +145,15 @@ function DropdownPreview() {
   return (
     <MiniApp title="settings.tsx">
       <div className="border-b border-white/[0.06] px-5 py-4">
-        <p className="text-sm font-semibold text-white">Workspace settings</p>
-        <p className="text-xs text-white/40">Manage your organization defaults</p>
+        <p className="text-sm font-semibold text-white">{t("components.workspaceSettings")}</p>
+        <p className="text-xs text-white/40">{t("components.manageYourOrganizationDefaults")}</p>
       </div>
 
       <div className="divide-y divide-white/[0.06]">
         <div className="flex items-center justify-between gap-4 px-5 py-4">
           <div>
-            <p className="text-sm text-white">Language</p>
-            <p className="text-xs text-white/40">Interface and content locale</p>
+            <p className="text-sm text-white">{t("components.language")}</p>
+            <p className="text-xs text-white/40">{t("components.interfaceAndContentLocale")}</p>
           </div>
           <div className="relative">
             <button
@@ -186,7 +199,7 @@ function DropdownPreview() {
                       )}
                     >
                       <span className="text-base leading-none">{l.flag}</span>
-                      <span>{l.label}</span>
+                      <span>{t(languagesLabelKeys[l.label] ?? l.label)}</span>
                     </button>
                   ))}
                 </motion.div>
@@ -197,22 +210,22 @@ function DropdownPreview() {
 
         <div className="flex items-center justify-between gap-4 px-5 py-4">
           <div>
-            <p className="text-sm text-white">Time zone</p>
-            <p className="text-xs text-white/40">Region-aware formatting</p>
+            <p className="text-sm text-white">{t("components.timeZone")}</p>
+            <p className="text-xs text-white/40">{t("components.regionAwareFormatting")}</p>
           </div>
           <span className="rounded-lg border border-white/[0.06] bg-white/[0.02] px-3.5 py-2.5 text-sm text-white/50">
-            (UTC+05:30) Sindian
+            {t("components.utc0530Sindian")}
           </span>
         </div>
 
         <div className="flex items-center justify-between gap-4 px-5 py-4">
           <div>
-            <p className="text-sm text-white">Theme</p>
-            <p className="text-xs text-white/40">Appearance preference</p>
+            <p className="text-sm text-white">{t("components.theme")}</p>
+            <p className="text-xs text-white/40">{t("components.appearancePreference")}</p>
           </div>
           <span className="flex h-9 items-center gap-1.5 rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 text-xs text-white/50">
             <span className="size-2 rounded-full bg-emerald-400/70" />
-            Dark
+            {t("components.dark")}
           </span>
         </div>
       </div>
@@ -223,23 +236,24 @@ function DropdownPreview() {
 /* ── In-context editing inside a translation editor ── */
 
 function EditingPreview() {
+  const t = useTranslations();
   const [editing, setEditing] = useState(false);
   return (
     <MiniApp title="translations.tsx">
       <div className="border-b border-white/[0.06] px-5 py-4">
-        <p className="text-sm font-semibold text-white">Translations</p>
-        <p className="text-xs text-white/40">app dashboard · English → French</p>
+        <p className="text-sm font-semibold text-white">{t("components.translations")}</p>
+        <p className="text-xs text-white/40">{t("components.appDashboardEnglish")}</p>
       </div>
 
       <div className="space-y-3 px-5 py-5">
         <div className="rounded-xl border border-white/10 bg-white/5 p-5">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-white/40">en</span>
+            <span className="text-xs text-white/40">{t("components.en")}</span>
             <span className="rounded-full bg-white/[0.04] px-2 py-0.5 text-[10px] font-medium text-white/40">
-              Source
+              {t("components.source")}
             </span>
           </div>
-          <p className="mt-2 text-base text-white">Welcome back, Sarah!</p>
+          <p className="mt-2 text-base text-white">{t("components.welcomeBackSarah")}</p>
         </div>
 
         <div className="mx-auto mt-0.5 flex size-6 items-center justify-center rounded-full border border-white/10 bg-[#0d0d0d] text-white/40">
@@ -260,12 +274,12 @@ function EditingPreview() {
           className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-5"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs text-white/40">fr</span>
+            <span className="text-xs text-white/40">{t("components.fr")}</span>
             <button
               onClick={() => setEditing(!editing)}
               className="text-xs font-medium text-emerald-400 transition-colors hover:text-emerald-300"
             >
-              {editing ? "Save" : "Edit"}
+              {editing ? t("components.save") : t("components.edit")}
             </button>
           </div>
           {editing ? (
@@ -275,12 +289,14 @@ function EditingPreview() {
               className="mt-2 w-full bg-transparent text-base text-white outline-none"
             />
           ) : (
-            <p className="mt-2 text-base text-white">Bienvenue, Sarah !</p>
+            <p className="mt-2 text-base text-white">{t("components.bienvenueSarah")}</p>
           )}
         </motion.div>
 
         <p className="pt-1 text-center text-xs text-white/30">
-          Click <span className="text-emerald-400">Edit</span> to translate inline
+          {t.rich("components.clickEditToTranslateInline", {
+            span: (chunks) => <span className="text-emerald-400">{chunks}</span>,
+          })}
         </p>
       </div>
     </MiniApp>
@@ -290,18 +306,19 @@ function EditingPreview() {
 /* ── RTL native ── */
 
 const rtlMessages = {
-  greeting: "مرحبا بعودتك",
-  desc: "لديك 3 إشعارات جديدة",
+  greeting: "components.untitled_3",
+  desc: "components.untitled_4",
 };
 
 function RtlPreview() {
+  const t = useTranslations();
   const [dir, setDir] = useState<"ltr" | "rtl">("rtl");
   const isRtl = dir === "rtl";
 
   return (
     <MiniApp title="activity.tsx">
       <div className="flex items-center justify-between gap-3 border-b border-white/[0.06] px-5 py-3">
-        <p className="text-sm font-semibold text-white">Activity</p>
+        <p className="text-sm font-semibold text-white">{t("components.activity")}</p>
         <div className="flex gap-0.5 rounded-full border border-white/[0.06] bg-white/[0.02] p-0.5">
           {(["ltr", "rtl"] as const).map((d) => (
             <button
@@ -324,8 +341,8 @@ function RtlPreview() {
         <div dir={isRtl ? "rtl" : "ltr"} className="space-y-4">
           <div className="flex items-center justify-between gap-3">
             <div>
-              <p className="text-base font-semibold text-white">{rtlMessages.greeting}</p>
-              <p className="mt-1 text-sm text-white/40">{rtlMessages.desc}</p>
+              <p className="text-base font-semibold text-white">{t(rtlMessages.greeting)}</p>
+              <p className="mt-1 text-sm text-white/40">{t(rtlMessages.desc)}</p>
             </div>
             <span className="flex size-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/60">
               <svg
@@ -346,7 +363,7 @@ function RtlPreview() {
 
           <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4">
             <div className="mb-3 flex items-center justify-between">
-              <span className="text-xs text-white/50">Notifications</span>
+              <span className="text-xs text-white/50">{t("components.notifications")}</span>
               <span className="rounded-full bg-emerald-500/20 px-2 py-0.5 text-[11px] font-medium text-emerald-400">
                 3
               </span>
@@ -524,6 +541,7 @@ const ITEMS = [
 ] as const;
 
 export function ComponentShowcase() {
+  const t = useTranslations();
   const [activeId, setActiveId] = useState<(typeof ITEMS)[number]["id"]>("pill");
   const [showCode, setShowCode] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -561,13 +579,16 @@ export function ComponentShowcase() {
         <Reveal>
           <div className="flex flex-col items-center text-center">
             <h2 className="text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-              Beautifully crafted{" "}
-              <span className="bg-gradient-to-r from-emerald-300 to-emerald-600 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(52,211,153,0.2)]">
-                localization components
-              </span>
+              {t.rich("components.beautifullyCraftedLocalizationComponents", {
+                span: (chunks) => (
+                  <span className="bg-gradient-to-r from-emerald-300 to-emerald-600 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(52,211,153,0.2)]">
+                    {chunks}
+                  </span>
+                ),
+              })}
             </h2>
             <p className="mt-5 max-w-xl text-base text-white/50">
-              Production-ready React components designed to drop directly into modern applications.
+              {t("components.productionReadyReactComponentsDesignedTo")}
             </p>
           </div>
         </Reveal>
@@ -578,7 +599,7 @@ export function ComponentShowcase() {
             {/* Selector */}
             <div className="border-b border-white/[0.06] px-5 py-4 lg:w-72 lg:shrink-0 lg:border-b-0 lg:border-r lg:p-6">
               <p className="mb-3 text-xs font-medium uppercase tracking-widest text-white/40">
-                Components
+                {t("components.components")}
               </p>
               <nav className="flex gap-1.5 overflow-x-auto lg:flex-col lg:overflow-visible">
                 {ITEMS.map((item) => {
@@ -624,7 +645,7 @@ export function ComponentShowcase() {
                     className="inline-flex h-9 items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3.5 text-xs font-medium text-white/70 transition-colors hover:bg-white/[0.06] hover:text-white"
                   >
                     <Code className="size-3.5" />
-                    {showCode ? "Hide code" : "View code"}
+                    {showCode ? t("components.hideCode") : t("components.viewCode")}
                   </button>
                   <button
                     onClick={copyCode}
@@ -636,7 +657,7 @@ export function ComponentShowcase() {
                     )}
                   >
                     {copied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
-                    {copied ? "Copied" : "Copy code"}
+                    {copied ? t("components.copied") : t("components.copyCode")}
                   </button>
                 </div>
               </div>
@@ -675,7 +696,7 @@ export function ComponentShowcase() {
                           className="flex items-center gap-1.5 rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-neutral-400 transition-colors hover:bg-white/10 hover:text-white"
                         >
                           {copied ? <Check className="size-3" /> : <Copy className="size-3" />}
-                          {copied ? "Copied" : "Copy"}
+                          {copied ? t("components.copied_2") : t("components.copy")}
                         </button>
                       </div>
                       <pre className="overflow-x-auto p-4 font-mono text-xs leading-relaxed text-white/70">
@@ -696,7 +717,7 @@ export function ComponentShowcase() {
               href="/docs/components"
               className="group inline-flex h-11 items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.02] px-6 text-sm font-medium text-white transition-all hover:bg-white/[0.05]"
             >
-              Browse all components
+              {t("components.browseAllComponents")}
               <ArrowRight className="size-4 opacity-50 transition-all group-hover:translate-x-1 group-hover:opacity-100" />
             </Link>
           </div>

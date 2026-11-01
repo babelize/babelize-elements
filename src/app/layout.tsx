@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
+import { NextIntlClientProvider, useLocale } from "next-intl";
+import { localeDirection } from "../i18n/locales";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -52,18 +54,22 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const locale = useLocale();
   return (
     <html
-      lang="en"
+      lang={locale}
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      dir={localeDirection(locale)}
     >
       <head>
         <meta name="color-scheme" content="light dark" />
       </head>
       <body className="min-h-full flex flex-col">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          <RootProvider theme={{ enabled: false }}>{children}</RootProvider>
+          <RootProvider theme={{ enabled: false }}>
+            <NextIntlClientProvider>{children}</NextIntlClientProvider>
+          </RootProvider>
         </ThemeProvider>
       </body>
     </html>

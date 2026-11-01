@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -16,6 +17,7 @@ const communityLinks = [
 ];
 
 export function Footer() {
+  const t = useTranslations();
   return (
     <footer className="relative border-t border-white/[0.05] pt-16 pb-12">
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -25,15 +27,14 @@ export function Footer() {
             <Link href="/" className="flex items-center gap-2.5">
               <Image
                 src="/elements_logo.svg"
-                alt="Babelize Elements"
+                alt={t("footer.babelizeElements")}
                 width={160}
                 height={30}
                 style={{ objectFit: "contain" }}
               />
             </Link>
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-white/50">
-              Open-source React components for modern localization and internationalization
-              management.
+              {t("footer.openSourceReactComponentsForModern")}
             </p>
             <div className="mt-6 flex items-center gap-2">
               <a
@@ -74,7 +75,7 @@ export function Footer() {
               >
                 <Image
                   src="/dark_logo.svg"
-                  alt="Babelize"
+                  alt={t("footer.babelize")}
                   width={20}
                   height={20}
                   style={{ objectFit: "contain" }}
@@ -84,7 +85,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-white">Resources</h3>
+            <h3 className="text-sm font-semibold text-white">{t("footer.resources")}</h3>
             <ul className="mt-6 space-y-4">
               {resources.map((item) => (
                 <li key={item.name}>
@@ -100,7 +101,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-white">Community</h3>
+            <h3 className="text-sm font-semibold text-white">{t("footer.community")}</h3>
             <ul className="mt-6 space-y-4">
               {communityLinks.map((item) => (
                 <li key={item.name}>
@@ -121,8 +122,8 @@ export function Footer() {
         {/* Bottom Line */}
         <div className="mt-16 border-t border-white/[0.05] pt-8">
           <p className="text-sm text-white/50">
-            © {new Date().getFullYear()} Babelize Elements. Made with{" "}
-            <span className="text-red-500">❤️</span> by developers at Babelize, for developers.
+            © {new Date().getFullYear()} {t("footer.babelizeElementsMadeWith")}{" "}
+            <span className="text-red-500">❤️</span> {t("footer.byDevelopersAtBabelizeFor")}
           </p>
         </div>
       </div>

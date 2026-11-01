@@ -1,4 +1,5 @@
 "use client";
+import { useTranslations } from "next-intl";
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
@@ -38,6 +39,7 @@ const FIELD_LABELS: Record<StrField, string> = {
 /* ── Interactive console demo ── */
 
 function EditingDemo() {
+  const t = useTranslations();
   const [locale, setLocale] = useState<Locale>("en");
   const [text, setText] = useState(INITIAL);
   const [editing, setEditing] = useState<StrField | null>(null);
@@ -175,7 +177,7 @@ function EditingDemo() {
                 disabled={!draft.trim()}
                 className="rounded-lg bg-emerald-500 px-3.5 py-1.5 text-xs font-medium text-black transition-colors hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-40"
               >
-                Save
+                {t("editing.save")}
               </button>
             </div>
           </motion.div>
@@ -195,7 +197,7 @@ function EditingDemo() {
             <span className="size-2.5 rounded-full bg-white/15" />
             <span className="ml-2 font-mono text-[11px] text-white/30">console.tsx</span>
           </div>
-          <span className="font-mono text-[11px] text-white/25">preview</span>
+          <span className="font-mono text-[11px] text-white/25">{t("editing.preview")}</span>
         </div>
 
         <div className="relative p-5 sm:p-6">
@@ -205,8 +207,8 @@ function EditingDemo() {
               B
             </span>
             <div className="min-w-0">
-              <p className="text-sm font-semibold text-white">Babelize Console</p>
-              <p className="text-[11px] text-white/40">Localization workspace</p>
+              <p className="text-sm font-semibold text-white">{t("editing.babelizeConsole")}</p>
+              <p className="text-[11px] text-white/40">{t("editing.localizationWorkspace")}</p>
             </div>
             <span className="ml-auto shrink-0 rounded-full border border-white/[0.08] bg-white/[0.02] px-2.5 py-1 font-mono text-[11px] text-emerald-300">
               {LOCALES.find((l) => l.code === locale)?.label}
@@ -258,7 +260,7 @@ function EditingDemo() {
                 >
                   <path d="M20 6 9 17l-5-5" />
                 </svg>
-                Saved
+                {t("editing.saved")}
               </motion.div>
             )}
           </AnimatePresence>
@@ -271,6 +273,7 @@ function EditingDemo() {
 /* ── Section ── */
 
 export function InContextEditing() {
+  const t = useTranslations();
   return (
     <section className="relative overflow-hidden py-20 md:py-28">
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -283,21 +286,23 @@ export function InContextEditing() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
                 </span>
-                In-context editing
+                {t("editing.inContextEditing")}
               </div>
               <h2 className="text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-                Edit translations{" "}
-                <span className="bg-gradient-to-r from-emerald-300 to-emerald-600 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(52,211,153,0.2)]">
-                  where they live.
-                </span>
+                {t.rich("editing.editTranslationsWhereTheyLive", {
+                  span: (chunks) => (
+                    <span className="bg-gradient-to-r from-emerald-300 to-emerald-600 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(52,211,153,0.2)]">
+                      {chunks}
+                    </span>
+                  ),
+                })}
               </h2>
               <p className="mt-5 text-base leading-relaxed text-white/50">
-                Update localized content directly inside your interface instead of hunting through
-                translation files.
+                {t("editing.updateLocalizedContentDirectlyInside")}
               </p>
               <p className="mt-6 flex items-center gap-2.5 text-sm text-white/40">
                 <span className="h-px w-6 bg-emerald-500/60" />
-                No context switching. No hunting through translation files.
+                {t("editing.noContextSwitchingNoHunting")}
               </p>
             </div>
           </Reveal>

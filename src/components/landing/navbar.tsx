@@ -1,4 +1,5 @@
 "use client";
+import { useTranslations } from "next-intl";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -8,10 +9,10 @@ import { GitHubCounter, RotatingGitHubCounter } from "./github-counter";
 import type { GitHubStats } from "@/lib/github";
 
 const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Components", href: "#components" },
-  { label: "Getting Started", href: "/docs/getting-started" },
-  { label: "Contribute", href: "/docs/getting-started/contributing" },
+  { label: "navbar.home", href: "/" },
+  { label: "navbar.components", href: "#components" },
+  { label: "navbar.gettingStarted", href: "/docs/getting-started" },
+  { label: "navbar.contribute", href: "/docs/getting-started/contributing" },
 ];
 
 export interface NavbarProps {
@@ -20,6 +21,7 @@ export interface NavbarProps {
 }
 
 export function Navbar({ stats, starsCount }: NavbarProps = {}) {
+  const t = useTranslations();
   const [isOpen, setIsOpen] = useState(false);
   const resolvedStats = stats ?? (starsCount !== undefined ? { stars: starsCount } : undefined);
   const resolvedStarsCount = stats?.stars ?? starsCount;
@@ -33,7 +35,7 @@ export function Navbar({ stats, starsCount }: NavbarProps = {}) {
             <div className="flex items-center justify-center gap-1.5 sm:gap-2">
               <Image
                 src="/elements_logo.svg"
-                alt="Babelize Elements"
+                alt={t("navbar.babelizeElements")}
                 width={112}
                 height={21}
                 className="h-6 w-auto sm:h-7"
@@ -59,7 +61,7 @@ export function Navbar({ stats, starsCount }: NavbarProps = {}) {
               className="group relative isolate hidden h-9 items-center justify-center overflow-hidden rounded-full bg-emerald-500 px-4 text-left text-sm font-medium text-black shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all duration-300 hover:bg-emerald-400 hover:shadow-[0_0_25px_rgba(16,185,129,0.5)] sm:inline-flex sm:h-10 sm:px-5"
             >
               <span className="relative z-10 flex items-center gap-2">
-                <span>Get Started</span>
+                <span>{t("navbar.getStarted")}</span>
                 <span className="inline-flex size-6 items-center justify-center rounded-full bg-emerald-950/20 p-1 transition-all duration-200 ease-in-out group-hover:shadow-xl sm:size-7">
                   <CornerDownLeft
                     size={14}
@@ -73,7 +75,7 @@ export function Navbar({ stats, starsCount }: NavbarProps = {}) {
             <button
               className="inline-flex size-9 items-center justify-center rounded-full text-white/80 hover:bg-white/5 lg:hidden"
               onClick={() => setIsOpen(!isOpen)}
-              aria-label="Toggle menu"
+              aria-label={t("navbar.toggleMenu")}
             >
               {isOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -92,7 +94,7 @@ export function Navbar({ stats, starsCount }: NavbarProps = {}) {
                 onClick={() => setIsOpen(false)}
                 className="rounded-xl px-4 py-2.5 text-sm text-white/80 transition-colors hover:bg-white/5 hover:text-white"
               >
-                {link.label}
+                {t(link.label)}
               </Link>
             ))}
             <div className="mt-1 flex justify-center">

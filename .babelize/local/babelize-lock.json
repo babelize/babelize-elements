@@ -1,0 +1,2058 @@
+{
+  "version": "1.0",
+  "projectId": "local",
+  "updatedAt": "2026-11-01T11:47:51.760Z",
+  "keys": {
+    "community.viewOurOpenSourceCode": {
+      "sourceHash": "8a7bd959cf06b5e4a62336763888a47ad15dad933d882efc01ae629bceaaba5b",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Ver nuestro código abierto y contribuir al proyecto",
+        "ja": "オープンソースコードを見て,プロジェクトに貢献してください",
+        "ar": "شاهد رمز المصدر المفتوح لدينا والمساهمة في المشروع"
+      },
+      "metadata": {}
+    },
+    "community.followUsForUpdatesAnd": {
+      "sourceHash": "8d049d2dde39bc3b89ff6c743744bbe5be3d6aaa731f89e622f45c0ca30507c0",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Siga con nosotros para obtener actualizaciones y anuncios sobre nuestros productos",
+        "ja": "商品の更新や発表については,ご連絡ください",
+        "ar": "اتبعنا للحصول على تحديثات وإعلانات حول منتجاتنا"
+      },
+      "metadata": {}
+    },
+    "community.joinOurCommunityForSupport": {
+      "sourceHash": "c0f2d877516009174f9df0f3db74666e921b408eb4fcc93d9c10f2ba42351369",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Únete a nuestra comunidad para apoyar y discutir",
+        "ja": "支援と議論のために私たちのコミュニティに参加してください",
+        "ar": "انضم إلى مجتمعنا للحصول على الدعم والمناقشات"
+      },
+      "metadata": {}
+    },
+    "community.joinOurCommunity": {
+      "sourceHash": "da6ac6da400ad7b2b1e247bfeff264d64d27ef526af39c9e12ad6e807717112a",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Únete a nuestra comunidad",
+        "ja": "私たちのコミュニティに参加してください",
+        "ar": "انضموا إلى مجتمعنا"
+      },
+      "metadata": {}
+    },
+    "community.connectWithOtherDevelopersGet": {
+      "sourceHash": "9dfa2a4ecce8da4092a4e9ded9c94880ed01573a382dc4d4597cc3a178b1acef",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Conectarse con otros desarrolladores, obtener ayuda y contribuir al proyecto",
+        "ja": "他の開発者と連携し,支援を得て,プロジェクトに貢献します",
+        "ar": "التواصل مع المطورين الآخرين، والحصول على المساعدة، والمساهمة في المشروع"
+      },
+      "metadata": {}
+    },
+    "components.english": {
+      "sourceHash": "ba118bf7fc9c1aedc1edb28a0aa86e0b43b681f222af6616e13c43be87815b06",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {},
+      "metadata": {}
+    },
+    "components.français": {
+      "sourceHash": "e495d53b967a7b049c8a2c25baa519fe124b49c1d0cf9cd8bdffa00d2f9d8ed6",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {},
+      "metadata": {}
+    },
+    "components.español": {
+      "sourceHash": "94b382b61b9dde0ff8d45a44a34b61971d98df5bd810c803a3f33ce5b115eae8",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {},
+      "metadata": {}
+    },
+    "components.deutsch": {
+      "sourceHash": "801cfe0fa1182664d16f4aaf7856cc73412f79ef508a866eebc2e5ccf125ff0a",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {},
+      "metadata": {}
+    },
+    "components.untitled": {
+      "sourceHash": "77710aedc74ecfa33685e33a6c7df5cc83004da1bdcef7fb280f5c2b2e97e0a5",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "日本語",
+        "ja": "日本語",
+        "ar": "日本語"
+      },
+      "metadata": {}
+    },
+    "components.untitled_2": {
+      "sourceHash": "d274159863057eb5c633116c3b54e4f8659167f0b73fabbee256e881fa1ac8c8",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {},
+      "metadata": {}
+    },
+    "components.untitled_3": {
+      "sourceHash": "58f1042929c996a1eddfd683c72ec33f015549d43ae12460a0d45b8059d70d99",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Hola de regreso",
+        "ja": "お疲れさまでした"
+      },
+      "metadata": {}
+    },
+    "components.untitled_4": {
+      "sourceHash": "48364eeb6c608829eed78a947c44b5c20a5436e37c347c120643f32b832e27f3",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Tienes tres nuevos anuncios",
+        "ja": "3つの新しいメッセージがあります"
+      },
+      "metadata": {}
+    },
+    "components.preview": {
+      "sourceHash": "5975cf1bba432391c94667f5886225f69377c0aa8b9fa21fddfb21c89bcf9092",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "vista previa",
+        "ja": "プレビュー",
+        "ar": "معاينة"
+      },
+      "metadata": {}
+    },
+    "components.babelizeConsole": {
+      "sourceHash": "e6b62a3c64c2eaa3f3dfc53e8a9e8c7c123ee317c8330f5d0909f6ea839235b1",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Babelize La consola",
+        "ja": "Babelize コンソール",
+        "ar": "Babelize أجهزة التحكم"
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "3cc4df3244b11ea0"
+        },
+        "ja": {
+          "glossaryHash": "3cc4df3244b11ea0"
+        },
+        "ar": {
+          "glossaryHash": "3cc4df3244b11ea0"
+        }
+      }
+    },
+    "components.localizationWorkspace": {
+      "sourceHash": "15d19beb20148c0340fc202a73c3ddbc810425fc993f88232cd79d6ba23fe340",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "localización espacio de trabajo",
+        "ja": "ローカライゼーション 作業スペース",
+        "ar": "التوطين مساحة عمل"
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "945c20a36b316896"
+        },
+        "ja": {
+          "glossaryHash": "92d6fce221cd2d0d"
+        },
+        "ar": {
+          "glossaryHash": "fcd3e3436e7da2dd"
+        }
+      }
+    },
+    "components.live": {
+      "sourceHash": "b64ac05f17e64d037db81a98f51e2688216e292ae9748f979f04dfbac49fd7fc",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Vivir en vivo"
+      },
+      "metadata": {}
+    },
+    "components.workspaceSettings": {
+      "sourceHash": "5ebc59145b59b496ab62a99bbc948f0b67e6beb787903a1e41c169ec29360d2d",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Configuración del espacio de trabajo",
+        "ja": "ワークスペースの設定は",
+        "ar": "إعدادات مساحة العمل"
+      },
+      "metadata": {}
+    },
+    "components.manageYourOrganizationDefaults": {
+      "sourceHash": "cabfb1116bb3467461b34336da12c6e88ea5c16aa199b388ffa8bb579a598c90",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Gestionar los fallos de su organización",
+        "ja": "組織のデフォルトを管理する",
+        "ar": "إدارة التخلفات التنظيمية"
+      },
+      "metadata": {}
+    },
+    "components.language": {
+      "sourceHash": "a4fe65264ef7dbb38d104b1e81eb3350f3142f3d16f32bdec39b1d9b42c1b8d1",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Idioma",
+        "ja": "言語",
+        "ar": "اللغة"
+      },
+      "metadata": {}
+    },
+    "components.interfaceAndContentLocale": {
+      "sourceHash": "90230eecb502c77dd2d744441b2dcc45dae7fa4c287c83ef5cc331dfe08aebc3",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Interfaz y contenido local",
+        "ja": "インターフェイスとコンテンツローカル",
+        "ar": "واجهة المحتوى المحلية"
+      },
+      "metadata": {}
+    },
+    "components.timeZone": {
+      "sourceHash": "b9fe1464783e1c0d3a12dbde2686e883482a4fa03f33351af3e576d7a9d32fe0",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Zona horaria",
+        "ja": "タイムゾーン",
+        "ar": "المنطقة الزمنية"
+      },
+      "metadata": {}
+    },
+    "components.regionAwareFormatting": {
+      "sourceHash": "251a68733c8cc36b76698616422f23d3b739d61b0fe6deaa42632550ccd2b400",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Formación consciente de la región",
+        "ja": "地域意識のある格式化",
+        "ar": "تشكيل المنطقة"
+      },
+      "metadata": {}
+    },
+    "components.utc0530Sindian": {
+      "sourceHash": "7a03aae039463c06de15a64f946f0bcb0b0389baa0dbc8d3545763570749fbb2",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "ja": "(UTC+05:30) シディアン",
+        "ar": "(UTC+05:30) سنديان"
+      },
+      "metadata": {}
+    },
+    "components.theme": {
+      "sourceHash": "efb52e7172b77731d996ff4f51cd7b3dcfd55fc6f07392994619418d58d170dd",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Tema",
+        "ja": "テーマ",
+        "ar": "المظهر"
+      },
+      "metadata": {}
+    },
+    "components.appearancePreference": {
+      "sourceHash": "c2b27c108978c111eebf0c1e85cb240154fe092b4ad1395c34b46b5f703ae7d6",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "La preferencia por la apariencia",
+        "ja": "外見の好み",
+        "ar": "تفضيلات المظهر"
+      },
+      "metadata": {}
+    },
+    "components.dark": {
+      "sourceHash": "60acc53f13a5d1bf115878c4a785e9a43e8286c4139a8402a6ac7d23966f9153",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Es oscuro"
+      },
+      "metadata": {}
+    },
+    "components.translations": {
+      "sourceHash": "266a41b90d4f831ea1626e6188606e9ba4fe3f9f72bdb65cb1626d364d212162",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Traducciones",
+        "ja": "翻訳",
+        "ar": "ترجمات"
+      },
+      "metadata": {}
+    },
+    "components.appDashboardEnglish": {
+      "sourceHash": "9c5caabf1dd7d3c96e3385b65511bf1217902d8f5e169fc421a0f15fc2553dff",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Panel de aplicaciones · Inglés → Francés",
+        "ja": "アプリのダッシュボード · 英語 → フランス語",
+        "ar": "لوحة التطبيقات · الإنجليزية → الفرنسية"
+      },
+      "metadata": {}
+    },
+    "components.en": {
+      "sourceHash": "dbd3a49d0d906b4ed9216b73330d2fb080ef2f758c12f3885068222e5e17151c",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "en",
+        "ja": "に関する",
+        "ar": "في يدي"
+      },
+      "metadata": {}
+    },
+    "components.source": {
+      "sourceHash": "0e570ca6fabe24f94e52c1833f3ffd25567022beb826fa16891f3322051bc221",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Fuente:",
+        "ja": "情報源:",
+        "ar": "المصدر"
+      },
+      "metadata": {}
+    },
+    "components.welcomeBackSarah": {
+      "sourceHash": "ceff2198031fa292f1fd369210ba6ab9b3a824929d93b0be4bedd8d83d6f0816",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "¡Bienvenido de vuelta, Sarah",
+        "ja": "お待たせしました!",
+        "ar": "مرحباً بعودتكِ يا (سارة)"
+      },
+      "metadata": {}
+    },
+    "components.fr": {
+      "sourceHash": "67ad8f41a7bb0a18c45f3efd8f6a32bdcd832bcf8f3f2eb44006c03d53076e18",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "por qué no?",
+        "ar": "من فضلكم"
+      },
+      "metadata": {}
+    },
+    "components.save": {
+      "sourceHash": "1509f561f2416598629b886ad7d3c05a7e221e4e0675c84bbff4ee6d9e03913d",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Guardar",
+        "ja": "保存",
+        "ar": "حفظ"
+      },
+      "metadata": {}
+    },
+    "components.edit": {
+      "sourceHash": "464c4ffd019e1e9691dcf0537c797353ef2b1c1d4833d3d463e5b74ae4547344",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Editar",
+        "ja": "編集",
+        "ar": "تعديل"
+      },
+      "metadata": {}
+    },
+    "components.bienvenueSarah": {
+      "sourceHash": "fe76723328e6534710514d68331df66b7503b2d93bc9bddc6b96c0c2906a7ccd",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Bienvenido, Sarah",
+        "ja": "お疲れさまでした!",
+        "ar": "(مرحباً يا (سارة"
+      },
+      "metadata": {}
+    },
+    "components.clickEditToTranslateInline": {
+      "sourceHash": "0e21571ebcd08d9df920c656ebf9728ce0193b5cb70efc94b8d7a08a8e6c269a",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Haga clic en <span>Edit</span> para traducir en línea",
+        "ja": "<span>Edit</span> をクリックしてインラインを翻訳します",
+        "ar": "انقر على <span>Edit</span> لترجمة في الخط"
+      },
+      "metadata": {}
+    },
+    "components.activity": {
+      "sourceHash": "38da1505ca8373288489495101b14f24ac95078f520ad64df18272aa6054f750",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Actividad",
+        "ja": "アクティビティ",
+        "ar": "النشاط"
+      },
+      "metadata": {}
+    },
+    "components.notifications": {
+      "sourceHash": "788011833a5a0f22db90c91e8eb7bd8e9f5cd423354ff5ef8c338e7895f44ba9",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Notificaciones",
+        "ja": "通知",
+        "ar": "الإشعارات"
+      },
+      "metadata": {}
+    },
+    "components.beautifullyCraftedLocalizationComponents": {
+      "sourceHash": "493a20f592c660e14a5d30d8573f84c7f15f8a5e11075ae66bc23a62e93e2e6d",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {},
+      "metadata": {}
+    },
+    "components.productionReadyReactComponentsDesignedTo": {
+      "sourceHash": "b289ebb2aeb4f89a71dc832bc0c60b153084e80ce9772c301e311e8e84208fe3",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "Listo para la producción React componentes diseñado para caer directamente en aplicaciones modernas.",
+        "ja": "React コンポーネントは,現代的なアプリケーションに直接落として設計されています.",
+        "ar": "جاهزة للإنتاج React مكوّنات مصممة لتسقط مباشرة في التطبيقات الحديثة."
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "7b56361e8b40d26e"
+        },
+        "ja": {
+          "glossaryHash": "8d203a76726b7d20"
+        },
+        "ar": {
+          "glossaryHash": "0f1609a43b9b7163"
+        }
+      }
+    },
+    "components.components": {
+      "sourceHash": "a150ce22160259313c47bc66940b905a9c2196924fd447f802cff12dbb1e9702",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "componentes",
+        "ja": "コンポーネント",
+        "ar": "مكوّنات"
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "3411d72da1df24d7"
+        },
+        "ja": {
+          "glossaryHash": "7125193fc49bf63b"
+        },
+        "ar": {
+          "glossaryHash": "ed63ca2743b2b101"
+        }
+      }
+    },
+    "components.hideCode": {
+      "sourceHash": "b92c5b5b58ddfd4be11f1b818cbe62be9e25694f80e98f6ff0cb255cb3aac85d",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Esconder el código",
+        "ja": "暗号を隠す",
+        "ar": "إختباء الرمز"
+      },
+      "metadata": {}
+    },
+    "components.viewCode": {
+      "sourceHash": "e8b18c6caf4b941b845ca157f39bf2c0e645bc38027def5854cf4ce2faf117d6",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Código de vista",
+        "ja": "ビューコード",
+        "ar": "رمز المشاهدة"
+      },
+      "metadata": {}
+    },
+    "components.copied": {
+      "sourceHash": "8d525e5f158b9afe05f3122af363ac67763bdc4e1395b46597b320c289766ce3",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Copiado",
+        "ja": "複製された",
+        "ar": "نسخة"
+      },
+      "metadata": {}
+    },
+    "components.copyCode": {
+      "sourceHash": "49a0053f3b0d5045a4ef3edfe5c39be60a7ea272cc22b7c33d646624346ccd4d",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Código de copia",
+        "ja": "コピーコード",
+        "ar": "نسخ الرمز"
+      },
+      "metadata": {}
+    },
+    "components.copied_2": {
+      "sourceHash": "8d525e5f158b9afe05f3122af363ac67763bdc4e1395b46597b320c289766ce3",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Copiado",
+        "ja": "複製された",
+        "ar": "نسخة"
+      },
+      "metadata": {}
+    },
+    "components.copy": {
+      "sourceHash": "e21f935f11d7e966dbbae78da9daa378fe8142a14e7c0cd7434183005faa6c5c",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Copiar",
+        "ja": "コピー",
+        "ar": "نسخ"
+      },
+      "metadata": {}
+    },
+    "components.browseAllComponents": {
+      "sourceHash": "623e9722c175a0b00abc724c30c3fd868e848ad85d3a76dae2471b97e287a802",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "Revisar todos los componentes",
+        "ja": "全コンポーネントを閲覧する",
+        "ar": "أبحث عن كل مكوّنات"
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "3411d72da1df24d7"
+        },
+        "ja": {
+          "glossaryHash": "7125193fc49bf63b"
+        },
+        "ar": {
+          "glossaryHash": "ed63ca2743b2b101"
+        }
+      }
+    },
+    "contribute.contribute": {
+      "sourceHash": "97b0c61b99f65f9eda32799cfefb51dcf1a56c172576a34ae2d00896ab8e13dd",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Contribuir",
+        "ja": "貢献する"
+      },
+      "metadata": {}
+    },
+    "contribute.builtByTheCommunityFor": {
+      "sourceHash": "2f6bfc0e737561cacc957abe61eb2fa36c84244f077f0db86e00414163da5572",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Construido por el <span>community</span> para cada aplicación localizada.",
+        "ja": "<span>community</span>で作られています",
+        "ar": "تم بناؤها بواسطة <span>community</span> لكل تطبيق محلي"
+      },
+      "metadata": {}
+    },
+    "contribute.joinTheBabelizeElementsOpenSource": {
+      "sourceHash": "8294f1e6faa676256de4ed1a2fd0ea40fe77eb1c31d1aa066e93558a54c4f2d9",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "ar": "انضموا إلى المساهمين المفتوحين Babelize Elements، اختروا مسألة، وبنوا React i18n مكوّن، وأرسلوها إلى المطورين في جميع أنحاء العالم.",
+        "ja": "オープンソースの Babelize Elements への参加 問題を選択して React i18n コンポーネント を構築し,世界中の開発者に送信します"
+      },
+      "metadata": {
+        "ar": {
+          "glossaryHash": "97e0e6bbdccbfd4f"
+        },
+        "ja": {
+          "glossaryHash": "5cdd5e3658eb845e"
+        }
+      }
+    },
+    "contribute.readTheContributionGuide": {
+      "sourceHash": "7891fb07a7ead3b1101699dc080cfd75ed2393ec7363acbd8986186ee90b0094",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Leer la guía de contribuciones"
+      },
+      "metadata": {}
+    },
+    "contribute.browseOpenIssues": {
+      "sourceHash": "281a9ae5b201923d8a19bdacd9561fcc9f8192864577e21ffee9cf8baa16e7a0",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "Busca en el issues abiertos",
+        "ja": "ブラウズ 未解決のIssue",
+        "ar": "تفتيش المشكلات المفتوحة"
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "7c88d6772258d1ee"
+        },
+        "ja": {
+          "glossaryHash": "4071263d0e375a46"
+        },
+        "ar": {
+          "glossaryHash": "a86326af2d8055d9"
+        }
+      }
+    },
+    "editing.save": {
+      "sourceHash": "1509f561f2416598629b886ad7d3c05a7e221e4e0675c84bbff4ee6d9e03913d",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Guardar",
+        "ja": "保存",
+        "ar": "حفظ"
+      },
+      "metadata": {}
+    },
+    "editing.preview": {
+      "sourceHash": "5975cf1bba432391c94667f5886225f69377c0aa8b9fa21fddfb21c89bcf9092",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "vista previa",
+        "ja": "プレビュー",
+        "ar": "معاينة"
+      },
+      "metadata": {}
+    },
+    "editing.babelizeConsole": {
+      "sourceHash": "e6b62a3c64c2eaa3f3dfc53e8a9e8c7c123ee317c8330f5d0909f6ea839235b1",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Babelize La consola",
+        "ja": "Babelize コンソール",
+        "ar": "Babelize أجهزة التحكم"
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "3cc4df3244b11ea0"
+        },
+        "ja": {
+          "glossaryHash": "3cc4df3244b11ea0"
+        },
+        "ar": {
+          "glossaryHash": "3cc4df3244b11ea0"
+        }
+      }
+    },
+    "editing.localizationWorkspace": {
+      "sourceHash": "15d19beb20148c0340fc202a73c3ddbc810425fc993f88232cd79d6ba23fe340",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "localización espacio de trabajo",
+        "ja": "ローカライゼーション 作業スペース",
+        "ar": "التوطين مساحة عمل"
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "945c20a36b316896"
+        },
+        "ja": {
+          "glossaryHash": "92d6fce221cd2d0d"
+        },
+        "ar": {
+          "glossaryHash": "fcd3e3436e7da2dd"
+        }
+      }
+    },
+    "editing.saved": {
+      "sourceHash": "b5c120b316c237a0deab3140267aebedba61947d3ae268d708a53d5be119e9fb",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Guardado",
+        "ja": "保存済み",
+        "ar": "تم الحفظ"
+      },
+      "metadata": {}
+    },
+    "editing.inContextEditing": {
+      "sourceHash": "20fe4d23364126ea1b70bfb84343af7a4db1c6c2c3f4d98d792cce2e04f2e016",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Editación en contexto",
+        "ar": "في السياق التحرير"
+      },
+      "metadata": {}
+    },
+    "editing.editTranslationsWhereTheyLive": {
+      "sourceHash": "97b389aa6e6222aaf9c496d096ad0635c2e86e1dc29a230d1fdb4eb328ff9209",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Edición de traducciones <span> donde viven.</span>",
+        "ja": "翻訳を編集する <span> 彼らが住んでいる場所.</span>",
+        "ar": "تحرير الترجمات <span> حيث يعيشون.</span>"
+      },
+      "metadata": {}
+    },
+    "editing.updateLocalizedContentDirectlyInside": {
+      "sourceHash": "79695ed4e80b59c00b19fff81a87d11f4a389a422864e42663ac7003866180a5",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Actualice el contenido localizado directamente dentro de su interfaz en lugar de buscar a través de archivos de traducción.",
+        "ja": "翻訳ファイルを検索する代わりに インターフェースの内部に本格的なコンテンツを更新します",
+        "ar": "قم بتحديث المحتوى المحلي مباشرة داخل واجهتك بدلاً من البحث عن ملفات الترجمة."
+      },
+      "metadata": {}
+    },
+    "editing.noContextSwitchingNoHunting": {
+      "sourceHash": "7d4f94a5a2bdb31beb3becd5a3732adc84220191a3153c5b8a55566b037f821e",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "No hay cambio de contexto, no hay búsqueda de archivos de traducción.",
+        "ar": "لا تغيير السياق. لا صيد من خلال ملفات الترجمة."
+      },
+      "metadata": {}
+    },
+    "faq.howDoIInstallBabelize": {
+      "sourceHash": "239319627db176ced09428e24793e1b529ea4e1d68d021764fb6c9c862fc675c",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "¿Cómo puedo instalar el Babelize Elements?",
+        "ja": "どうやってBabelize Elementsを設置する?",
+        "ar": "كيف يمكنني تركيب Babelize Elements؟"
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "d24143e2142fd211"
+        },
+        "ja": {
+          "glossaryHash": "d24143e2142fd211"
+        },
+        "ar": {
+          "glossaryHash": "d24143e2142fd211"
+        }
+      }
+    },
+    "faq.canICustomizeTheLanguage": {
+      "sourceHash": "e303e44abce63d859904f7b23b2d3371f25bcc00aafd2f0e37ad08632187a5b8",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "ar": "هل يمكنني تخصيص مبدّل اللغة و منتقي الإعدادات المحلية مكوّنات؟"
+      },
+      "metadata": {
+        "ar": {
+          "glossaryHash": "925f9a17999b5a1d"
+        }
+      }
+    },
+    "faq.areTheseReactI18nComponents": {
+      "sourceHash": "be7b1bb4331ec395771f51245eadfa5f010a5815f14452ad5da5512baa57b373",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "ja": "React i18n コンポーネントは生産準備ができているのか?",
+        "es": "¿Están estos React i18n componentes listos para la producción?",
+        "ar": "هل هذه React i18n مكوّنات جاهزة للإنتاج؟"
+      },
+      "metadata": {
+        "ja": {
+          "glossaryHash": "51e791506e3dda36"
+        },
+        "es": {
+          "glossaryHash": "051172124a3b5f2e"
+        },
+        "ar": {
+          "glossaryHash": "5b12a8ea31eda7bc"
+        }
+      }
+    },
+    "faq.isBabelizeElementsReallyFree": {
+      "sourceHash": "20300fbde2fc822fa8fc8bbcfdb0052abba0e17469c371f9578c8cd973cf5634",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "¿Es Babelize Elements realmente libre y de código abierto?",
+        "ja": "Babelize Elementsは本当に無料でオープンソースですか?",
+        "ar": "هل Babelize Elements مجانية حقاً ومفتوحة المصدر؟"
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "d24143e2142fd211"
+        },
+        "ja": {
+          "glossaryHash": "d24143e2142fd211"
+        },
+        "ar": {
+          "glossaryHash": "d24143e2142fd211"
+        }
+      }
+    },
+    "faq.whichInternationalizationI18nLibrariesAre": {
+      "sourceHash": "dec162267c34b485787b4c7e4359ea1c0b802d09842f5ec3c04a2cce3b17fd51",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "¿Qué bibliotecas de internacionalización (i18n) son compatibles?",
+        "ja": "どの国際化 (i18n) 図書館がサポートされていますか?",
+        "ar": "أي مكتبات دولية (i18n) تدعم؟"
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "619b81f2b86b0ac9"
+        },
+        "ja": {
+          "glossaryHash": "619b81f2b86b0ac9"
+        },
+        "ar": {
+          "glossaryHash": "619b81f2b86b0ac9"
+        }
+      }
+    },
+    "faq.howDoIContributeA": {
+      "sourceHash": "bc9c411fdc2a48569f2e49bb4af089ede35f647d3307c6d74682750ba3eff744",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "¿Cómo puedo contribuir con un componente a Babelize Elements?",
+        "ja": "コンポーネントからBabelize Elementsへの貢献は?",
+        "ar": "كيف أسهم بـمكوّن إلى Babelize Elements؟"
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "68372e35702aeb44"
+        },
+        "ja": {
+          "glossaryHash": "075dc7c411ca190c"
+        },
+        "ar": {
+          "glossaryHash": "3aaf6c2f8a1402dc"
+        }
+      }
+    },
+    "faq.installTheFullLibraryWith": {
+      "sourceHash": "ac819cdcfdb78886c913e98227a4c048b8f0c6dc4baf3598219d3268ce5ea44d",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "Instala la biblioteca completa con `npm install @babelize/elements`, o agrega componentes individual con `npx shadcn@latest add @babelize/language-switcher` (o `npx @babelize/elements add language-switcher`). Funciona con Next.js, Remix y cualquier aplicación React.",
+        "ar": "قم بتثبيت المكتبة الكاملة مع `npm install @babelize/elements` أو أضف مكوّنات الفردي مع `npx shadcn@latest add @babelize/language-switcher` (أو `npx @babelize/elements add language-switcher`). يعمل مع Next.js، Remix، وأي تطبيق React."
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "7b56361e8b40d26e"
+        },
+        "ar": {
+          "glossaryHash": "0f1609a43b9b7163"
+        }
+      }
+    },
+    "faq.absolutelySinceYouOwnThe": {
+      "sourceHash": "1d09b2b546a324216cd8b055c1153cc1f84393f67bd3fd15722bf4e4b9330d1a",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "Desde que posees el código, cada componente es totalmente personalizable con Tailwind CSS clases y accesorios. Cambia colores, espacios, animaciones y comportamiento como quieras.",
+        "ja": "すべてのコンポーネントはTailwind CSSクラスと道具で完全にカスタマイズできます 好きなように色やスペース,アニメーション,行動を変更します デザイン制限はありません",
+        "ar": "بالتأكيد، نظرًا لأنّك تملك الرمز، كل مكوّن قابلة للتخصيص بالكامل مع Tailwind CSS فئة وأدوات. قم بتغيير الألوان، الفاصل، الرسوم المتحركة، والسلوك كما تريد. لا توجد قيود تصميم."
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "5a2f59a2fef9a89a"
+        },
+        "ja": {
+          "glossaryHash": "64791401eab3e930"
+        },
+        "ar": {
+          "glossaryHash": "a75f64b2da0b1d7b"
+        }
+      }
+    },
+    "faq.everyMergedComponentIsReviewed": {
+      "sourceHash": "12afb174073f863b2c8d705f2e52d5b298d100226623e26dffb00a76a0cb18f4",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "Cada componente fusionado es revisado por los mantenedores y sigue nuestra lista de verificación de accesibilidad, TypeScript y localización antes de ser documentado.",
+        "ja": "組み合わされたコンポーネントは メンテナンス担当者によって レビューされ 文書化される前に アクセシビリティ・タイプスクリプトとローカライゼーションのチェックリストを チェックしています",
+        "ar": "يتم مراجعة كل مكوّن المدمجة من قبل المراقبين وتتبع قائمة الوصول الخاصة بنا، وخطوط النموذج، و التوطين قبل أن يتم توثيقها."
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "be8ca5e1fc43a1e1"
+        },
+        "ja": {
+          "glossaryHash": "36d4e7423bb1b518"
+        },
+        "ar": {
+          "glossaryHash": "5bc856c038191b2e"
+        }
+      }
+    },
+    "faq.yesMitLicensedAndFree": {
+      "sourceHash": "2fa9a4399fedd7f1b95acd65bd32529f79adf3671fa6cddd1699372902a8ae16",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "Sí Licenciado por MIT y gratuito para siempre. El código vive en GitHub, las contribuciones son bienvenidas, y puede usar el componentes en cualquier proyecto, comercial o no. No se requiere atribución.",
+        "ja": "GitHubのコードは永久に無料です. 貢献は歓迎され,商業的であろうとあらゆるプロジェクトでコンポーネントを使用できます. アトリビューションは必要ありません.",
+        "ar": "نعم تم ترخيصها بواسطة MIT ومجانية إلى الأبد. الرمز يعيش على GitHub، المساهمات مرحبًا بها، ويمكنك استخدام مكوّنات في أي مشروع، سواء كان تجاريًا أو غير."
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "9569f47deefbec1c"
+        },
+        "ja": {
+          "glossaryHash": "b35d733621cf75fe"
+        },
+        "ar": {
+          "glossaryHash": "51987987af0f2f33"
+        }
+      }
+    },
+    "faq.babelizeElementsWorksWithEvery": {
+      "sourceHash": "50dd466970f05506fd0e15c75809ed729b105486035031952a44f2fc506ae249",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {},
+      "metadata": {}
+    },
+    "faq.browseTheOpenIssuesOn": {
+      "sourceHash": "78de48d2db4ccc22bba896d032208b74228e8bd43bef3df05bfee13699ac9c01",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "Navegar por el issues abiertos en GitHub, construir el componente siguiendo la guía de contribución, y abrir un pull request.",
+        "ja": "未解決のIssue を GitHub で閲覧し,貢献ガイドに従って コンポーネント を作成し, pull request を開きます. メンテナントはそれをレビューし,統合します.",
+        "ar": "تصفح المشكلات المفتوحة على GitHub، قم بإنشاء مكوّن وفق دليل المساهمة، وفتح pull request. يقوم الحافظون بمراجعتها ودمجها، ويتم إرسالها إلى المستندات للجميع."
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "331e43507162e566"
+        },
+        "ja": {
+          "glossaryHash": "097263677b211c96"
+        },
+        "ar": {
+          "glossaryHash": "f7d0ba294050ae74"
+        }
+      }
+    },
+    "faq.support": {
+      "sourceHash": "be91940b79f469101df9a50544b6873aa5509a12f1f93f1cb5e3be3990d344b3",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Soporte",
+        "ja": "サポート",
+        "ar": "الدعم"
+      },
+      "metadata": {}
+    },
+    "faq.frequentlyAskedQuestions": {
+      "sourceHash": "240dc2ee5794c37460af7207df31359263b611f5c204072ebba236560fc55449",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Pregunta frecuente <span> preguntas </span>",
+        "ar": "الأسئلة المتكررة <span> أسئلة </span>"
+      },
+      "metadata": {}
+    },
+    "faq.everythingYouNeedToKnow": {
+      "sourceHash": "98373d2a34e4b72a6dc3fee5723cab8e364086861052f6958a0ff592282b3ed8",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {},
+      "metadata": {}
+    },
+    "features.languageSwitchers": {
+      "sourceHash": "180170814869950e24c53d81e6c0199530e3a2e1d9e4698eb48299e55c7dfaeb",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Cambiadores de lenguaje",
+        "ja": "言語交換器",
+        "ar": "متغيرات اللغة"
+      },
+      "metadata": {}
+    },
+    "features.localePickers": {
+      "sourceHash": "02bb6c0717101091212c607bc043e1cb61cb744ce5f39962a7401362e12d2d01",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Recogedores locales",
+        "ja": "ローカル・ピックラーズ",
+        "ar": "المجموعات المحلية"
+      },
+      "metadata": {}
+    },
+    "features.rtlLayoutSupport": {
+      "sourceHash": "75ac150c41a4437a34f672a9d38e6bc0acd6dd83c3764a1436233e2750317c48",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Apoyo a la configuración de RTL",
+        "ja": "RTL レイアウト サポート",
+        "ar": "دعم التخطيط RTL"
+      },
+      "metadata": {}
+    },
+    "features.i18nIntegration": {
+      "sourceHash": "2da3de97ed2a81931792254a41fb7d9410697e6495297d975a10c0d6db658fe8",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "i18n La integración",
+        "ar": "i18n التكامل",
+        "ja": "i18n 統合"
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "619b81f2b86b0ac9"
+        },
+        "ja": {
+          "glossaryHash": "619b81f2b86b0ac9"
+        },
+        "ar": {
+          "glossaryHash": "619b81f2b86b0ac9"
+        }
+      }
+    },
+    "features.dropInSwitchersWithDropdownsPills": {
+      "sourceHash": "1ab663452eb2b619ba2bb3caf1a7cfd10f2fd503e46ef9e8d1d4d661960a585d",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Los interruptores desplegables, las pastillas, las banderas y el soporte completo de RTL.",
+        "ja": "ドロップダウン,錠剤,フラッグ,および完全なRTLサポートを持つドロップインスイッチ.",
+        "ar": "أجهزة التبديل المقطوعة، والحبوب، والعلامات، ودعم RTL الكامل."
+      },
+      "metadata": {}
+    },
+    "features.searchableLocalePickersWithNative": {
+      "sourceHash": "b022e2d98e997430fb08d2f628c34b4c635d556259db29def78e45c510d70085",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Los seleccionadores de lugares buscables con nombres y banderas nativas.",
+        "ja": "地元の名前や旗を検索できる.",
+        "ar": "يُمكن البحث عن المواقع ذات الأسماء والعلامات الأصلية."
+      },
+      "metadata": {}
+    },
+    "features.automaticRtlDetectionAndLayout": {
+      "sourceHash": "a1c2fc8189a5cffbecae589cffa0df3a00b40cd303867900669ddc78e249c79f",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Detección automática de RTL y manejo de la dirección del diseño.",
+        "ja": "自動RTL検出とレイアウト方向処理",
+        "ar": "التشخيص التلقائي لـ RTL ومعالجة اتجاه التخطيط"
+      },
+      "metadata": {}
+    },
+    "features.worksWithReactIntlNextIntlI18next": {
+      "sourceHash": "6c9ff47dc815d4d50eb38fcece1388895879e9c5952906fed473f41b52d46e2f",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "Trabaja con react litros, next-intl, i18next, LinguiJS, y más.",
+        "ja": "react-intl, next-intl, i18next, LinguiJSなどで動作します.",
+        "ar": "يعمل مع react لتر، next-intl، i18next، LinguiJS، وغيرها."
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "dde817ba1a6e85a1"
+        },
+        "ja": {
+          "glossaryHash": "dde817ba1a6e85a1"
+        },
+        "ar": {
+          "glossaryHash": "dde817ba1a6e85a1"
+        }
+      }
+    },
+    "features.powerfulByDefault": {
+      "sourceHash": "164643d58df67771a02fbb12e93ecedca6762bb875a35c45727bc303e06bb824",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Poderoso por defecto",
+        "ar": "قوية بشكل افتراضي"
+      },
+      "metadata": {}
+    },
+    "features.everythingYouNeed": {
+      "sourceHash": "e2a24067404ef9bef612f4baf03e2e7306e9a1e13f84fdb85af04cf9eb110aeb",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Todo lo que necesitas",
+        "ja": "必要なものは全て",
+        "ar": "كل ما تحتاجه"
+      },
+      "metadata": {}
+    },
+    "features.toLocalize": {
+      "sourceHash": "392a55e1faf24f3442aa3ea11546fb8686cb36ab81a0ffe6f6934d60055297fa",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Para localizarlo.",
+        "ja": "地元を特定する",
+        "ar": "لتحديد موقعها"
+      },
+      "metadata": {}
+    },
+    "features.builtForModernReactApps": {
+      "sourceHash": "08e7c75c38a704871d1f31a4a2f2b1401ec504aad7ce92fea133303d7d630522",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Construido para React aplicaciones modernas.",
+        "ja": "モダンなアプリReactを インストールして グローバルに出荷します",
+        "ar": "بنيت من أجل React تطبيقات حديثة، قم بتثبيتها وإرسالها عالمياً."
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "1f22a3d95765ca21"
+        },
+        "ja": {
+          "glossaryHash": "1f22a3d95765ca21"
+        },
+        "ar": {
+          "glossaryHash": "1f22a3d95765ca21"
+        }
+      }
+    },
+    "features.copy": {
+      "sourceHash": "e21f935f11d7e966dbbae78da9daa378fe8142a14e7c0cd7434183005faa6c5c",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Copiar",
+        "ja": "コピー",
+        "ar": "نسخ"
+      },
+      "metadata": {}
+    },
+    "features.useClient": {
+      "sourceHash": "66eefa5f11f9135fcb21ad285b4fe7d8f32ff20e3f34db40e3a16276d81ba9c2",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "\"cliente de uso\"",
+        "ja": "\"利用客\"で",
+        "ar": "\"استعمال العميل\""
+      },
+      "metadata": {}
+    },
+    "features.import": {
+      "sourceHash": "d942f64886578d8747312e368ed92d9f6b2a8d45556f0f924e2444fe911d15af",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "importar",
+        "ja": "インポート",
+        "ar": "استيراد"
+      },
+      "metadata": {}
+    },
+    "features.languageswitcher": {
+      "sourceHash": "41e12b13f64c34cc030cba63b186c3b930e91653a934a2febf42643c71612192",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "lenguajeSwitcher",
+        "ja": "言語スイッチ",
+        "ar": "اللغةSwitcher"
+      },
+      "metadata": {}
+    },
+    "features.from": {
+      "sourceHash": "75857a45899985be4c4d941e90b6b396d6c92a4c7437aaf0bf102089fe21379d",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "de lo que es",
+        "ja": "イエズスから",
+        "ar": "من فيديو"
+      },
+      "metadata": {}
+    },
+    "features.babelizeElements": {
+      "sourceHash": "0d08fb595c2c33951d4e5427ddd0d34fe8acd89b06f798c2a76bd276773bce91",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "\"@babelize/elementos\"",
+        "ja": "\"@babelize/エレメンツ\"",
+        "ar": "\"@babelize/ العناصر\""
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "3cc4df3244b11ea0"
+        },
+        "ja": {
+          "glossaryHash": "3cc4df3244b11ea0"
+        },
+        "ar": {
+          "glossaryHash": "3cc4df3244b11ea0"
+        }
+      }
+    },
+    "features.exportDefaultFunction": {
+      "sourceHash": "e922f1c6f6e5fdeff2e26a3efb0a88ad144ca2803ee754cde1be8c7725c60180",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Función por defecto de exportación",
+        "ja": "輸出デフォルト関数",
+        "ar": "الوظيفة الافتراضية للتصدير"
+      },
+      "metadata": {}
+    },
+    "features.app": {
+      "sourceHash": "0d04bfeb7d64b71c74fc925cca93d683154e8cc7e6e5838faced498e34c9984d",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Aplicación",
+        "ja": "アップは",
+        "ar": "التطبيق"
+      },
+      "metadata": {}
+    },
+    "features.return": {
+      "sourceHash": "7187f0675eb3827939741acf7342ba78836ecec21a31ecf3f34a55309d3bee8a",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "El regreso",
+        "ja": "戻る",
+        "ar": "العودة"
+      },
+      "metadata": {}
+    },
+    "features.languageswitcher_2": {
+      "sourceHash": "41e12b13f64c34cc030cba63b186c3b930e91653a934a2febf42643c71612192",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "lenguajeSwitcher",
+        "ja": "言語スイッチ",
+        "ar": "اللغةSwitcher"
+      },
+      "metadata": {}
+    },
+    "features.locales": {
+      "sourceHash": "62bc7cacc929f0e9ab9787b7a0703360f4ac40ac805225b83a4d8218e3e02587",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "ja": "地元",
+        "ar": "المحليات"
+      },
+      "metadata": {}
+    },
+    "features.code": {
+      "sourceHash": "fad97318bc5ba525525a658e20599996671570c6a642f83d0d3e1fb1f1baffcf",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Código:",
+        "ja": "コード:",
+        "ar": "الرمز:"
+      },
+      "metadata": {}
+    },
+    "features.en": {
+      "sourceHash": "50eac10e7966a04e139902940a2a8e129a4597574c709cb8d01939ace56ff9c3",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "\"en\" y \"en\"",
+        "ja": "\"en\"で",
+        "ar": "\"في\""
+      },
+      "metadata": {}
+    },
+    "features.code_2": {
+      "sourceHash": "fad97318bc5ba525525a658e20599996671570c6a642f83d0d3e1fb1f1baffcf",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Código:",
+        "ja": "コード:",
+        "ar": "الرمز:"
+      },
+      "metadata": {}
+    },
+    "features.fr": {
+      "sourceHash": "92e5a66169065f84773d2d274c0cbf31bf70b2a73e0bb398ef2c9d6236246ef2",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "\"fr\" en su nombre",
+        "ja": "\"fr\"は",
+        "ar": "\"fr\" في البداية"
+      },
+      "metadata": {}
+    },
+    "features.code_3": {
+      "sourceHash": "fad97318bc5ba525525a658e20599996671570c6a642f83d0d3e1fb1f1baffcf",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Código:",
+        "ja": "コード:",
+        "ar": "الرمز:"
+      },
+      "metadata": {}
+    },
+    "features.es": {
+      "sourceHash": "14ba00619711fab581c110c61f07619a6df0d8c35da91f7ce7c4436d3c3531b5",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "\"es\" es",
+        "ja": "\"エス\"とは",
+        "ar": "\"هناك\""
+      },
+      "metadata": {}
+    },
+    "features.code_4": {
+      "sourceHash": "fad97318bc5ba525525a658e20599996671570c6a642f83d0d3e1fb1f1baffcf",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Código:",
+        "ja": "コード:",
+        "ar": "الرمز:"
+      },
+      "metadata": {}
+    },
+    "features.de": {
+      "sourceHash": "fa20977256dfdd5a59989d6975c14a6909be1e3c9cd8bcb45ce4ffc0775c52fb",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "\"de\" y \"de\"",
+        "ja": "\"de\"で",
+        "ar": "\"فقط\""
+      },
+      "metadata": {}
+    },
+    "features.code_5": {
+      "sourceHash": "fad97318bc5ba525525a658e20599996671570c6a642f83d0d3e1fb1f1baffcf",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Código:",
+        "ja": "コード:",
+        "ar": "الرمز:"
+      },
+      "metadata": {}
+    },
+    "features.ja": {
+      "sourceHash": "4a86a3eca47707ecbec7f6d2c910c8246361242f9db740ce8c21bb032781d1c0",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "\"ja\" en su nombre",
+        "ja": "\"ジャイ\"で",
+        "ar": "\"يا\""
+      },
+      "metadata": {}
+    },
+    "features.code_6": {
+      "sourceHash": "fad97318bc5ba525525a658e20599996671570c6a642f83d0d3e1fb1f1baffcf",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Código:",
+        "ja": "コード:",
+        "ar": "الرمز:"
+      },
+      "metadata": {}
+    },
+    "features.ar": {
+      "sourceHash": "8208994143fbc4fbdeab96c0ed932f9df3846568df6187e6833fb647366b1935",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "\"ar\" en su nombre",
+        "ja": "\"アール\"",
+        "ar": "\"أر\""
+      },
+      "metadata": {}
+    },
+    "features.defaultvalue": {
+      "sourceHash": "b5bd866e65a9f2fc2d6a398642b8c5b6cf14df5df507ba60b65646235cf2750f",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Por defectoValue",
+        "ar": "ديفاولتvالوي"
+      },
+      "metadata": {}
+    },
+    "features.en_2": {
+      "sourceHash": "50eac10e7966a04e139902940a2a8e129a4597574c709cb8d01939ace56ff9c3",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "\"en\" y \"en\"",
+        "ja": "\"en\"で",
+        "ar": "\"في\""
+      },
+      "metadata": {}
+    },
+    "features.onvaluechange": {
+      "sourceHash": "779e077450a1d912854f8e116e3d576b2a18b33f46e6b427ec0ce982ef9423df",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "sobreCambio de valor",
+        "ar": "ونvالويcحانgي"
+      },
+      "metadata": {}
+    },
+    "features.code_7": {
+      "sourceHash": "5694d08a2e53ffcae0c3103e5ad6f6076abd960eb1f8a56577040bc1028f702b",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Código",
+        "ja": "コード",
+        "ar": "الرمز"
+      },
+      "metadata": {}
+    },
+    "features.router": {
+      "sourceHash": "e44a6c3c348c47df6eba5d3be20e009bb9e08916f4e76066e4c93d8d2e4c8d00",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "El enrutador.",
+        "ja": "ルーター",
+        "ar": "جهاز التوجيه"
+      },
+      "metadata": {}
+    },
+    "features.push": {
+      "sourceHash": "d107ea3629c326718876f07356a48dea26f123742f8bf44ce75f8f805cf9a37d",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Empuje",
+        "ja": "押す",
+        "ar": "ادفع"
+      },
+      "metadata": {}
+    },
+    "features.untitled": {
+      "sourceHash": "3ad3a5d6b7618935915ed5247e0a59fc8bd11591dd8127d511bf5c1a61585283",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "`/$",
+        "ja": "`/$",
+        "ar": "`/$"
+      },
+      "metadata": {}
+    },
+    "features.code_8": {
+      "sourceHash": "5694d08a2e53ffcae0c3103e5ad6f6076abd960eb1f8a56577040bc1028f702b",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Código",
+        "ja": "コード",
+        "ar": "الرمز"
+      },
+      "metadata": {}
+    },
+    "features.i18n": {
+      "sourceHash": "3463793b7f77993a15bc376009756ba33ab65ef22a0253773e855a91de825b92",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "¿Qué es esto?",
+        "ja": "i18nで",
+        "ar": "أ18ن."
+      },
+      "metadata": {}
+    },
+    "features.changelanguage": {
+      "sourceHash": "8c279537a2a1e17f9b8e5bc547f04b28b0cfa73985895793390634ac79260f9a",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Cambio de lenguaje",
+        "ar": "cحانgيلانgواgي"
+      },
+      "metadata": {}
+    },
+    "features.code_9": {
+      "sourceHash": "5694d08a2e53ffcae0c3103e5ad6f6076abd960eb1f8a56577040bc1028f702b",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Código",
+        "ja": "コード",
+        "ar": "الرمز"
+      },
+      "metadata": {}
+    },
+    "footer.babelizeElements": {
+      "sourceHash": "3a26f9edd5805875e65c89f33516716f5d58e15ea13eaf6d68f6898db4168867",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {},
+      "metadata": {}
+    },
+    "footer.openSourceReactComponentsForModern": {
+      "sourceHash": "9d40b85122836ef0ac8d7fc9c4801d67edb7e7472bd34e1c47f2eb8be2e23658",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "React componentes de código abierto para el localización moderno y la gestión de la internacionalización.",
+        "ja": "ローカライゼーションと国際化管理のためのオープンソース React コンポーネント",
+        "ar": "المصدر المفتوح React مكوّنات للإدارة الحديثة التوطين والدولية."
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "587a7cb86731ed4c"
+        },
+        "ja": {
+          "glossaryHash": "3c99c98b30b20f8a"
+        },
+        "ar": {
+          "glossaryHash": "871c6356eaf9cf69"
+        }
+      }
+    },
+    "footer.babelize": {
+      "sourceHash": "5c370ec7f6100c09227e9ba4747a1fcd2f52e76f1c551ea9152c055c19c801c8",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {},
+      "metadata": {}
+    },
+    "footer.resources": {
+      "sourceHash": "e89b30aa1dc30a6ad8c34610689bede83b3ef645a24c3a84a0990826687fb735",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Los recursos",
+        "ja": "資源",
+        "ar": "الموارد"
+      },
+      "metadata": {}
+    },
+    "footer.community": {
+      "sourceHash": "bb501d7877eb7ddbd40baf7990e8058212e8140a2e6ceaaf2d54a6412b770bfd",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "La comunidad",
+        "ja": "地域社会",
+        "ar": "المجتمع"
+      },
+      "metadata": {}
+    },
+    "footer.babelizeElementsMadeWith": {
+      "sourceHash": "0addfa7450ae0f6e4583409540e9ffc89c08be9d510ffe7e91e0fc960f181c80",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "Babelize Elements",
+        "ar": "Babelize Elements",
+        "ja": "Babelize Elementsで作られている"
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "d24143e2142fd211"
+        },
+        "ar": {
+          "glossaryHash": "d24143e2142fd211"
+        },
+        "ja": {
+          "glossaryHash": "d24143e2142fd211"
+        }
+      }
+    },
+    "footer.byDevelopersAtBabelizeFor": {
+      "sourceHash": "c8abaf03fd1e0435656eabb9703fece1c165b968b6a54cbc42ad8f47e61cba00",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "por desarrolladores en Babelize, para desarrolladores.",
+        "ja": "開発者向けBabelizeで開発者向け",
+        "ar": "من قبل المطورين في Babelize, للمطورين."
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "3cc4df3244b11ea0"
+        },
+        "ja": {
+          "glossaryHash": "3cc4df3244b11ea0"
+        },
+        "ar": {
+          "glossaryHash": "3cc4df3244b11ea0"
+        }
+      }
+    },
+    "getting-started.buildFaster": {
+      "sourceHash": "beea5d5f2c222d1c886a28b6113a97830b84239b1588115d35d3bcab081d8ea0",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Construye más rápido",
+        "ja": "早く作れ",
+        "ar": "بناء أسرع"
+      },
+      "metadata": {}
+    },
+    "getting-started.stayConsistent": {
+      "sourceHash": "8e07d71bf6fba04b218d001bd774d80216033e03d4304b1b7aa8cad9ea11a567",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Manténgase consistente",
+        "ja": "一貫して",
+        "ar": "إبقوا متواصلين"
+      },
+      "metadata": {}
+    },
+    "getting-started.shipGlobally": {
+      "sourceHash": "0eb65a6aa5f6e32f556b708c6dc5a8ebf15203c489a83369d58726d839779556",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Navegación a nivel mundial",
+        "ja": "船舶はグローバルに",
+        "ar": "سفينة عالمية"
+      },
+      "metadata": {}
+    },
+    "getting-started.stopRebuildingLocalizationUi": {
+      "sourceHash": "f2ed6eb75ea9b3fa1b5ee04e0fd286744da95b6e6ddeb1699d16ed6cec734bd8",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "Deja de reconstruir localización UI.",
+        "ja": "ローカライゼーション UIの再構築をやめましょう",
+        "ar": "توقف عن إعادة بناء التوطين UI."
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "945c20a36b316896"
+        },
+        "ja": {
+          "glossaryHash": "92d6fce221cd2d0d"
+        },
+        "ar": {
+          "glossaryHash": "fcd3e3436e7da2dd"
+        }
+      }
+    },
+    "getting-started.oneLocalizationExperienceAcrossYour": {
+      "sourceHash": "e5a137c51008228e9b53ceabe0eea3ff9bcee9f3c8e36129f96c08831f8b75dc",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "Una experiencia de localización a través de su aplicación.",
+        "ja": "あなたのアプリで1つのローカライゼーションの経験があります.",
+        "ar": "تجربة واحدة التوطين عبر تطبيقك"
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "945c20a36b316896"
+        },
+        "ja": {
+          "glossaryHash": "92d6fce221cd2d0d"
+        },
+        "ar": {
+          "glossaryHash": "fcd3e3436e7da2dd"
+        }
+      }
+    },
+    "getting-started.languagesLocalesAndRtl": {
+      "sourceHash": "eb33e99192dde1afd22b8bb7630b7e4eee79dadfb723d44e7cd17384eb4894f1",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Idiomas, locales y RTL se manejan.",
+        "ja": "言語,地域,およびRTL が扱われる.",
+        "ar": "اللغات والمناطق، و RTL معالجة."
+      },
+      "metadata": {}
+    },
+    "getting-started.useReadyMadeComponentsInsteadOf": {
+      "sourceHash": "19d9883def71408529848b2d982a2790a4e1dad313f7f6f4af13c89b19f9d664",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "Utilice el componentes listo en lugar de crear repetidamente selectores de lenguaje, controles locales, interfaces de edición y comportamiento RTL desde cero.",
+        "ja": "言語セレクター,ローケールコントロール,エディティングインターフェイス,RTL行動をゼロから繰り返し作成する代わりに,準備済みコンポーネントを使用します.",
+        "ar": "استخدم مكوّنات جاهزة بدلاً من إنشاء اختيارات اللغة وتحكمات المنطقة وتحرير الواجهات والسلوك RTL من الصفر."
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "3411d72da1df24d7"
+        },
+        "ja": {
+          "glossaryHash": "7125193fc49bf63b"
+        },
+        "ar": {
+          "glossaryHash": "ed63ca2743b2b101"
+        }
+      }
+    },
+    "getting-started.keepLanguageSwitchingAndLocalization": {
+      "sourceHash": "96409568c59dbde9b66e13dd27a9c2f18c55c4181aa5687541c16d3cdf1cad4a",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "ja": "製品全体で異なる実装を維持するのではなく,言語の切り替えとローカライゼーションの相互作用を視覚的に一致させてください."
+      },
+      "metadata": {
+        "ja": {
+          "glossaryHash": "92d6fce221cd2d0d"
+        }
+      }
+    },
+    "getting-started.buildInterfacesThatAreReady": {
+      "sourceHash": "299ea2d81ac77f6e42ae49751998ac8b01242ce7437ee52c28d16cbf49117b6b",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Construir interfaces que estén listas para los usuarios en diferentes idiomas y escribir direcciones sin crear sistemas de interfaz separados.",
+        "ja": "異なる言語でユーザーに用意されたインターフェースを作成し,別々のUIシステムを作成することなく,指示を書きます.",
+        "ar": "بناء واجهات جاهزة للمستخدمين عبر اللغات المختلفة وكتابة الاتجاهات دون إنشاء أنظمة UI منفصلة."
+      },
+      "metadata": {}
+    },
+    "getting-started.buildFromScratch": {
+      "sourceHash": "2bb3a069cbebbb3fa551db08e18c45079f2ae453daf325a47e1af8230239ca3c",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Construir desde cero",
+        "ja": "ゼロから作る",
+        "ar": "بناء من الصفر"
+      },
+      "metadata": {}
+    },
+    "getting-started.useBabelize": {
+      "sourceHash": "90174a0aec790c2a2f9b4401ec24039f3a4acbd58f61a06710c07e9680473f68",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Utilice el Babelize",
+        "ja": "Babelize を使用する",
+        "ar": "استخدم Babelize"
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "3cc4df3244b11ea0"
+        },
+        "ja": {
+          "glossaryHash": "3cc4df3244b11ea0"
+        },
+        "ar": {
+          "glossaryHash": "3cc4df3244b11ea0"
+        }
+      }
+    },
+    "getting-started.dropdown": {
+      "sourceHash": "2c84dd8d59dafd71af7a7977bda7ae5ca5e6353e5d75c853ca61e4a914717999",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Descenso",
+        "ja": "ドロップダウン",
+        "ar": "النزول إلى أسفل"
+      },
+      "metadata": {}
+    },
+    "getting-started.pill": {
+      "sourceHash": "9945c78b5f893ca44dd1b2792747612d9ea8781fa0d6522b9ac3b88ca871c41b",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "La píldora",
+        "ja": "錠剤は",
+        "ar": "حبوب منع الحمل"
+      },
+      "metadata": {}
+    },
+    "getting-started.segmented": {
+      "sourceHash": "d71a0c697cce8711262f690e4aa6576b6c66c65d4379010ee9c182060e4f6dc3",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Segmentado",
+        "ja": "割れ目",
+        "ar": "التقسيم"
+      },
+      "metadata": {}
+    },
+    "getting-started.oneLanguageswitcher": {
+      "sourceHash": "a52636a4e9166705f28c69b0b42d8c9ba13af4ff58bcd3bf41a4ba5bf7869ad6",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Un interruptor de lenguaje",
+        "ja": "1つの言語スイッチ",
+        "ar": "واحد لغةSwitcher"
+      },
+      "metadata": {}
+    },
+    "getting-started.en": {
+      "sourceHash": "69374b09b1681162ba2d6bba92d6a167ea5ca5921eb172eb173e999e3be5d8ba",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "el caso de los niños",
+        "ar": "ين"
+      },
+      "metadata": {}
+    },
+    "getting-started.fr": {
+      "sourceHash": "501c26b2571a1f7fd72df8c21593874fc874c97145717470596895d1c22203f7",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "en su lugar de residencia",
+        "ar": "فر"
+      },
+      "metadata": {}
+    },
+    "getting-started.de": {
+      "sourceHash": "6814ef46f686990cf4e946f966167b0507e1d642c44e51f61bffb0bba2d4672b",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "en su lugar",
+        "ar": "دي"
+      },
+      "metadata": {}
+    },
+    "getting-started.ar": {
+      "sourceHash": "b1b7afa76db271451a1f3fff738ff21ed53cca91f7f580bb294193e9d2da31b4",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "en la actualidad",
+        "ar": "ار"
+      },
+      "metadata": {}
+    },
+    "getting-started.rtl": {
+      "sourceHash": "85c7550445fe1e89afd00b8cb59edaa2086c05afbf41c277f2b60bac842408d2",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "ar": "الـ RTL ✓"
+      },
+      "metadata": {}
+    },
+    "getting-started.whyBabelize": {
+      "sourceHash": "0d56bfc751238a798f679196cfdd0a28620da40b78abbcb3f9aa18c2be0afa3b",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "¿Por qué Babelize? ¿Por qué usar Babelize?",
+        "ar": "لماذا بابل؟ لماذا Babelize؟",
+        "ja": "なぜBabelizeなのか?"
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "3cc4df3244b11ea0"
+        },
+        "ar": {
+          "glossaryHash": "3cc4df3244b11ea0"
+        },
+        "ja": {
+          "glossaryHash": "3cc4df3244b11ea0"
+        }
+      }
+    },
+    "getting-started.localizationShouldntSlowDownYour": {
+      "sourceHash": "686e69a78e7c7388529c5215ce076b13c6e53d8cb8aecb5955f03477393e1769",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "ar": "التوطين لا ينبغي أن تبطئ <span>منتجك.</span>"
+      },
+      "metadata": {
+        "ar": {
+          "glossaryHash": "fcd3e3436e7da2dd"
+        }
+      }
+    },
+    "getting-started.skipTheRepetitiveWorkOf": {
+      "sourceHash": "6060a3c36e8ea8cdfbc7bd78d81fce7724d1d23325408f3b643652107e9056e9",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "Salta el trabajo repetitivo de reconstruir localización UI. El Babelize te da un componentes pulido y listo para la producción que encaja directamente en la pila que ya usas.",
+        "ar": "تخطي العمل المتكرر من إعادة بناء التوطين UI. Babelize يعطيك مثقلة، جاهزة للإنتاج مكوّنات التي تناسب مباشرة في كومة تستخدمها بالفعل."
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "4ce42e0280a62ea0"
+        },
+        "ar": {
+          "glossaryHash": "3d1ed56b2cf165a8"
+        }
+      }
+    },
+    "getting-started.explore": {
+      "sourceHash": "3b73900b8d29f963dece78edd4bd9529d855e50f2a3fcc39b3d66cd657630905",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "ja": "探求する"
+      },
+      "metadata": {}
+    },
+    "github-counter.labelFormattedcountNoun": {
+      "sourceHash": "a3b672e354278464bb6d5df740c1f2cbbba81911a11dff0167125938620701b0",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {},
+      "metadata": {}
+    },
+    "github-counter.labelFormattedcountNoun_2": {
+      "sourceHash": "a3b672e354278464bb6d5df740c1f2cbbba81911a11dff0167125938620701b0",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {},
+      "metadata": {}
+    },
+    "hero.openSourceMitLicensed": {
+      "sourceHash": "c66e4c34136e89fe4845a9dd4c701ae939103629c063c751145b2d3b4896e4cc",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Fuente abierta • MIT Licenciado",
+        "ja": "オープンソース • MITライセンス",
+        "ar": "مفتوح المصدر • رخصة MIT"
+      },
+      "metadata": {}
+    },
+    "hero.localizationUiComponentsForReact": {
+      "sourceHash": "e0b3220cc0a079e3cc50bd5e0e1b2cbe435b9165a373d3969aab41d728f78fa6",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "localización UI componentes <span> para el React.</span>",
+        "ja": "ローカライゼーション UI コンポーネント <span>について React.</span>",
+        "ar": "التوطين UI مكوّنات <span>لـ React.</span>"
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "587a7cb86731ed4c"
+        },
+        "ja": {
+          "glossaryHash": "3c99c98b30b20f8a"
+        },
+        "ar": {
+          "glossaryHash": "871c6356eaf9cf69"
+        }
+      }
+    },
+    "hero.openSourceReactComponentsForInternationalization": {
+      "sourceHash": "91ca0572d0d0287c053f07d275d7561edf460a6156b4cada3181e559ca30592e",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "React componentes de código abierto para la internacionalización (i18n).",
+        "ja": "オープンソース React コンポーネント インターナショナライゼーション (i18n) 言語スイッチヤー,ローケール・ピックヤー,RTLレイアウトを数分で作成する",
+        "ar": "المصدر المفتوح React مكوّنات للتعزيز الدولي (i18n). قم ببناء محركات تغيير اللغة ، ومحركات تحديد المواقع ، وتخطيطات RTL في دقائق"
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "051172124a3b5f2e"
+        },
+        "ja": {
+          "glossaryHash": "51e791506e3dda36"
+        },
+        "ar": {
+          "glossaryHash": "5b12a8ea31eda7bc"
+        }
+      }
+    },
+    "hero.getStarted": {
+      "sourceHash": "983f311018642b0ae60c71253b5735579906d43d260ea926ebe5e815b1c97abb",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Comenzar",
+        "ja": "始める",
+        "ar": "البدء"
+      },
+      "metadata": {}
+    },
+    "hero.browseComponentsb": {
+      "sourceHash": "2108891fdd43ab8847e4997d6f4f4609add2a7b3756adda695df04c71c435dd1",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {},
+      "metadata": {}
+    },
+    "hero.copy": {
+      "sourceHash": "e21f935f11d7e966dbbae78da9daa378fe8142a14e7c0cd7434183005faa6c5c",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Copiar",
+        "ja": "コピー",
+        "ar": "نسخ"
+      },
+      "metadata": {}
+    },
+    "hero.import": {
+      "sourceHash": "d942f64886578d8747312e368ed92d9f6b2a8d45556f0f924e2444fe911d15af",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "importar",
+        "ja": "インポート",
+        "ar": "استيراد"
+      },
+      "metadata": {}
+    },
+    "hero.languageswitcher": {
+      "sourceHash": "41e12b13f64c34cc030cba63b186c3b930e91653a934a2febf42643c71612192",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "lenguajeSwitcher",
+        "ja": "言語スイッチ",
+        "ar": "اللغةSwitcher"
+      },
+      "metadata": {}
+    },
+    "hero.from": {
+      "sourceHash": "75857a45899985be4c4d941e90b6b396d6c92a4c7437aaf0bf102089fe21379d",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "de lo que es",
+        "ja": "イエズスから",
+        "ar": "من فيديو"
+      },
+      "metadata": {}
+    },
+    "hero.exportDefaultFunction": {
+      "sourceHash": "e922f1c6f6e5fdeff2e26a3efb0a88ad144ca2803ee754cde1be8c7725c60180",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Función por defecto de exportación",
+        "ja": "輸出デフォルト関数",
+        "ar": "الوظيفة الافتراضية للتصدير"
+      },
+      "metadata": {}
+    },
+    "hero.app": {
+      "sourceHash": "0d04bfeb7d64b71c74fc925cca93d683154e8cc7e6e5838faced498e34c9984d",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Aplicación",
+        "ja": "アップは",
+        "ar": "التطبيق"
+      },
+      "metadata": {}
+    },
+    "hero.return": {
+      "sourceHash": "7187f0675eb3827939741acf7342ba78836ecec21a31ecf3f34a55309d3bee8a",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "El regreso",
+        "ja": "戻る",
+        "ar": "العودة"
+      },
+      "metadata": {}
+    },
+    "hero.languageswitcher_2": {
+      "sourceHash": "41e12b13f64c34cc030cba63b186c3b930e91653a934a2febf42643c71612192",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "lenguajeSwitcher",
+        "ja": "言語スイッチ",
+        "ar": "اللغةSwitcher"
+      },
+      "metadata": {}
+    },
+    "hero.variant": {
+      "sourceHash": "cb7bf562420b82e97ee182f019c22e010e50b29334c036a8c23b8d7e617ed23c",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "La variante es",
+        "ja": "変異性",
+        "ar": "المتغيرات"
+      },
+      "metadata": {}
+    },
+    "hero.dropdown": {
+      "sourceHash": "fca124310f46f02a0558574eb4de93ad39dc1bb98347817084f39962a6b77065",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Descenso por debajo",
+        "ja": "ドロップダウン",
+        "ar": "التراجع في الأسفل"
+      },
+      "metadata": {}
+    },
+    "navbar.home": {
+      "sourceHash": "3a78695388b38b5cceefaf6796b0137877514593543b91af2752d5a17e3d736c",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Inicio",
+        "ja": "ホーム",
+        "ar": "الرئيسية"
+      },
+      "metadata": {}
+    },
+    "navbar.components": {
+      "sourceHash": "a150ce22160259313c47bc66940b905a9c2196924fd447f802cff12dbb1e9702",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "componentes",
+        "ja": "コンポーネント",
+        "ar": "مكوّنات"
+      },
+      "metadata": {
+        "es": {
+          "glossaryHash": "3411d72da1df24d7"
+        },
+        "ja": {
+          "glossaryHash": "7125193fc49bf63b"
+        },
+        "ar": {
+          "glossaryHash": "ed63ca2743b2b101"
+        }
+      }
+    },
+    "navbar.gettingStarted": {
+      "sourceHash": "d00eca1bae6742803906ab42a831e8b5396d15b6573ea13c139ec31631208ec1",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Comenzando",
+        "ja": "始めること",
+        "ar": "البدء في العمل"
+      },
+      "metadata": {}
+    },
+    "navbar.contribute": {
+      "sourceHash": "97b0c61b99f65f9eda32799cfefb51dcf1a56c172576a34ae2d00896ab8e13dd",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {
+        "es": "Contribuir a las actividades",
+        "ja": "貢献する",
+        "ar": "المساهمة"
+      },
+      "metadata": {}
+    },
+    "navbar.babelizeElements": {
+      "sourceHash": "3a26f9edd5805875e65c89f33516716f5d58e15ea13eaf6d68f6898db4168867",
+      "translatedAt": "2026-11-01T11:10:51.123Z",
+      "languages": {},
+      "metadata": {}
+    },
+    "navbar.getStarted": {
+      "sourceHash": "983f311018642b0ae60c71253b5735579906d43d260ea926ebe5e815b1c97abb",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "Comenzar",
+        "ja": "始める",
+        "ar": "البدء"
+      },
+      "metadata": {}
+    },
+    "navbar.toggleMenu": {
+      "sourceHash": "c02651240c87b47d3319c6878d0c2ec16eadc4d6932b9f4f35955326463d4cdb",
+      "translatedAt": "2026-11-01T11:47:51.756Z",
+      "languages": {
+        "es": "Cambiar el menú",
+        "ja": "トーグルメニュー",
+        "ar": "تغيير القائمة"
+      },
+      "metadata": {}
+    }
+  }
+}

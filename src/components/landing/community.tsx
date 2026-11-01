@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { Reveal } from "./reveal";
 import { GitHubCounter } from "./github-counter";
 import type { GitHubStats } from "@/lib/github";
@@ -5,7 +6,7 @@ import type { GitHubStats } from "@/lib/github";
 const communityLinks = [
   {
     name: "GitHub",
-    description: "View our open source code and contribute to the project",
+    description: "community.viewOurOpenSourceCode",
     href: "https://github.com/babelize/babelize-elements",
     icon: (
       <svg
@@ -21,7 +22,7 @@ const communityLinks = [
   },
   {
     name: "X / Twitter",
-    description: "Follow us for updates and announcements on our products",
+    description: "community.followUsForUpdatesAnd",
     href: "https://x.com/babelizeapp",
     icon: (
       <svg
@@ -37,7 +38,7 @@ const communityLinks = [
   },
   {
     name: "Discord",
-    description: "Join our community for support and discussions",
+    description: "community.joinOurCommunityForSupport",
     href: "https://discord.gg/Qqzr2g4KGx",
     icon: (
       <svg
@@ -58,18 +59,19 @@ export interface CommunityProps {
 }
 
 export function Community({ stats }: CommunityProps = {}) {
+  const t = useTranslations();
   return (
     <section id="community" className="relative overflow-hidden py-24 md:py-32">
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <Reveal>
             <h2 className="text-3xl font-semibold tracking-tight text-white md:text-4xl">
-              Join our community
+              {t("community.joinOurCommunity")}
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mt-4 text-base text-white/50">
-              Connect with other developers, get help, and contribute to the project
+              {t("community.connectWithOtherDevelopersGet")}
             </p>
           </Reveal>
           <Reveal delay={0.15}>
@@ -96,7 +98,7 @@ export function Community({ stats }: CommunityProps = {}) {
                 <div>
                   <h3 className="text-lg font-medium text-white">{link.name}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-white/50 group-hover:text-white/70 transition-colors">
-                    {link.description}
+                    {t(link.description)}
                   </p>
                 </div>
               </a>

@@ -1,4 +1,5 @@
 "use client";
+import { useTranslations } from "next-intl";
 
 import { Globe, Flag, ArrowLeftRight, Braces, Copy } from "lucide-react";
 import { Reveal } from "./reveal";
@@ -34,7 +35,26 @@ const FEATURES = [
   },
 ];
 
+const FEATURES_TITLE_KEYS: Record<string, string> = {
+  "Language Switchers": "features.languageSwitchers",
+  "Locale Pickers": "features.localePickers",
+  "RTL Layout Support": "features.rtlLayoutSupport",
+  "i18n Integration": "features.i18nIntegration",
+};
+
+const FEATURES_DESCRIPTION_KEYS: Record<string, string> = {
+  "Drop-in switchers with dropdowns, pills, flags, and full RTL support.":
+    "features.dropInSwitchersWithDropdownsPills",
+  "Searchable locale pickers with native names and flags.":
+    "features.searchableLocalePickersWithNative",
+  "Automatic RTL detection and layout direction handling.":
+    "features.automaticRtlDetectionAndLayout",
+  "Works with react-intl, next-intl, i18next, LinguiJS, and more.":
+    "features.worksWithReactIntlNextIntlI18next",
+};
+
 export function Features() {
+  const t = useTranslations();
   return (
     <section className="relative w-full overflow-hidden py-32 font-sans selection:bg-emerald-500/30">
       <div className="container relative z-10 mx-auto max-w-[1400px] px-6 lg:px-12">
@@ -46,23 +66,21 @@ export function Features() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
               </span>
-              Powerful by default
+              {t("features.powerfulByDefault")}
             </div>
           </Reveal>
 
           <Reveal delay={0.1}>
             <h2 className="mb-6 text-balance text-5xl font-semibold tracking-tight md:text-6xl lg:text-7xl">
-              <span className="text-white">Everything you need </span>
+              <span className="text-white">{t("features.everythingYouNeed")} </span>
               <span className="bg-gradient-to-r from-emerald-300 to-emerald-600 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(52,211,153,0.2)]">
-                to localize.
+                {t("features.toLocalize")}
               </span>
             </h2>
           </Reveal>
 
           <Reveal delay={0.2}>
-            <p className="mt-6 text-lg text-white/50">
-              Built for modern React apps. Install and ship globally.
-            </p>
+            <p className="mt-6 text-lg text-white/50">{t("features.builtForModernReactApps")}</p>
           </Reveal>
         </div>
 
@@ -84,10 +102,10 @@ export function Features() {
                       <feature.icon className={`size-6 ${feature.iconColor}`} />
                     </div>
                     <h3 className="mb-2 text-base font-semibold text-white tracking-tight">
-                      {feature.title}
+                      {t(FEATURES_TITLE_KEYS[feature.title] ?? feature.title)}
                     </h3>
                     <p className="text-sm text-neutral-400 leading-relaxed">
-                      {feature.description}
+                      {t(FEATURES_DESCRIPTION_KEYS[feature.description] ?? feature.description)}
                     </p>
                   </div>
                 </div>
@@ -110,7 +128,7 @@ export function Features() {
                 </div>
                 <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-xs font-medium text-neutral-400 transition-colors hover:bg-white/[0.05] hover:text-white">
                   <Copy className="size-3.5" />
-                  Copy
+                  {t("features.copy")}
                 </button>
               </div>
 
@@ -118,94 +136,94 @@ export function Features() {
               <div className="p-8">
                 <pre className="font-mono text-sm leading-[1.8]">
                   <code>
-                    <span className="text-[#a5d6ff]">&quot;use client&quot;</span>
+                    <span className="text-[#a5d6ff]">{'"use client"'}</span>
                     <span className="text-[#c9d1d9]">;</span>
                     {"\n\n"}
-                    <span className="text-[#ff7b72]">import</span>
+                    <span className="text-[#ff7b72]">{"import"}</span>
                     <span className="text-[#c9d1d9]"> {"{ "}</span>
-                    <span className="text-[#c9d1d9]">LanguageSwitcher</span>
+                    <span className="text-[#c9d1d9]">{"LanguageSwitcher"}</span>
                     <span className="text-[#c9d1d9]">{" } "}</span>
-                    <span className="text-[#ff7b72]">from</span>
-                    <span className="text-[#a5d6ff]"> &quot;@babelize/elements&quot;</span>
+                    <span className="text-[#ff7b72]">{"from"}</span>
+                    <span className="text-[#a5d6ff]"> {'"@babelize/elements"'}</span>
                     <span className="text-[#c9d1d9]">;</span>
                     {"\n\n"}
-                    <span className="text-[#ff7b72]">export default function</span>
-                    <span className="text-[#d2a8ff]"> App</span>
+                    <span className="text-[#ff7b72]">{"export default function"}</span>
+                    <span className="text-[#d2a8ff]"> {"App"}</span>
                     <span className="text-[#c9d1d9]">() {"{"}</span>
                     {"\n"}
                     <span className="text-[#c9d1d9]"> </span>
-                    <span className="text-[#ff7b72]">return</span>
+                    <span className="text-[#ff7b72]">{"return"}</span>
                     <span className="text-[#c9d1d9]"> (</span>
                     {"\n"}
                     <span className="text-[#c9d1d9]"> &lt;</span>
-                    <span className="text-[#a5d6ff]">LanguageSwitcher</span>
+                    <span className="text-[#a5d6ff]">{"LanguageSwitcher"}</span>
                     {"\n"}
-                    <span className="text-[#d2a8ff]"> locales</span>
+                    <span className="text-[#d2a8ff]"> {"locales"}</span>
                     <span className="text-[#ff7b72]">=</span>
                     <span className="text-[#c9d1d9]">{"{["}</span>
                     {"\n"}
                     <span className="text-[#c9d1d9]"> {"{ "}</span>
-                    <span className="text-[#c9d1d9]">code:</span>
-                    <span className="text-[#a5d6ff]"> &quot;en&quot;</span>
+                    <span className="text-[#c9d1d9]">{"code:"}</span>
+                    <span className="text-[#a5d6ff]"> {'"en"'}</span>
                     <span className="text-[#c9d1d9]">{" },"}</span>
                     {"\n"}
                     <span className="text-[#c9d1d9]"> {"{ "}</span>
-                    <span className="text-[#c9d1d9]">code:</span>
-                    <span className="text-[#a5d6ff]"> &quot;fr&quot;</span>
+                    <span className="text-[#c9d1d9]">{"code:"}</span>
+                    <span className="text-[#a5d6ff]"> {'"fr"'}</span>
                     <span className="text-[#c9d1d9]">{" },"}</span>
                     {"\n"}
                     <span className="text-[#c9d1d9]"> {"{ "}</span>
-                    <span className="text-[#c9d1d9]">code:</span>
-                    <span className="text-[#a5d6ff]"> &quot;es&quot;</span>
+                    <span className="text-[#c9d1d9]">{"code:"}</span>
+                    <span className="text-[#a5d6ff]"> {'"es"'}</span>
                     <span className="text-[#c9d1d9]">{" },"}</span>
                     {"\n"}
                     <span className="text-[#c9d1d9]"> {"{ "}</span>
-                    <span className="text-[#c9d1d9]">code:</span>
-                    <span className="text-[#a5d6ff]"> &quot;de&quot;</span>
+                    <span className="text-[#c9d1d9]">{"code:"}</span>
+                    <span className="text-[#a5d6ff]"> {'"de"'}</span>
                     <span className="text-[#c9d1d9]">{" },"}</span>
                     {"\n"}
                     <span className="text-[#c9d1d9]"> {"{ "}</span>
-                    <span className="text-[#c9d1d9]">code:</span>
-                    <span className="text-[#a5d6ff]"> &quot;ja&quot;</span>
+                    <span className="text-[#c9d1d9]">{"code:"}</span>
+                    <span className="text-[#a5d6ff]"> {'"ja"'}</span>
                     <span className="text-[#c9d1d9]">{" },"}</span>
                     {"\n"}
                     <span className="text-[#c9d1d9]"> {"{ "}</span>
-                    <span className="text-[#c9d1d9]">code:</span>
-                    <span className="text-[#a5d6ff]"> &quot;ar&quot;</span>
+                    <span className="text-[#c9d1d9]">{"code:"}</span>
+                    <span className="text-[#a5d6ff]"> {'"ar"'}</span>
                     <span className="text-[#c9d1d9]">{" },"}</span>
                     {"\n"}
                     <span className="text-[#c9d1d9]"> {"]}"}</span>
                     {"\n"}
-                    <span className="text-[#d2a8ff]"> defaultValue</span>
+                    <span className="text-[#d2a8ff]"> {"defaultValue"}</span>
                     <span className="text-[#ff7b72]">=</span>
-                    <span className="text-[#a5d6ff]">&quot;en&quot;</span>
+                    <span className="text-[#a5d6ff]">{'"en"'}</span>
                     {"\n"}
-                    <span className="text-[#d2a8ff]"> onValueChange</span>
+                    <span className="text-[#d2a8ff]"> {"onValueChange"}</span>
                     <span className="text-[#ff7b72]">=</span>
                     <span className="text-[#c9d1d9]">{"{("}</span>
-                    <span className="text-[#ffa657]">code</span>
+                    <span className="text-[#ffa657]">{"code"}</span>
                     <span className="text-[#c9d1d9]">) </span>
                     <span className="text-[#ff7b72]">=&gt;</span>
                     <span className="text-[#c9d1d9]"> {"{"}</span>
                     {"\n"}
                     <span className="text-[#8b949e]">{"// next-intl"}</span>
                     {"\n"}
-                    <span className="text-[#c9d1d9]"> router.</span>
-                    <span className="text-[#d2a8ff]">push</span>
+                    <span className="text-[#c9d1d9]"> {"router."}</span>
+                    <span className="text-[#d2a8ff]">{"push"}</span>
                     <span className="text-[#c9d1d9]">(</span>
-                    <span className="text-[#a5d6ff]">`/$</span>
+                    <span className="text-[#a5d6ff]">{"`/$"}</span>
                     <span className="text-[#c9d1d9]">{"{"}</span>
-                    <span className="text-[#c9d1d9]">code</span>
+                    <span className="text-[#c9d1d9]">{"code"}</span>
                     <span className="text-[#c9d1d9]">{"}"}</span>
                     <span className="text-[#a5d6ff]">`</span>
                     <span className="text-[#c9d1d9]">);</span>
                     {"\n"}
                     <span className="text-[#8b949e]">{"// react-i18next"}</span>
                     {"\n"}
-                    <span className="text-[#c9d1d9]"> i18n.</span>
-                    <span className="text-[#d2a8ff]">changeLanguage</span>
+                    <span className="text-[#c9d1d9]"> {"i18n."}</span>
+                    <span className="text-[#d2a8ff]">{"changeLanguage"}</span>
                     <span className="text-[#c9d1d9]">(</span>
-                    <span className="text-[#c9d1d9]">code</span>
+                    <span className="text-[#c9d1d9]">{"code"}</span>
                     <span className="text-[#c9d1d9]">);</span>
                     {"\n"}
                     <span className="text-[#c9d1d9]"> {"}}"}</span>
