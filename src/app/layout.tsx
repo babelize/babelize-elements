@@ -7,6 +7,7 @@ import { NextIntlClientProvider, useLocale } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import { localeDirection } from "../i18n/locales";
 import { baseOpenGraph } from "@/lib/locale-path";
+import { docsUI } from "../i18n/fumadocs-ui";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -68,7 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="min-h-full flex flex-col">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          <RootProvider theme={{ enabled: false }}>
+          <RootProvider theme={{ enabled: false }} i18n={docsUI.provider(locale)}>
             <NextIntlClientProvider>{children}</NextIntlClientProvider>
           </RootProvider>
         </ThemeProvider>
