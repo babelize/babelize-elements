@@ -161,5 +161,9 @@
     "gettingStarted": "Getting Started",
     "home": "Home",
     "toggleMenu": "Toggle menu"
+  },
+  "languageSwitcher": {
+    "listbox": "Select language",
+    "current": "Current language: {name}"
   }
 }

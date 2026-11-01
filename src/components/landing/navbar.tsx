@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { Menu, X, CornerDownLeft } from "lucide-react";
 import { GitHubCounter, RotatingGitHubCounter } from "./github-counter";
+import { SiteLanguageSwitcher } from "../site-language-switcher";
 import type { GitHubStats } from "@/lib/github";
 
 const navLinks = [
@@ -50,6 +51,10 @@ export function Navbar({ stats, starsCount }: NavbarProps = {}) {
 
           {/* Right side actions */}
           <div className="flex items-center gap-2 sm:gap-3">
+            <div className="hidden sm:block">
+              <SiteLanguageSwitcher className="rounded-full text-white/80 hover:bg-white/5 hover:text-white" />
+            </div>
+
             {/* GitHub counter - desktop (cycles stars → forks → PRs) */}
             <div className="hidden sm:block">
               <RotatingGitHubCounter stats={resolvedStats} />
@@ -97,6 +102,9 @@ export function Navbar({ stats, starsCount }: NavbarProps = {}) {
                 {t(link.label)}
               </Link>
             ))}
+            <div className="flex justify-center px-2 py-1">
+              <SiteLanguageSwitcher className="w-full justify-center text-white/80" />
+            </div>
             <div className="mt-1 flex justify-center">
               <GitHubCounter
                 metric="stars"

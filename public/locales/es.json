@@ -157,5 +157,9 @@
     "gettingStarted": "Comenzando",
     "home": "Inicio",
     "toggleMenu": "Cambiar el menú"
+  },
+  "languageSwitcher": {
+    "listbox": "Seleccionar idioma",
+    "current": "Idioma actual: {name}"
   }
 }
