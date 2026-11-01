@@ -1,8 +1,6 @@
 {
   "title": "ロケールピッカー",
   "icon": "MapPin",
-  "pages": [
-    "locale-picker"
-  ],
+  "pages": ["locale-picker"],
   "collapsible": false
 }

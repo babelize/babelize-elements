@@ -1,7 +1,5 @@
 {
   "title": "التنقل",
   "icon": "PanelTop",
-  "pages": [
-    "navbar"
-  ]
+  "pages": ["navbar"]
 }

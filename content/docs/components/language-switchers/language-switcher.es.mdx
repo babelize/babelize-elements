@@ -113,37 +113,37 @@ export function LocaleSwitcher() {
 
 ## Props [#props]
 
-| Prop                | Tipo                                  | Obligatorio | Descripción                                                                          |
-| ------------------- | ------------------------------------- | -------- | ------------------------------------------------------------------------------------ |
-| `locales`           | `Locale[]`                            | Sí      | Array de configuraciones regionales disponibles; solo `code` es obligatorio                                 |
-| `value`             | `string`                              | No       | Código de configuración regional seleccionado: pásalo para controlar el componente                            |
-| `defaultValue`      | `string`                              | No       | Código de idioma seleccionado inicialmente (predeterminado: código del primer idioma)                          |
-| `onValueChange`     | `(code: string) => void`              | No       | Callback que se ejecuta cuando cambia la configuración regional                                                         |
-| `label`             | `"native" \| "english"`               | No       | Etiquetas visibles en el idioma nativo o en inglés (predeterminado: `"english"`)                           |
-| `showFlags`         | `boolean`                             | No       | Muestra los emojis de bandera (predeterminado: `false`)                                                  |
-| `maxHeight`         | `number \| string`                    | No       | Altura máxima de la lista de opciones con desplazamiento (predeterminado: `"15rem"`)                         |
-| `showCode`          | `boolean`                             | No       | Muestra el código de configuración regional junto a cada opción (predeterminado: `false`)                           |
-| `variant`           | `"outline" \| "ghost" \| "secondary"` | No       | Estilo del disparador (predeterminado: `"outline"`)                                                 |
-| `size`              | `"sm" \| "default" \| "lg"`           | No       | Tamaño del disparador (predeterminado: `"default"`)                                                  |
-| `align`             | `"start" \| "end"`                    | No       | Borde del disparador con el que se alinea el menú (predeterminado: `"start"`)                      |
-| `side`              | `"top" \| "bottom"`                   | No       | Lado preferido del menú; cambia de lado si no hay espacio (predeterminado: `"bottom"`)               |
-| `searchable`        | `boolean`                             | No       | Muestra el campo de búsqueda (predeterminado: `true`)                                              |
-| `searchPlaceholder` | `string`                              | No       | Marcador de posición de la búsqueda (predeterminado: `"Search languages..."`)                                |
-| `emptyMessage`      | `ReactNode`                           | No       | Se muestra cuando la búsqueda no coincide con nada (predeterminado: `"No languages found."`)             |
-| `labels`            | `Partial<LanguageSwitcherLabels>`     | No       | Sustituye el texto de interfaz en inglés integrado (consulta más abajo)                                    |
-| `disabled`          | `boolean`                             | No       | Desactiva el disparador                                                                  |
-| `renderOption`      | `(locale, state) => ReactNode`        | No       | Sustituye el contenido de cada fila de opción; `state` tiene `selected`, `active`, `label`, `flag` |
-| `classNames`        | `LanguageSwitcherClassNames`          | No       | Clases por parte: `trigger`, `content`, `search`, `list`, `item`, `empty`            |
-| `className`         | `string`                              | No       | Clases CSS adicionales en la raíz                                                   |
+| Prop                | Tipo                                  | Obligatorio | Descripción                                                                                        |
+| ------------------- | ------------------------------------- | ----------- | -------------------------------------------------------------------------------------------------- |
+| `locales`           | `Locale[]`                            | Sí          | Array de configuraciones regionales disponibles; solo `code` es obligatorio                        |
+| `value`             | `string`                              | No          | Código de configuración regional seleccionado: pásalo para controlar el componente                 |
+| `defaultValue`      | `string`                              | No          | Código de idioma seleccionado inicialmente (predeterminado: código del primer idioma)              |
+| `onValueChange`     | `(code: string) => void`              | No          | Callback que se ejecuta cuando cambia la configuración regional                                    |
+| `label`             | `"native" \| "english"`               | No          | Etiquetas visibles en el idioma nativo o en inglés (predeterminado: `"english"`)                   |
+| `showFlags`         | `boolean`                             | No          | Muestra los emojis de bandera (predeterminado: `false`)                                            |
+| `maxHeight`         | `number \| string`                    | No          | Altura máxima de la lista de opciones con desplazamiento (predeterminado: `"15rem"`)               |
+| `showCode`          | `boolean`                             | No          | Muestra el código de configuración regional junto a cada opción (predeterminado: `false`)          |
+| `variant`           | `"outline" \| "ghost" \| "secondary"` | No          | Estilo del disparador (predeterminado: `"outline"`)                                                |
+| `size`              | `"sm" \| "default" \| "lg"`           | No          | Tamaño del disparador (predeterminado: `"default"`)                                                |
+| `align`             | `"start" \| "end"`                    | No          | Borde del disparador con el que se alinea el menú (predeterminado: `"start"`)                      |
+| `side`              | `"top" \| "bottom"`                   | No          | Lado preferido del menú; cambia de lado si no hay espacio (predeterminado: `"bottom"`)             |
+| `searchable`        | `boolean`                             | No          | Muestra el campo de búsqueda (predeterminado: `true`)                                              |
+| `searchPlaceholder` | `string`                              | No          | Marcador de posición de la búsqueda (predeterminado: `"Search languages..."`)                      |
+| `emptyMessage`      | `ReactNode`                           | No          | Se muestra cuando la búsqueda no coincide con nada (predeterminado: `"No languages found."`)       |
+| `labels`            | `Partial<LanguageSwitcherLabels>`     | No          | Sustituye el texto de interfaz en inglés integrado (consulta más abajo)                            |
+| `disabled`          | `boolean`                             | No          | Desactiva el disparador                                                                            |
+| `renderOption`      | `(locale, state) => ReactNode`        | No          | Sustituye el contenido de cada fila de opción; `state` tiene `selected`, `active`, `label`, `flag` |
+| `classNames`        | `LanguageSwitcherClassNames`          | No          | Clases por parte: `trigger`, `content`, `search`, `list`, `item`, `empty`                          |
+| `className`         | `string`                              | No          | Clases CSS adicionales en la raíz                                                                  |
 
 ### Objeto de configuración regional [#locale-object]
 
-| Propiedad | Tipo      | Descripción                                                                |
-| -------- | --------- | -------------------------------------------------------------------------- |
-| `code`   | `string`  | Código ISO 639-1 / BCP 47 (p. ej. `"en"`, `"fr-FR"`, `"ar-SA"`) — **obligatorio** |
-| `label`  | `string`  | Nombre visible personalizado (se resuelve automáticamente desde la asignación integrada si se omite)     |
-| `flag`   | `string`  | Emoji de bandera personalizado (se detecta automáticamente desde el código si se omite)                   |
-| `rtl`    | `boolean` | Sustitución de RTL (se detecta automáticamente desde el código si se omite)                          |
+| Propiedad | Tipo      | Descripción                                                                                          |
+| --------- | --------- | ---------------------------------------------------------------------------------------------------- |
+| `code`    | `string`  | Código ISO 639-1 / BCP 47 (p. ej. `"en"`, `"fr-FR"`, `"ar-SA"`) — **obligatorio**                    |
+| `label`   | `string`  | Nombre visible personalizado (se resuelve automáticamente desde la asignación integrada si se omite) |
+| `flag`    | `string`  | Emoji de bandera personalizado (se detecta automáticamente desde el código si se omite)              |
+| `rtl`     | `boolean` | Sustitución de RTL (se detecta automáticamente desde el código si se omite)                          |
 
 ## Ejemplos [#examples]
 
@@ -295,28 +295,28 @@ export default function App() {
 }
 ```
 
-| Clave                 | Predeterminado                                 | Se usa para                      |
-| ------------------- | --------------------------------------- | ----------------------------- |
-| `searchPlaceholder` | `"Search languages..."`                 | Marcador de posición del campo de búsqueda      |
-| `searchLabel`       | `"Search languages"`                    | Etiqueta accesible del campo de búsqueda |
-| `clearSearch`       | `"Clear search"`                        | Etiqueta accesible del botón de borrar |
-| `emptyMessage`      | `"No languages found."`                 | Se muestra cuando nada coincide    |
-| `listbox`           | `"Select language"`                     | Etiqueta accesible de la lista de opciones  |
-| `current`           | `(name) => "Current language: " + name` | Etiqueta accesible del disparador      |
+| Clave               | Predeterminado                          | Se usa para                                |
+| ------------------- | --------------------------------------- | ------------------------------------------ |
+| `searchPlaceholder` | `"Search languages..."`                 | Marcador de posición del campo de búsqueda |
+| `searchLabel`       | `"Search languages"`                    | Etiqueta accesible del campo de búsqueda   |
+| `clearSearch`       | `"Clear search"`                        | Etiqueta accesible del botón de borrar     |
+| `emptyMessage`      | `"No languages found."`                 | Se muestra cuando nada coincide            |
+| `listbox`           | `"Select language"`                     | Etiqueta accesible de la lista de opciones |
+| `current`           | `(name) => "Current language: " + name` | Etiqueta accesible del disparador          |
 
 ## Soporte de teclado [#keyboard-support]
 
 El popup sigue el patrón combobox de WAI-ARIA: el foco permanece en el campo de búsqueda, que se expone como `role="combobox"`, y la opción resaltada se anuncia mediante `aria-activedescendant`.
 
-| Clave                              | Acción                                                        |
-| -------------------------------- | ------------------------------------------------------------- |
-| `Enter`, `Space` o clic       | Abre el popup desde el disparador                               |
-| `ArrowDown` / `ArrowUp` (cerrado) | Abre con la primera / última configuración regional resaltada                 |
-| `ArrowDown` / `ArrowUp`          | Mueve el resaltado, dando la vuelta en ambos extremos                     |
-| `Home` / `End`                   | Resalta la primera / última configuración regional                             |
-| `Enter`                          | Selecciona la configuración regional resaltada y devuelve el foco al disparador |
-| `Escape`                         | Cierra el popup y devuelve el foco al disparador               |
-| Escritura                           | Filtra por nombre o código; el resaltado vuelve al principio     |
+| Clave                             | Acción                                                                          |
+| --------------------------------- | ------------------------------------------------------------------------------- |
+| `Enter`, `Space` o clic           | Abre el popup desde el disparador                                               |
+| `ArrowDown` / `ArrowUp` (cerrado) | Abre con la primera / última configuración regional resaltada                   |
+| `ArrowDown` / `ArrowUp`           | Mueve el resaltado, dando la vuelta en ambos extremos                           |
+| `Home` / `End`                    | Resalta la primera / última configuración regional                              |
+| `Enter`                           | Selecciona la configuración regional resaltada y devuelve el foco al disparador |
+| `Escape`                          | Cierra el popup y devuelve el foco al disparador                                |
+| Escritura                         | Filtra por nombre o código; el resaltado vuelve al principio                    |
 
 El resaltado se mantiene en la fila en la que apareció al abrir el menú: la lista se desplaza por debajo, como un menú nativo, y la página nunca se desplaza. Pasa `maxHeight` para cambiar la altura de la lista antes de que empiece a desplazarse.
 
@@ -334,79 +334,79 @@ El resaltado se mantiene en la fila en la que apareció al abrir el menú: la li
 
 Las etiquetas y banderas se detectan automáticamente a partir del código de idioma. Pasa solo el código:
 
-| Código | Idioma         | Bandera | RTL |
-| ---- | ---------------- | ---- | --- |
-| `en` | English          | 🇺🇸   |     |
-| `fr` | Français         | 🇫🇷   |     |
-| `es` | Español          | 🇪🇸   |     |
-| `de` | Deutsch          | 🇩🇪   |     |
-| `ja` | 日本語           | 🇯🇵   |     |
-| `ko` | 한국어           | 🇰🇷   |     |
-| `zh` | 中文             | 🇨🇳   |     |
-| `ar` | العربية          | 🇸🇦   | ✓   |
-| `pt` | Português        | 🇧🇷   |     |
-| `it` | Italiano         | 🇮🇹   |     |
-| `nl` | Nederlands       | 🇳🇱   |     |
-| `ru` | Русский          | 🇷🇺   |     |
-| `pl` | Polski           | 🇵🇱   |     |
-| `tr` | Türkçe           | 🇹🇷   |     |
-| `vi` | Tiếng Việt       | 🇻🇳   |     |
-| `th` | ไทย              | 🇹🇭   |     |
-| `id` | Bahasa Indonesia | 🇮🇩   |     |
-| `hi` | हिन्दी           | 🇮🇳   |     |
-| `bn` | বাংলা            | 🇧🇩   |     |
-| `uk` | Українська       | 🇺🇦   |     |
-| `cs` | Čeština          | 🇨🇿   |     |
-| `sv` | Svenska          | 🇸🇪   |     |
-| `da` | Dansk            | 🇩🇰   |     |
-| `fi` | Suomi            | 🇫🇮   |     |
-| `no` | Norsk            | 🇳🇴   |     |
-| `el` | Ελληνικά         | 🇬🇷   |     |
-| `he` | עברית            | 🇮🇱   | ✓   |
-| `fa` | فارسی            | 🇮🇷   | ✓   |
-| `ro` | Română           | 🇷🇴   |     |
-| `hu` | Magyar           | 🇭🇺   |     |
-| `sk` | Slovenčina       | 🇸🇰   |     |
-| `bg` | Български        | 🇧🇬   |     |
-| `hr` | Hrvatski         | 🇭🇷   |     |
-| `sr` | Српски           | 🇷🇸   |     |
-| `sl` | Slovenščina      | 🇸🇮   |     |
-| `lt` | Lietuvių         | 🇱🇹   |     |
-| `lv` | Latviešu         | 🇱🇻   |     |
-| `et` | Eesti            | 🇪🇪   |     |
-| `ga` | Gaeilge          | 🇮🇪   |     |
-| `ca` | Català           | 🇪🇸   |     |
-| `is` | Íslenska         | 🇮🇸   |     |
-| `sw` | Kiswahili        | 🇹🇿   |     |
-| `am` | አማርኛ             | 🇪🇹   |     |
-| `ne` | नेपाली           | 🇳🇵   |     |
-| `si` | සිංහල            | 🇱🇰   |     |
-| `my` | မြန်မာ           | 🇲🇲   |     |
-| `km` | ខ្មែរ            | 🇰🇭   |     |
-| `lo` | ລາວ              | 🇱🇦   |     |
-| `ka` | ქართული          | 🇬🇪   |     |
-| `hy` | Հայերեն          | 🇦🇲   |     |
-| `kk` | Қазақ            | 🇰🇿   |     |
-| `uz` | Oʻzbek           | 🇺🇿   |     |
-| `mn` | Монгол           | 🇲🇳   |     |
-| `ur` | اردو             | 🇵🇰   | ✓   |
-| `ml` | മലയാളം           | 🇮🇳   |     |
-| `ta` | தமிழ்            | 🇮🇳   |     |
-| `te` | తెలుగు           | 🇮🇳   |     |
-| `kn` | ಕನ್ನಡ            | 🇮🇳   |     |
-| `mr` | मराठी            | 🇮🇳   |     |
-| `gu` | ગુજરાતી          | 🇮🇳   |     |
-| `pa` | ਪੰਜਾਬੀ           | 🇮🇳   |     |
-| `yo` | Yorùbá           | 🇳🇬   |     |
-| `ig` | Igbo             | 🇳🇬   |     |
-| `zu` | isiZulu          | 🇿🇦   |     |
-| `af` | Afrikaans        | 🇿🇦   |     |
-| `ha` | Hausa            | 🇳🇬   |     |
-| `tl` | Filipino         | 🇵🇭   |     |
-| `mi` | Te Reo Māori     | 🇳🇿   |     |
-| `sm` | Gagana Samoa     | 🇼🇸   |     |
-| `to` | Lea Faka-Tonga   | 🇹🇴   |     |
-| `eo` | Esperanto        | 🌐   |     |
+| Código | Idioma           | Bandera | RTL |
+| ------ | ---------------- | ------- | --- |
+| `en`   | English          | 🇺🇸      |     |
+| `fr`   | Français         | 🇫🇷      |     |
+| `es`   | Español          | 🇪🇸      |     |
+| `de`   | Deutsch          | 🇩🇪      |     |
+| `ja`   | 日本語           | 🇯🇵      |     |
+| `ko`   | 한국어           | 🇰🇷      |     |
+| `zh`   | 中文             | 🇨🇳      |     |
+| `ar`   | العربية          | 🇸🇦      | ✓   |
+| `pt`   | Português        | 🇧🇷      |     |
+| `it`   | Italiano         | 🇮🇹      |     |
+| `nl`   | Nederlands       | 🇳🇱      |     |
+| `ru`   | Русский          | 🇷🇺      |     |
+| `pl`   | Polski           | 🇵🇱      |     |
+| `tr`   | Türkçe           | 🇹🇷      |     |
+| `vi`   | Tiếng Việt       | 🇻🇳      |     |
+| `th`   | ไทย              | 🇹🇭      |     |
+| `id`   | Bahasa Indonesia | 🇮🇩      |     |
+| `hi`   | हिन्दी           | 🇮🇳      |     |
+| `bn`   | বাংলা            | 🇧🇩      |     |
+| `uk`   | Українська       | 🇺🇦      |     |
+| `cs`   | Čeština          | 🇨🇿      |     |
+| `sv`   | Svenska          | 🇸🇪      |     |
+| `da`   | Dansk            | 🇩🇰      |     |
+| `fi`   | Suomi            | 🇫🇮      |     |
+| `no`   | Norsk            | 🇳🇴      |     |
+| `el`   | Ελληνικά         | 🇬🇷      |     |
+| `he`   | עברית            | 🇮🇱      | ✓   |
+| `fa`   | فارسی            | 🇮🇷      | ✓   |
+| `ro`   | Română           | 🇷🇴      |     |
+| `hu`   | Magyar           | 🇭🇺      |     |
+| `sk`   | Slovenčina       | 🇸🇰      |     |
+| `bg`   | Български        | 🇧🇬      |     |
+| `hr`   | Hrvatski         | 🇭🇷      |     |
+| `sr`   | Српски           | 🇷🇸      |     |
+| `sl`   | Slovenščina      | 🇸🇮      |     |
+| `lt`   | Lietuvių         | 🇱🇹      |     |
+| `lv`   | Latviešu         | 🇱🇻      |     |
+| `et`   | Eesti            | 🇪🇪      |     |
+| `ga`   | Gaeilge          | 🇮🇪      |     |
+| `ca`   | Català           | 🇪🇸      |     |
+| `is`   | Íslenska         | 🇮🇸      |     |
+| `sw`   | Kiswahili        | 🇹🇿      |     |
+| `am`   | አማርኛ             | 🇪🇹      |     |
+| `ne`   | नेपाली           | 🇳🇵      |     |
+| `si`   | සිංහල            | 🇱🇰      |     |
+| `my`   | မြန်မာ           | 🇲🇲      |     |
+| `km`   | ខ្មែរ            | 🇰🇭      |     |
+| `lo`   | ລາວ              | 🇱🇦      |     |
+| `ka`   | ქართული          | 🇬🇪      |     |
+| `hy`   | Հայերեն          | 🇦🇲      |     |
+| `kk`   | Қазақ            | 🇰🇿      |     |
+| `uz`   | Oʻzbek           | 🇺🇿      |     |
+| `mn`   | Монгол           | 🇲🇳      |     |
+| `ur`   | اردو             | 🇵🇰      | ✓   |
+| `ml`   | മലയാളം           | 🇮🇳      |     |
+| `ta`   | தமிழ்            | 🇮🇳      |     |
+| `te`   | తెలుగు           | 🇮🇳      |     |
+| `kn`   | ಕನ್ನಡ            | 🇮🇳      |     |
+| `mr`   | मराठी            | 🇮🇳      |     |
+| `gu`   | ગુજરાતી          | 🇮🇳      |     |
+| `pa`   | ਪੰਜਾਬੀ           | 🇮🇳      |     |
+| `yo`   | Yorùbá           | 🇳🇬      |     |
+| `ig`   | Igbo             | 🇳🇬      |     |
+| `zu`   | isiZulu          | 🇿🇦      |     |
+| `af`   | Afrikaans        | 🇿🇦      |     |
+| `ha`   | Hausa            | 🇳🇬      |     |
+| `tl`   | Filipino         | 🇵🇭      |     |
+| `mi`   | Te Reo Māori     | 🇳🇿      |     |
+| `sm`   | Gagana Samoa     | 🇼🇸      |     |
+| `to`   | Lea Faka-Tonga   | 🇹🇴      |     |
+| `eo`   | Esperanto        | 🌐      |     |
 
 ¿Necesitas un idioma que no aparece? Pasa un `label` y un `flag` personalizados para sustituirlo:
 

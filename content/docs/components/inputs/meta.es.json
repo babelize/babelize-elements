@@ -1,7 +1,5 @@
 {
   "title": "Campos de entrada",
   "icon": "TextCursorInput",
-  "pages": [
-    "phone-input"
-  ]
+  "pages": ["phone-input"]
 }

@@ -144,37 +144,37 @@ export function Translate() {
 
 ## Props [#props]
 
-| Prop                   | Tipo                               | Obligatorio | Descripción                                                                              |
-| ---------------------- | ---------------------------------- | -------- | ---------------------------------------------------------------------------------------- |
-| `locales`              | `Locale[]`                         | No       | Configuraciones regionales para los selectores de idioma de cada panel; omítelo para mostrar chips estáticos                     |
-| `sourceLocale`         | `string`                           | No       | Código BCP 47 de la configuración regional de origen (p. ej. `"en"`); proporciónalo para controlarla                    |
-| `defaultSourceLocale`  | `string`                           | No       | Configuración regional de origen inicial cuando no está controlada (por defecto: `locales[0]`, si no `"en"`)             |
-| `onSourceLocaleChange` | `(code: string) => void`           | No       | Callback que se ejecuta cuando cambia la configuración regional de origen                                                  |
-| `targetLocale`         | `string`                           | No       | Código BCP 47 de la configuración regional de destino (p. ej. `"fr"`, `"ar"`); proporciónalo para controlarla            |
-| `defaultTargetLocale`  | `string`                           | No       | Configuración regional de destino inicial cuando no está controlada (por defecto: `locales[1]`, si no `"en"`)             |
-| `onTargetLocaleChange` | `(code: string) => void`           | No       | Callback que se ejecuta cuando cambia la configuración regional de destino                                                  |
-| `sourceText`           | `string`                           | No       | Texto de origen; pásalo para controlar el panel de origen                                       |
-| `defaultSourceText`    | `string`                           | No       | Texto de origen inicial cuando no está controlado                                                    |
-| `onSourceChange`       | `(text: string) => void`           | No       | Callback que se ejecuta cuando cambia el texto de origen; hace el panel editable                           |
-| `targetText`           | `string`                           | No       | Texto de destino; pásalo para controlar el panel de destino (solo lectura sin `onTargetChange`)  |
-| `defaultTargetText`    | `string`                           | No       | Texto de destino inicial cuando no está controlado                                                    |
-| `onTargetChange`       | `(text: string) => void`           | No       | Callback que se ejecuta cuando cambia el texto de destino                                                    |
-| `onSwap`               | `() => void`                       | No       | Se llama después de que el botón de intercambio intercambie configuraciones regionales y textos                                 |
-| `sourcePlaceholder`    | `string`                           | No       | Placeholder del panel de origen                                                          |
-| `targetPlaceholder`    | `string`                           | No       | Placeholder del panel de destino                                                          |
-| `sourceLabel`          | `string`                           | No       | Etiqueta accesible del panel de origen (por defecto: `"Source text"`)                          |
-| `targetLabel`          | `string`                           | No       | Etiqueta accesible del panel de destino (por defecto: `"Target text"`)                          |
-| `readOnlySource`       | `boolean`                          | No       | Mantiene el panel de origen en solo lectura incluso con `onSourceChange`                                |
-| `showCount`            | `boolean`                          | No       | Muestra el recuento de caracteres de origen (por defecto: `true`)                                        |
-| `maxLength`            | `number`                           | No       | Límite de caracteres para ambos paneles; el recuento muestra `n / max`                                |
-| `showClear`            | `boolean`                          | No       | Muestra un botón de borrar bajo un origen editable (por defecto: `true`)                           |
-| `showCopy`             | `boolean`                          | No       | Muestra un botón de copiar al portapapeles bajo el destino (por defecto: `true`)                       |
-| `onTargetCopy`         | `(text: string) => void`           | No       | Se llama con el texto de destino después de copiarlo                                           |
-| `labels`               | `Partial<TranslationWidgetLabels>` | No       | Sustituye el texto de interfaz en inglés integrado (consulta más abajo)                                        |
-| `loading`              | `boolean`                          | No       | Muestra un esqueleto en el panel de destino y lo marca con `aria-busy`                               |
-| `classNames`           | `TranslationWidgetClassNames`      | No       | Sobrescrituras de clases por parte: `root`, `header`, `pane`, `textarea`, `footer`, `swap`, `chip` |
-| `dir`                  | `"ltr" \| "rtl"`                   | No       | Sobrescribe la dirección de diseño detectada automáticamente                                              |
-| `className`            | `string`                           | No       | Clases CSS adicionales                                                                   |
+| Prop                   | Tipo                               | Obligatorio | Descripción                                                                                                   |
+| ---------------------- | ---------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------- |
+| `locales`              | `Locale[]`                         | No          | Configuraciones regionales para los selectores de idioma de cada panel; omítelo para mostrar chips estáticos  |
+| `sourceLocale`         | `string`                           | No          | Código BCP 47 de la configuración regional de origen (p. ej. `"en"`); proporciónalo para controlarla          |
+| `defaultSourceLocale`  | `string`                           | No          | Configuración regional de origen inicial cuando no está controlada (por defecto: `locales[0]`, si no `"en"`)  |
+| `onSourceLocaleChange` | `(code: string) => void`           | No          | Callback que se ejecuta cuando cambia la configuración regional de origen                                     |
+| `targetLocale`         | `string`                           | No          | Código BCP 47 de la configuración regional de destino (p. ej. `"fr"`, `"ar"`); proporciónalo para controlarla |
+| `defaultTargetLocale`  | `string`                           | No          | Configuración regional de destino inicial cuando no está controlada (por defecto: `locales[1]`, si no `"en"`) |
+| `onTargetLocaleChange` | `(code: string) => void`           | No          | Callback que se ejecuta cuando cambia la configuración regional de destino                                    |
+| `sourceText`           | `string`                           | No          | Texto de origen; pásalo para controlar el panel de origen                                                     |
+| `defaultSourceText`    | `string`                           | No          | Texto de origen inicial cuando no está controlado                                                             |
+| `onSourceChange`       | `(text: string) => void`           | No          | Callback que se ejecuta cuando cambia el texto de origen; hace el panel editable                              |
+| `targetText`           | `string`                           | No          | Texto de destino; pásalo para controlar el panel de destino (solo lectura sin `onTargetChange`)               |
+| `defaultTargetText`    | `string`                           | No          | Texto de destino inicial cuando no está controlado                                                            |
+| `onTargetChange`       | `(text: string) => void`           | No          | Callback que se ejecuta cuando cambia el texto de destino                                                     |
+| `onSwap`               | `() => void`                       | No          | Se llama después de que el botón de intercambio intercambie configuraciones regionales y textos               |
+| `sourcePlaceholder`    | `string`                           | No          | Placeholder del panel de origen                                                                               |
+| `targetPlaceholder`    | `string`                           | No          | Placeholder del panel de destino                                                                              |
+| `sourceLabel`          | `string`                           | No          | Etiqueta accesible del panel de origen (por defecto: `"Source text"`)                                         |
+| `targetLabel`          | `string`                           | No          | Etiqueta accesible del panel de destino (por defecto: `"Target text"`)                                        |
+| `readOnlySource`       | `boolean`                          | No          | Mantiene el panel de origen en solo lectura incluso con `onSourceChange`                                      |
+| `showCount`            | `boolean`                          | No          | Muestra el recuento de caracteres de origen (por defecto: `true`)                                             |
+| `maxLength`            | `number`                           | No          | Límite de caracteres para ambos paneles; el recuento muestra `n / max`                                        |
+| `showClear`            | `boolean`                          | No          | Muestra un botón de borrar bajo un origen editable (por defecto: `true`)                                      |
+| `showCopy`             | `boolean`                          | No          | Muestra un botón de copiar al portapapeles bajo el destino (por defecto: `true`)                              |
+| `onTargetCopy`         | `(text: string) => void`           | No          | Se llama con el texto de destino después de copiarlo                                                          |
+| `labels`               | `Partial<TranslationWidgetLabels>` | No          | Sustituye el texto de interfaz en inglés integrado (consulta más abajo)                                       |
+| `loading`              | `boolean`                          | No          | Muestra un esqueleto en el panel de destino y lo marca con `aria-busy`                                        |
+| `classNames`           | `TranslationWidgetClassNames`      | No          | Sobrescrituras de clases por parte: `root`, `header`, `pane`, `textarea`, `footer`, `swap`, `chip`            |
+| `dir`                  | `"ltr" \| "rtl"`                   | No          | Sobrescribe la dirección de diseño detectada automáticamente                                                  |
+| `className`            | `string`                           | No          | Clases CSS adicionales                                                                                        |
 
 Cualquier otra prop — `id`, `data-*`, `aria-*` — se propaga al elemento raíz, y la ref se reenvía a él.
 
@@ -305,15 +305,15 @@ Los placeholders y etiquetas de los paneles tienen sus propias props (`sourcePla
 />
 ```
 
-| Clave                | Predeterminado                             | Se usa para                                                  |
-| ------------------ | ----------------------------------- | --------------------------------------------------------- |
-| `swap`             | `"Swap languages"`                  | Etiqueta accesible del botón de intercambio                              |
-| `copy`             | `"Copy translation"`                | Etiqueta accesible del botón de copiar                              |
-| `copied`           | `"Copied"`                          | Etiqueta del botón de copiar justo después de copiar                      |
-| `copiedStatus`     | `"Translation copied to clipboard"` | Anuncio para lectores de pantalla tras copiar                     |
-| `clearSource`      | `"Clear source text"`               | Etiqueta accesible del botón de borrar                             |
-| `characters`       | `(count) => "characters"`           | Se lee tras el recuento de caracteres; recibe el recuento para la forma plural  |
-| `languageSwitcher` | Valores por defecto de `LanguageSwitcher`         | Ambos selectores de idioma (`Partial<LanguageSwitcherLabels>`) |
+| Clave              | Predeterminado                            | Se usa para                                                                    |
+| ------------------ | ----------------------------------------- | ------------------------------------------------------------------------------ |
+| `swap`             | `"Swap languages"`                        | Etiqueta accesible del botón de intercambio                                    |
+| `copy`             | `"Copy translation"`                      | Etiqueta accesible del botón de copiar                                         |
+| `copied`           | `"Copied"`                                | Etiqueta del botón de copiar justo después de copiar                           |
+| `copiedStatus`     | `"Translation copied to clipboard"`       | Anuncio para lectores de pantalla tras copiar                                  |
+| `clearSource`      | `"Clear source text"`                     | Etiqueta accesible del botón de borrar                                         |
+| `characters`       | `(count) => "characters"`                 | Se lee tras el recuento de caracteres; recibe el recuento para la forma plural |
+| `languageSwitcher` | Valores por defecto de `LanguageSwitcher` | Ambos selectores de idioma (`Partial<LanguageSwitcherLabels>`)                 |
 
 ## Personalización [#customization]
 

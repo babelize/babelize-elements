@@ -1,7 +1,5 @@
 {
   "title": "حقول الإدخال",
   "icon": "TextCursorInput",
-  "pages": [
-    "phone-input"
-  ]
+  "pages": ["phone-input"]
 }

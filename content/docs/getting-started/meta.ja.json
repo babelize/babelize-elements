@@ -1,10 +1,4 @@
 {
   "title": "はじめる",
-  "pages": [
-    "index",
-    "install",
-    "shadcn-cli",
-    "contributing",
-    "rulebook"
-  ]
+  "pages": ["index", "install", "shadcn-cli", "contributing", "rulebook"]
 }

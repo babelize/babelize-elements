@@ -120,26 +120,26 @@ export function SiteNav() {
 
 ## Props [#props]
 
-| Prop            | Tipo                              | Obligatorio | Descripción                                                                   |
-| --------------- | --------------------------------- | -------- | ----------------------------------------------------------------------------- |
-| `logo`          | `React.ReactNode`                 | No       | Elemento de logotipo (se renderiza antes de los enlaces de navegación)                                       |
-| `links`         | `NavLink[]`                       | No       | Enlaces de navegación                                                              |
-| `activeHref`    | `string`                          | No       | `href` de la página actual: recibe `aria-current` y un resaltado              |
-| `locales`       | `Locale[]`                        | No       | Configuraciones regionales disponibles para el selector de idioma                                       |
-| `value`         | `string`                          | No       | Código de configuración regional seleccionado: pásalo para controlar el componente                     |
-| `defaultValue`  | `string`                          | No       | Código de configuración regional inicial cuando no está controlado (predeterminado: primera configuración regional)                 |
-| `onValueChange` | `(code: string) => void`          | No       | Callback que se ejecuta cuando cambia la configuración regional                                                  |
-| `cta`           | `{ label: string; href: string }` | No       | Botón CTA                                                                    |
-| `showGitHub`    | `boolean`                         | No       | Muestra el botón de icono de GitHub. Necesita `githubUrl`; sin él, no se renderiza nada |
-| `githubUrl`     | `string`                          | No       | URL completa, o la forma abreviada `"owner"` / `"owner/repo"` para github.com              |
-| `sticky`        | `boolean`                         | No       | Hace que la barra de navegación quede fija en la parte superior (por defecto: `true`)                                   |
-| `variant`       | `"default" \| "floating"`         | No       | Barra de ancho completo o tarjeta flotante insertada (por defecto: `"default"`)                  |
-| `showFlags`     | `boolean`                         | No       | Muestra banderas en el selector de idioma (por defecto: `true`)                             |
-| `maxHeight`     | `number \| string`                | No       | Altura máxima del menú de idiomas con desplazamiento (por defecto: `"15rem"`)                |
-| `linkComponent` | `React.ElementType`               | No       | Componente usado para los enlaces internos (por defecto: `"a"`)                            |
-| `labels`        | `Partial<NavBarLabels>`           | No       | Sustituye el texto de interfaz en inglés integrado (consulta más abajo)                             |
-| `classNames`    | `NavBarClassNames`                | No       | Sobrescrituras de clases por parte (ver abajo)                                          |
-| `className`     | `string`                          | No       | Clases CSS adicionales                                                        |
+| Prop            | Tipo                              | Obligatorio | Descripción                                                                                                         |
+| --------------- | --------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------- |
+| `logo`          | `React.ReactNode`                 | No          | Elemento de logotipo (se renderiza antes de los enlaces de navegación)                                              |
+| `links`         | `NavLink[]`                       | No          | Enlaces de navegación                                                                                               |
+| `activeHref`    | `string`                          | No          | `href` de la página actual: recibe `aria-current` y un resaltado                                                    |
+| `locales`       | `Locale[]`                        | No          | Configuraciones regionales disponibles para el selector de idioma                                                   |
+| `value`         | `string`                          | No          | Código de configuración regional seleccionado: pásalo para controlar el componente                                  |
+| `defaultValue`  | `string`                          | No          | Código de configuración regional inicial cuando no está controlado (predeterminado: primera configuración regional) |
+| `onValueChange` | `(code: string) => void`          | No          | Callback que se ejecuta cuando cambia la configuración regional                                                     |
+| `cta`           | `{ label: string; href: string }` | No          | Botón CTA                                                                                                           |
+| `showGitHub`    | `boolean`                         | No          | Muestra el botón de icono de GitHub. Necesita `githubUrl`; sin él, no se renderiza nada                             |
+| `githubUrl`     | `string`                          | No          | URL completa, o la forma abreviada `"owner"` / `"owner/repo"` para github.com                                       |
+| `sticky`        | `boolean`                         | No          | Hace que la barra de navegación quede fija en la parte superior (por defecto: `true`)                               |
+| `variant`       | `"default" \| "floating"`         | No          | Barra de ancho completo o tarjeta flotante insertada (por defecto: `"default"`)                                     |
+| `showFlags`     | `boolean`                         | No          | Muestra banderas en el selector de idioma (por defecto: `true`)                                                     |
+| `maxHeight`     | `number \| string`                | No          | Altura máxima del menú de idiomas con desplazamiento (por defecto: `"15rem"`)                                       |
+| `linkComponent` | `React.ElementType`               | No          | Componente usado para los enlaces internos (por defecto: `"a"`)                                                     |
+| `labels`        | `Partial<NavBarLabels>`           | No          | Sustituye el texto de interfaz en inglés integrado (consulta más abajo)                                             |
+| `classNames`    | `NavBarClassNames`                | No          | Sobrescrituras de clases por parte (ver abajo)                                                                      |
+| `className`     | `string`                          | No          | Clases CSS adicionales                                                                                              |
 
 Cualquier otra prop se propaga al elemento `<nav>` subyacente, y la ref se reenvía a él.
 
@@ -157,18 +157,18 @@ import Link from "next/link";
 
 `classNames` combina clases adicionales en cada parte con `cn`, así que tus clases tienen prioridad sobre los valores por defecto:
 
-| Clave               | Parte                                                      |
-| ----------------- | --------------------------------------------------------- |
-| `root`            | El elemento `<nav>` (igual que `className`)                 |
+| Clave             | Parte                                                           |
+| ----------------- | --------------------------------------------------------------- |
+| `root`            | El elemento `<nav>` (igual que `className`)                     |
 | `container`       | La barra en sí: la fila de ancho completo o la tarjeta flotante |
-| `links`           | El grupo de enlaces de escritorio                                    |
-| `link`            | Cada enlace, en escritorio y en el menú móvil              |
+| `links`           | El grupo de enlaces de escritorio                               |
+| `link`            | Cada enlace, en escritorio y en el menú móvil                   |
 | `actions`         | El grupo de escritorio con el menú de idiomas, GitHub y el CTA  |
 | `cta`             | El botón de llamada a la acción                                 |
-| `languageTrigger` | Los disparadores del menú de idiomas                                |
-| `languageContent` | El panel del menú de idiomas                                   |
-| `languageItem`    | Cada opción de idioma                                      |
-| `mobileMenu`      | El panel del menú móvil                                     |
+| `languageTrigger` | Los disparadores del menú de idiomas                            |
+| `languageContent` | El panel del menú de idiomas                                    |
+| `languageItem`    | Cada opción de idioma                                           |
+| `mobileMenu`      | El panel del menú móvil                                         |
 
 ```tsx
 <NavBar
@@ -183,18 +183,18 @@ import Link from "next/link";
 
 ### NavLink Object [#navlink-object]
 
-| Propiedad | Tipo     | Descripción              |
-| -------- | -------- | ------------------------ |
-| `label`  | `string` | Texto del enlace — **obligatorio** |
-| `href`   | `string` | URL del enlace — **obligatorio**  |
+| Propiedad | Tipo     | Descripción                        |
+| --------- | -------- | ---------------------------------- |
+| `label`   | `string` | Texto del enlace — **obligatorio** |
+| `href`    | `string` | URL del enlace — **obligatorio**   |
 
 ### Objeto de configuración regional [#locale-object]
 
-| Propiedad | Tipo     | Descripción                                                     |
-| -------- | -------- | --------------------------------------------------------------- |
-| `code`   | `string` | Código ISO 639-1 / BCP 47 (p. ej. `"en"`, `"fr-FR"`) — **obligatorio** |
-| `label`  | `string` | Sobrescribe el nombre para mostrar (se resuelve automáticamente si se omite)                |
-| `flag`   | `string` | Sobrescribe el emoji de bandera (se detecta automáticamente si se omite)                  |
+| Propiedad | Tipo     | Descripción                                                                  |
+| --------- | -------- | ---------------------------------------------------------------------------- |
+| `code`    | `string` | Código ISO 639-1 / BCP 47 (p. ej. `"en"`, `"fr-FR"`) — **obligatorio**       |
+| `label`   | `string` | Sobrescribe el nombre para mostrar (se resuelve automáticamente si se omite) |
+| `flag`    | `string` | Sobrescribe el emoji de bandera (se detecta automáticamente si se omite)     |
 
 ## Ejemplos [#examples]
 
@@ -380,25 +380,25 @@ export default function App() {
 }
 ```
 
-| Clave          | Predeterminado                                 | Se usa para                          |
-| ------------ | --------------------------------------- | --------------------------------- |
-| `listbox`    | `"Select language"`                     | Etiqueta accesible del menú de idiomas    |
+| Clave        | Predeterminado                          | Se usa para                                 |
+| ------------ | --------------------------------------- | ------------------------------------------- |
+| `listbox`    | `"Select language"`                     | Etiqueta accesible del menú de idiomas      |
 | `current`    | `(name) => "Current language: " + name` | Etiqueta accesible del disparador de idioma |
-| `toggleMenu` | `"Toggle menu"`                         | Etiqueta del botón del menú móvil          |
-| `github`     | `"GitHub"`                              | Etiqueta del enlace de icono de GitHub            |
+| `toggleMenu` | `"Toggle menu"`                         | Etiqueta del botón del menú móvil           |
+| `github`     | `"GitHub"`                              | Etiqueta del enlace de icono de GitHub      |
 
 ## Soporte de teclado [#keyboard-support]
 
 El menú de idiomas sigue el patrón listbox de WAI-ARIA. Como no hay un campo de texto en el menú, las teclas de flecha mueven el foco real del DOM entre las opciones en lugar de seguir un resaltado desde un cuadro de búsqueda. Las mismas teclas funcionan en la barra de escritorio y en la móvil.
 
-| Clave                              | Acción                                                               |
-| -------------------------------- | -------------------------------------------------------------------- |
-| `Enter`, `Space` o clic       | Abre el menú desde el disparador de idioma                              |
-| `ArrowDown` / `ArrowUp` (cerrado) | Abre con la primera / última configuración regional enfocada                            |
-| `ArrowDown` / `ArrowUp`          | Mueve el foco entre configuraciones regionales, dando la vuelta en ambos extremos                    |
-| `Home` / `End`                   | Enfoca la primera / última configuración regional                                        |
-| `Enter`                          | Selecciona la configuración regional enfocada y devuelve el foco al disparador            |
-| `Escape`                         | Cierra el menú (y el menú móvil) y devuelve el foco al disparador |
+| Clave                             | Acción                                                                            |
+| --------------------------------- | --------------------------------------------------------------------------------- |
+| `Enter`, `Space` o clic           | Abre el menú desde el disparador de idioma                                        |
+| `ArrowDown` / `ArrowUp` (cerrado) | Abre con la primera / última configuración regional enfocada                      |
+| `ArrowDown` / `ArrowUp`           | Mueve el foco entre configuraciones regionales, dando la vuelta en ambos extremos |
+| `Home` / `End`                    | Enfoca la primera / última configuración regional                                 |
+| `Enter`                           | Selecciona la configuración regional enfocada y devuelve el foco al disparador    |
+| `Escape`                          | Cierra el menú (y el menú móvil) y devuelve el foco al disparador                 |
 
 El resaltado se mantiene en su fila mientras la lista se desplaza por debajo: una lista larga nunca desplaza la página. Pasa `maxHeight` para definir la altura máxima del menú.
 
