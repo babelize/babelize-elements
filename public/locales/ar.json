@@ -153,6 +153,10 @@
     "openSourceMitLicensed": "مفتوح المصدر • مرخّص بموجب MIT",
     "openSourceReactComponentsForInternationalization": "مكوّنات React مفتوحة المصدر للتدويل (i18n). ابنِ مبدّلات اللغة ومنتقيات الإعدادات المحلية وتخطيطات RTL في دقائق — مرخّصة بموجب MIT ويقودها المجتمع."
   },
+  "languageSwitcher": {
+    "current": "اللغة الحالية: {name}",
+    "listbox": "اختيار اللغة"
+  },
   "navbar": {
     "babelizeElements": "Babelize Elements",
     "components": "مكوّنات",
@@ -161,9 +165,5 @@
     "gettingStarted": "البدء",
     "home": "الرئيسية",
     "toggleMenu": "تبديل القائمة"
-  },
-  "languageSwitcher": {
-    "listbox": "اختيار اللغة",
-    "current": "اللغة الحالية: {name}"
   }
 }

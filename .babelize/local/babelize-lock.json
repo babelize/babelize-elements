@@ -3270,6 +3270,46 @@
           "manual": true
         }
       }
+    },
+    "languageSwitcher.listbox": {
+      "sourceHash": "71a202e247217cea345210f334794edc727449c48507b5234ab73099284c4ba5",
+      "translatedAt": "2026-11-01T20:03:34.000Z",
+      "languages": {
+        "es": "Seleccionar idioma",
+        "ja": "言語を選択",
+        "ar": "اختيار اللغة"
+      },
+      "metadata": {
+        "es": {
+          "manual": true
+        },
+        "ja": {
+          "manual": true
+        },
+        "ar": {
+          "manual": true
+        }
+      }
+    },
+    "languageSwitcher.current": {
+      "sourceHash": "86c2bdfba0a907e6091157eb2d1298527c7048fb56237e15371b79a875ba88ce",
+      "translatedAt": "2026-11-01T20:03:34.000Z",
+      "languages": {
+        "es": "Idioma actual: {name}",
+        "ja": "現在の言語: {name}",
+        "ar": "اللغة الحالية: {name}"
+      },
+      "metadata": {
+        "es": {
+          "manual": true
+        },
+        "ja": {
+          "manual": true
+        },
+        "ar": {
+          "manual": true
+        }
+      }
     }
   }
 }

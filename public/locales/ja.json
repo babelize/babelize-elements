@@ -153,6 +153,10 @@
     "openSourceMitLicensed": "オープンソース • MIT ライセンス",
     "openSourceReactComponentsForInternationalization": "国際化（i18n）向けのオープンソース React コンポーネント。言語スイッチャー、ロケールピッカー、RTL レイアウトを数分で構築できます。MIT ライセンス、コミュニティ主導。"
   },
+  "languageSwitcher": {
+    "current": "現在の言語: {name}",
+    "listbox": "言語を選択"
+  },
   "navbar": {
     "babelizeElements": "Babelize Elements",
     "components": "コンポーネント",
@@ -161,9 +165,5 @@
     "gettingStarted": "はじめに",
     "home": "ホーム",
     "toggleMenu": "メニューの切り替え"
-  },
-  "languageSwitcher": {
-    "listbox": "言語を選択",
-    "current": "現在の言語: {name}"
   }
 }

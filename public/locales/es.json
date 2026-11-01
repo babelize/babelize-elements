@@ -153,6 +153,10 @@
     "openSourceMitLicensed": "Código abierto • Licencia MIT",
     "openSourceReactComponentsForInternationalization": "Componentes de React de código abierto para internacionalización (i18n). Crea selectores de idioma, selectores de configuración regional y diseños RTL en minutos: con licencia MIT y desarrollados por la comunidad."
   },
+  "languageSwitcher": {
+    "current": "Idioma actual: {name}",
+    "listbox": "Seleccionar idioma"
+  },
   "navbar": {
     "babelizeElements": "Babelize Elements",
     "components": "Componentes",
@@ -161,9 +165,5 @@
     "gettingStarted": "Primeros pasos",
     "home": "Inicio",
     "toggleMenu": "Alternar menú"
-  },
-  "languageSwitcher": {
-    "listbox": "Seleccionar idioma",
-    "current": "Idioma actual: {name}"
   }
 }
