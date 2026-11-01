@@ -3310,6 +3310,66 @@
           "manual": true
         }
       }
+    },
+    "meta.title": {
+      "sourceHash": "dca9a93e7b6b3390aa7884b3271b21ceba70bdfbd164fbe534a35c8b82a519ef",
+      "translatedAt": "2026-11-01T20:14:34.000Z",
+      "languages": {
+        "es": "Babelize Elements: componentes de UI de localización de código abierto",
+        "ja": "Babelize Elements - オープンソースのローカライゼーション UI コンポーネント",
+        "ar": "Babelize Elements - مكوّنات واجهة التوطين مفتوحة المصدر"
+      },
+      "metadata": {
+        "es": {
+          "manual": true
+        },
+        "ja": {
+          "manual": true
+        },
+        "ar": {
+          "manual": true
+        }
+      }
+    },
+    "meta.description": {
+      "sourceHash": "8b336f7877abdd6c8eebe6c6da6068ace722e50247487348346348977232f1a9",
+      "translatedAt": "2026-11-01T20:14:34.000Z",
+      "languages": {
+        "es": "Componentes de UI de localización de código abierto para React y Tailwind CSS. Selectores de idioma, selectores de configuración regional, widgets de traducción y más, creados por la comunidad.",
+        "ja": "React と Tailwind CSS 向けのオープンソースのローカライゼーション UI コンポーネント。言語スイッチャー、ロケールピッカー、翻訳ウィジェットなどを、コミュニティと一緒に開発しています。",
+        "ar": "مكوّنات واجهة التوطين مفتوحة المصدر لـ React و Tailwind CSS: مبدّلات اللغة ومنتقيات الإعدادات المحلية وأدوات الترجمة وغير ذلك، من تطوير المجتمع."
+      },
+      "metadata": {
+        "es": {
+          "manual": true
+        },
+        "ja": {
+          "manual": true
+        },
+        "ar": {
+          "manual": true
+        }
+      }
+    },
+    "meta.ogDescription": {
+      "sourceHash": "c4c92a08345545e848ae0782628d285f03cdb804cf85b42f0bb27af252927961",
+      "translatedAt": "2026-11-01T20:14:34.000Z",
+      "languages": {
+        "es": "Componentes de UI de localización de código abierto para React y Tailwind CSS. Creados por la comunidad.",
+        "ja": "React と Tailwind CSS 向けのオープンソースのローカライゼーション UI コンポーネント。コミュニティによる開発。",
+        "ar": "مكوّنات واجهة التوطين مفتوحة المصدر لـ React و Tailwind CSS، من تطوير المجتمع."
+      },
+      "metadata": {
+        "es": {
+          "manual": true
+        },
+        "ja": {
+          "manual": true
+        },
+        "ar": {
+          "manual": true
+        }
+      }
     }
   }
 }

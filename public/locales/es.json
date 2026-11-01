@@ -157,6 +157,11 @@
     "current": "Idioma actual: {name}",
     "listbox": "Seleccionar idioma"
   },
+  "meta": {
+    "description": "Componentes de UI de localización de código abierto para React y Tailwind CSS. Selectores de idioma, selectores de configuración regional, widgets de traducción y más, creados por la comunidad.",
+    "ogDescription": "Componentes de UI de localización de código abierto para React y Tailwind CSS. Creados por la comunidad.",
+    "title": "Babelize Elements: componentes de UI de localización de código abierto"
+  },
   "navbar": {
     "babelizeElements": "Babelize Elements",
     "components": "Componentes",
