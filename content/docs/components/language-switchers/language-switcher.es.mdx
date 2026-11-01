@@ -11,7 +11,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   <LanguageSwitcherDemo />
 </PreviewComponents>
 
-## Instalación
+## Instalación [#installation]
 
 <Tabs
   items={["shadcn", "Elements CLI"]}
@@ -86,7 +86,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   </Tab>
 </Tabs>
 
-## Uso
+## Uso [#usage]
 
 ```tsx
 "use client";
@@ -111,7 +111,7 @@ export function LocaleSwitcher() {
 }
 ```
 
-## Props
+## Props [#props]
 
 | Prop                | Tipo                                  | Obligatorio | Descripción                                                                          |
 | ------------------- | ------------------------------------- | -------- | ------------------------------------------------------------------------------------ |
@@ -136,7 +136,7 @@ export function LocaleSwitcher() {
 | `classNames`        | `LanguageSwitcherClassNames`          | No       | Clases por parte: `trigger`, `content`, `search`, `list`, `item`, `empty`            |
 | `className`         | `string`                              | No       | Clases CSS adicionales en la raíz                                                   |
 
-### Objeto de configuración regional
+### Objeto de configuración regional [#locale-object]
 
 | Propiedad | Tipo      | Descripción                                                                |
 | -------- | --------- | -------------------------------------------------------------------------- |
@@ -145,9 +145,9 @@ export function LocaleSwitcher() {
 | `flag`   | `string`  | Emoji de bandera personalizado (se detecta automáticamente desde el código si se omite)                   |
 | `rtl`    | `boolean` | Sustitución de RTL (se detecta automáticamente desde el código si se omite)                          |
 
-## Ejemplos
+## Ejemplos [#examples]
 
-### Con el SDK de Babelize
+### Con el SDK de Babelize [#with-babelize-sdk]
 
 Combina el selector de idioma con el [SDK de Babelize](https://docs.babelize.co/sdk) para traducciones automáticas:
 
@@ -185,7 +185,7 @@ export function LocaleSwitcher() {
 }
 ```
 
-### Con next-intl
+### Con next-intl [#with-next-intl]
 
 ```tsx
 "use client";
@@ -206,7 +206,7 @@ export function LocaleSwitcher() {
 }
 ```
 
-### Con react-i18next
+### Con react-i18next [#with-react-i18next]
 
 ```tsx
 "use client";
@@ -227,7 +227,7 @@ export function LocaleSwitcher() {
 }
 ```
 
-### Etiquetas nativas + banderas
+### Etiquetas nativas + banderas [#native-labels--flags]
 
 ```tsx
 "use client";
@@ -246,7 +246,7 @@ export default function App() {
 }
 ```
 
-### Personalizar partes
+### Personalizar partes [#customizing-parts]
 
 El selector usa tokens de tema de shadcn, así que sigue tu tema. Usa `classNames` para cambiar el estilo de cualquier parte, o `renderOption` para cambiar lo que muestra cada fila:
 
@@ -267,7 +267,7 @@ El selector usa tokens de tema de shadcn, así que sigue tu tema. Usa `className
 />
 ```
 
-### Texto de interfaz traducido
+### Texto de interfaz traducido [#translated-ui-text]
 
 El marcador de posición de búsqueda, el estado vacío y las etiquetas accesibles usan inglés de forma predeterminada. Pasa `labels` para traducirlos: cualquier clave que omitas conserva su valor en inglés. Las props `searchPlaceholder` y `emptyMessage` siguen funcionando y tienen prioridad sobre `labels` cuando ambas están definidas.
 
@@ -304,7 +304,7 @@ export default function App() {
 | `listbox`           | `"Select language"`                     | Etiqueta accesible de la lista de opciones  |
 | `current`           | `(name) => "Current language: " + name` | Etiqueta accesible del disparador      |
 
-## Soporte de teclado
+## Soporte de teclado [#keyboard-support]
 
 El popup sigue el patrón combobox de WAI-ARIA: el foco permanece en el campo de búsqueda, que se expone como `role="combobox"`, y la opción resaltada se anuncia mediante `aria-activedescendant`.
 
@@ -320,7 +320,7 @@ El popup sigue el patrón combobox de WAI-ARIA: el foco permanece en el campo de
 
 El resaltado se mantiene en la fila en la que apareció al abrir el menú: la lista se desplaza por debajo, como un menú nativo, y la página nunca se desplaza. Pasa `maxHeight` para cambiar la altura de la lista antes de que empiece a desplazarse.
 
-## Características
+## Características [#features]
 
 - **Sin configuración** — basta con pasar los códigos; las etiquetas y banderas se resuelven automáticamente
 - **Desplegable con búsqueda** — filtra configuraciones regionales por nombre o código
@@ -330,7 +330,7 @@ El resaltado se mantiene en la fila en la que apareció al abrir el menú: la li
 - **Modo oscuro** — creado con Tailwind CSS, compatible con el modo oscuro
 - **Independiente de la biblioteca** — funciona con cualquier configuración de i18n mediante callback
 
-## Idiomas compatibles
+## Idiomas compatibles [#supported-languages]
 
 Las etiquetas y banderas se detectan automáticamente a partir del código de idioma. Pasa solo el código:
 
@@ -417,7 +417,7 @@ Las etiquetas y banderas se detectan automáticamente a partir del código de id
 />
 ```
 
-## Dependencias
+## Dependencias [#dependencies]
 
 Este componente usa:
 
@@ -429,6 +429,6 @@ Dependencias de pares:
 - `react-dom` >= 18
 - `tailwindcss` >= 3
 
-## Créditos
+## Créditos [#credits]
 
 Creado por [sapatmohit](https://github.com/sapatmohit).

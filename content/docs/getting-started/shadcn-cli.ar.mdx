@@ -8,7 +8,7 @@ import { Callout } from "fumadocs-ui/components/callout";
 
 ثبّت مكوّنات Babelize Elements الفردية مباشرةً في مشروعك باستخدام CLI الخاص بـ shadcn.
 
-## سجل `@babelize`
+## سجل `@babelize` [#the-babelize-registry]
 
 Babelize Elements مدرجة في [دليل سجلات shadcn](https://ui.shadcn.com/docs/directory) باسم `@babelize`، لذا يجدها CLI الخاص بـ shadcn دون أي إعداد.
 
@@ -22,7 +22,7 @@ Babelize Elements مدرجة في [دليل سجلات shadcn](https://ui.shadcn
 }
 ```
 
-## تثبيت مكوّن
+## تثبيت مكوّن [#install-a-component]
 
 ثبّت أي مكوّن:
 
@@ -33,7 +33,7 @@ npx shadcn@latest add @babelize/phone-input
 npx shadcn@latest add @babelize/navbar
 ```
 
-يحل CLI تبعيات كل مكوّن (بما في ذلك أداة `cn`) ويكتب كل ملف إلى الاسم المستعار الذي يحدده نوعه، فالمكوّنات تذهب إلى الاسم المستعار `ui` الخاص بك، والخطافات المشتركة مثل `useControllableState` و`useListboxNavigation` تذهب إلى `lib`. إذا نقلت `ui` في `components.json`، تتبعه المكوّنات.
+يحل CLI تبعيات كل مكوّن ويكتب كل ملف إلى الاسم المستعار الذي يحدده نوعه، فالمكوّنات تذهب إلى الاسم المستعار `ui` الخاص بك، والخطافات المشتركة مثل `useControllableState` و`useListboxNavigation` تذهب إلى `lib`. إذا نقلت `ui` في `components.json`، تتبعه المكوّنات.
 
 <Callout title="ملف `cn` لا يُمسّ">
   تستورد المكوّنات `cn` عبر الاسم المستعار `utils` الخاص بك، وتفترض أنه موجود مسبقًا، وهو الافتراض نفسه الذي تفترضه مكوّنات shadcn، إذ إن `shadcn init` يُنشئه. لا يُكتب فوق نسختك أبدًا، مهما خصّصتها.
@@ -48,13 +48,13 @@ npx shadcn@latest add @babelize/navbar
 npx shadcn@latest add https://elements.babelize.co/r/language-switcher.json
 ```
 
-## استيراد
+## استيراد [#import]
 
 ```tsx
 import { LanguageSwitcher } from "@/components/ui/language-switcher";
 ```
 
-## استخدام CLI الخاص بـ Babelize Elements
+## استخدام CLI الخاص بـ Babelize Elements [#using-the-babelize-elements-cli]
 
 تفضّل CLI مخصصًا؟ تأتي حزمة `@babelize/elements` مع واحد:
 

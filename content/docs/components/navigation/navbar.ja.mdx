@@ -11,7 +11,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   <NavBarDemo />
 </PreviewComponents>
 
-## インストール
+## インストール [#installation]
 
 <Tabs
   items={["shadcn", "Elements CLI"]}
@@ -86,7 +86,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   </Tab>
 </Tabs>
 
-## 使い方
+## 使い方 [#usage]
 
 ```tsx
 "use client";
@@ -118,7 +118,7 @@ export function SiteNav() {
 }
 ```
 
-## Props
+## Props [#props]
 
 | Prop            | 型                              | 必須 | 説明                                                                   |
 | --------------- | --------------------------------- | -------- | ----------------------------------------------------------------------------- |
@@ -143,7 +143,7 @@ export function SiteNav() {
 
 その他のpropはすべて基盤となる `<nav>` 要素に展開され、 refは同要素に転送されます。
 
-### クライアントサイドのナビゲーション
+### クライアントサイドのナビゲーション [#client-side-navigation]
 
 リンクは通常の `<a>` 要素として描画されるため、ルーターをインストールしていない React アプリでも `NavBar` はそのまま動作します。クライアントサイドのナビゲーションを有効にするには、使用しているルーターのリンクコンポーネントを渡してください:
 
@@ -153,7 +153,7 @@ import Link from "next/link";
 <NavBar links={links} linkComponent={Link} />;
 ```
 
-### パーツのスタイリング
+### パーツのスタイリング [#styling-parts]
 
 `classNames` は `cn` を使って各パーツに追加のクラスをマージするため、独自のクラスがデフォルトより優先されます:
 
@@ -181,14 +181,14 @@ import Link from "next/link";
 />
 ```
 
-### NavLink オブジェクト
+### NavLink オブジェクト [#navlink-object]
 
 | プロパティ | 型     | 説明              |
 | -------- | -------- | ------------------------ |
 | `label`  | `string` | リンクテキスト — **必須** |
 | `href`   | `string` | リンクURL — **必須**  |
 
-### Locale オブジェクト
+### Locale オブジェクト [#locale-object]
 
 | プロパティ | 型     | 説明                                                     |
 | -------- | -------- | --------------------------------------------------------------- |
@@ -196,9 +196,9 @@ import Link from "next/link";
 | `label`  | `string` | 表示名の上書き（省略時は自動で解決されます）                |
 | `flag`   | `string` | 国旗絵文字の上書き（省略時は自動検出されます）                  |
 
-## 使用例
+## 使用例 [#examples]
 
-### Babelize SDK を使う場合
+### Babelize SDK を使う場合 [#with-babelize-sdk]
 
 自動的なロケールルーティングのために、NavBar を [Babelize SDK](https://docs.babelize.co/sdk) と組み合わせます:
 
@@ -217,13 +217,12 @@ const links = [
 ];
 
 const locales = [
-  { code: "en" },
-  { label: "English", flag: "🇺🇸" },
-  { label: "Français", flag: "🇫🇷" },
-  { label: "Español", flag: "🇪🇸" },
-  { label: "Deutsch", flag: "🇩🇪" },
-  { label: "日本語", flag: "🇯🇵" },
-  { label: "العربية", flag: "🇸🇦" },
+  { code: "en", label: "English", flag: "🇺🇸" },
+  { code: "fr", label: "Français", flag: "🇫🇷" },
+  { code: "es", label: "Español", flag: "🇪🇸" },
+  { code: "de", label: "Deutsch", flag: "🇩🇪" },
+  { code: "ja", label: "日本語", flag: "🇯🇵" },
+  { code: "ar", label: "العربية", flag: "🇸🇦" },
 ];
 
 export default function App() {
@@ -248,7 +247,7 @@ export default function App() {
 }
 ```
 
-### next-intl を使う場合
+### next-intl を使う場合 [#with-next-intl]
 
 ```tsx
 "use client";
@@ -279,7 +278,7 @@ export function AppNavBar() {
 }
 ```
 
-### react-i18next を使う場合
+### react-i18next を使う場合 [#with-react-i18next]
 
 ```tsx
 "use client";
@@ -302,7 +301,7 @@ export function AppNavBar() {
 }
 ```
 
-### フローティング
+### フローティング [#floating]
 
 ページの上に浮かぶ、角丸の内側バーです。現在のページをハイライトするには `activeHref` と組み合わせます:
 
@@ -327,7 +326,7 @@ export default function App() {
 }
 ```
 
-### GitHubリンク
+### GitHubリンク [#github-link]
 
 `showGitHub` は `githubUrl` へのリンクを持つアイコンボタンを追加します。リポジトリには `"owner/repo"`、プロフィールや組織には `"owner"`、または任意の完全なURLを渡してください。
 
@@ -338,7 +337,7 @@ export default function App() {
 
 `githubUrl` を指定しない `showGitHub` はボタンを描画せず、警告をログに出力します。
 
-### 固定しない
+### 固定しない [#non-sticky]
 
 ```tsx
 "use client";
@@ -356,7 +355,7 @@ export default function App() {
 }
 ```
 
-### 翻訳された UI テキスト
+### 翻訳された UI テキスト [#translated-ui-text]
 
 言語メニュー、モバイルメニューボタン、GitHubリンクには、デフォルトで英語のアクセシブルラベルが設定されています。翻訳するには `labels` を渡してください。省略したキーは英語のデフォルトのままになります。
 
@@ -388,7 +387,7 @@ export default function App() {
 | `toggleMenu` | `"Toggle menu"`                         | モバイルメニューボタンのラベル          |
 | `github`     | `"GitHub"`                              | GitHubアイコンリンクのラベル            |
 
-## キーボード操作
+## キーボード操作 [#keyboard-support]
 
 言語メニューは WAI-ARIA の listbox パターンに従います。メニュー内にテキストフィールドがないため、矢印キーは検索ボックスからのハイライトを追跡するのではなく、オプション間で実際の DOM フォーカスを移動させます。同じキーがデスクトップとモバイルのバーの両方で動作します。
 
@@ -403,7 +402,7 @@ export default function App() {
 
 リストが下でスクロールしてもハイライトは該当の行に留まります。長いリストでもページ全体がスクロールされることはありません。メニューの高さを設定するには `maxHeight` を渡してください。
 
-## 機能
+## 機能 [#features]
 
 - **レスポンシブ対応** — モバイルではハンバーガーメニュー、デスクトップでは完全なレイアウト
 - **内蔵の言語セレクター** — LanguageSwitcher と同じドロップダウンコンポーネント
@@ -418,7 +417,7 @@ export default function App() {
 - **アニメーション** — リンク間を滑らかに移動するホバーハイライト、アニメーションするモバイルメニューと言語メニュー。`prefers-reduced-motion` に対応
 - **ルーター非依存** — `next/link`（または任意のリンク）を `linkComponent` 経由で渡します
 
-## 依存関係
+## 依存関係 [#dependencies]
 
 - `motion` — アニメーション
 - `lucide-react` — アイコン
@@ -429,6 +428,6 @@ peerDependencies:
 - `react-dom` >= 18
 - `tailwindcss` >= 3
 
-## クレジット
+## クレジット [#credits]
 
 作成者: [sapatmohit](https://github.com/sapatmohit)。

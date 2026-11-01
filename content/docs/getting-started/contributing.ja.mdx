@@ -4,13 +4,13 @@ description: Babelize Elements にコンポーネントを提供する方法で�
 icon: HeartHandshake
 ---
 
-## コントリビューション
+## コントリビューション [#contributing]
 
 Babelize Elements はオープンソースでコミュニティ主導のライブラリです。ここで紹介しているコンポーネントは、コントリビューターの皆さまによって作られたものです。次のコンポーネントはあなたが作るかもしれません。
 
 始める前に、[コントリビューター規約](/docs/getting-started/rulebook)をお読みください。
 
-## 仕組み
+## 仕組み [#how-it-works]
 
 1. **Issue を選ぶ** — [GitHub の Issue](https://github.com/babelize/babelize-elements/issues) を確認し、`good first issue` または `help wanted` とマークされたコンポーネントのリクエストを探します。
 2. **コンポーネントを作成する** — [以下のコンポーネントテンプレート](#component-template)に従って `src/registry/components/` に実装します。
@@ -19,7 +19,7 @@ Babelize Elements はオープンソースでコミュニティ主導のライ�
 
 まだ該当するコンポーネントがありませんか？ 提案用の Issue を作成してください。候補として最適なのは、言語スイッチャー、ロケールピッカー、翻訳ウィジェット、RTL ユーティリティ、複数形のヘルパー、ロケール対応のフォーマッターです。
 
-## コンポーネントテンプレート
+## コンポーネントテンプレート [#component-template]
 
 ```tsx
 "use client";
@@ -80,7 +80,7 @@ export const LanguageSelect = React.forwardRef<HTMLSelectElement, LanguageSelect
 
 `role="listbox"` ポップアップ（言語メニュー、国ピッカーなど）を描画するコンポーネントは、矢印キー、`Home` / `End`、`Enter`、`Escape` を個別に実装する代わりに、`@/lib/use-listbox-navigation` の `useListboxNavigation` を通じてキーボード操作を共有します。2つのフォーカス戦略については、`LanguageSwitcher`（検索フィールドと `aria-activedescendant` の組み合わせ）と `NavBar`（ローミングフォーカス）を参照してください。
 
-## コントリビューションのチェックリスト
+## コントリビューションのチェックリスト [#contribution-checklist]
 
 - [ ] TypeScript を優先し、すべての props のインターフェースをエクスポートする
 - [ ] ローカライゼーションに対応: 該当する場合はロケールコード、複数形、RTL を処理する
@@ -88,6 +88,6 @@ export const LanguageSelect = React.forwardRef<HTMLSelectElement, LanguageSelect
 - [ ] Tailwind CSS でスタイルされている
 - [ ] ドキュメント用の簡単なデモまたは使用例
 
-## ヘルプが必要ですか？
+## ヘルプが必要ですか？ [#need-help]
 
 GitHub で Discussion を開くか、[Babelize コミュニティ](https://discord.gg/Qqzr2g4KGx)に参加してください。みなさん親切です。

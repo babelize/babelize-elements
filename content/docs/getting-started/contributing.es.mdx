@@ -4,13 +4,13 @@ description: Cómo contribuir con un componente a Babelize Elements, desde abrir
 icon: HeartHandshake
 ---
 
-## Contribuir
+## Contribuir [#contributing]
 
 Babelize Elements es una biblioteca de código abierto impulsada por la comunidad. Los componentes que ves aquí los crearon colaboradores, y el siguiente podría ser el tuyo.
 
 Antes de empezar, lee el [manual del colaborador](/docs/getting-started/rulebook).
 
-## Cómo funciona
+## Cómo funciona [#how-it-works]
 
 1. **Elige un issue** — explora los [issues de GitHub](https://github.com/babelize/babelize-elements/issues) en busca de una solicitud de componente marcada como `good first issue` o `help wanted`.
 2. **Crea el componente** — implementalo en `src/registry/components/` siguiendo la [plantilla de componente](#component-template) de abajo.
@@ -19,7 +19,7 @@ Antes de empezar, lee el [manual del colaborador](/docs/getting-started/rulebook
 
 ¿Todavía no existe ningún componente? Abre un issue proponiendo uno. Buenos candidatos: selectores de idioma, selectores de configuración regional, widgets de traducción, utilidades RTL, ayudantes de pluralización y formateadores con reconocimiento de configuración regional.
 
-## Plantilla de componente
+## Plantilla de componente [#component-template]
 
 ```tsx
 "use client";
@@ -80,7 +80,7 @@ Ten en cuenta las cuatro convenciones que sigue cada componente: un trío `value
 
 Un componente que renderiza un popup `role="listbox"` (un menú de idiomas, un selector de país) comparte su gestión del teclado a través de `useListboxNavigation` de `@/lib/use-listbox-navigation`, en lugar de implementar por sí mismo las teclas de flecha, `Home` / `End`, `Enter` y `Escape`. Consulta `LanguageSwitcher` (campo de búsqueda más `aria-activedescendant`) y `NavBar` (foco roving) para las dos estrategias de foco.
 
-## Lista de verificación para contribuir
+## Lista de verificación para contribuir [#contribution-checklist]
 
 - [ ] Prioriza TypeScript, con interfaces exportadas para todas las props
 - [ ] Consciente de la localización: gestiona los códigos de configuración regional, la pluralización o RTL según corresponda
@@ -88,6 +88,6 @@ Un componente que renderiza un popup `role="listbox"` (un menú de idiomas, un s
 - [ ] Con estilos de Tailwind CSS
 - [ ] Una demo breve o un ejemplo de uso para la documentación
 
-## ¿Necesitas ayuda?
+## ¿Necesitas ayuda? [#need-help]
 
 Abre una discusión en GitHub o únete a la [comunidad de Babelize](https://discord.gg/Qqzr2g4KGx). Somos un grupo amable.

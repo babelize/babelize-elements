@@ -11,7 +11,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   <NavBarDemo />
 </PreviewComponents>
 
-## Instalación
+## Instalación [#installation]
 
 <Tabs
   items={["shadcn", "Elements CLI"]}
@@ -86,7 +86,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   </Tab>
 </Tabs>
 
-## Uso
+## Uso [#usage]
 
 ```tsx
 "use client";
@@ -118,7 +118,7 @@ export function SiteNav() {
 }
 ```
 
-## Props
+## Props [#props]
 
 | Prop            | Tipo                              | Obligatorio | Descripción                                                                   |
 | --------------- | --------------------------------- | -------- | ----------------------------------------------------------------------------- |
@@ -143,7 +143,7 @@ export function SiteNav() {
 
 Cualquier otra prop se propaga al elemento `<nav>` subyacente, y la ref se reenvía a él.
 
-### Navegación del lado del cliente
+### Navegación del lado del cliente [#client-side-navigation]
 
 Los enlaces se renderizan como elementos `<a>` simples, así que `NavBar` funciona en cualquier aplicación React sin router instalado. Pasa el componente de enlace de tu router para activar la navegación del lado del cliente:
 
@@ -153,7 +153,7 @@ import Link from "next/link";
 <NavBar links={links} linkComponent={Link} />;
 ```
 
-### Estilizar las partes
+### Estilizar las partes [#styling-parts]
 
 `classNames` combina clases adicionales en cada parte con `cn`, así que tus clases tienen prioridad sobre los valores por defecto:
 
@@ -181,14 +181,14 @@ import Link from "next/link";
 />
 ```
 
-### NavLink Object
+### NavLink Object [#navlink-object]
 
 | Propiedad | Tipo     | Descripción              |
 | -------- | -------- | ------------------------ |
 | `label`  | `string` | Texto del enlace — **obligatorio** |
 | `href`   | `string` | URL del enlace — **obligatorio**  |
 
-### Objeto de configuración regional
+### Objeto de configuración regional [#locale-object]
 
 | Propiedad | Tipo     | Descripción                                                     |
 | -------- | -------- | --------------------------------------------------------------- |
@@ -196,9 +196,9 @@ import Link from "next/link";
 | `label`  | `string` | Sobrescribe el nombre para mostrar (se resuelve automáticamente si se omite)                |
 | `flag`   | `string` | Sobrescribe el emoji de bandera (se detecta automáticamente si se omite)                  |
 
-## Ejemplos
+## Ejemplos [#examples]
 
-### Con el SDK de Babelize
+### Con el SDK de Babelize [#with-babelize-sdk]
 
 Combina NavBar con el [SDK de Babelize](https://docs.babelize.co/sdk) para el enrutamiento automático por configuración regional:
 
@@ -217,13 +217,12 @@ const links = [
 ];
 
 const locales = [
-  { code: "en" },
-  { label: "English", flag: "🇺🇸" },
-  { label: "Français", flag: "🇫🇷" },
-  { label: "Español", flag: "🇪🇸" },
-  { label: "Deutsch", flag: "🇩🇪" },
-  { label: "日本語", flag: "🇯🇵" },
-  { label: "العربية", flag: "🇸🇦" },
+  { code: "en", label: "English", flag: "🇺🇸" },
+  { code: "fr", label: "Français", flag: "🇫🇷" },
+  { code: "es", label: "Español", flag: "🇪🇸" },
+  { code: "de", label: "Deutsch", flag: "🇩🇪" },
+  { code: "ja", label: "日本語", flag: "🇯🇵" },
+  { code: "ar", label: "العربية", flag: "🇸🇦" },
 ];
 
 export default function App() {
@@ -248,7 +247,7 @@ export default function App() {
 }
 ```
 
-### Con next-intl
+### Con next-intl [#with-next-intl]
 
 ```tsx
 "use client";
@@ -279,7 +278,7 @@ export function AppNavBar() {
 }
 ```
 
-### Con react-i18next
+### Con react-i18next [#with-react-i18next]
 
 ```tsx
 "use client";
@@ -302,7 +301,7 @@ export function AppNavBar() {
 }
 ```
 
-### Flotante
+### Flotante [#floating]
 
 Una barra redondeada e insertada que flota sobre la página; combínala con `activeHref` para resaltar la página actual:
 
@@ -327,7 +326,7 @@ export default function App() {
 }
 ```
 
-### Enlace de GitHub
+### Enlace de GitHub [#github-link]
 
 `showGitHub` añade un botón de icono que enlaza a `githubUrl`. Pasa `"owner/repo"` para un repositorio, `"owner"` para un perfil u organización, o cualquier URL completa.
 
@@ -338,7 +337,7 @@ export default function App() {
 
 `showGitHub` sin `githubUrl` no renderiza ningún botón y registra una advertencia.
 
-### No fijo
+### No fijo [#non-sticky]
 
 ```tsx
 "use client";
@@ -356,7 +355,7 @@ export default function App() {
 }
 ```
 
-### Texto de interfaz traducido
+### Texto de interfaz traducido [#translated-ui-text]
 
 El menú de idiomas, el botón del menú móvil y el enlace de GitHub tienen por defecto etiquetas accesibles en inglés. Pasa `labels` para traducirlas; cualquier clave que omitas conserva su valor por defecto en inglés.
 
@@ -388,7 +387,7 @@ export default function App() {
 | `toggleMenu` | `"Toggle menu"`                         | Etiqueta del botón del menú móvil          |
 | `github`     | `"GitHub"`                              | Etiqueta del enlace de icono de GitHub            |
 
-## Soporte de teclado
+## Soporte de teclado [#keyboard-support]
 
 El menú de idiomas sigue el patrón listbox de WAI-ARIA. Como no hay un campo de texto en el menú, las teclas de flecha mueven el foco real del DOM entre las opciones en lugar de seguir un resaltado desde un cuadro de búsqueda. Las mismas teclas funcionan en la barra de escritorio y en la móvil.
 
@@ -403,7 +402,7 @@ El menú de idiomas sigue el patrón listbox de WAI-ARIA. Como no hay un campo d
 
 El resaltado se mantiene en su fila mientras la lista se desplaza por debajo: una lista larga nunca desplaza la página. Pasa `maxHeight` para definir la altura máxima del menú.
 
-## Características
+## Características [#features]
 
 - **Adaptable** — menú hamburguesa en móvil, diseño completo en escritorio
 - **Selector de idioma integrado** — el mismo componente desplegable que LanguageSwitcher
@@ -418,7 +417,7 @@ El resaltado se mantiene en su fila mientras la lista se desplaza por debajo: un
 - **Animado** — el resaltado al pasar el cursor se desliza entre enlaces, con menú móvil y menú de idiomas animados; respeta `prefers-reduced-motion`
 - **Independiente del router** — pasa `next/link` (o cualquier enlace) mediante `linkComponent`
 
-## Dependencias
+## Dependencias [#dependencies]
 
 - `motion` — animaciones
 - `lucide-react` — iconos
@@ -429,6 +428,6 @@ Dependencias de pares:
 - `react-dom` >= 18
 - `tailwindcss` >= 3
 
-## Créditos
+## Créditos [#credits]
 
 Creado por [sapatmohit](https://github.com/sapatmohit).

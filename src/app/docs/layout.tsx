@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { DocsLayout } from "fumadocs-ui/layouts/docs";
 import { getLocale } from "next-intl/server";
 import { source } from "@/lib/source";
+import { localizeTree } from "@/lib/localized-href";
 import { baseOptions } from "../layout.config";
 import { version as localVersion } from "../../../package.json";
 
@@ -47,7 +48,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
 
   return (
     <DocsLayout
-      tree={source.getPageTree(locale)}
+      tree={localizeTree(source.getPageTree(locale), locale)}
       {...baseOptions}
       sidebar={{
         footer: (

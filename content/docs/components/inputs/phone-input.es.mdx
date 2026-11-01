@@ -11,7 +11,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   <PhoneInputDemo />
 </PreviewComponents>
 
-## Instalación
+## Instalación [#installation]
 
 <Tabs
   items={["shadcn", "Elements CLI"]}
@@ -86,7 +86,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   </Tab>
 </Tabs>
 
-## Uso
+## Uso [#usage]
 
 ```tsx
 "use client";
@@ -113,11 +113,11 @@ export function PhoneField() {
 }
 ```
 
-### Control del país
+### Control del país [#country-control]
 
 El país sigue la misma convención controlada/no controlada que el número: pasa `country` + `onCountryChange` para controlarlo, o `defaultCountry` para definir el valor predeterminado no controlado. Cuando `country` es controlado, el padre tiene la última palabra; usa `onCountryChange` si quieres que la detección del prefijo (abajo) cambie de país.
 
-### Detección del prefijo telefónico
+### Detección del prefijo telefónico [#dial-code-detection]
 
 Escribe o pega un número que empiece por `+` y el componente cambiará el país para que coincida, eliminando del campo el prefijo y el separador que lo sigue. El prefijo que declara `+` tiene prioridad sobre un país seleccionado manualmente:
 
@@ -128,7 +128,7 @@ Escribe o pega un número que empiece por `+` y el componente cambiará el país
 - Un prefijo que no está en tu lista de `countries` se ignora: el país solo cambia a un país que realmente ofreces.
 - Tras un cambio, el menú de países sigue funcionando con normalidad: elegir un país sustituye al detectado, y no se vuelve a detectar nada hasta la próxima vez que el valor empiece por `+`.
 
-## Props
+## Props [#props]
 
 | Prop                | Tipo                                        | Obligatorio | Descripción                                                                                               |
 | ------------------- | ------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------- |
@@ -156,7 +156,7 @@ Escribe o pega un número que empiece por `+` y el componente cambiará el país
 
 Cualquier otra prop — `name`, `required`, `autoComplete`, `aria-invalid`, `data-*` — se pasa al `<input>` subyacente, y la ref se reenvía a él, así que el componente funciona dentro de un formulario HTML normal. Si estableces `aria-invalid`, todo el campo se vuelve rojo, igual que `Input` de shadcn.
 
-### Objeto de país
+### Objeto de país [#country-object]
 
 | Propiedad   | Tipo     | Descripción                                           |
 | ---------- | -------- | ----------------------------------------------------- |
@@ -165,9 +165,9 @@ Cualquier otra prop — `name`, `required`, `autoComplete`, `aria-invalid`, `dat
 | `name`     | `string` | Nombre del país                                          |
 | `flag`     | `string` | Emoji de bandera                                            |
 
-## Ejemplos
+## Ejemplos [#examples]
 
-### Con el SDK de Babelize
+### Con el SDK de Babelize [#with-babelize-sdk]
 
 Combina la entrada de teléfono con el [SDK de Babelize](https://docs.babelize.co/sdk) para validar según la configuración regional:
 
@@ -204,7 +204,7 @@ export function ContactPhone() {
 }
 ```
 
-### Con validación de formularios
+### Con validación de formularios [#with-form-validation]
 
 ```tsx
 "use client";
@@ -242,7 +242,7 @@ export default function CheckoutForm() {
 }
 ```
 
-### Con filtro de países
+### Con filtro de países [#with-country-filter]
 
 ```tsx
 "use client";
@@ -265,7 +265,7 @@ export default function App() {
 }
 ```
 
-### Personalizar partes
+### Personalizar partes [#customizing-parts]
 
 Cada parte admite sus propias clases mediante `classNames`, que se combinan después de los valores predeterminados:
 
@@ -282,7 +282,7 @@ Cada parte admite sus propias clases mediante `classNames`, que se combinan desp
 />
 ```
 
-### Texto de interfaz traducido
+### Texto de interfaz traducido [#translated-ui-text]
 
 Pasa `labels` para traducir el texto del menú de países, y `displayLocale` para mostrar los nombres de países en otro idioma. Los nombres proceden de [`Intl.DisplayNames`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DisplayNames) del navegador, por lo que su redacción exacta puede variar ligeramente entre navegadores. La búsqueda coincide con el nombre traducido, mientras que `onValueChange` sigue devolviendo el `name` en inglés del país. Las props `searchPlaceholder` y `emptyMessage` siguen funcionando, y tienen prioridad sobre `labels` cuando se definen ambas.
 
@@ -320,7 +320,7 @@ export default function App() {
 | `emptyMessage`      | `"No countries found."` | Se muestra cuando nada coincide    |
 | `listbox`           | `"Select country"`      | Etiqueta accesible de la lista de países |
 
-## Soporte de teclado
+## Soporte de teclado [#keyboard-support]
 
 El menú de países sigue el patrón combobox de WAI-ARIA: el foco permanece en el campo de búsqueda, que se expone como `role="combobox"`, y el país resaltado se anuncia mediante `aria-activedescendant`.
 
@@ -336,7 +336,7 @@ El menú de países sigue el patrón combobox de WAI-ARIA: el foco permanece en 
 
 El resaltado se mantiene en la fila en la que apareció al abrir el menú: la lista se desplaza por debajo, como un menú nativo, y la página nunca se desplaza. Pasa `maxHeight` para cambiar la altura de la lista de países antes de que empiece a desplazarse.
 
-## Características
+## Características [#features]
 
 - **50 países** — precargados con prefijos, banderas y nombres
 - **Búsqueda en el desplegable** — filtra países por nombre o prefijo telefónico
@@ -348,7 +348,7 @@ El resaltado se mantiene en la fila en la que apareció al abrir el menú: la li
 - **Controlado/no controlado** — funciona con o sin `value` y `country`
 - **Detección del prefijo telefónico** — al escribir o pegar `+44…` el país cambia a GB y se elimina el prefijo; los prefijos compartidos (`+1`, `+7`) mantienen la selección actual
 
-## Países compatibles
+## Países compatibles [#supported-countries]
 
 El campo incluye 50 países precargados. Usa la búsqueda del desplegable para encontrar cualquier país por nombre o prefijo telefónico. La lista completa incluye:
 
@@ -366,7 +366,7 @@ El campo incluye 50 países precargados. Usa la búsqueda del desplegable para e
 | Corea del Sur                            | `KR` | `+82`     | 🇰🇷   |
 | ...y 40 más mediante la búsqueda del desplegable |
 
-## Dependencias
+## Dependencias [#dependencies]
 
 Este componente usa:
 
@@ -379,6 +379,6 @@ Dependencias de pares:
 - `react-dom` >= 18
 - `tailwindcss` >= 3
 
-## Créditos
+## Créditos [#credits]
 
 Creado por [sapatmohit](https://github.com/sapatmohit).

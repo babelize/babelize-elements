@@ -4,7 +4,7 @@ description: "Babelize Elements コンポーネントがエクスポートする
 icon: FileCode
 ---
 
-## 概要
+## 概要 [#overview]
 
 Babelize Elements は TypeScript を完全にサポートして構築されています。すべてのコンポーネントが独自の props とデータのインターフェースをエクスポートするため、完全な型安全性と IntelliSense が得られます。
 
@@ -32,9 +32,9 @@ import { NavBar, type NavLink } from "@/components/ui/navbar";
 import type { Locale } from "@/components/ui/types";
 ```
 
-## 言語スイッチャー
+## 言語スイッチャー [#language-switcher]
 
-### ロケール
+### ロケール [#locale]
 
 ```ts
 export interface Locale {
@@ -49,7 +49,7 @@ export interface Locale {
 }
 ```
 
-### LanguageSwitcherProps
+### LanguageSwitcherProps [#languageswitcherprops]
 
 ```ts
 export interface LanguageSwitcherProps {
@@ -72,7 +72,7 @@ export interface LanguageSwitcherProps {
 }
 ```
 
-### LanguageSwitcherLabels
+### LanguageSwitcherLabels [#languageswitcherlabels]
 
 ```ts
 export interface LanguageSwitcherLabels {
@@ -93,9 +93,9 @@ export interface LanguageSwitcherLabels {
 
 任意のサブセットを `labels` として渡します。省略したキーは英語のデフォルトのままになります。同じことが以下のすべての `*Labels` インターフェースに当てはまります。
 
-## Phone Input
+## Phone Input [#phone-input]
 
-### 国
+### 国 [#country]
 
 ```ts
 export interface Country {
@@ -110,7 +110,7 @@ export interface Country {
 }
 ```
 
-### PhoneInputProps
+### PhoneInputProps [#phoneinputprops]
 
 ```ts
 export interface PhoneInputProps {
@@ -139,7 +139,7 @@ export interface PhoneInputProps {
 }
 ```
 
-### PhoneInputLabels
+### PhoneInputLabels [#phoneinputlabels]
 
 ```ts
 export interface PhoneInputLabels {
@@ -158,9 +158,9 @@ export interface PhoneInputLabels {
 }
 ```
 
-## NavBar
+## NavBar [#navbar]
 
-### NavLink
+### NavLink [#navlink]
 
 ```ts
 export interface NavLink {
@@ -177,7 +177,7 @@ export interface NavLink {
 > `NavBar` の `currentLocale` / `onLocaleChange` と `PhoneInput` の `onChange` /
 > `showFlag` は `1.1.3` で削除されました。`value` / `onValueChange` / `showFlags` を使用してください。
 
-### NavBarProps
+### NavBarProps [#navbarprops]
 
 ```ts
 export interface NavBarProps {
@@ -212,7 +212,7 @@ export interface NavBarProps {
 }
 ```
 
-### NavBarLabels
+### NavBarLabels [#navbarlabels]
 
 ```ts
 export interface NavBarLabels {
@@ -227,9 +227,9 @@ export interface NavBarLabels {
 }
 ```
 
-## 翻訳ウィジェット
+## 翻訳ウィジェット [#translation-widget]
 
-### TranslationWidgetLabels
+### TranslationWidgetLabels [#translationwidgetlabels]
 
 ```ts
 export interface TranslationWidgetLabels {
@@ -253,11 +253,11 @@ export interface TranslationWidgetLabels {
 }
 ```
 
-## ロケールピッカー
+## ロケールピッカー [#locale-picker]
 
 [ロケールピッカー](/docs/components/locale-pickers/locale-picker) のUIテキストです。
 
-### LocalePickerLabels
+### LocalePickerLabels [#localepickerlabels]
 
 ```ts
 export interface LocalePickerLabels {
@@ -284,7 +284,7 @@ export interface LocalePickerLabels {
 }
 ```
 
-## インターフェースの拡張
+## インターフェースの拡張 [#extending-interfaces]
 
 Babelize Elements のコンポーネントは、インストール後は完全にお客様の管理下に置かれるため、コンポーネントファイル内でこれらのインターフェースを直接拡張できます。たとえば、各ロケールにカスタムの `meta` フィールドを追加するには、ローカルのコピーの `Locale` インターフェースに追加します:
 

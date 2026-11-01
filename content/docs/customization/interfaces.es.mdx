@@ -4,7 +4,7 @@ description: "Interfaces de TypeScript principales exportadas por los componente
 icon: FileCode
 ---
 
-## Descripción general
+## Descripción general [#overview]
 
 Babelize Elements está construido con soporte completo de TypeScript. Cada componente exporta sus propias interfaces de props y de datos, así que obtienes seguridad de tipos completa e IntelliSense.
 
@@ -32,9 +32,9 @@ import { NavBar, type NavLink } from "@/components/ui/navbar";
 import type { Locale } from "@/components/ui/types";
 ```
 
-## Selector de idioma
+## Selector de idioma [#language-switcher]
 
-### Configuración regional
+### Configuración regional [#locale]
 
 ```ts
 export interface Locale {
@@ -49,7 +49,7 @@ export interface Locale {
 }
 ```
 
-### LanguageSwitcherProps
+### LanguageSwitcherProps [#languageswitcherprops]
 
 ```ts
 export interface LanguageSwitcherProps {
@@ -72,7 +72,7 @@ export interface LanguageSwitcherProps {
 }
 ```
 
-### LanguageSwitcherLabels
+### LanguageSwitcherLabels [#languageswitcherlabels]
 
 ```ts
 export interface LanguageSwitcherLabels {
@@ -93,9 +93,9 @@ export interface LanguageSwitcherLabels {
 
 Pasa cualquier subconjunto como `labels`; las claves que omitas conservan su valor por defecto en inglés. Lo mismo vale para todas las interfaces `*Labels` de abajo.
 
-## Entrada de teléfono
+## Entrada de teléfono [#phone-input]
 
-### País
+### País [#country]
 
 ```ts
 export interface Country {
@@ -110,7 +110,7 @@ export interface Country {
 }
 ```
 
-### PhoneInputProps
+### PhoneInputProps [#phoneinputprops]
 
 ```ts
 export interface PhoneInputProps {
@@ -139,7 +139,7 @@ export interface PhoneInputProps {
 }
 ```
 
-### PhoneInputLabels
+### PhoneInputLabels [#phoneinputlabels]
 
 ```ts
 export interface PhoneInputLabels {
@@ -158,9 +158,9 @@ export interface PhoneInputLabels {
 }
 ```
 
-## NavBar
+## NavBar [#navbar]
 
-### NavLink
+### NavLink [#navlink]
 
 ```ts
 export interface NavLink {
@@ -177,7 +177,7 @@ export interface NavLink {
 > `NavBar`: `currentLocale` / `onLocaleChange` y `PhoneInput`: `onChange` /
 > `showFlag` se eliminaron en `1.1.3`. Usa `value` / `onValueChange` / `showFlags`.
 
-### NavBarProps
+### NavBarProps [#navbarprops]
 
 ```ts
 export interface NavBarProps {
@@ -212,7 +212,7 @@ export interface NavBarProps {
 }
 ```
 
-### NavBarLabels
+### NavBarLabels [#navbarlabels]
 
 ```ts
 export interface NavBarLabels {
@@ -227,9 +227,9 @@ export interface NavBarLabels {
 }
 ```
 
-## Widget de traducción
+## Widget de traducción [#translation-widget]
 
-### TranslationWidgetLabels
+### TranslationWidgetLabels [#translationwidgetlabels]
 
 ```ts
 export interface TranslationWidgetLabels {
@@ -253,11 +253,11 @@ export interface TranslationWidgetLabels {
 }
 ```
 
-## Selector de configuración regional
+## Selector de configuración regional [#locale-picker]
 
 Texto de la interfaz del [selector de configuración regional](/docs/components/locale-pickers/locale-picker).
 
-### LocalePickerLabels
+### LocalePickerLabels [#localepickerlabels]
 
 ```ts
 export interface LocalePickerLabels {
@@ -284,7 +284,7 @@ export interface LocalePickerLabels {
 }
 ```
 
-## Extender interfaces
+## Extender interfaces [#extending-interfaces]
 
 Como los componentes de Babelize Elements son totalmente tuyos una vez instalados, puedes extender estas interfaces directamente en los archivos de componentes. Por ejemplo, para añadir un campo `meta` personalizado a cada configuración regional, añádelo a la interfaz `Locale` en tu copia local:
 

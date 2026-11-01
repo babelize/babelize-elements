@@ -11,7 +11,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   <LocalePickerDemo />
 </PreviewComponents>
 
-## التثبيت
+## التثبيت [#installation]
 
 <Tabs
   items={["shadcn", "Elements CLI"]}
@@ -86,7 +86,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   </Tab>
 </Tabs>
 
-## الاستخدام
+## الاستخدام [#usage]
 
 ```tsx
 import { LocalePicker } from "@/components/ui/locale-picker";
@@ -103,7 +103,7 @@ import { LocalePicker } from "@/components/ui/locale-picker";
 />
 ```
 
-## الخصائص
+## الخصائص [#props]
 
 | الخاصية                | النوع                                  | مطلوب | الافتراضي               | الوصف                                                                          |
 | ------------------- | ------------------------------------- | -------- | --------------------- | ------------------------------------------------------------------------------------ |
@@ -129,7 +129,7 @@ import { LocalePicker } from "@/components/ui/locale-picker";
 
 القيمة المحددة وسم BCP 47 كامل: جزء **المنطقة** فيه هو المنطقة المختارة، ويبقى جزء **اللغة** سليمًا عند تغيير المنطقة. اختيار ألمانيا من `en-IN` ينتج `en-DE`؛ واختيارها من `fr-JP` ينتج `fr-DE`.
 
-## القيم الافتراضية المشتقة
+## القيم الافتراضية المشتقة [#derived-defaults]
 
 تشتق بطاقة الملخص كل شيء من الإعدادات المحلية المحددة عبر `Intl` — دون بيانات مضمّنة تتجاوز جدول ISO 4217 الاحتياطي لرمز العملة:
 
@@ -142,7 +142,7 @@ import { LocalePicker } from "@/components/ui/locale-picker";
 
 تعرض المناطق التي لا تملك ربطًا بعملة شرطةً طويلة بدلًا من التخمين.
 
-## دعم لوحة المفاتيح
+## دعم لوحة المفاتيح [#keyboard-support]
 
 تتبع النافذة المنبثقة نمط combobox في WAI-ARIA: يبقى التركيز في حقل البحث، الذي يُعرض كـ `role="combobox"`، ويُعلَن عن الخيار المميّز عبر `aria-activedescendant`.
 
@@ -156,7 +156,7 @@ import { LocalePicker } from "@/components/ui/locale-picker";
 | `Escape`                         | أغلق النافذة المنبثقة وأعد التركيز إلى الزر المُشغّل               |
 | الكتابة                           | صفِّ حسب الاسم أو الرمز؛ يبدأ التمييز من الأعلى مجددًا     |
 
-## الميزات
+## الميزات [#features]
 
 - **القيم الافتراضية المشتقة** — العملة وتنسيق التاريخ وتنسيق الأرقام وأول يوم في الأسبوع، تُحسب مباشرة عبر `Intl`
 - **قائمة منسدلة مع بحث** — صفِّ المناطق حسب الاسم الإنجليزي أو الاسم المترجم أو رمز المنطقة، مع زر مسح
@@ -168,15 +168,15 @@ import { LocalePicker } from "@/components/ui/locale-picker";
 - **قابل للتخصيص** — أزرار `variant` / `size` إضافةً إلى `classNames` لكل جزء (`LocalePickerClassNames` مُصدَّر من ملف التصدير الرئيسي)، مع أيقونات `lucide-react` في كل مكان
 - **متحكَّم به أو غير متحكَّم به** — `value` / `defaultValue` / `onValueChange`
 
-## أمثلة
+## أمثلة [#examples]
 
-### متحكَّم به
+### متحكَّم به [#controlled]
 
 ```tsx
 <LocalePicker regions={["IN", "US", "GB", "DE", "JP"]} value={locale} onValueChange={setLocale} />
 ```
 
-### أسماء المناطق الأصلية
+### أسماء المناطق الأصلية [#native-region-names]
 
 ```tsx
 <LocalePicker regions={["IN", "US", "GB", "DE", "JP"]} defaultValue="de-DE" label="native" />
@@ -184,7 +184,7 @@ import { LocalePicker } from "@/components/ui/locale-picker";
 
 عند تحديد `de-DE`، يقرأ الزر المُشغّل "Deutschland" وتقرأ الخيارات "Vereinigte Staaten" و"Vereinigtes Königreich"، وهكذا.
 
-### نصوص الواجهة المترجمة
+### نصوص الواجهة المترجمة [#translated-ui-text]
 
 تكون النصوص النائبة للبحث وحالة الفراغ وتسميات إمكانية الوصول وتسميات صفوف الملخص بالإنجليزية افتراضيًا. مرّر `labels` لترجمتها — وأي مفتاح تتركه يحتفظ بقيمته الإنجليزية الافتراضية. وتظل الخاصيتان `searchPlaceholder` و`emptyMessage` تعملان، وتتغلبان على `labels` عند ضبطهما معًا.
 
@@ -215,7 +215,7 @@ export default function App() {
 }
 ```
 
-## الاعتماديات
+## الاعتماديات [#dependencies]
 
 يستخدم هذا المكوّن:
 
@@ -229,6 +229,6 @@ export default function App() {
 - `react-dom` >= 18
 - `tailwindcss` >= 3
 
-## الإسناد
+## الإسناد [#credits]
 
 من إنشاء [ujwalbajaj](https://github.com/ujwalbajaj).

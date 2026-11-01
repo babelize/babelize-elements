@@ -11,7 +11,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   <LanguageSwitcherPillDemo />
 </PreviewComponents>
 
-## インストール
+## インストール [#installation]
 
 <Tabs
   items={["shadcn", "Elements CLI"]}
@@ -86,7 +86,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   </Tab>
 </Tabs>
 
-## 使い方
+## 使い方 [#usage]
 
 ```tsx
 "use client";
@@ -113,7 +113,7 @@ export function LocalePill() {
 }
 ```
 
-## Props
+## Props [#props]
 
 | Prop             | 型                             | 必須 | 説明                                                                   |
 | ---------------- | -------------------------------- | -------- | ----------------------------------------------------------------------------- |
@@ -131,7 +131,7 @@ export function LocalePill() {
 
 残りの `div` props はルート要素に転送されます。
 
-### クラス名
+### クラス名 [#class-names]
 
 各パーツは独自のクラスを指定でき、デフォルトのクラスの後にマージされます。 そのため、コンポーネントをフォークしなくても、一部分だけスタイルを変更できます:
 
@@ -155,7 +155,7 @@ export function LocalePill() {
 
 このコンポーネントは shadcn/ui のテーマトークン（`bg-muted`、`bg-background`、`text-muted-foreground`、`ring-ring`）でスタイル設定されているため、お使いのテーマが自動的に反映されます。
 
-### Locale オブジェクト
+### Locale オブジェクト [#locale-object]
 
 | プロパティ | 型      | 説明                                                          |
 | -------- | --------- | -------------------------------------------------------------------- |
@@ -164,9 +164,9 @@ export function LocalePill() {
 | `flag`   | `string`  | `showFlags` と併せて表示される国旗の絵文字（省略時は自動で解決されます）         |
 | `rtl`    | `boolean` | テキストの組版に使う RTL 方向を上書きします（省略時は自動検出されます）   |
 
-## 使用例
+## 使用例 [#examples]
 
-### Babelize SDK を使う場合
+### Babelize SDK を使う場合 [#with-babelize-sdk]
 
 自動翻訳のために、言語スイッチャー Pill を [Babelize SDK](https://docs.babelize.co/sdk) と組み合わせます:
 
@@ -202,7 +202,7 @@ export function LocaleSwitcher() {
 }
 ```
 
-### next-intl を使う場合
+### next-intl を使う場合 [#with-next-intl]
 
 ```tsx
 "use client";
@@ -227,7 +227,7 @@ export function LocaleSwitcher() {
 }
 ```
 
-### react-i18next を使う場合
+### react-i18next を使う場合 [#with-react-i18next]
 
 ```tsx
 "use client";
@@ -252,14 +252,14 @@ export function LocaleSwitcher() {
 }
 ```
 
-### バリアントとサイズ
+### バリアントとサイズ [#variants-and-sizes]
 
 ```tsx
 <LanguageSwitcherPill locales={locales} variant="outline" size="sm" showFlags />
 <LanguageSwitcherPill locales={locales} size="lg" />
 ```
 
-## キーボード操作
+## キーボード操作 [#keyboard-navigation]
 
 - **右矢印** — 次の言語に移動します（RTL レイアウトでは前の言語）。
 - **左矢印** — 前の言語に移動します（RTL レイアウトでは次の言語）。
@@ -267,7 +267,7 @@ export function LocaleSwitcher() {
 - **End** — 最後の言語に移動します。
 - **Enter / Space** — フォーカスされている言語を選択します。
 
-## RTL サポート
+## RTL サポート [#rtl-support]
 
 このコンポーネントは、アラビア語、ヘブライ語、ペルシア語、ウルドゥー語、パシュトー語、シンド語、イディッシュ語など、右から左に書く言語に対応しています。
 

@@ -11,7 +11,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   <LocalePickerDemo />
 </PreviewComponents>
 
-## Instalación
+## Instalación [#installation]
 
 <Tabs
   items={["shadcn", "Elements CLI"]}
@@ -86,7 +86,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   </Tab>
 </Tabs>
 
-## Uso
+## Uso [#usage]
 
 ```tsx
 import { LocalePicker } from "@/components/ui/locale-picker";
@@ -103,7 +103,7 @@ import { LocalePicker } from "@/components/ui/locale-picker";
 />
 ```
 
-## Props
+## Props [#props]
 
 | Prop                | Tipo                                  | Obligatorio | Predeterminado               | Descripción                                                                          |
 | ------------------- | ------------------------------------- | -------- | --------------------- | ------------------------------------------------------------------------------------ |
@@ -129,7 +129,7 @@ import { LocalePicker } from "@/components/ui/locale-picker";
 
 El valor seleccionado es una etiqueta BCP 47 completa: su subetiqueta **de región** es la región elegida, y su subetiqueta **de idioma** se mantiene al cambiar de región. Elegir Alemania desde `en-IN` da como resultado `en-DE`; elegirla desde `fr-JP` da como resultado `fr-DE`.
 
-## Valores predeterminados derivados
+## Valores predeterminados derivados [#derived-defaults]
 
 La tarjeta de resumen deriva todo de la configuración regional seleccionada mediante `Intl`; no incluye más datos que una tabla de reserva de códigos ISO 4217 para el código de moneda:
 
@@ -142,7 +142,7 @@ La tarjeta de resumen deriva todo de la configuración regional seleccionada med
 
 Las regiones sin asignación de moneda muestran un guion largo en lugar de una suposición.
 
-## Soporte de teclado
+## Soporte de teclado [#keyboard-support]
 
 El popup sigue el patrón combobox de WAI-ARIA: el foco permanece en el campo de búsqueda, que se expone como `role="combobox"`, y la opción resaltada se anuncia mediante `aria-activedescendant`.
 
@@ -156,7 +156,7 @@ El popup sigue el patrón combobox de WAI-ARIA: el foco permanece en el campo de
 | `Escape`                         | Cierra el popup y devuelve el foco al disparador               |
 | Escritura                           | Filtra por nombre o código; el resaltado vuelve al principio     |
 
-## Características
+## Características [#features]
 
 - **Valores predeterminados derivados** — moneda, formato de fecha, formato de número y primer día de la semana, resueltos en tiempo real mediante `Intl`
 - **Desplegable con búsqueda** — filtra regiones por nombre en inglés, nombre localizado o código de región, con un botón de borrado
@@ -168,15 +168,15 @@ El popup sigue el patrón combobox de WAI-ARIA: el foco permanece en el campo de
 - **Personalizable** — disparadores `variant` / `size` más `classNames` por parte (`LocalePickerClassNames` se exporta desde el barrel), con iconos `lucide-react` en todo el componente
 - **Controlado o no controlado** — `value` / `defaultValue` / `onValueChange`
 
-## Ejemplos
+## Ejemplos [#examples]
 
-### Controlado
+### Controlado [#controlled]
 
 ```tsx
 <LocalePicker regions={["IN", "US", "GB", "DE", "JP"]} value={locale} onValueChange={setLocale} />
 ```
 
-### Nombres de región nativos
+### Nombres de región nativos [#native-region-names]
 
 ```tsx
 <LocalePicker regions={["IN", "US", "GB", "DE", "JP"]} defaultValue="de-DE" label="native" />
@@ -184,7 +184,7 @@ El popup sigue el patrón combobox de WAI-ARIA: el foco permanece en el campo de
 
 Con `de-DE` seleccionado, el disparador muestra «Deutschland» y las opciones muestran «Vereinigte Staaten», «Vereinigtes Königreich», etc.
 
-### Texto de interfaz traducido
+### Texto de interfaz traducido [#translated-ui-text]
 
 El marcador de posición de búsqueda, el estado vacío, las etiquetas accesibles y las etiquetas de la fila de resumen usan inglés de forma predeterminada. Pasa `labels` para traducirlos: cualquier clave que omitas conserva su valor en inglés. Las props `searchPlaceholder` y `emptyMessage` siguen funcionando y tienen prioridad sobre `labels` cuando ambas están definidas.
 
@@ -215,7 +215,7 @@ export default function App() {
 }
 ```
 
-## Dependencias
+## Dependencias [#dependencies]
 
 Este componente usa:
 
@@ -229,6 +229,6 @@ Dependencias de pares:
 - `react-dom` >= 18
 - `tailwindcss` >= 3
 
-## Créditos
+## Créditos [#credits]
 
 Creado por [ujwalbajaj](https://github.com/ujwalbajaj).

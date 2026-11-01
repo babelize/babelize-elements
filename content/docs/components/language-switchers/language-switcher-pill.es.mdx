@@ -11,7 +11,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   <LanguageSwitcherPillDemo />
 </PreviewComponents>
 
-## Instalación
+## Instalación [#installation]
 
 <Tabs
   items={["shadcn", "Elements CLI"]}
@@ -86,7 +86,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   </Tab>
 </Tabs>
 
-## Uso
+## Uso [#usage]
 
 ```tsx
 "use client";
@@ -113,7 +113,7 @@ export function LocalePill() {
 }
 ```
 
-## Props
+## Props [#props]
 
 | Prop             | Tipo                             | Obligatorio | Descripción                                                                   |
 | ---------------- | -------------------------------- | -------- | ----------------------------------------------------------------------------- |
@@ -131,7 +131,7 @@ export function LocalePill() {
 
 El resto de las props de `div` se reenvían al elemento raíz.
 
-### Nombres de clase
+### Nombres de clase [#class-names]
 
 Cada parte admite sus propias clases, que se combinan después de los valores predeterminados, para que puedas cambiar el estilo de una pieza sin bifurcar el componente:
 
@@ -155,7 +155,7 @@ Cada parte admite sus propias clases, que se combinan después de los valores pr
 
 El componente usa los tokens de tema de shadcn/ui (`bg-muted`, `bg-background`, `text-muted-foreground`, `ring-ring`), así que adopta tu tema automáticamente.
 
-### Objeto de configuración regional
+### Objeto de configuración regional [#locale-object]
 
 | Propiedad | Tipo      | Descripción                                                          |
 | -------- | --------- | -------------------------------------------------------------------- |
@@ -164,9 +164,9 @@ El componente usa los tokens de tema de shadcn/ui (`bg-muted`, `bg-background`, 
 | `flag`   | `string`  | Emoji de bandera que se muestra con `showFlags` (se resuelve automáticamente si se omite)         |
 | `rtl`    | `boolean` | Sustituye la dirección RTL para el formateo de texto (se detecta automáticamente si se omite)   |
 
-## Ejemplos
+## Ejemplos [#examples]
 
-### Con el SDK de Babelize
+### Con el SDK de Babelize [#with-babelize-sdk]
 
 Combina el selector de idioma en píldora con el [SDK de Babelize](https://docs.babelize.co/sdk) para traducciones automáticas:
 
@@ -202,7 +202,7 @@ export function LocaleSwitcher() {
 }
 ```
 
-### Con next-intl
+### Con next-intl [#with-next-intl]
 
 ```tsx
 "use client";
@@ -227,7 +227,7 @@ export function LocaleSwitcher() {
 }
 ```
 
-### Con react-i18next
+### Con react-i18next [#with-react-i18next]
 
 ```tsx
 "use client";
@@ -252,14 +252,14 @@ export function LocaleSwitcher() {
 }
 ```
 
-### Variantes y tamaños
+### Variantes y tamaños [#variants-and-sizes]
 
 ```tsx
 <LanguageSwitcherPill locales={locales} variant="outline" size="sm" showFlags />
 <LanguageSwitcherPill locales={locales} size="lg" />
 ```
 
-## Navegación por teclado
+## Navegación por teclado [#keyboard-navigation]
 
 - **Flecha derecha** — Pasa al siguiente idioma (el anterior en diseños RTL).
 - **Flecha izquierda** — Pasa al idioma anterior (el siguiente en diseños RTL).
@@ -267,7 +267,7 @@ export function LocaleSwitcher() {
 - **Fin** — Pasa al último idioma.
 - **Intro / Espacio** — Selecciona el idioma enfocado.
 
-## Soporte de RTL
+## Soporte de RTL [#rtl-support]
 
 El componente admite idiomas que se escriben de derecha a izquierda, como árabe, hebreo, persa, urdu, pastún, sindhi y yidis.
 

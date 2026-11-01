@@ -11,7 +11,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   <LanguageSwitcherDemo />
 </PreviewComponents>
 
-## インストール
+## インストール [#installation]
 
 <Tabs
   items={["shadcn", "Elements CLI"]}
@@ -86,7 +86,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   </Tab>
 </Tabs>
 
-## 使い方
+## 使い方 [#usage]
 
 ```tsx
 "use client";
@@ -111,7 +111,7 @@ export function LocaleSwitcher() {
 }
 ```
 
-## Props
+## Props [#props]
 
 | Prop                | 型                                  | 必須 | 説明                                                                          |
 | ------------------- | ------------------------------------- | -------- | ------------------------------------------------------------------------------------ |
@@ -136,7 +136,7 @@ export function LocaleSwitcher() {
 | `classNames`        | `LanguageSwitcherClassNames`          | いいえ       | パーツごとのクラス: `trigger`、`content`、`search`、`list`、`item`、`empty`            |
 | `className`         | `string`                              | いいえ       | ルートに追加する CSS クラス                                                   |
 
-### Locale オブジェクト
+### Locale オブジェクト [#locale-object]
 
 | プロパティ | 型      | 説明                                                                |
 | -------- | --------- | -------------------------------------------------------------------------- |
@@ -145,9 +145,9 @@ export function LocaleSwitcher() {
 | `flag`   | `string`  | 国旗の絵文字を上書きします（省略時はコードから自動検出されます）                   |
 | `rtl`    | `boolean` | RTL を上書きします（省略時はコードから自動検出されます）                          |
 
-## 使用例
+## 使用例 [#examples]
 
-### Babelize SDK を使う場合
+### Babelize SDK を使う場合 [#with-babelize-sdk]
 
 自動翻訳のために、言語スイッチャーを [Babelize SDK](https://docs.babelize.co/sdk) と組み合わせます:
 
@@ -185,7 +185,7 @@ export function LocaleSwitcher() {
 }
 ```
 
-### next-intl を使う場合
+### next-intl を使う場合 [#with-next-intl]
 
 ```tsx
 "use client";
@@ -206,7 +206,7 @@ export function LocaleSwitcher() {
 }
 ```
 
-### react-i18next を使う場合
+### react-i18next を使う場合 [#with-react-i18next]
 
 ```tsx
 "use client";
@@ -227,7 +227,7 @@ export function LocaleSwitcher() {
 }
 ```
 
-### ネイティブラベル＋国旗
+### ネイティブラベル＋国旗 [#native-labels--flags]
 
 ```tsx
 "use client";
@@ -246,7 +246,7 @@ export default function App() {
 }
 ```
 
-### パーツのカスタマイズ
+### パーツのカスタマイズ [#customizing-parts]
 
 このスイッチャーは shadcn のテーマトークンでスタイル設定されているため、お使いのテーマに追従します。 任意のパーツのスタイルを変更するには `classNames` を、各行に表示する内容を変更するには `renderOption` を使用します:
 
@@ -267,7 +267,7 @@ export default function App() {
 />
 ```
 
-### 翻訳された UI テキスト
+### 翻訳された UI テキスト [#translated-ui-text]
 
 検索欄のプレースホルダー、空の状態、アクセシブルなラベルは、デフォルトで英語です。 翻訳するには `labels` を渡します。 省略したキーは英語のデフォルトのままになります。 `searchPlaceholder` と `emptyMessage` の props も引き続き使用でき、両方が設定されている場合は `labels` より優先されます。
 
@@ -304,7 +304,7 @@ export default function App() {
 | `listbox`           | `"Select language"`                     | 選択肢一覧のアクセシブルなラベル  |
 | `current`           | `(name) => "Current language: " + name` | トリガーのアクセシブルなラベル      |
 
-## キーボード操作
+## キーボード操作 [#keyboard-support]
 
 ポップアップは WAI-ARIA のコンボボックスパターンに従います。 フォーカスは検索欄に留まり、検索欄は `role="combobox"` として公開されます。 ハイライトされた選択肢は `aria-activedescendant` を通じて読み上げられます。
 
@@ -320,7 +320,7 @@ export default function App() {
 
 ハイライトは、メニューを開いたときに表示されていた行に留まります。 ネイティブのメニューのように、一覧はその下でスクロールします。 ページ自体はスクロールしません。`maxHeight` を渡すと、スクロールが始まるまでの一覧の高さを変更できます。
 
-## 機能
+## 機能 [#features]
 
 - **設定不要** — コードを渡すだけで、ラベルと国旗は自動的に解決されます
 - **検索付きドロップダウン** — 名前またはコードでロケールを絞り込み
@@ -330,7 +330,7 @@ export default function App() {
 - **ダークモード** — Tailwind CSS で構築されており、ダークモードに対応しています
 - **ライブラリ非依存** — コールバックを通じて、任意の i18n 設定で動作します
 
-## 対応している言語
+## 対応している言語 [#supported-languages]
 
 ラベルと国旗は言語コードから自動検出されます。コードだけを渡してください:
 
@@ -417,7 +417,7 @@ export default function App() {
 />
 ```
 
-## 依存関係
+## 依存関係 [#dependencies]
 
 このコンポーネントは次を使用しています:
 
@@ -429,6 +429,6 @@ peerDependencies:
 - `react-dom` >= 18
 - `tailwindcss` >= 3
 
-## クレジット
+## クレジット [#credits]
 
 作成者: [sapatmohit](https://github.com/sapatmohit)。

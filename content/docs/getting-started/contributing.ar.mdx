@@ -4,13 +4,13 @@ description: كيفية المساهمة بمكوّن في Babelize Elements، �
 icon: HeartHandshake
 ---
 
-## المساهمة
+## المساهمة [#contributing]
 
 Babelize Elements مكتبة مفتوحة المصدر يقودها المجتمع. المكوّنات التي تراها هنا بناها مساهمون، والمكوّن التالي قد يكون لك.
 
 قبل أن تبدأ، اقرأ [دليل المساهم](/docs/getting-started/rulebook).
 
-## كيف تعمل العملية
+## كيف تعمل العملية [#how-it-works]
 
 1. **اختر مشكلة** — تصفّح [مشكلات GitHub](https://github.com/babelize/babelize-elements/issues) بحثًا عن طلب مكوّن موسوم بـ `good first issue` أو `help wanted`.
 2. **ابنِ المكوّن** — نفّذه في `src/registry/components/` وفق [قالب المكوّن](#component-template) أدناه.
@@ -19,7 +19,7 @@ Babelize Elements مكتبة مفتوحة المصدر يقودها المجتم
 
 لا يوجد مكوّن بعد؟ افتح مشكلة تقترحه. من أفضل الأفكار: مبدّلات اللغة، ومنتقيات الإعدادات المحلية، وأدوات الترجمة، وأدوات RTL، ومساعدات الجمع، ومنسّقات الأرقام والتواريخ المدركة للغة المحلية.
 
-## قالب المكوّن
+## قالب المكوّن [#component-template]
 
 ```tsx
 "use client";
@@ -80,7 +80,7 @@ export const LanguageSelect = React.forwardRef<HTMLSelectElement, LanguageSelect
 
 المكوّن الذي يعرض نافذة `role="listbox"` منبثقة، مثل قائمة لغات أو منتقي دولة، يشارك معالجة لوحة المفاتيح عبر `useListboxNavigation` من `@/lib/use-listbox-navigation` بدلًا من ربط مفاتيح الأسهم و`Home` / `End` و `Enter` و`Escape` بنفسه. راجع `LanguageSwitcher` (حقل بحث مع `aria-activedescendant`) و`NavBar` (التركيز المتدرج) للاستراتيجيتين في التركيز.
 
-## قائمة التحقق للمساهمة
+## قائمة التحقق للمساهمة [#contribution-checklist]
 
 - [ ] TypeScript أولًا، مع واجهات مُصدَّرة لكل الخصائص
 - [ ] مدرك للتوطين: يتعامل مع رموز اللغات المحلية وصيغ الجمع واتجاه RTL حسب الحاجة
@@ -88,6 +88,6 @@ export const LanguageSelect = React.forwardRef<HTMLSelectElement, LanguageSelect
 - [ ] مُنسَّق بـ Tailwind CSS
 - [ ] عرض توضيحي قصير أو مثال استخدام للتوثيق
 
-## تحتاج مساعدة؟
+## تحتاج مساعدة؟ [#need-help]
 
 افتح نقاشًا على GitHub أو انضم إلى [مجتمع Babelize](https://discord.gg/Qqzr2g4KGx). نحن ودودون.

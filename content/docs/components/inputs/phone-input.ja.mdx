@@ -11,7 +11,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   <PhoneInputDemo />
 </PreviewComponents>
 
-## インストール
+## インストール [#installation]
 
 <Tabs
   items={["shadcn", "Elements CLI"]}
@@ -86,7 +86,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   </Tab>
 </Tabs>
 
-## 使い方
+## 使い方 [#usage]
 
 ```tsx
 "use client";
@@ -113,11 +113,11 @@ export function PhoneField() {
 }
 ```
 
-### 国の制御
+### 国の制御 [#country-control]
 
 国の指定も、電話番号と同じ制御／非制御の仕組みに従います。 制御するには `country` + `onCountryChange` を渡し、非制御時の初期値には `defaultCountry` を指定します。 `country` が制御されている場合は、親コンポーネントが最終的な決定権を持ちます。 下記の国番号による自動検出で国を切り替えたい場合は `onCountryChange` を尊重してください。
 
-### 国番号による自動検出
+### 国番号による自動検出 [#dial-code-detection]
 
 `+` で始まる番号を入力または貼り付けると、コンポーネントは一致する国に切り替え、国番号とその直後の区切り文字をフィールドから取り除きます。 `+` で指定されたプレフィックスは、手動で選んだ国よりも優先されます:
 
@@ -128,7 +128,7 @@ export function PhoneField() {
 - `countries` 一覧にない国番号は無視されます。 国が切り替わるのは、実際に提供している国に限られます。
 - 切り替え後も国メニューは通常どおり動作します。 国を選択すると検出された国は上書きされ、値が再び `+` で始まるまで再検出は行われません。
 
-## Props
+## Props [#props]
 
 | Prop                | 型                                        | 必須 | 説明                                                                                               |
 | ------------------- | ------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------- |
@@ -156,7 +156,7 @@ export function PhoneField() {
 
 それ以外の prop（`name`、`required`、`autoComplete`、`aria-invalid`、`data-*`）は、内部の `<input>` にスプレッドされ、ref も転送されます。 そのため、プレーンな HTML フォーム内でも動作します。 `aria-invalid` を設定するとフィールド全体が赤くなり、shadcn の `Input` と同じ挙動になります。
 
-### Country オブジェクト
+### Country オブジェクト [#country-object]
 
 | プロパティ   | 型     | 説明                                           |
 | ---------- | -------- | ----------------------------------------------------- |
@@ -165,9 +165,9 @@ export function PhoneField() {
 | `name`     | `string` | 国名                                          |
 | `flag`     | `string` | 国旗の絵文字                                            |
 
-## 使用例
+## 使用例 [#examples]
 
-### Babelize SDK を使う場合
+### Babelize SDK を使う場合 [#with-babelize-sdk]
 
 ロケールに応じたバリデーションのために、Phone Input を [Babelize SDK](https://docs.babelize.co/sdk) と組み合わせます:
 
@@ -204,7 +204,7 @@ export function ContactPhone() {
 }
 ```
 
-### フォームバリデーションを使う場合
+### フォームバリデーションを使う場合 [#with-form-validation]
 
 ```tsx
 "use client";
@@ -242,7 +242,7 @@ export default function CheckoutForm() {
 }
 ```
 
-### 国のフィルターを使う場合
+### 国のフィルターを使う場合 [#with-country-filter]
 
 ```tsx
 "use client";
@@ -265,7 +265,7 @@ export default function App() {
 }
 ```
 
-### パーツのカスタマイズ
+### パーツのカスタマイズ [#customizing-parts]
 
 各パーツは `classNames` を通じて個別のクラスを指定でき、デフォルトのクラスの後にマージされます:
 
@@ -282,7 +282,7 @@ export default function App() {
 />
 ```
 
-### 翻訳された UI テキスト
+### 翻訳された UI テキスト [#translated-ui-text]
 
 国メニューのテキストを翻訳するには `labels` を、国名を別の言語で表示するには `displayLocale` を渡します。 国名はブラウザーの [`Intl.DisplayNames`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DisplayNames) から取得されるため、表記はブラウザーによってわずかに異なる場合があります。 検索は翻訳された名前に一致しますが、`onValueChange` は引き続き国の英語の `name` を返します。 `searchPlaceholder` と `emptyMessage` の props も引き続き使用でき、両方が設定されている場合は `labels` より優先されます。
 
@@ -320,7 +320,7 @@ export default function App() {
 | `emptyMessage`      | `"No countries found."` | 一致する項目がない場合に表示    |
 | `listbox`           | `"Select country"`      | 国一覧のアクセシブルなラベル |
 
-## キーボード操作
+## キーボード操作 [#keyboard-support]
 
 国メニューは WAI-ARIA のコンボボックスパターンに従います。 フォーカスは検索欄に留まり、検索欄は `role="combobox"` として公開されます。 ハイライトされた国は `aria-activedescendant` を通じて読み上げられます。
 
@@ -336,7 +336,7 @@ export default function App() {
 
 ハイライトは、メニューを開いたときに表示されていた行に留まります。 ネイティブのメニューのように、一覧はその下でスクロールします。 ページ自体はスクロールしません。 `maxHeight` を渡すと、スクロールが始まるまでの国一覧の高さを変更できます。
 
-## 機能
+## 機能 [#features]
 
 - **50 か国** — 国番号、国旗、国名をあらかじめ読み込み済み
 - **ドロップダウン検索** — 国名または国番号で絞り込み
@@ -348,7 +348,7 @@ export default function App() {
 - **制御／非制御の両方に対応** — `value` と `country` の有無に関わらず動作します
 - **国番号による自動検出** — `+44…` を入力または貼り付けると国が GB に切り替わり、プレフィックスは取り除かれます。共有の国番号（`+1`、`+7`）の場合は現在の選択を維持します
 
-## 対応している国
+## 対応している国 [#supported-countries]
 
 この入力欄には 50 か国があらかじめ読み込まれています。ドロップダウン検索を使うと、国名または国番号で任意の国を探せます。対象の国は次のとおりです:
 
@@ -366,7 +366,7 @@ export default function App() {
 | 韓国                            | `KR` | `+82`     | 🇰🇷   |
 | ……ほか 40 か国はドロップダウン検索からご覧いただけます |
 
-## 依存関係
+## 依存関係 [#dependencies]
 
 このコンポーネントは次を使用しています:
 
@@ -379,6 +379,6 @@ peerDependencies:
 - `react-dom` >= 18
 - `tailwindcss` >= 3
 
-## クレジット
+## クレジット [#credits]
 
 作成者: [sapatmohit](https://github.com/sapatmohit)。

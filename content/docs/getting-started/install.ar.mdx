@@ -8,7 +8,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
 
 تعمل Babelize Elements في أي مشروع React + Tailwind CSS، مثل Next.js أو Vite أو Remix، أو أي أداة تجميع أخرى لـ React. تأتي الحزمة مع أنواع TypeScript، وبإصداري ESM وCJS. وتبعيات التشغيل قليلة وقياسية في منظومة shadcn: `motion` للحركة و`lucide-react` للأيقونات.
 
-## مدير الحزم
+## مدير الحزم [#package-manager]
 
 ثبّت المكتبة كاملةً بمدير الحزم المفضل لديك:
 
@@ -43,7 +43,7 @@ bun add @babelize/elements
   </Tab>
 </Tabs>
 
-## أخبر Tailwind بالحزمة
+## أخبر Tailwind بالحزمة [#tell-tailwind-about-the-package]
 
 لا يولّد Tailwind إلا الأصناف الموجودة في ملفات مصدرك، ولا يفحص `node_modules`. من دون هذه الخطوة ستُعرض المكوّنات **بدون تنسيق**.
 
@@ -75,7 +75,7 @@ module.exports = {
 
 هذه الخطوة خاصة بحزمة npm فقط. أما المكوّنات المثبتة عبر [CLI الخاص بـ shadcn](/docs/getting-started/shadcn-cli) فتعيش في شجرة مصدرك الخاصة، وTailwind يفحصها أصلًا.
 
-## رموز السمات
+## رموز السمات [#theme-tokens]
 
 تُنسَّق المكوّنات برموز [shadcn/ui](https://ui.shadcn.com/docs/theming) الدلالية، مثل `bg-popover` و`text-muted-foreground` و`ring-ring` وغيرها، فتتبع سمة تطبيقك ونصف قطر الزوايا والوضع الداكن تلقائيًا.
 
@@ -160,7 +160,7 @@ module.exports = {
 
 كل مكوّن يقبل أيضًا خاصية `classNames` لتجاوزات كل جزء، فيمكنك إعادة تنسيق أي فتحة دون نسخ المصدر.
 
-## تثبيت المكوّنات فرديًا
+## تثبيت المكوّنات فرديًا [#install-individual-components]
 
 تفضّل تثبيت المكوّنات واحدًا تلو الآخر مباشرةً في قاعدة كودك؟ استخدم [CLI الخاص بـ shadcn](/docs/getting-started/shadcn-cli):
 
@@ -176,7 +176,7 @@ npx @babelize/elements add language-switcher
 
 في الحالتين، يُكتب المكوّن (مع أداة `cn` وتبعياته) داخل مجلد `components/ui/` لديك، وتملك الكود منذ ذلك الحين.
 
-## المتطلبات الأساسية
+## المتطلبات الأساسية [#prerequisites]
 
 | التبعية   | أدنى إصدار |
 | ------------ | --------------- |
@@ -185,7 +185,7 @@ npx @babelize/elements add language-switcher
 | Tailwind CSS | `>=3`           |
 | Node.js      | `>=20`          |
 
-## تحقّق من التثبيت
+## تحقّق من التثبيت [#verify-installation]
 
 استورد مكوّنًا للتأكد من أن كل شيء مُهيّأ بشكل صحيح:
 
@@ -205,7 +205,7 @@ export function App() {
 
 كل مكوّن مكتوب بـ TypeScript أولًا، ويُصدّر واجهة خصائصه الخاصة، ويعمل مع `next-intl` أو `react-i18next` أو إعداد i18n المخصص لديك.
 
-## الخطوات التالية
+## الخطوات التالية [#next-steps]
 
 <Cards>
   <Card title="المكوّنات" href="/docs/components">

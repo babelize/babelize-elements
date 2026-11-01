@@ -3666,11 +3666,6 @@
       "ja": "任意のコンポーネントをインストールします:",
       "ar": "ثبّت أي مكوّن:"
     },
-    "ec15f8f19b6a0f20": {
-      "es": "La CLI resuelve las dependencias de cada componente (incluida la utilidad {p0}) y\nescribe cada archivo en el alias que corresponde a su tipo: los componentes en tu alias {p1}, y los hooks compartidos como {p2} y {p3} en {p4}.\nSi has reubicado {p5} en {p6}, los componentes lo seguirán.",
-      "ja": "CLI は各コンポーネントの依存関係（{p0} ユーティリティを含む）を解決し、各ファイルをその種類に応じたエイリアスに書き込みます。コンポーネントは {p1} エイリアスに、{p2} や {p3} などの共有フックは {p4} に書き込まれます。{p6} で {p5} を移動している場合は、コンポーネントもそれに従います。",
-      "ar": "يحل CLI تبعيات كل مكوّن (بما في ذلك أداة {p0}) ويكتب كل ملف إلى الاسم المستعار الذي يحدده نوعه، فالمكوّنات تذهب إلى الاسم المستعار {p1} الخاص بك،\nوالخطافات المشتركة مثل {p2} و{p3} تذهب إلى {p4}.\nإذا نقلت {p5} في {p6}، تتبعه المكوّنات."
-    },
     "d1dd0d71af6be344": {
       "es": "Tu {p0} no se modifica",
       "ja": "{p0} はそのまま残ります",
@@ -3710,6 +3705,11 @@
       "es": "Hace lo mismo: resuelve el elemento del registro, escribe el componente en {p0} e instala sus dependencias de npm.",
       "ja": "同じ作業を行います。レジストリの項目を解決し、コンポーネントを {p0} に書き込み、その npm 依存関係をインストールします。",
       "ar": "يؤدي المهمة نفسها: يحل عنصر السجل، ويكتب المكوّن إلى {p0}، ويثبّت تبعيات npm الخاصة به."
+    },
+    "83fe03166795afe6": {
+      "es": "La CLI resuelve las dependencias de cada componente y escribe cada archivo en el alias que corresponde a su tipo: los componentes en tu alias {p0}, y los hooks compartidos como {p1} y {p2} en {p3}.\nSi has reubicado {p4} en {p5}, los componentes lo seguirán.",
+      "ja": "CLI は各コンポーネントの依存関係を解決し、各ファイルをその種類に応じたエイリアスに書き込みます。コンポーネントは {p0} エイリアスに、{p1} や {p2} などの共有フックは {p3} に書き込まれます。{p5} で {p4} を移動している場合は、コンポーネントもそれに従います。",
+      "ar": "يحل CLI تبعيات كل مكوّن ويكتب كل ملف إلى الاسم المستعار الذي يحدده نوعه، فالمكوّنات تذهب إلى الاسم المستعار {p0} الخاص بك،\nوالخطافات المشتركة مثل {p1} و{p2} تذهب إلى {p3}.\nإذا نقلت {p4} في {p5}، تتبعه المكوّنات."
     }
   }
 }

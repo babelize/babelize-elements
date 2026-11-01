@@ -11,7 +11,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   <LanguageSwitcherPillDemo />
 </PreviewComponents>
 
-## التثبيت
+## التثبيت [#installation]
 
 <Tabs
   items={["shadcn", "Elements CLI"]}
@@ -86,7 +86,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   </Tab>
 </Tabs>
 
-## الاستخدام
+## الاستخدام [#usage]
 
 ```tsx
 "use client";
@@ -113,7 +113,7 @@ export function LocalePill() {
 }
 ```
 
-## الخصائص
+## الخصائص [#props]
 
 | الخاصية             | النوع                             | مطلوب | الوصف                                                                   |
 | ---------------- | -------------------------------- | -------- | ----------------------------------------------------------------------------- |
@@ -131,7 +131,7 @@ export function LocalePill() {
 
 تُمرَّر خصائص `div` المتبقية إلى العنصر الجذري.
 
-### أسماء الأصناف
+### أسماء الأصناف [#class-names]
 
 يأخذ كل جزء أصنافه الخاصة، وتُدمج بعد القيم الافتراضية، فتستطيع إعادة تنسيق جزء واحد دون تعديل المكوّن نفسه:
 
@@ -155,7 +155,7 @@ export function LocalePill() {
 
 يُنسَّق المكوّن برموز سمة shadcn/ui (`bg-muted`، `bg-background`، `text-muted-foreground`، `ring-ring`)، فيأخذ سمتك تلقائيًا.
 
-### كائن الإعدادات المحلية
+### كائن الإعدادات المحلية [#locale-object]
 
 | الخاصية | النوع      | الوصف                                                          |
 | -------- | --------- | -------------------------------------------------------------------- |
@@ -164,9 +164,9 @@ export function LocalePill() {
 | `flag`   | `string`  | علم emoji يُعرض مع `showFlags` (يُحدَّد تلقائيًا عند الحذف)         |
 | `rtl`    | `boolean` | تجاوز اتجاه RTL لتشكيل النص (يُكتشف تلقائيًا عند الحذف)   |
 
-## أمثلة
+## أمثلة [#examples]
 
-### مع Babelize SDK
+### مع Babelize SDK [#with-babelize-sdk]
 
 اقرن كبسولة مبدّل اللغة مع [Babelize SDK](https://docs.babelize.co/sdk) للترجمة التلقائية:
 
@@ -202,7 +202,7 @@ export function LocaleSwitcher() {
 }
 ```
 
-### مع next-intl
+### مع next-intl [#with-next-intl]
 
 ```tsx
 "use client";
@@ -227,7 +227,7 @@ export function LocaleSwitcher() {
 }
 ```
 
-### مع react-i18next
+### مع react-i18next [#with-react-i18next]
 
 ```tsx
 "use client";
@@ -252,14 +252,14 @@ export function LocaleSwitcher() {
 }
 ```
 
-### المتغيرات والأحجام
+### المتغيرات والأحجام [#variants-and-sizes]
 
 ```tsx
 <LanguageSwitcherPill locales={locales} variant="outline" size="sm" showFlags />
 <LanguageSwitcherPill locales={locales} size="lg" />
 ```
 
-## التنقل بلوحة المفاتيح
+## التنقل بلوحة المفاتيح [#keyboard-navigation]
 
 - **سهم لليمين** — الانتقال إلى اللغة التالية (أو السابقة في تخطيطات RTL).
 - **سهم لليسار** — الانتقال إلى اللغة السابقة (أو التالية في تخطيطات RTL).
@@ -267,7 +267,7 @@ export function LocaleSwitcher() {
 - **End** — الانتقال إلى آخر لغة.
 - **Enter / Space** — اختيار اللغة المركّزة.
 
-## دعم RTL
+## دعم RTL [#rtl-support]
 
 يدعم المكوّن اللغات التي تُكتب من اليمين إلى اليسار، مثل العربية والعبرية والفارسية والأردية والباشتو والسندية واليديشية.
 

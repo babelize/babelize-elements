@@ -11,7 +11,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   <TranslationWidgetDemo />
 </PreviewComponents>
 
-## インストール
+## インストール [#installation]
 
 <Tabs
   items={["shadcn", "Elements CLI"]}
@@ -86,7 +86,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   </Tab>
 </Tabs>
 
-## 使い方
+## 使い方 [#usage]
 
 ```tsx
 "use client";
@@ -142,7 +142,7 @@ export function Translate() {
 }
 ```
 
-## Props
+## Props [#props]
 
 | Prop                   | 型                               | 必須 | 説明                                                                              |
 | ---------------------- | ---------------------------------- | -------- | ---------------------------------------------------------------------------------------- |
@@ -178,7 +178,7 @@ export function Translate() {
 
 その他のprop（`id`、`data-*`、`aria-*`）はすべてルート要素に展開され、 refは同要素に転送されます。
 
-## 編集可能な翻訳元
+## 編集可能な翻訳元 [#editable-source]
 
 翻訳元ペインはデフォルトで読み取り専用です。編集可能にするには `onSourceChange` を渡してください。変更ハンドラーが存在する場合でも読み取り専用に固定するには `readOnlySource` を使用します:
 
@@ -192,7 +192,7 @@ export function Translate() {
 />
 ```
 
-## 制御された翻訳先
+## 制御された翻訳先 [#controlled-target]
 
 翻訳先ペインは、非制御の場合（`defaultTargetText`）、または `targetText` と `onTargetChange` の両方を渡した場合に編集可能になります。ハンドラーのない制御された翻訳先は読み取り専用で描画されるため、入力されたテキストが黙って失われることはありません:
 
@@ -209,7 +209,7 @@ export function Translate() {
 />
 ```
 
-## 言語ピッカー
+## 言語ピッカー [#language-pickers]
 
 静的な言語チップの代わりに、各ペインに [言語スイッチャー](/docs/components/language-switchers/language-switcher) を描画するには `locales` を渡します。各ピッカーはそのペインのロケールを更新し、テキストエリアの `lang` と `dir` もそれに追従します。そのため、翻訳先をアラビア語に切り替えると、そのペインは RTL に切り替わります:
 
@@ -225,7 +225,7 @@ export function Translate() {
 
 ロケールの状態は非制御（`defaultSourceLocale` / `defaultTargetLocale`）または制御（`sourceLocale` + `onSourceLocaleChange`、翻訳先も同様）が可能です。`locales` を省略すると、ウィジェットはコンパクトな静的チップを維持します。
 
-## 入れ替え
+## 入れ替え [#swap]
 
 ペイン間の入れ替えボタンは、ロケールとテキストの**両方**を交換します（翻訳元 ↔ 翻訳先）。そのうえで `onSwap` を発火します。ボタンは2つの言語ピッカーの間にあるヘッダーバーに配置され、入れ替えのたびにアイコンが半回転します。ボタンには `aria-label="Swap languages"` が付与されており、交換される値のいずれかが変更ハンドラーなしで制御されている場合は、入れ替えを適用できないため無効になります:
 
@@ -244,7 +244,7 @@ export function Translate() {
 />
 ```
 
-## ツールバー
+## ツールバー [#toolbar]
 
 各ペインの下部には小さなツールバーがあります。翻訳元には、リアルタイムの文字数カウントが表示されます（`maxLength` を渡した場合は `n / max`、上限に達すると警告色になります）。ペインが編集可能な場合はクリアボタンも表示されます。翻訳先にはコピーボタンがあり、チェックマークで完了を示し、スクリーンリーダーには「翻訳をクリップボードにコピーしました」と通知されます:
 
@@ -261,7 +261,7 @@ export function Translate() {
 
 これらのいずれも `showCount={false}`、`showClear={false}`、または `showCopy={false}` で無効にできます。
 
-## ローディング状態
+## ローディング状態 [#loading-state]
 
 翻訳の処理中は、`loading` を渡すと翻訳先テキストを点滅するスケルトンに置き換えられます。テキストエリアには `aria-busy` が設定され、コピーは無効になります:
 
@@ -277,7 +277,7 @@ async function translate(text: string) {
 <TranslationWidget loading={loading} /* … */ />;
 ```
 
-## 翻訳された UI テキスト
+## 翻訳された UI テキスト [#translated-ui-text]
 
 ペインのプレースホルダーとラベルには、それぞれ専用のprop（`sourcePlaceholder`、 `sourceLabel` など）があります。その他の組み込みテキスト（ツールバーのボタン、コピー時のアナウンス、文字数カウントの後に読み上げられる語、2つの言語ピッカー）は `labels` から取得されます。省略したキーは英語のデフォルトのままになります。
 
@@ -315,7 +315,7 @@ async function translate(text: string) {
 | `characters`       | `(count) => "characters"`           | 文字数カウントの後に読み上げられる語（件数に応じて複数形になります）  |
 | `languageSwitcher` | `LanguageSwitcher` のデフォルト         | 両方の言語ピッカー（`Partial<LanguageSwitcherLabels>`） |
 
-## カスタマイズ
+## カスタマイズ [#customization]
 
 各パーツは `classNames` を通じて追加のクラスを受け取ります。これらは `cn` によってデフォルトの後にマージされるため、独自のクラスが優先されます:
 
@@ -330,7 +330,7 @@ async function translate(text: string) {
 />
 ```
 
-## RTL対応
+## RTL対応 [#rtl-support]
 
 翻訳先ロケールが RTL の言語（`ar`、`he`、`fa`、`ur`、…）である場合、または RTL のスクリプトサブタグ（`az-Arab`）を含む場合、翻訳先ペインのテキストは右から左へ流れます。ペインの_順序_は変わりません。翻訳元が先、翻訳先が後のままで、各ペインは独自の `dir` と `lang` を持つため、LTR→RTL の混在したペアでも両側で正しく読めます。ウィジェットの方向を明示的に設定するには `dir` を渡してください。
 
@@ -338,7 +338,7 @@ async function translate(text: string) {
 <TranslationWidget sourceLocale="en" targetLocale="ar" sourceText="Hello, world!" />
 ```
 
-## 機能
+## 機能 [#features]
 
 - **並列のペイン** — 翻訳元と翻訳先を1つのカードに収め、狭い画面では縦に積み重ねます
 - **言語ピッカー** — ペインごとに言語スイッチャーを表示するには `locales` を渡します。それ以外の場合は静的なチップを表示します
@@ -354,11 +354,11 @@ async function translate(text: string) {
 - **モーション** — バネ状の入れ替えアイコンとコピー確認。モーション低減の設定に対応しています
 - **制御/非制御** — `targetText` の有無にかかわらず動作します。ロケールも同様です
 
-## デザイン
+## デザイン [#design]
 
 1枚のカードが、翻訳元ペインと、わずかに色味のついた翻訳先ペインに分かれています。2つの言語ピッカーと入れ替えボタンは共通のヘッダーバーに配置されており、翻訳ツールでおなじみのレイアウトです。色は shadcn のセマンティックトークンから取得されるため、追加の設定なしでウィジェットがお使いのテーマ、角丸、ダークモードに適用されます。
 
-## 依存関係
+## 依存関係 [#dependencies]
 
 このコンポーネントは次を使用しています:
 

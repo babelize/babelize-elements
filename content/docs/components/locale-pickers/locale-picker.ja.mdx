@@ -11,7 +11,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   <LocalePickerDemo />
 </PreviewComponents>
 
-## インストール
+## インストール [#installation]
 
 <Tabs
   items={["shadcn", "Elements CLI"]}
@@ -86,7 +86,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   </Tab>
 </Tabs>
 
-## 使い方
+## 使い方 [#usage]
 
 ```tsx
 import { LocalePicker } from "@/components/ui/locale-picker";
@@ -103,7 +103,7 @@ import { LocalePicker } from "@/components/ui/locale-picker";
 />
 ```
 
-## Props
+## Props [#props]
 
 | Prop                | 型                                  | 必須 | デフォルト               | 説明                                                                          |
 | ------------------- | ------------------------------------- | -------- | --------------------- | ------------------------------------------------------------------------------------ |
@@ -129,7 +129,7 @@ import { LocalePicker } from "@/components/ui/locale-picker";
 
 選択された値は完全な BCP 47 タグです。 その **地域** サブタグは選んだ地域になり、**言語** サブタグは地域を変更しても保持されます。 `en-IN` からドイツを選ぶと `en-DE` になり、`fr-JP` から選ぶと `fr-DE` になります。
 
-## 導出されるデフォルト値
+## 導出されるデフォルト値 [#derived-defaults]
 
 サマリーカードは、選択中のロケールから `Intl` を通じてすべての値を導出します。 通貨コードには ISO 4217 のフォールバックテーブルのみを同梱しており、それ以外のデータは同梱していません:
 
@@ -142,7 +142,7 @@ import { LocalePicker } from "@/components/ui/locale-picker";
 
 通貨の対応付けがない地域では、推測せずにダッシュ（—）を表示します。
 
-## キーボード操作
+## キーボード操作 [#keyboard-support]
 
 ポップアップは WAI-ARIA のコンボボックスパターンに従います。 フォーカスは検索欄に留まり、検索欄は `role="combobox"` として公開されます。 ハイライトされた選択肢は `aria-activedescendant` を通じて読み上げられます。
 
@@ -156,7 +156,7 @@ import { LocalePicker } from "@/components/ui/locale-picker";
 | `Escape`                         | ポップアップを閉じ、フォーカスをトリガーに戻します               |
 | 入力                           | 名前またはコードで絞り込みます。ハイライトは先頭に戻ります     |
 
-## 機能
+## 機能 [#features]
 
 - **導出されるデフォルト値** — 通貨、日付の書式、数値の書式、週の開始曜日を `Intl` を通じてリアルタイムに解決します
 - **検索付きドロップダウン** — 英語名、ローカライズされた名前、地域コードで絞り込めます。クリアボタン付き
@@ -168,15 +168,15 @@ import { LocalePicker } from "@/components/ui/locale-picker";
 - **カスタマイズ可能** — `variant` / `size` のトリガーと、パーツごとの `classNames`（`LocalePickerClassNames` はバレルファイルからエクスポートされています）。アイコンはすべて `lucide-react` を使用します
 - **制御または非制御** — `value` / `defaultValue` / `onValueChange`
 
-## 使用例
+## 使用例 [#examples]
 
-### 制御
+### 制御 [#controlled]
 
 ```tsx
 <LocalePicker regions={["IN", "US", "GB", "DE", "JP"]} value={locale} onValueChange={setLocale} />
 ```
 
-### ネイティブの地域名
+### ネイティブの地域名 [#native-region-names]
 
 ```tsx
 <LocalePicker regions={["IN", "US", "GB", "DE", "JP"]} defaultValue="de-DE" label="native" />
@@ -184,7 +184,7 @@ import { LocalePicker } from "@/components/ui/locale-picker";
 
 `de-DE` を選択すると、トリガーには「Deutschland」と表示され、選択肢には「Vereinigte Staaten」「Vereinigtes Königreich」などと表示されます。
 
-### 翻訳された UI テキスト
+### 翻訳された UI テキスト [#translated-ui-text]
 
 検索欄のプレースホルダー、空の状態、アクセシブルなラベル、サマリー行のラベルは、デフォルトで英語です。 翻訳するには `labels` を渡します。 省略したキーは英語のデフォルトのままになります。 `searchPlaceholder` と `emptyMessage` の props も引き続き使用でき、両方が設定されている場合は `labels` より優先されます。
 
@@ -215,7 +215,7 @@ export default function App() {
 }
 ```
 
-## 依存関係
+## 依存関係 [#dependencies]
 
 このコンポーネントは次を使用しています:
 
@@ -229,6 +229,6 @@ peerDependencies:
 - `react-dom` >= 18
 - `tailwindcss` >= 3
 
-## クレジット
+## クレジット [#credits]
 
 作成者: [ujwalbajaj](https://github.com/ujwalbajaj)。

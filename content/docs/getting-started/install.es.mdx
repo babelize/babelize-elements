@@ -8,7 +8,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
 
 Babelize Elements encaja en cualquier proyecto de React + Tailwind CSS: Next.js, Vite, Remix o cualquier otra herramienta que empaquete React. El paquete incluye tipos de TypeScript y compilaciones ESM y CJS. Las dependencias en tiempo de ejecución son pocas y estándar en el ecosistema de shadcn: `motion` para animaciones y `lucide-react` para iconos.
 
-## Gestor de paquetes
+## Gestor de paquetes [#package-manager]
 
 Instala la biblioteca completa con tu gestor de paquetes preferido:
 
@@ -43,7 +43,7 @@ bun add @babelize/elements
   </Tab>
 </Tabs>
 
-## Indícale a Tailwind el paquete
+## Indícale a Tailwind el paquete [#tell-tailwind-about-the-package]
 
 Tailwind solo genera las clases que encuentra en tus archivos fuente, y no analiza `node_modules`. Sin este paso, los componentes se muestran **sin estilos**.
 
@@ -75,7 +75,7 @@ module.exports = {
 
 Este paso solo es necesario para el paquete npm. Los componentes instalados con la [CLI de shadcn](/docs/getting-started/shadcn-cli) viven en tu propio árbol de código fuente, que Tailwind ya analiza.
 
-## Tokens de tema
+## Tokens de tema [#theme-tokens]
 
 Los componentes se estilizan con tokens semánticos de [shadcn/ui](https://ui.shadcn.com/docs/theming), como `bg-popover`, `text-muted-foreground`, `ring-ring` y demás, para que adopten automáticamente el tema, el radio y el modo oscuro de tu aplicación.
 
@@ -160,7 +160,7 @@ En Tailwind v3, asigna las mismas variables bajo `theme.extend.colors` en `tailw
 
 Todos los componentes también aceptan una prop `classNames` para sobrescribir estilos por parte, así puedes cambiar el estilo de cualquier parte sin bifurcar el código fuente.
 
-## Instala componentes individuales
+## Instala componentes individuales [#install-individual-components]
 
 ¿Prefieres instalar componentes uno a uno, directamente en tu código? Usa la [CLI de shadcn](/docs/getting-started/shadcn-cli):
 
@@ -176,7 +176,7 @@ npx @babelize/elements add language-switcher
 
 En cualquier caso, el componente (junto con su utilidad `cn` y sus dependencias) se escribe en tu directorio `components/ui/`, y a partir de ese momento el código es tuyo.
 
-## Requisitos previos
+## Requisitos previos [#prerequisites]
 
 | Dependencia   | Versión mínima |
 | ------------ | --------------- |
@@ -185,7 +185,7 @@ En cualquier caso, el componente (junto con su utilidad `cn` y sus dependencias)
 | Tailwind CSS | `>=3`           |
 | Node.js      | `>=20`          |
 
-## Verifica la instalación
+## Verifica la instalación [#verify-installation]
 
 Importa un componente para confirmar que todo está bien conectado:
 
@@ -205,7 +205,7 @@ export function App() {
 
 Todos los componentes priorizan TypeScript, exportan su propia interfaz de props y funcionan con tu configuración existente de `next-intl`, `react-i18next` o i18n personalizada.
 
-## Próximos pasos
+## Próximos pasos [#next-steps]
 
 <Cards>
   <Card title="Componentes" href="/docs/components">

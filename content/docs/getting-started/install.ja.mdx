@@ -8,7 +8,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
 
 Babelize Elements は、React + Tailwind CSS のあらゆるプロジェクトにそのまま組み込めます。Next.js、Vite、Remix、その他 React をバンドルする環境が対象です。パッケージには TypeScript の型定義と、ESM および CJS のビルドが含まれています。ランタイムの依存関係は少なく、shadcn のエコシステムでは標準的なものです。アニメーションには `motion`、アイコンには `lucide-react` を使用します。
 
-## パッケージマネージャー
+## パッケージマネージャー [#package-manager]
 
 お好みのパッケージマネージャーでライブラリ全体をインストールします:
 
@@ -43,7 +43,7 @@ bun add @babelize/elements
   </Tab>
 </Tabs>
 
-## Tailwind にパッケージを認識させる
+## Tailwind にパッケージを認識させる [#tell-tailwind-about-the-package]
 
 Tailwind は、ソースファイル内で見つけたクラスのみを生成し、`node_modules` はスキャンしません。この手順を行わないと、コンポーネントは**スタイルなし**で描画されます。
 
@@ -75,7 +75,7 @@ module.exports = {
 
 この手順は npm パッケージの場合のみ必要です。[shadcn CLI](/docs/getting-started/shadcn-cli) でインストールしたコンポーネントは、Tailwind がすでにスキャンしているお使いのソースツリー内に配置されます。
 
-## テーマのトークン
+## テーマのトークン [#theme-tokens]
 
 コンポーネントは [shadcn/ui](https://ui.shadcn.com/docs/theming) のセマンティックトークン（`bg-popover`、`text-muted-foreground`、`ring-ring` など）でスタイルされるため、アプリのテーマ、角丸、ダークモードが自動的に反映されます。
 
@@ -160,7 +160,7 @@ Tailwind v3 の場合は、[shadcn v3 ガイド](https://v3.shadcn.com/docs/them
 
 すべてのコンポーネントは、パーツごとの上書き用に `classNames` prop も受け取るため、ソースをフォークしなくても任意のスロットのスタイルを変更できます。
 
-## コンポーネントを個別にインストールする
+## コンポーネントを個別にインストールする [#install-individual-components]
 
 コンポーネントを1つずつ、コードベースに直接インストールしたい場合は、[shadcn CLI](/docs/getting-started/shadcn-cli) を使用してください:
 
@@ -176,7 +176,7 @@ npx @babelize/elements add language-switcher
 
 いずれの方法でも、コンポーネント（およびその `cn` ユーティリティと依存関係）が `components/ui/` ディレクトリに書き込まれ、それ以降のコードはお客様の管理下になります。
 
-## 前提条件
+## 前提条件 [#prerequisites]
 
 | 依存関係   | 最小バージョン |
 | ------------ | --------------- |
@@ -185,7 +185,7 @@ npx @babelize/elements add language-switcher
 | Tailwind CSS | `>=3`           |
 | Node.js      | `>=20`          |
 
-## インストールの確認
+## インストールの確認 [#verify-installation]
 
 コンポーネントをインポートして、すべてが正しく接続されていることを確認します:
 
@@ -205,7 +205,7 @@ export function App() {
 
 すべてのコンポーネントは TypeScript を優先して設計されており、独自の props インターフェースをエクスポートし、既存の `next-intl`、`react-i18next`、またはカスタムの i18n セットアップと連携して動作します。
 
-## 次のステップ
+## 次のステップ [#next-steps]
 
 <Cards>
   <Card title="コンポーネント" href="/docs/components">

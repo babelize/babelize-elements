@@ -11,7 +11,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   <TranslationWidgetDemo />
 </PreviewComponents>
 
-## Instalación
+## Instalación [#installation]
 
 <Tabs
   items={["shadcn", "Elements CLI"]}
@@ -86,7 +86,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   </Tab>
 </Tabs>
 
-## Uso
+## Uso [#usage]
 
 ```tsx
 "use client";
@@ -142,7 +142,7 @@ export function Translate() {
 }
 ```
 
-## Props
+## Props [#props]
 
 | Prop                   | Tipo                               | Obligatorio | Descripción                                                                              |
 | ---------------------- | ---------------------------------- | -------- | ---------------------------------------------------------------------------------------- |
@@ -178,7 +178,7 @@ export function Translate() {
 
 Cualquier otra prop — `id`, `data-*`, `aria-*` — se propaga al elemento raíz, y la ref se reenvía a él.
 
-## Origen editable
+## Origen editable [#editable-source]
 
 El panel de origen es de solo lectura por defecto. Pasa `onSourceChange` para hacerlo editable, o fuérzalo a solo lectura con `readOnlySource` aunque haya un manejador de cambios:
 
@@ -192,7 +192,7 @@ El panel de origen es de solo lectura por defecto. Pasa `onSourceChange` para ha
 />
 ```
 
-## Destino controlado
+## Destino controlado [#controlled-target]
 
 El panel de destino es editable cuando no está controlado (`defaultTargetText`) o cuando pasas tanto `targetText` como `onTargetChange`. Un destino controlado sin manejador se renderiza en solo lectura, así que el texto escrito nunca se pierde en silencio:
 
@@ -209,7 +209,7 @@ El panel de destino es editable cuando no está controlado (`defaultTargetText`)
 />
 ```
 
-## Selectores de idioma
+## Selectores de idioma [#language-pickers]
 
 Pasa `locales` para renderizar un [Selector de idioma](/docs/components/language-switchers/language-switcher) en cada panel en lugar del chip de idioma estático. Cada selector actualiza la configuración regional de su panel: el `lang` y el `dir` del área de texto se actualizan, así que al cambiar el destino a árabe ese panel pasa a RTL:
 
@@ -225,7 +225,7 @@ Pasa `locales` para renderizar un [Selector de idioma](/docs/components/language
 
 El estado de la configuración regional puede no estar controlado (`defaultSourceLocale` / `defaultTargetLocale`) o controlado (`sourceLocale` + `onSourceLocaleChange`, igual para el destino). Cuando se omite `locales`, el widget conserva los chips estáticos compactos.
 
-## Intercambiar
+## Intercambiar [#swap]
 
 El botón de intercambio entre los paneles intercambia **ambos** la configuración regional y los textos —origen ↔ destino— y dispara `onSwap`. Está en la barra de cabecera entre los dos selectores de idioma, y su icono gira media vuelta en cada intercambio. El botón lleva un `aria-label="Swap languages"` y se desactiva cuando algún valor intercambiado está controlado sin manejador de cambios, ya que el intercambio no podría aplicarse:
 
@@ -244,7 +244,7 @@ El botón de intercambio entre los paneles intercambia **ambos** la configuraci�
 />
 ```
 
-## Barra de herramientas
+## Barra de herramientas [#toolbar]
 
 Cada panel termina en una pequeña barra de herramientas. El origen muestra un recuento de caracteres en vivo —`n / max` cuando pasas `maxLength`, que pasa a color destructivo al llegar al límite— y un botón de borrar cuando el panel es editable. El destino tiene un botón de copiar que confirma con una marca de verificación y anuncia “Translation copied to clipboard” a los lectores de pantalla:
 
@@ -261,7 +261,7 @@ Cada panel termina en una pequeña barra de herramientas. El origen muestra un r
 
 Desactiva cualquiera de ellos con `showCount={false}`, `showClear={false}` o `showCopy={false}`.
 
-## Estado de carga
+## Estado de carga [#loading-state]
 
 Mientras una traducción está en curso, pasa `loading` para reemplazar el texto de destino por un esqueleto pulsante. El área de texto se marca con `aria-busy` y la copia se desactiva:
 
@@ -277,7 +277,7 @@ async function translate(text: string) {
 <TranslationWidget loading={loading} /* … */ />;
 ```
 
-## Texto de interfaz traducido
+## Texto de interfaz traducido [#translated-ui-text]
 
 Los placeholders y etiquetas de los paneles tienen sus propias props (`sourcePlaceholder`, `sourceLabel` y demás). El resto del texto integrado —botones de la barra de herramientas, el anuncio de copia, la palabra que se lee tras el recuento de caracteres y los dos selectores de idioma— proviene de `labels`. Cualquier clave que omitas conserva su valor por defecto en inglés.
 
@@ -315,7 +315,7 @@ Los placeholders y etiquetas de los paneles tienen sus propias props (`sourcePla
 | `characters`       | `(count) => "characters"`           | Se lee tras el recuento de caracteres; recibe el recuento para la forma plural  |
 | `languageSwitcher` | Valores por defecto de `LanguageSwitcher`         | Ambos selectores de idioma (`Partial<LanguageSwitcherLabels>`) |
 
-## Personalización
+## Personalización [#customization]
 
 Cada parte acepta clases adicionales mediante `classNames`, combinadas tras los valores por defecto con `cn`, así que tus clases tienen prioridad:
 
@@ -330,7 +330,7 @@ Cada parte acepta clases adicionales mediante `classNames`, combinadas tras los 
 />
 ```
 
-## Compatibilidad con RTL
+## Compatibilidad con RTL [#rtl-support]
 
 Cuando la configuración regional de destino es un idioma RTL (`ar`, `he`, `fa`, `ur`, …) o incluye una subetiqueta de escritura RTL (`az-Arab`), el texto del panel de destino fluye de derecha a izquierda. El _orden_ de los paneles nunca cambia: el origen siempre va primero y el destino, segundo. Cada panel tiene su propio `dir` y `lang`, así que un par mixto LTR→RTL se lee correctamente en ambos lados. Pasa `dir` para establecer la dirección del widget de forma explícita.
 
@@ -338,7 +338,7 @@ Cuando la configuración regional de destino es un idioma RTL (`ar`, `he`, `fa`,
 <TranslationWidget sourceLocale="en" targetLocale="ar" sourceText="Hello, world!" />
 ```
 
-## Características
+## Características [#features]
 
 - **Paneles lado a lado** — origen y destino en una sola tarjeta, apilados en pantallas estrechas
 - **Selectores de idioma** — pasa `locales` para un selector de idioma por panel; si no, chips estáticos
@@ -354,11 +354,11 @@ Cuando la configuración regional de destino es un idioma RTL (`ar`, `he`, `fa`,
 - **Movimiento** — icono de intercambio con muelle y confirmación de copia, respetando la configuración de movimiento reducido
 - **Controlado / no controlado** — funciona con o sin `targetText`; igual para las configuraciones regionales
 
-## Diseño
+## Diseño [#design]
 
 Una sola tarjeta, dividida en un panel de origen y un panel de destino ligeramente tintado, con ambos selectores de idioma y el botón de intercambio en una barra de cabecera compartida: el diseño que la gente conoce de las herramientas de traducción. Los colores provienen de los tokens semánticos de shadcn, así que el widget adopta tu tema, radio y modo oscuro sin configuración adicional.
 
-## Dependencias
+## Dependencias [#dependencies]
 
 Este componente usa:
 

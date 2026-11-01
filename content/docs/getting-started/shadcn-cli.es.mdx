@@ -8,7 +8,7 @@ import { Callout } from "fumadocs-ui/components/callout";
 
 Instala componentes individuales de Babelize Elements directamente en tu proyecto con la CLI de shadcn.
 
-## El registro `@babelize`
+## El registro `@babelize` [#the-babelize-registry]
 
 Babelize Elements aparece en el [directorio de registros de shadcn](https://ui.shadcn.com/docs/directory) como `@babelize`, así que la CLI de shadcn lo resuelve sin configuración adicional.
 
@@ -22,7 +22,7 @@ En una CLI más antigua, o para fijar el registro de forma explícita, añádelo
 }
 ```
 
-## Instala un componente
+## Instala un componente [#install-a-component]
 
 Instala cualquier componente:
 
@@ -33,7 +33,7 @@ npx shadcn@latest add @babelize/phone-input
 npx shadcn@latest add @babelize/navbar
 ```
 
-La CLI resuelve las dependencias de cada componente (incluida la utilidad `cn`) y escribe cada archivo en el alias que corresponde a su tipo: los componentes en tu alias `ui`, y los hooks compartidos como `useControllableState` y `useListboxNavigation` en `lib`. Si has reubicado `ui` en `components.json`, los componentes lo seguirán.
+La CLI resuelve las dependencias de cada componente y escribe cada archivo en el alias que corresponde a su tipo: los componentes en tu alias `ui`, y los hooks compartidos como `useControllableState` y `useListboxNavigation` en `lib`. Si has reubicado `ui` en `components.json`, los componentes lo seguirán.
 
 <Callout title="Tu `cn` no se modifica">
   Los componentes importan `cn` a través de tu alias `utils` y esperan que ya esté presente: la misma suposición que hacen los componentes de shadcn, ya que `shadcn init` lo crea. No se sobrescribe nada de tu versión, sin importar cómo la hayas personalizado.
@@ -48,13 +48,13 @@ También puedes instalar mediante una URL directa:
 npx shadcn@latest add https://elements.babelize.co/r/language-switcher.json
 ```
 
-## Importar
+## Importar [#import]
 
 ```tsx
 import { LanguageSwitcher } from "@/components/ui/language-switcher";
 ```
 
-## Usar la CLI de Babelize Elements
+## Usar la CLI de Babelize Elements [#using-the-babelize-elements-cli]
 
 ¿Prefieres una CLI específica? El paquete `@babelize/elements` incluye una:
 

@@ -11,7 +11,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   <NavBarDemo />
 </PreviewComponents>
 
-## التثبيت
+## التثبيت [#installation]
 
 <Tabs
   items={["shadcn", "Elements CLI"]}
@@ -86,7 +86,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
   </Tab>
 </Tabs>
 
-## الاستخدام
+## الاستخدام [#usage]
 
 ```tsx
 "use client";
@@ -118,7 +118,7 @@ export function SiteNav() {
 }
 ```
 
-## الخصائص
+## الخصائص [#props]
 
 | الخاصية            | النوع                              | مطلوب | الوصف                                                                   |
 | --------------- | --------------------------------- | -------- | ----------------------------------------------------------------------------- |
@@ -143,7 +143,7 @@ export function SiteNav() {
 
 أي خاصية أخرى تُمرَّر إلى عنصر `<nav>` الأساسي، ويُعاد توجيه المرجع (ref) إليه.
 
-### التنقل من جانب العميل
+### التنقل من جانب العميل [#client-side-navigation]
 
 تُعرض الروابط كعناصر `<a>` عادية، لذا يعمل `NavBar` في أي تطبيق React دون الحاجة إلى تثبيت أي موجِّه. مرّر مكوّن الرابط في موجِّهك لتفعيل التنقل من جانب العميل:
 
@@ -153,7 +153,7 @@ import Link from "next/link";
 <NavBar links={links} linkComponent={Link} />;
 ```
 
-### تخصيص أجزاء التنسيق
+### تخصيص أجزاء التنسيق [#styling-parts]
 
 يضيف `classNames` أصنافًا إضافية إلى كل جزء عبر `cn`، فتتغلّب أصنافك على الإعدادات الافتراضية:
 
@@ -181,14 +181,14 @@ import Link from "next/link";
 />
 ```
 
-### كائن NavLink
+### كائن NavLink [#navlink-object]
 
 | الخاصية | النوع     | الوصف              |
 | -------- | -------- | ------------------------ |
 | `label`  | `string` | نص الرابط — **مطلوب** |
 | `href`   | `string` | عنوان URL للرابط — **مطلوب**  |
 
-### كائن الإعدادات المحلية
+### كائن الإعدادات المحلية [#locale-object]
 
 | الخاصية | النوع     | الوصف                                                     |
 | -------- | -------- | --------------------------------------------------------------- |
@@ -196,9 +196,9 @@ import Link from "next/link";
 | `label`  | `string` | اسم العرض المخصّص (يُحدَّد تلقائيًا إذا تُرك فارغًا)                |
 | `flag`   | `string` | رمز العلم التعبيري المخصّص (يُكتشف تلقائيًا إذا تُرك فارغًا)                  |
 
-## أمثلة
+## أمثلة [#examples]
 
-### مع Babelize SDK
+### مع Babelize SDK [#with-babelize-sdk]
 
 اقرن NavBar مع [Babelize SDK](https://docs.babelize.co/sdk) للتوجيه التلقائي حسب اللغة المحلية:
 
@@ -217,13 +217,12 @@ const links = [
 ];
 
 const locales = [
-  { code: "en" },
-  { label: "English", flag: "🇺🇸" },
-  { label: "Français", flag: "🇫🇷" },
-  { label: "Español", flag: "🇪🇸" },
-  { label: "Deutsch", flag: "🇩🇪" },
-  { label: "日本語", flag: "🇯🇵" },
-  { label: "العربية", flag: "🇸🇦" },
+  { code: "en", label: "English", flag: "🇺🇸" },
+  { code: "fr", label: "Français", flag: "🇫🇷" },
+  { code: "es", label: "Español", flag: "🇪🇸" },
+  { code: "de", label: "Deutsch", flag: "🇩🇪" },
+  { code: "ja", label: "日本語", flag: "🇯🇵" },
+  { code: "ar", label: "العربية", flag: "🇸🇦" },
 ];
 
 export default function App() {
@@ -248,7 +247,7 @@ export default function App() {
 }
 ```
 
-### مع next-intl
+### مع next-intl [#with-next-intl]
 
 ```tsx
 "use client";
@@ -279,7 +278,7 @@ export function AppNavBar() {
 }
 ```
 
-### مع react-i18next
+### مع react-i18next [#with-react-i18next]
 
 ```tsx
 "use client";
@@ -302,7 +301,7 @@ export function AppNavBar() {
 }
 ```
 
-### عائم
+### عائم [#floating]
 
 شريط داخلي مستدير يطفو فوق الصفحة، اقرنه بـ`activeHref` لإبراز الصفحة الحالية:
 
@@ -327,7 +326,7 @@ export default function App() {
 }
 ```
 
-### رابط GitHub
+### رابط GitHub [#github-link]
 
 يضيف `showGitHub` زر أيقونة يقود إلى `githubUrl`. مرّر `"owner/repo"` لمستودع، `"owner"` لملف شخصي أو مؤسسة، أو أي عنوان URL كامل.
 
@@ -338,7 +337,7 @@ export default function App() {
 
 يؤدي `showGitHub` دون `githubUrl` إلى عدم عرض الزر وتسجيل تحذير.
 
-### غير ثابت
+### غير ثابت [#non-sticky]
 
 ```tsx
 "use client";
@@ -356,7 +355,7 @@ export default function App() {
 }
 ```
 
-### نصوص الواجهة المترجمة
+### نصوص الواجهة المترجمة [#translated-ui-text]
 
 تحمل قائمة اللغات وزر قائمة الجوال ورابط GitHub تسميات إمكانية وصول إنجليزية افتراضية. مرّر `labels` لترجمتها — أي مفتاح تتركه يحتفظ بقيمته الإنجليزية الافتراضية.
 
@@ -388,7 +387,7 @@ export default function App() {
 | `toggleMenu` | `"Toggle menu"`                         | تسمية زر قائمة الجوال          |
 | `github`     | `"GitHub"`                              | تسمية رابط أيقونة GitHub            |
 
-## دعم لوحة المفاتيح
+## دعم لوحة المفاتيح [#keyboard-support]
 
 تتبع قائمة اللغات نمط WAI-ARIA listbox. ولأن القائمة لا تحتوي على حقل نص، تنقل مفاتيح الأسهم التركيز الفعلي في DOM بين الخيارات بدلًا من تتبع تمييز من مربع بحث. تعمل المفاتيح نفسها من شريط سطح المكتب وشريط الجوال.
 
@@ -403,7 +402,7 @@ export default function App() {
 
 يبقى التمييز في صفّه أثناء تمرير القائمة من تحته، فالقائمة الطويلة لا تُمرّر الصفحة أبدًا. مرّر `maxHeight` لتحديد ارتفاع القائمة.
 
-## الميزات
+## الميزات [#features]
 
 - **متجاوب** — قائمة هامبرغر على الجوال، وتخطيط كامل على سطح المكتب
 - **مبدّل لغة مدمج** — المكوّن المنسدل نفسه المستخدم في LanguageSwitcher
@@ -418,7 +417,7 @@ export default function App() {
 - **متحرّك** — تمييز عند المرور ينزلق بين الروابط، وقائمة جوال متحركة وقائمة لغات؛ يحترم `prefers-reduced-motion`
 - **مستقل عن الموجِّه** — مرّر `next/link` (أو أي رابط) عبر `linkComponent`
 
-## الاعتماديات
+## الاعتماديات [#dependencies]
 
 - `motion` — الحركات
 - `lucide-react` — الأيقونات
@@ -429,6 +428,6 @@ export default function App() {
 - `react-dom` >= 18
 - `tailwindcss` >= 3
 
-## الإسناد
+## الإسناد [#credits]
 
 من إنشاء [sapatmohit](https://github.com/sapatmohit).
