@@ -1,0 +1,8 @@
+{
+  "title": "Selectores de idioma",
+  "icon": "Globe",
+  "pages": [
+    "language-switcher",
+    "language-switcher-pill"
+  ]
+}

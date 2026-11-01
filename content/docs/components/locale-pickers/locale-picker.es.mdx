@@ -1,0 +1,234 @@
+---
+title: Selector de configuración regional
+description: "Selector de región con valores predeterminados derivados de la configuración regional: moneda, formatos de fecha y número, y primer día de la semana. Con búsqueda, accesible por teclado y compatible con RTL."
+---
+
+import { PreviewComponents } from "@/components/docs/preview-components";
+import { LocalePickerDemo } from "@/components/docs/locale-picker-demo";
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+<PreviewComponents registryName="locale-picker">
+  <LocalePickerDemo />
+</PreviewComponents>
+
+## Instalación [#installation]
+
+<Tabs
+  items={["shadcn", "Elements CLI"]}
+  defaultValue="shadcn"
+  className="bg-transparent border-none"
+>
+  <Tab value="shadcn" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="installation-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx shadcn@latest add @babelize/locale-picker
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx shadcn@latest add @babelize/locale-picker
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx shadcn@latest add @babelize/locale-picker
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx shadcn@latest add @babelize/locale-picker
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+  <Tab value="Elements CLI" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="elements-cli-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx @babelize/elements add locale-picker
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx @babelize/elements add locale-picker
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx @babelize/elements add locale-picker
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx @babelize/elements add locale-picker
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+</Tabs>
+
+## Uso [#usage]
+
+```tsx
+import { LocalePicker } from "@/components/ui/locale-picker";
+```
+
+```tsx
+<LocalePicker
+  regions={["IN", "US", "GB", "DE", "JP"]} // your ISO 3166-1 alpha-2 regions
+  defaultValue="en-IN"
+  onValueChange={(locale) => console.log("Selected locale:", locale)}
+  label="english" // native, english
+  variant="outline" // outline, ghost, secondary
+  size="default" // sm, default, lg
+/>
+```
+
+## Props [#props]
+
+| Prop                | Tipo                                  | Obligatorio | Predeterminado               | Descripción                                                                          |
+| ------------------- | ------------------------------------- | -------- | --------------------- | ------------------------------------------------------------------------------------ |
+| `regions`           | `string[]`                            | Sí      | —                     | Regiones entre las que elegir, en códigos ISO 3166-1 alpha-2                                     |
+| `value`             | `string`                              | No       | —                     | Configuración regional seleccionada (BCP 47): pásala para controlar el componente                        |
+| `defaultValue`      | `string`                              | No       | `en-<first region>`   | Configuración regional inicial cuando no está controlada                                            |
+| `onValueChange`     | `(locale: string) => void`            | No       | —                     | Callback que se ejecuta cuando cambia la región; recibe la nueva etiqueta BCP 47                       |
+| `label`             | `"native" \| "english"`               | No       | `"english"`           | Nombres de región en inglés o localizados según la configuración regional seleccionada                         |
+| `showFlags`         | `boolean`                             | No       | `true`                | Muestra el emoji de bandera de la región junto a su nombre                                        |
+| `maxHeight`         | `number \| string`                    | No       | `"15rem"`             | Altura máxima de la lista de opciones antes de que aparezca el desplazamiento                           |
+| `variant`           | `"outline" \| "ghost" \| "secondary"` | No       | `"outline"`           | Estilo del disparador                                                                        |
+| `size`              | `"sm" \| "default" \| "lg"`           | No       | `"default"`           | Tamaño del disparador                                                                         |
+| `align`             | `"start" \| "end"`                    | No       | `"start"`             | Borde del disparador con el que se alinea el popup                                          |
+| `side`              | `"top" \| "bottom"`                   | No       | `"bottom"`            | Lado preferido del popup; cambia de lado si el viewport no tiene espacio                           |
+| `searchable`        | `boolean`                             | No       | `true`                | Muestra el campo de búsqueda                                                                |
+| `searchPlaceholder` | `string`                              | No       | `"Search regions..."` | Marcador de posición del campo de búsqueda                                                     |
+| `emptyMessage`      | `React.ReactNode`                     | No       | `"No results"`        | Contenido que se muestra cuando la búsqueda no coincide con nada                                        |
+| `disabled`          | `boolean`                             | No       | `false`               | Desactiva el disparador                                                                  |
+| `showSummary`       | `boolean`                             | No       | `true`                | Muestra la tarjeta de resumen de los valores predeterminados derivados de la configuración regional                                     |
+| `labels`            | `Partial<LocalePickerLabels>`         | No       | —                     | Sustituye el texto de interfaz en inglés integrado (consulta más abajo)                                    |
+| `classNames`        | `LocalePickerClassNames`              | No       | —                     | Clases por parte: `trigger`, `content`, `search`, `list`, `item`, `empty`, `summary` |
+| `className`         | `string`                              | No       | —                     | Clases CSS adicionales                                                               |
+
+El valor seleccionado es una etiqueta BCP 47 completa: su subetiqueta **de región** es la región elegida, y su subetiqueta **de idioma** se mantiene al cambiar de región. Elegir Alemania desde `en-IN` da como resultado `en-DE`; elegirla desde `fr-JP` da como resultado `fr-DE`.
+
+## Valores predeterminados derivados [#derived-defaults]
+
+La tarjeta de resumen deriva todo de la configuración regional seleccionada mediante `Intl`; no incluye más datos que una tabla de reserva de códigos ISO 4217 para el código de moneda:
+
+| Fila            | Origen                                                                           |
+| -------------- | -------------------------------------------------------------------------------- |
+| Moneda       | Región → código ISO 4217, con vista previa mediante `Intl.NumberFormat` (`style: "currency"`) |
+| Formato de fecha    | `Intl.DateTimeFormat` (`dateStyle: "medium"`) con una fecha de ejemplo fija             |
+| Formato de número  | `Intl.NumberFormat` con un importe de ejemplo fijo                                     |
+| La semana empieza el | `Intl.Locale#getWeekInfo()` cuando está disponible, con un valor regional de reserva            |
+
+Las regiones sin asignación de moneda muestran un guion largo en lugar de una suposición.
+
+## Soporte de teclado [#keyboard-support]
+
+El popup sigue el patrón combobox de WAI-ARIA: el foco permanece en el campo de búsqueda, que se expone como `role="combobox"`, y la opción resaltada se anuncia mediante `aria-activedescendant`.
+
+| Clave                              | Acción                                                        |
+| -------------------------------- | ------------------------------------------------------------- |
+| `Enter`, `Space` o clic       | Abre el popup desde el disparador                               |
+| `ArrowDown` / `ArrowUp` (cerrado) | Abre con la primera / última región resaltada                 |
+| `ArrowDown` / `ArrowUp`          | Mueve el resaltado, dando la vuelta en ambos extremos                     |
+| `Home` / `End`                   | Resalta la primera / última región                             |
+| `Enter`                          | Selecciona la región resaltada y devuelve el foco al disparador |
+| `Escape`                         | Cierra el popup y devuelve el foco al disparador               |
+| Escritura                           | Filtra por nombre o código; el resaltado vuelve al principio     |
+
+## Características [#features]
+
+- **Valores predeterminados derivados** — moneda, formato de fecha, formato de número y primer día de la semana, resueltos en tiempo real mediante `Intl`
+- **Desplegable con búsqueda** — filtra regiones por nombre en inglés, nombre localizado o código de región, con un botón de borrado
+- **Movimiento** — el popup aparece y se desliza mediante `motion/react`, respetando `prefers-reduced-motion`, y sale del árbol de accesibilidad al cerrarse
+- **Compatible con RTL** — invierte la dirección para las configuraciones regionales RTL (ar, he, fa, ur) mediante `dir` en la raíz
+- **Accesible con teclado** — navegación con flechas, Inicio / Fin, Intro y Escape
+- **Etiquetas ARIA** — campo de búsqueda `role="combobox"` con `aria-activedescendant`, además de `aria-expanded`, `aria-haspopup` y `aria-selected`
+- **Con tema de tokens de shadcn** — `bg-popover`, `border-input`, `bg-accent` y similares, así que hereda tu tema; el modo oscuro viene de los tokens
+- **Personalizable** — disparadores `variant` / `size` más `classNames` por parte (`LocalePickerClassNames` se exporta desde el barrel), con iconos `lucide-react` en todo el componente
+- **Controlado o no controlado** — `value` / `defaultValue` / `onValueChange`
+
+## Ejemplos [#examples]
+
+### Controlado [#controlled]
+
+```tsx
+<LocalePicker regions={["IN", "US", "GB", "DE", "JP"]} value={locale} onValueChange={setLocale} />
+```
+
+### Nombres de región nativos [#native-region-names]
+
+```tsx
+<LocalePicker regions={["IN", "US", "GB", "DE", "JP"]} defaultValue="de-DE" label="native" />
+```
+
+Con `de-DE` seleccionado, el disparador muestra «Deutschland» y las opciones muestran «Vereinigte Staaten», «Vereinigtes Königreich», etc.
+
+### Texto de interfaz traducido [#translated-ui-text]
+
+El marcador de posición de búsqueda, el estado vacío, las etiquetas accesibles y las etiquetas de la fila de resumen usan inglés de forma predeterminada. Pasa `labels` para traducirlos: cualquier clave que omitas conserva su valor en inglés. Las props `searchPlaceholder` y `emptyMessage` siguen funcionando y tienen prioridad sobre `labels` cuando ambas están definidas.
+
+```tsx
+"use client";
+
+import { LocalePicker } from "@/components/ui/locale-picker";
+
+export default function App() {
+  return (
+    <LocalePicker
+      regions={["IN", "US", "GB", "DE", "JP"]}
+      defaultValue="en-IN"
+      labels={{
+        searchPlaceholder: "Rechercher une région…",
+        searchLabel: "Rechercher une région",
+        clearSearch: "Effacer la recherche",
+        emptyMessage: "Aucune région trouvée.",
+        listbox: "Choisir la région",
+        current: (name) => `Région actuelle : ${name}`,
+        currency: "Devise",
+        dateFormat: "Format de date",
+        numberFormat: "Format de nombre",
+        weekStart: "La semaine commence le",
+      }}
+    />
+  );
+}
+```
+
+## Dependencias [#dependencies]
+
+Este componente usa:
+
+- `clsx` y `tailwind-merge` (incluidos como dependencias)
+- `lucide-react` (iconos)
+- `motion` (animación del popup)
+
+Dependencias de pares:
+
+- `react` >= 18
+- `react-dom` >= 18
+- `tailwindcss` >= 3
+
+## Créditos [#credits]
+
+Creado por [ujwalbajaj](https://github.com/ujwalbajaj).

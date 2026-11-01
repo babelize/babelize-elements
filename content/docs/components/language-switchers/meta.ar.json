@@ -1,0 +1,8 @@
+{
+  "title": "مبدّلات اللغة",
+  "icon": "Globe",
+  "pages": [
+    "language-switcher",
+    "language-switcher-pill"
+  ]
+}

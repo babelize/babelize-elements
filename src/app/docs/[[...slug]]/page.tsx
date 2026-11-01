@@ -1,7 +1,10 @@
 import { DocsBody, DocsDescription, DocsPage, DocsTitle } from "fumadocs-ui/page";
 import { notFound } from "next/navigation";
+import { getLocale } from "next-intl/server";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import { source } from "@/lib/source";
+import { localizedHref } from "@/lib/localized-href";
+import type { ComponentProps } from "react";
 import { LanguageSwitcherDemo } from "@/components/docs/language-switcher-demo";
 import { Flow, RulebookDownload, Takeaway } from "@/components/docs/rulebook";
 
@@ -20,9 +23,25 @@ const customComponents = {
   RulebookDownload,
 };
 
+/** Links between docs pages stay in the page's language (/ja/docs/…). */
+function localizedComponents(locale: string) {
+  const { a: A, Card } = defaultMdxComponents;
+  return {
+    ...customComponents,
+    a: (props: ComponentProps<typeof A>) => (
+      <A {...props} href={localizedHref(props.href, locale)} />
+    ),
+    Card: (props: ComponentProps<typeof Card>) => (
+      <Card {...props} href={localizedHref(props.href, locale)} />
+    ),
+  };
+}
+
 export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
   const params = await props.params;
-  const page = source.getPage(params.slug);
+  // The URL's language (/ja/docs/… is served here by the locale proxy); English without a translation.
+  const locale = await getLocale();
+  const page = source.getPage(params.slug, locale);
 
   if (!page) {
     notFound();
@@ -35,19 +54,19 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>
-        <MDX components={customComponents} />
+        <MDX components={localizedComponents(locale)} />
       </DocsBody>
     </DocsPage>
   );
 }
 
 export async function generateStaticParams() {
-  return source.generateParams();
+  return source.getPages().map((page) => ({ slug: page.slugs }));
 }
 
 export async function generateMetadata(props: { params: Promise<{ slug?: string[] }> }) {
   const params = await props.params;
-  const page = source.getPage(params.slug);
+  const page = source.getPage(params.slug, await getLocale());
   if (!page) notFound();
 
   return {

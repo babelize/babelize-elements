@@ -1,0 +1,220 @@
+---
+title: التثبيت
+description: ثبّت @babelize/elements في مشروعك باستخدام مدير الحزم المفضل لديك.
+icon: Download
+---
+
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+تعمل Babelize Elements في أي مشروع React + Tailwind CSS، مثل Next.js أو Vite أو Remix، أو أي أداة تجميع أخرى لـ React. تأتي الحزمة مع أنواع TypeScript، وبإصداري ESM وCJS. وتبعيات التشغيل قليلة وقياسية في منظومة shadcn: `motion` للحركة و`lucide-react` للأيقونات.
+
+## مدير الحزم [#package-manager]
+
+ثبّت المكتبة كاملةً بمدير الحزم المفضل لديك:
+
+<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
+  <Tab value="npm">
+
+```bash
+npm install @babelize/elements
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm add @babelize/elements
+```
+
+  </Tab>
+  <Tab value="yarn">
+
+```bash
+yarn add @babelize/elements
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bun add @babelize/elements
+```
+
+  </Tab>
+</Tabs>
+
+## أخبر Tailwind بالحزمة [#tell-tailwind-about-the-package]
+
+لا يولّد Tailwind إلا الأصناف الموجودة في ملفات مصدرك، ولا يفحص `node_modules`. من دون هذه الخطوة ستُعرض المكوّنات **بدون تنسيق**.
+
+وجّه Tailwind إلى الحزمة المثبتة مرة واحدة:
+
+<Tabs items={["Tailwind v4", "Tailwind v3"]}>
+  <Tab value="Tailwind v4">
+
+أضف سطر `@source` إلى ملف CSS الذي يستورد Tailwind، مع المسار النسبي إلى ذلك الملف:
+
+```css title="app/globals.css"
+@import "tailwindcss";
+@source "../node_modules/@babelize/elements/dist";
+```
+
+  </Tab>
+  <Tab value="Tailwind v3">
+
+أضف الحزمة إلى `content` في إعدادات Tailwind:
+
+```js title="tailwind.config.js"
+module.exports = {
+  content: ["./src/**/*.{ts,tsx}", "./node_modules/@babelize/elements/dist/**/*.js"],
+};
+```
+
+  </Tab>
+</Tabs>
+
+هذه الخطوة خاصة بحزمة npm فقط. أما المكوّنات المثبتة عبر [CLI الخاص بـ shadcn](/docs/getting-started/shadcn-cli) فتعيش في شجرة مصدرك الخاصة، وTailwind يفحصها أصلًا.
+
+## رموز السمات [#theme-tokens]
+
+تُنسَّق المكوّنات برموز [shadcn/ui](https://ui.shadcn.com/docs/theming) الدلالية، مثل `bg-popover` و`text-muted-foreground` و`ring-ring` وغيرها، فتتبع سمة تطبيقك ونصف قطر الزوايا والوضع الداكن تلقائيًا.
+
+**تستخدم shadcn/ui بالفعل؟** لا شيء تفعله، فـ `shadcn init` عرّف الرموز.
+
+**لا تستخدم shadcn/ui؟** أضف الرموز مرة واحدة إلى ملف CSS الذي يستورد Tailwind. هذه سمة shadcn المحايدة، فغيّر أي قيمة لتناسب علامتك التجارية.
+
+```css title="app/globals.css"
+/* Make `dark:` follow the `.dark` class, as the tokens below do. */
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+```
+
+في Tailwind v3، اربط المتغيرات نفسها ضمن `theme.extend.colors` في `tailwind.config.js`، كما في [دليل shadcn v3](https://v3.shadcn.com/docs/theming). صُممت المكوّنات لـ Tailwind v4، وتعمل على v3 لكن بعض الأدوات الخاصة بـ v4 (مثل `shadow-xs`) لا تُحدث أثرًا.
+
+كل مكوّن يقبل أيضًا خاصية `classNames` لتجاوزات كل جزء، فيمكنك إعادة تنسيق أي فتحة دون نسخ المصدر.
+
+## تثبيت المكوّنات فرديًا [#install-individual-components]
+
+تفضّل تثبيت المكوّنات واحدًا تلو الآخر مباشرةً في قاعدة كودك؟ استخدم [CLI الخاص بـ shadcn](/docs/getting-started/shadcn-cli):
+
+```bash
+npx shadcn@latest add @babelize/language-switcher
+```
+
+أو استخدم CLI المرفق داخل الحزمة:
+
+```bash
+npx @babelize/elements add language-switcher
+```
+
+في الحالتين، يُكتب المكوّن (مع أداة `cn` وتبعياته) داخل مجلد `components/ui/` لديك، وتملك الكود منذ ذلك الحين.
+
+## المتطلبات الأساسية [#prerequisites]
+
+| التبعية   | أدنى إصدار |
+| ------------ | --------------- |
+| React        | `>=18`          |
+| React DOM    | `>=18`          |
+| Tailwind CSS | `>=3`           |
+| Node.js      | `>=20`          |
+
+## تحقّق من التثبيت [#verify-installation]
+
+استورد مكوّنًا للتأكد من أن كل شيء مُهيّأ بشكل صحيح:
+
+```tsx
+import { LanguageSwitcher } from "@babelize/elements";
+
+export function App() {
+  return (
+    <LanguageSwitcher
+      locales={[{ code: "en" }, { code: "fr" }, { code: "es" }]}
+      defaultValue="en"
+      onValueChange={(code) => console.log("changed to", code)}
+    />
+  );
+}
+```
+
+كل مكوّن مكتوب بـ TypeScript أولًا، ويُصدّر واجهة خصائصه الخاصة، ويعمل مع `next-intl` أو `react-i18next` أو إعداد i18n المخصص لديك.
+
+## الخطوات التالية [#next-steps]
+
+<Cards>
+  <Card title="المكوّنات" href="/docs/components">
+    تصفّح جميع المكوّنات المتاحة ووثائقها.
+  </Card>
+  <Card title="ShadCN CLI" href="/docs/getting-started/shadcn-cli">
+    ثبّت المكوّنات واحدًا تلو الآخر باستخدام CLI الخاص بـ shadcn.
+  </Card>
+  <Card title="المساهمة" href="/docs/getting-started/contributing">
+    مكوّن ناقص؟ ابنِ النسخة الأولى بنفسك.
+  </Card>
+</Cards>

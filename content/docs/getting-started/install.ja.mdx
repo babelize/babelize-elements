@@ -1,0 +1,220 @@
+---
+title: インストール
+description: お好みのパッケージマネージャーを使って、プロジェクトに @babelize/elements をインストールします。
+icon: Download
+---
+
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+Babelize Elements は、React + Tailwind CSS のあらゆるプロジェクトにそのまま組み込めます。Next.js、Vite、Remix、その他 React をバンドルする環境が対象です。パッケージには TypeScript の型定義と、ESM および CJS のビルドが含まれています。ランタイムの依存関係は少なく、shadcn のエコシステムでは標準的なものです。アニメーションには `motion`、アイコンには `lucide-react` を使用します。
+
+## パッケージマネージャー [#package-manager]
+
+お好みのパッケージマネージャーでライブラリ全体をインストールします:
+
+<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
+  <Tab value="npm">
+
+```bash
+npm install @babelize/elements
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm add @babelize/elements
+```
+
+  </Tab>
+  <Tab value="yarn">
+
+```bash
+yarn add @babelize/elements
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bun add @babelize/elements
+```
+
+  </Tab>
+</Tabs>
+
+## Tailwind にパッケージを認識させる [#tell-tailwind-about-the-package]
+
+Tailwind は、ソースファイル内で見つけたクラスのみを生成し、`node_modules` はスキャンしません。この手順を行わないと、コンポーネントは**スタイルなし**で描画されます。
+
+インストールしたパッケージを Tailwind に一度指定します:
+
+<Tabs items={["Tailwind v4", "Tailwind v3"]}>
+  <Tab value="Tailwind v4">
+
+Tailwind をインポートしている CSS ファイルに `@source` の行を追加します。パスはそのファイルからの相対パスです:
+
+```css title="app/globals.css"
+@import "tailwindcss";
+@source "../node_modules/@babelize/elements/dist";
+```
+
+  </Tab>
+  <Tab value="Tailwind v3">
+
+Tailwind の設定ファイルの `content` にパッケージを追加します:
+
+```js title="tailwind.config.js"
+module.exports = {
+  content: ["./src/**/*.{ts,tsx}", "./node_modules/@babelize/elements/dist/**/*.js"],
+};
+```
+
+  </Tab>
+</Tabs>
+
+この手順は npm パッケージの場合のみ必要です。[shadcn CLI](/docs/getting-started/shadcn-cli) でインストールしたコンポーネントは、Tailwind がすでにスキャンしているお使いのソースツリー内に配置されます。
+
+## テーマのトークン [#theme-tokens]
+
+コンポーネントは [shadcn/ui](https://ui.shadcn.com/docs/theming) のセマンティックトークン（`bg-popover`、`text-muted-foreground`、`ring-ring` など）でスタイルされるため、アプリのテーマ、角丸、ダークモードが自動的に反映されます。
+
+**すでに shadcn/ui を使用していますか？** 特別な作業は不要です。`shadcn init` でトークンがすでに定義されています。
+
+**shadcn/ui を使用していませんか？** Tailwind をインポートしている CSS ファイルに、トークンを一度追加してください。これは shadcn のニュートラルテーマです。ブランドに合わせて任意の値を変更できます。
+
+```css title="app/globals.css"
+/* Make `dark:` follow the `.dark` class, as the tokens below do. */
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+```
+
+Tailwind v3 の場合は、[shadcn v3 ガイド](https://v3.shadcn.com/docs/theming)のとおり、同じ変数を `tailwind.config.js` 内の `theme.extend.colors` に対応付けてください。コンポーネントは Tailwind v4 向けに設計されています。v3 でも動作しますが、v4 のみのユーティリティ（`shadow-xs` など）は効果がなくなります。
+
+すべてのコンポーネントは、パーツごとの上書き用に `classNames` prop も受け取るため、ソースをフォークしなくても任意のスロットのスタイルを変更できます。
+
+## コンポーネントを個別にインストールする [#install-individual-components]
+
+コンポーネントを1つずつ、コードベースに直接インストールしたい場合は、[shadcn CLI](/docs/getting-started/shadcn-cli) を使用してください:
+
+```bash
+npx shadcn@latest add @babelize/language-switcher
+```
+
+または、パッケージに含まれる CLI を使用してください:
+
+```bash
+npx @babelize/elements add language-switcher
+```
+
+いずれの方法でも、コンポーネント（およびその `cn` ユーティリティと依存関係）が `components/ui/` ディレクトリに書き込まれ、それ以降のコードはお客様の管理下になります。
+
+## 前提条件 [#prerequisites]
+
+| 依存関係   | 最小バージョン |
+| ------------ | --------------- |
+| React        | `>=18`          |
+| React DOM    | `>=18`          |
+| Tailwind CSS | `>=3`           |
+| Node.js      | `>=20`          |
+
+## インストールの確認 [#verify-installation]
+
+コンポーネントをインポートして、すべてが正しく接続されていることを確認します:
+
+```tsx
+import { LanguageSwitcher } from "@babelize/elements";
+
+export function App() {
+  return (
+    <LanguageSwitcher
+      locales={[{ code: "en" }, { code: "fr" }, { code: "es" }]}
+      defaultValue="en"
+      onValueChange={(code) => console.log("changed to", code)}
+    />
+  );
+}
+```
+
+すべてのコンポーネントは TypeScript を優先して設計されており、独自の props インターフェースをエクスポートし、既存の `next-intl`、`react-i18next`、またはカスタムの i18n セットアップと連携して動作します。
+
+## 次のステップ [#next-steps]
+
+<Cards>
+  <Card title="コンポーネント" href="/docs/components">
+    利用可能なすべてのコンポーネントとそのドキュメントを参照します。
+  </Card>
+  <Card title="ShadCN CLI" href="/docs/getting-started/shadcn-cli">
+    shadcn CLI を使用してコンポーネントを個別にインストールします。
+  </Card>
+  <Card title="コントリビュート" href="/docs/getting-started/contributing">
+    コンポーネントが見つかりませんか？ 最初のバージョンをご自身で作成してください。
+  </Card>
+</Cards>

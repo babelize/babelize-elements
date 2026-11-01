@@ -1,0 +1,373 @@
+---
+title: Widget de traducción
+description: Tarjeta de traducción lado a lado con selectores de idioma, intercambio, copia, recuento de caracteres y un estado de carga. Compatible con RTL y con temas mediante tokens de shadcn.
+---
+
+import { PreviewComponents } from "@/components/docs/preview-components";
+import { TranslationWidgetDemo } from "@/components/docs/translation-widget-demo";
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+<PreviewComponents registryName="translation-widget">
+  <TranslationWidgetDemo />
+</PreviewComponents>
+
+## Instalación [#installation]
+
+<Tabs
+  items={["shadcn", "Elements CLI"]}
+  defaultValue="shadcn"
+  className="bg-transparent border-none"
+>
+  <Tab value="shadcn" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="installation-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx shadcn@latest add @babelize/translation-widget
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx shadcn@latest add @babelize/translation-widget
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx shadcn@latest add @babelize/translation-widget
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx shadcn@latest add @babelize/translation-widget
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+  <Tab value="Elements CLI" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="elements-cli-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx @babelize/elements add translation-widget
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx @babelize/elements add translation-widget
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx @babelize/elements add translation-widget
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx @babelize/elements add translation-widget
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+</Tabs>
+
+## Uso [#usage]
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { TranslationWidget } from "@/components/ui/translation-widget";
+
+export function Translate() {
+  const [text, setText] = useState("");
+
+  return (
+    <TranslationWidget
+      sourceLocale="en"
+      targetLocale="fr"
+      sourceText="Hello, world!"
+      targetText={text} // omit for uncontrolled
+      onTargetChange={setText}
+    />
+  );
+}
+```
+
+Con selectores de idioma y el botón de intercambio:
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { TranslationWidget } from "@/components/ui/translation-widget";
+
+const locales = [{ code: "en" }, { code: "fr" }, { code: "ar" }];
+
+export function Translate() {
+  const [source, setSource] = useState("Hello, world!");
+  const [target, setTarget] = useState("Bonjour, le monde !");
+  const [sourceLocale, setSourceLocale] = useState("en");
+  const [targetLocale, setTargetLocale] = useState("fr");
+
+  return (
+    <TranslationWidget
+      locales={locales}
+      sourceLocale={sourceLocale}
+      targetLocale={targetLocale}
+      onSourceLocaleChange={setSourceLocale}
+      onTargetLocaleChange={setTargetLocale}
+      sourceText={source}
+      onSourceChange={setSource}
+      targetText={target}
+      onTargetChange={setTarget}
+      onSwap={() => console.log("swapped")}
+    />
+  );
+}
+```
+
+## Props [#props]
+
+| Prop                   | Tipo                               | Obligatorio | Descripción                                                                              |
+| ---------------------- | ---------------------------------- | -------- | ---------------------------------------------------------------------------------------- |
+| `locales`              | `Locale[]`                         | No       | Configuraciones regionales para los selectores de idioma de cada panel; omítelo para mostrar chips estáticos                     |
+| `sourceLocale`         | `string`                           | No       | Código BCP 47 de la configuración regional de origen (p. ej. `"en"`); proporciónalo para controlarla                    |
+| `defaultSourceLocale`  | `string`                           | No       | Configuración regional de origen inicial cuando no está controlada (por defecto: `locales[0]`, si no `"en"`)             |
+| `onSourceLocaleChange` | `(code: string) => void`           | No       | Callback que se ejecuta cuando cambia la configuración regional de origen                                                  |
+| `targetLocale`         | `string`                           | No       | Código BCP 47 de la configuración regional de destino (p. ej. `"fr"`, `"ar"`); proporciónalo para controlarla            |
+| `defaultTargetLocale`  | `string`                           | No       | Configuración regional de destino inicial cuando no está controlada (por defecto: `locales[1]`, si no `"en"`)             |
+| `onTargetLocaleChange` | `(code: string) => void`           | No       | Callback que se ejecuta cuando cambia la configuración regional de destino                                                  |
+| `sourceText`           | `string`                           | No       | Texto de origen; pásalo para controlar el panel de origen                                       |
+| `defaultSourceText`    | `string`                           | No       | Texto de origen inicial cuando no está controlado                                                    |
+| `onSourceChange`       | `(text: string) => void`           | No       | Callback que se ejecuta cuando cambia el texto de origen; hace el panel editable                           |
+| `targetText`           | `string`                           | No       | Texto de destino; pásalo para controlar el panel de destino (solo lectura sin `onTargetChange`)  |
+| `defaultTargetText`    | `string`                           | No       | Texto de destino inicial cuando no está controlado                                                    |
+| `onTargetChange`       | `(text: string) => void`           | No       | Callback que se ejecuta cuando cambia el texto de destino                                                    |
+| `onSwap`               | `() => void`                       | No       | Se llama después de que el botón de intercambio intercambie configuraciones regionales y textos                                 |
+| `sourcePlaceholder`    | `string`                           | No       | Placeholder del panel de origen                                                          |
+| `targetPlaceholder`    | `string`                           | No       | Placeholder del panel de destino                                                          |
+| `sourceLabel`          | `string`                           | No       | Etiqueta accesible del panel de origen (por defecto: `"Source text"`)                          |
+| `targetLabel`          | `string`                           | No       | Etiqueta accesible del panel de destino (por defecto: `"Target text"`)                          |
+| `readOnlySource`       | `boolean`                          | No       | Mantiene el panel de origen en solo lectura incluso con `onSourceChange`                                |
+| `showCount`            | `boolean`                          | No       | Muestra el recuento de caracteres de origen (por defecto: `true`)                                        |
+| `maxLength`            | `number`                           | No       | Límite de caracteres para ambos paneles; el recuento muestra `n / max`                                |
+| `showClear`            | `boolean`                          | No       | Muestra un botón de borrar bajo un origen editable (por defecto: `true`)                           |
+| `showCopy`             | `boolean`                          | No       | Muestra un botón de copiar al portapapeles bajo el destino (por defecto: `true`)                       |
+| `onTargetCopy`         | `(text: string) => void`           | No       | Se llama con el texto de destino después de copiarlo                                           |
+| `labels`               | `Partial<TranslationWidgetLabels>` | No       | Sustituye el texto de interfaz en inglés integrado (consulta más abajo)                                        |
+| `loading`              | `boolean`                          | No       | Muestra un esqueleto en el panel de destino y lo marca con `aria-busy`                               |
+| `classNames`           | `TranslationWidgetClassNames`      | No       | Sobrescrituras de clases por parte: `root`, `header`, `pane`, `textarea`, `footer`, `swap`, `chip` |
+| `dir`                  | `"ltr" \| "rtl"`                   | No       | Sobrescribe la dirección de diseño detectada automáticamente                                              |
+| `className`            | `string`                           | No       | Clases CSS adicionales                                                                   |
+
+Cualquier otra prop — `id`, `data-*`, `aria-*` — se propaga al elemento raíz, y la ref se reenvía a él.
+
+## Origen editable [#editable-source]
+
+El panel de origen es de solo lectura por defecto. Pasa `onSourceChange` para hacerlo editable, o fuérzalo a solo lectura con `readOnlySource` aunque haya un manejador de cambios:
+
+```tsx
+<TranslationWidget
+  sourceLocale="en"
+  targetLocale="de"
+  sourceText={source}
+  onSourceChange={setSource}
+  readOnlySource
+/>
+```
+
+## Destino controlado [#controlled-target]
+
+El panel de destino es editable cuando no está controlado (`defaultTargetText`) o cuando pasas tanto `targetText` como `onTargetChange`. Un destino controlado sin manejador se renderiza en solo lectura, así que el texto escrito nunca se pierde en silencio:
+
+```tsx
+// Read-only: controlled with no way to report edits
+<TranslationWidget sourceLocale="en" targetLocale="fr" targetText="Bonjour" />
+
+// Editable
+<TranslationWidget
+  sourceLocale="en"
+  targetLocale="fr"
+  targetText={text}
+  onTargetChange={setText}
+/>
+```
+
+## Selectores de idioma [#language-pickers]
+
+Pasa `locales` para renderizar un [Selector de idioma](/docs/components/language-switchers/language-switcher) en cada panel en lugar del chip de idioma estático. Cada selector actualiza la configuración regional de su panel: el `lang` y el `dir` del área de texto se actualizan, así que al cambiar el destino a árabe ese panel pasa a RTL:
+
+```tsx
+<TranslationWidget
+  locales={[{ code: "en" }, { code: "fr" }, { code: "ar" }]}
+  defaultSourceLocale="en"
+  defaultTargetLocale="fr"
+  sourceText={source}
+  onSourceChange={setSource}
+/>
+```
+
+El estado de la configuración regional puede no estar controlado (`defaultSourceLocale` / `defaultTargetLocale`) o controlado (`sourceLocale` + `onSourceLocaleChange`, igual para el destino). Cuando se omite `locales`, el widget conserva los chips estáticos compactos.
+
+## Intercambiar [#swap]
+
+El botón de intercambio entre los paneles intercambia **ambos** la configuración regional y los textos —origen ↔ destino— y dispara `onSwap`. Está en la barra de cabecera entre los dos selectores de idioma, y su icono gira media vuelta en cada intercambio. El botón lleva un `aria-label="Swap languages"` y se desactiva cuando algún valor intercambiado está controlado sin manejador de cambios, ya que el intercambio no podría aplicarse:
+
+```tsx
+<TranslationWidget
+  locales={locales}
+  sourceLocale={sourceLocale}
+  targetLocale={targetLocale}
+  onSourceLocaleChange={setSourceLocale}
+  onTargetLocaleChange={setTargetLocale}
+  sourceText={source}
+  onSourceChange={setSource}
+  targetText={target}
+  onTargetChange={setTarget}
+  onSwap={() => analytics.track("languages-swapped")}
+/>
+```
+
+## Barra de herramientas [#toolbar]
+
+Cada panel termina en una pequeña barra de herramientas. El origen muestra un recuento de caracteres en vivo —`n / max` cuando pasas `maxLength`, que pasa a color destructivo al llegar al límite— y un botón de borrar cuando el panel es editable. El destino tiene un botón de copiar que confirma con una marca de verificación y anuncia “Translation copied to clipboard” a los lectores de pantalla:
+
+```tsx
+<TranslationWidget
+  sourceLocale="en"
+  targetLocale="fr"
+  sourceText={source}
+  onSourceChange={setSource}
+  maxLength={500}
+  onTargetCopy={(text) => analytics.track("translation-copied", { length: text.length })}
+/>
+```
+
+Desactiva cualquiera de ellos con `showCount={false}`, `showClear={false}` o `showCopy={false}`.
+
+## Estado de carga [#loading-state]
+
+Mientras una traducción está en curso, pasa `loading` para reemplazar el texto de destino por un esqueleto pulsante. El área de texto se marca con `aria-busy` y la copia se desactiva:
+
+```tsx
+const [loading, setLoading] = useState(false);
+
+async function translate(text: string) {
+  setLoading(true);
+  setTarget(await api.translate(text, targetLocale));
+  setLoading(false);
+}
+
+<TranslationWidget loading={loading} /* … */ />;
+```
+
+## Texto de interfaz traducido [#translated-ui-text]
+
+Los placeholders y etiquetas de los paneles tienen sus propias props (`sourcePlaceholder`, `sourceLabel` y demás). El resto del texto integrado —botones de la barra de herramientas, el anuncio de copia, la palabra que se lee tras el recuento de caracteres y los dos selectores de idioma— proviene de `labels`. Cualquier clave que omitas conserva su valor por defecto en inglés.
+
+```tsx
+<TranslationWidget
+  locales={locales}
+  defaultSourceLocale="fr"
+  defaultTargetLocale="en"
+  onSourceChange={(text) => console.log(text)}
+  sourcePlaceholder="Texte source"
+  sourceLabel="Texte source"
+  labels={{
+    swap: "Inverser les langues",
+    copy: "Copier la traduction",
+    copied: "Copié",
+    copiedStatus: "Traduction copiée dans le presse-papiers",
+    clearSource: "Effacer le texte source",
+    characters: (count) => (count === 1 ? "caractère" : "caractères"),
+    languageSwitcher: {
+      current: (name) => `Langue actuelle : ${name}`,
+      searchPlaceholder: "Rechercher des langues…",
+      emptyMessage: "Aucune langue trouvée.",
+    },
+  }}
+/>
+```
+
+| Clave                | Predeterminado                             | Se usa para                                                  |
+| ------------------ | ----------------------------------- | --------------------------------------------------------- |
+| `swap`             | `"Swap languages"`                  | Etiqueta accesible del botón de intercambio                              |
+| `copy`             | `"Copy translation"`                | Etiqueta accesible del botón de copiar                              |
+| `copied`           | `"Copied"`                          | Etiqueta del botón de copiar justo después de copiar                      |
+| `copiedStatus`     | `"Translation copied to clipboard"` | Anuncio para lectores de pantalla tras copiar                     |
+| `clearSource`      | `"Clear source text"`               | Etiqueta accesible del botón de borrar                             |
+| `characters`       | `(count) => "characters"`           | Se lee tras el recuento de caracteres; recibe el recuento para la forma plural  |
+| `languageSwitcher` | Valores por defecto de `LanguageSwitcher`         | Ambos selectores de idioma (`Partial<LanguageSwitcherLabels>`) |
+
+## Personalización [#customization]
+
+Cada parte acepta clases adicionales mediante `classNames`, combinadas tras los valores por defecto con `cn`, así que tus clases tienen prioridad:
+
+```tsx
+<TranslationWidget
+  classNames={{
+    root: "rounded-2xl shadow-lg",
+    header: "bg-muted/50",
+    textarea: "font-serif text-lg",
+    swap: "bg-primary text-primary-foreground",
+  }}
+/>
+```
+
+## Compatibilidad con RTL [#rtl-support]
+
+Cuando la configuración regional de destino es un idioma RTL (`ar`, `he`, `fa`, `ur`, …) o incluye una subetiqueta de escritura RTL (`az-Arab`), el texto del panel de destino fluye de derecha a izquierda. El _orden_ de los paneles nunca cambia: el origen siempre va primero y el destino, segundo. Cada panel tiene su propio `dir` y `lang`, así que un par mixto LTR→RTL se lee correctamente en ambos lados. Pasa `dir` para establecer la dirección del widget de forma explícita.
+
+```tsx
+<TranslationWidget sourceLocale="en" targetLocale="ar" sourceText="Hello, world!" />
+```
+
+## Características [#features]
+
+- **Paneles lado a lado** — origen y destino en una sola tarjeta, apilados en pantallas estrechas
+- **Selectores de idioma** — pasa `locales` para un selector de idioma por panel; si no, chips estáticos
+- **Botón de intercambio** — intercambia configuraciones regionales y textos, con `onSwap` y una etiqueta accesible
+- **Destino editable** — sin control, o controlado con `targetText` + `onTargetChange` (un destino controlado sin manejador se renderiza en solo lectura para que el texto escrito nunca se pierda en silencio)
+- **Compatible con RTL** — `dir` y `lang` de cada panel siguen a cada configuración regional; el orden de los paneles no cambia
+- **Barra de herramientas** — recuento de caracteres con `maxLength`, borrar y copiar al portapapeles
+- **Estado de carga** — panel de destino con esqueleto y `aria-busy`
+- **Accesible** — textareas con etiqueta, atributos `lang`, anillos de foco visibles y anuncio de copia en vivo
+- **Soporte de teclado** — Tab entre paneles, escribe para traducir
+- **Personalizable con temas** — tokens de shadcn (`bg-card`, `border`, `muted`, `ring`), así que sigue tu tema y el modo oscuro
+- **Personalizable** — `classNames` para cada parte
+- **Movimiento** — icono de intercambio con muelle y confirmación de copia, respetando la configuración de movimiento reducido
+- **Controlado / no controlado** — funciona con o sin `targetText`; igual para las configuraciones regionales
+
+## Diseño [#design]
+
+Una sola tarjeta, dividida en un panel de origen y un panel de destino ligeramente tintado, con ambos selectores de idioma y el botón de intercambio en una barra de cabecera compartida: el diseño que la gente conoce de las herramientas de traducción. Los colores provienen de los tokens semánticos de shadcn, así que el widget adopta tu tema, radio y modo oscuro sin configuración adicional.
+
+## Dependencias [#dependencies]
+
+Este componente usa:
+
+- `clsx` y `tailwind-merge` (incluidos como dependencias)
+- `lucide-react` para los iconos y `motion` para las animaciones de intercambio y copia
+- el componente [selector de idioma](/docs/components/language-switchers/language-switcher) (se incluye automáticamente mediante las dependencias del registro)
+
+Dependencias de pares:
+
+- `react` >= 18
+- `react-dom` >= 18
+- `tailwindcss` >= 3

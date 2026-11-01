@@ -1,0 +1,234 @@
+---
+title: ロケールピッカー
+description: ロケールから導出されるデフォルト値（通貨、日付と数値の書式、週の開始曜日）を備えた地域ピッカーです。検索、キーボード操作、RTL に対応しています。
+---
+
+import { PreviewComponents } from "@/components/docs/preview-components";
+import { LocalePickerDemo } from "@/components/docs/locale-picker-demo";
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+<PreviewComponents registryName="locale-picker">
+  <LocalePickerDemo />
+</PreviewComponents>
+
+## インストール [#installation]
+
+<Tabs
+  items={["shadcn", "Elements CLI"]}
+  defaultValue="shadcn"
+  className="bg-transparent border-none"
+>
+  <Tab value="shadcn" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="installation-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx shadcn@latest add @babelize/locale-picker
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx shadcn@latest add @babelize/locale-picker
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx shadcn@latest add @babelize/locale-picker
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx shadcn@latest add @babelize/locale-picker
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+  <Tab value="Elements CLI" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="elements-cli-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx @babelize/elements add locale-picker
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx @babelize/elements add locale-picker
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx @babelize/elements add locale-picker
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx @babelize/elements add locale-picker
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+</Tabs>
+
+## 使い方 [#usage]
+
+```tsx
+import { LocalePicker } from "@/components/ui/locale-picker";
+```
+
+```tsx
+<LocalePicker
+  regions={["IN", "US", "GB", "DE", "JP"]} // your ISO 3166-1 alpha-2 regions
+  defaultValue="en-IN"
+  onValueChange={(locale) => console.log("Selected locale:", locale)}
+  label="english" // native, english
+  variant="outline" // outline, ghost, secondary
+  size="default" // sm, default, lg
+/>
+```
+
+## Props [#props]
+
+| Prop                | 型                                  | 必須 | デフォルト               | 説明                                                                          |
+| ------------------- | ------------------------------------- | -------- | --------------------- | ------------------------------------------------------------------------------------ |
+| `regions`           | `string[]`                            | はい      | —                     | 選択できる地域。ISO 3166-1 alpha-2 コードで指定します                                     |
+| `value`             | `string`                              | いいえ       | —                     | 選択中のロケール（BCP 47）。コンポーネントを制御するにはこの値を渡します                        |
+| `defaultValue`      | `string`                              | いいえ       | `en-<first region>`   | 非制御時の初期選択ロケール                                            |
+| `onValueChange`     | `(locale: string) => void`            | いいえ       | —                     | 地域が変更されたときのコールバック。新しい BCP 47 タグを受け取ります                       |
+| `label`             | `"native" \| "english"`               | いいえ       | `"english"`           | 地域名を英語で表示するか、選択中のロケールに合わせてローカライズして表示します                         |
+| `showFlags`         | `boolean`                             | いいえ       | `true`                | 地域名の横に国旗の絵文字を表示します                                        |
+| `maxHeight`         | `number \| string`                    | いいえ       | `"15rem"`             | スクロールが始まるまでの、スクロールする選択肢一覧の最大の高さ                           |
+| `variant`           | `"outline" \| "ghost" \| "secondary"` | いいえ       | `"outline"`           | トリガーのスタイル                                                                        |
+| `size`              | `"sm" \| "default" \| "lg"`           | いいえ       | `"default"`           | トリガーのサイズ                                                                         |
+| `align`             | `"start" \| "end"`                    | いいえ       | `"start"`             | ポップアップを揃えるトリガーの辺                                          |
+| `side`              | `"top" \| "bottom"`                   | いいえ       | `"bottom"`            | ポップアップの優先表示側。ビューポートに十分なスペースがない場合は反転します                           |
+| `searchable`        | `boolean`                             | いいえ       | `true`                | 検索欄を表示します                                                                |
+| `searchPlaceholder` | `string`                              | いいえ       | `"Search regions..."` | 検索欄のプレースホルダー                                                     |
+| `emptyMessage`      | `React.ReactNode`                     | いいえ       | `"No results"`        | 検索に一致する項目がない場合に表示される内容                                        |
+| `disabled`          | `boolean`                             | いいえ       | `false`               | トリガーを無効にします                                                                  |
+| `showSummary`       | `boolean`                             | いいえ       | `true`                | 導出されたロケールのデフォルト値のサマリーカードを表示します                                     |
+| `labels`            | `Partial<LocalePickerLabels>`         | いいえ       | —                     | 組み込みの英語 UI テキストを上書きします（下記参照）                                    |
+| `classNames`        | `LocalePickerClassNames`              | いいえ       | —                     | パーツごとのクラス: `trigger`、`content`、`search`、`list`、`item`、`empty`、`summary` |
+| `className`         | `string`                              | いいえ       | —                     | 追加の CSS クラス                                                               |
+
+選択された値は完全な BCP 47 タグです。 その **地域** サブタグは選んだ地域になり、**言語** サブタグは地域を変更しても保持されます。 `en-IN` からドイツを選ぶと `en-DE` になり、`fr-JP` から選ぶと `fr-DE` になります。
+
+## 導出されるデフォルト値 [#derived-defaults]
+
+サマリーカードは、選択中のロケールから `Intl` を通じてすべての値を導出します。 通貨コードには ISO 4217 のフォールバックテーブルのみを同梱しており、それ以外のデータは同梱していません:
+
+| 行            | 取得元                                                                           |
+| -------------- | -------------------------------------------------------------------------------- |
+| 通貨       | 地域 → ISO 4217 コード。`Intl.NumberFormat`（`style: "currency"`）でプレビュー |
+| 日付の書式    | 固定のサンプル日付における `Intl.DateTimeFormat`（`dateStyle: "medium"`）             |
+| 数値の書式  | 固定のサンプル金額における `Intl.NumberFormat`                                     |
+| 週の開始曜日 | 利用可能な場合は `Intl.Locale#getWeekInfo()`、それ以外は地域のフォールバック            |
+
+通貨の対応付けがない地域では、推測せずにダッシュ（—）を表示します。
+
+## キーボード操作 [#keyboard-support]
+
+ポップアップは WAI-ARIA のコンボボックスパターンに従います。 フォーカスは検索欄に留まり、検索欄は `role="combobox"` として公開されます。 ハイライトされた選択肢は `aria-activedescendant` を通じて読み上げられます。
+
+| キー                              | 操作                                                        |
+| -------------------------------- | ------------------------------------------------------------- |
+| `Enter`、`Space`、またはクリック       | トリガーからポップアップを開きます                               |
+| `ArrowDown` / `ArrowUp`（閉じている状態） | 最初または最後の地域がハイライトされた状態で開きます                 |
+| `ArrowDown` / `ArrowUp`          | ハイライトを移動します。両端で循環します                     |
+| `Home` / `End`                   | 最初または最後の地域をハイライトします                             |
+| `Enter`                          | ハイライトされた地域を選択し、フォーカスをトリガーに戻します |
+| `Escape`                         | ポップアップを閉じ、フォーカスをトリガーに戻します               |
+| 入力                           | 名前またはコードで絞り込みます。ハイライトは先頭に戻ります     |
+
+## 機能 [#features]
+
+- **導出されるデフォルト値** — 通貨、日付の書式、数値の書式、週の開始曜日を `Intl` を通じてリアルタイムに解決します
+- **検索付きドロップダウン** — 英語名、ローカライズされた名前、地域コードで絞り込めます。クリアボタン付き
+- **モーション** — ポップアップは `motion/react` を介してフェードとスライドで表示され、`prefers-reduced-motion` を尊重します。閉じるときはアクセシビリティツリーから削除されます
+- **RTL 対応** — ルートの `dir` を通じて、RTL のロケール（ar、he、fa、ur）の方向を切り替えます
+- **キーボードでの操作に対応** — 矢印キー、Home / End、Enter、Escape で操作可能
+- **ARIA ラベル** — `aria-activedescendant` を持つ `role="combobox"` 検索欄に加え、`aria-expanded`、`aria-haspopup`、`aria-selected`
+- **shadcn のトークンでテーマ設定** — `bg-popover`、`border-input`、`bg-accent` など。お使いのテーマを継承します。ダークモードはトークンから適用されます
+- **カスタマイズ可能** — `variant` / `size` のトリガーと、パーツごとの `classNames`（`LocalePickerClassNames` はバレルファイルからエクスポートされています）。アイコンはすべて `lucide-react` を使用します
+- **制御または非制御** — `value` / `defaultValue` / `onValueChange`
+
+## 使用例 [#examples]
+
+### 制御 [#controlled]
+
+```tsx
+<LocalePicker regions={["IN", "US", "GB", "DE", "JP"]} value={locale} onValueChange={setLocale} />
+```
+
+### ネイティブの地域名 [#native-region-names]
+
+```tsx
+<LocalePicker regions={["IN", "US", "GB", "DE", "JP"]} defaultValue="de-DE" label="native" />
+```
+
+`de-DE` を選択すると、トリガーには「Deutschland」と表示され、選択肢には「Vereinigte Staaten」「Vereinigtes Königreich」などと表示されます。
+
+### 翻訳された UI テキスト [#translated-ui-text]
+
+検索欄のプレースホルダー、空の状態、アクセシブルなラベル、サマリー行のラベルは、デフォルトで英語です。 翻訳するには `labels` を渡します。 省略したキーは英語のデフォルトのままになります。 `searchPlaceholder` と `emptyMessage` の props も引き続き使用でき、両方が設定されている場合は `labels` より優先されます。
+
+```tsx
+"use client";
+
+import { LocalePicker } from "@/components/ui/locale-picker";
+
+export default function App() {
+  return (
+    <LocalePicker
+      regions={["IN", "US", "GB", "DE", "JP"]}
+      defaultValue="en-IN"
+      labels={{
+        searchPlaceholder: "Rechercher une région…",
+        searchLabel: "Rechercher une région",
+        clearSearch: "Effacer la recherche",
+        emptyMessage: "Aucune région trouvée.",
+        listbox: "Choisir la région",
+        current: (name) => `Région actuelle : ${name}`,
+        currency: "Devise",
+        dateFormat: "Format de date",
+        numberFormat: "Format de nombre",
+        weekStart: "La semaine commence le",
+      }}
+    />
+  );
+}
+```
+
+## 依存関係 [#dependencies]
+
+このコンポーネントは次を使用しています:
+
+- `clsx` と `tailwind-merge`（dependencies としてバンドル）
+- `lucide-react`（アイコン）
+- `motion`（ポップアップのアニメーション）
+
+peerDependencies:
+
+- `react` >= 18
+- `react-dom` >= 18
+- `tailwindcss` >= 3
+
+## クレジット [#credits]
+
+作成者: [ujwalbajaj](https://github.com/ujwalbajaj)。

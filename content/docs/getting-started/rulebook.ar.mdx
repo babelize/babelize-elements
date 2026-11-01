@@ -1,0 +1,262 @@
+---
+title: دليل المساهم
+description: قبل أن تكتب الكود، اقرأ القواعد. هكذا نعمل معًا على Babelize Elements.
+icon: BookOpen
+---
+
+import { Steps, Step } from "fumadocs-ui/components/steps";
+import {
+  BookOpen,
+  Box,
+  CircleCheck,
+  CircleHelp,
+  Code2,
+  Eraser,
+  FileSearch,
+  FileText,
+  FlaskConical,
+  GitFork,
+  GitMerge,
+  Lightbulb,
+  Layers,
+  MessageCircle,
+  MessageSquare,
+  RefreshCw,
+  Send,
+  Star,
+  Target,
+  Terminal,
+  TriangleAlert,
+  Type,
+  User,
+  Users,
+  Feather,
+} from "lucide-react";
+
+<RulebookDownload />
+
+## 01 · تحدّث قبل أن تكتب الكود [#01--talk-before-you-code]
+
+وجدت خللًا؟ لديك فكرة؟ تريد بناء ميزة؟ لا تبدأ بكتابة الكود بعد.
+
+<Flow
+  steps={[
+    { label: "Check", icon: <FileSearch /> },
+    { label: "Discuss", icon: <MessageSquare /> },
+    { label: "Claim", icon: <User /> },
+    { label: "Code", icon: <Code2 /> },
+  ]}
+/>
+
+<Steps>
+  <Step>راجع [المشكلات الحالية](https://github.com/babelize/babelize-elements/issues).</Step>
+  <Step>ابحث عن المشكلة ذات الصلة أو أنشئها.</Step>
+  <Step>علّق بما تنوي العمل عليه.</Step>
+  <Step>انتظر تأكيد أحد المشرفين.</Step>
+  <Step>ثم ابدأ الكتابة.</Step>
+</Steps>
+
+<Takeaway title="تجنّب تكرار العمل.">حافظ على تنسيق المساهمات.</Takeaway>
+
+## 02 · افتح pull request [#02--open-a-pr]
+
+طلب واحد. تغيير واحد واضح. اجعل طلبك:
+
+<Cards>
+  <Card icon={<Target />} title="مركّزًا">
+    حُل مشكلة واحدة. اقصر تغييراتك على مشكلة أو ميزة واحدة.
+  </Card>
+  <Card icon={<FileText />} title="واضحًا">
+    اشرح ما الذي تغيّر ولماذا. أضف السياق، ولقطات الشاشة عند الحاجة، واربط المشكلة.
+  </Card>
+  <Card icon={<CircleCheck />} title="مُختبرًا">
+    تأكد من أن كودك يعمل كما هو متوقع ولا يكسر الوظائف القائمة.
+  </Card>
+  <Card icon={<Users />} title="قابلًا للمراجعة">
+    اجعله صغيرًا ونظيفًا. بلا تغييرات في التنسيق ولا إعادة هيكلة غير ذات صلة.
+  </Card>
+</Cards>
+
+<Takeaway title="الطلبات الصغيرة والمركزة أسهل في المراجعة.">
+  إنها تحافظ على سجل نظيف وتُدمج أسرع.
+</Takeaway>
+
+## 03 · جودة الكود [#03--code-quality]
+
+اكتب كودًا يمكن صيانته. قبل فتح طلبك:
+
+<Cards>
+  <Card icon={<Layers />} title="اتبع الأنماط القائمة">
+    حافظ على اتساق الكود مع المشروع.
+  </Card>
+  <Card icon={<Box />} title="اجعل المكوّنات قابلة لإعادة الاستخدام">
+    ابنِ أجزاء مرنة وقابلة للتركيب.
+  </Card>
+  <Card icon={<Type />} title="استخدم تسمية متسقة">
+    اتبع اصطلاحات التسمية.
+  </Card>
+  <Card icon={<Feather />} title="تجنّب التبعيات الإضافية">
+    حافظ على خفة المشروع.
+  </Card>
+  <Card icon={<TriangleAlert />} title="عالج الحالات الحدّية">
+    فكّر في حالات الخطأ والسيناريوهات.
+  </Card>
+  <Card icon={<Eraser />} title="أزل الكود غير المستخدم">
+    حافظ على نظافة الكود وبساطته.
+  </Card>
+  <Card icon={<CircleCheck />} title="اختبر تغييراتك">
+    تأكد من أن كل شيء يعمل.
+  </Card>
+  <Card icon={<BookOpen />} title="حدّث الوثائق عند الحاجة">
+    ساعد الآخرين على فهم تغييراتك.
+  </Card>
+</Cards>
+
+مكوّن جديد؟ ابدأ من [قالب المكوّن](/docs/getting-started/contributing#component-template).
+
+<Takeaway title="الوضوح > الذكاء.">اكتب الكود للبشر، لا للآلات فقط.</Takeaway>
+
+## 04 · مراجعة الطلب [#04--pr-review]
+
+الطلب ليس خط النهاية.
+
+<Flow
+  steps={[
+    { label: "Submit", icon: <Send /> },
+    { label: "Review", icon: <MessageSquare /> },
+    { label: "Feedback", icon: <FileText /> },
+    { label: "Improve", icon: <RefreshCw /> },
+    { label: "Merge", icon: <GitMerge /> },
+  ]}
+/>
+
+قد يطلب المراجعون:
+
+<Cards>
+  <Card icon={<Code2 />} title="تغييرات في الكود">
+    تحسين التنفيذ أو إصلاح المشكلات.
+  </Card>
+  <Card icon={<FlaskConical />} title="اختبارات إضافية">
+    أضف تغطية الاختبار أو حسّنها.
+  </Card>
+  <Card icon={<FileText />} title="تحديثات الوثائق">
+    حدّث الوثائق أو التعليقات أو ملفات README.
+  </Card>
+  <Card icon={<CircleHelp />} title="توضيح">
+    قدّم سياقًا أو شرحًا أوضح.
+  </Card>
+  <Card icon={<MessageSquare />} title="مقاربات مختلفة">
+    ناقش حلولًا بديلة.
+  </Card>
+</Cards>
+
+<Takeaway title="التغذية الراجعة جزء من المساهمة.">
+  كن منفتحًا ومتجاوبًا، وحافظ على البناء.
+</Takeaway>
+
+## 05 · إرشادات المجتمع [#05--community-guidelines]
+
+ابنِ مع الناس، لا مع الكود فقط.
+
+<Cards>
+  <Card icon={<Users />} title="كن محترمًا">
+    عامِل المساهمين والمشرفين باحترام.
+  </Card>
+  <Card icon={<MessageSquare />} title="كن بنّاءً">
+    أشِر إلى المشكلات وساعد في إيجاد الحلول.
+  </Card>
+  <Card icon={<FileText />} title="قدّم السياق">
+    اشرح تفكيرك.
+  </Card>
+  <Card icon={<BookOpen />} title="ساعد الآخرين">
+    شارك ما تعرفه.
+  </Card>
+  <Card icon={<Target />} title="ركّز النقاش">
+    اجعل النقاشات ذات صلة.
+  </Card>
+</Cards>
+
+راجع أيضًا [مدونة السلوك](https://github.com/babelize/babelize-elements/blob/main/CODE_OF_CONDUCT.md).
+
+<Takeaway title="الكود الجيد مهم.">والتعاون الجيد مهم أيضًا.</Takeaway>
+
+## 06 · النجمة والنسخ (Fork) [#06--star--fork]
+
+ادعم المشروع.
+
+<Cards>
+  <Card icon={<Star />} title="ضع نجمة على المستودع" href="https://github.com/babelize/babelize-elements">
+    النجمة تُظهر دعمك وتساعد المزيد من المطوّرين على اكتشاف Babelize Elements.
+  </Card>
+  <Card
+    icon={<GitFork />}
+    title="انسخ المستودع (Fork)"
+    href="https://github.com/babelize/babelize-elements/fork"
+  >
+    نسختك الخاصة للتجربة وإجراء التغييرات وفتح pull request.
+  </Card>
+</Cards>
+
+<Flow
+  steps={[
+    { label: "Star", icon: <Star /> },
+    { label: "Fork", icon: <GitFork /> },
+    { label: "Clone", icon: <Terminal /> },
+    { label: "Build", icon: <Code2 /> },
+  ]}
+/>
+
+```bash
+git clone https://github.com/<your-username>/babelize-elements.git
+cd babelize-elements
+```
+
+<Takeaway title="إجراءات صغيرة. أثر كبير.">
+  لنبنِ معًا إنترنتًا أكثر شمولًا.
+</Takeaway>
+
+## 07 · انضم إلى المجتمع [#07--join-the-community]
+
+لا تبنِ وحدك. انضم إلى [Discord الخاص بـ Babelize](https://discord.gg/Qqzr2g4KGx) وتوجّه إلى قناة **#elements** لـ:
+
+<Cards>
+  <Card icon={<MessageCircle />} title="الأسئلة">
+    اطرح سؤالًا واحصل على المساعدة من الآخرين.
+  </Card>
+  <Card icon={<Lightbulb />} title="الأفكار">
+    شارك الأفكار والمقترحات.
+  </Card>
+  <Card icon={<Code2 />} title="المساهمات">
+    تبنَّ المشكلات وساهم فيها.
+  </Card>
+  <Card icon={<MessageSquare />} title="التغذية الراجعة">
+    ساعدنا على النمو.
+  </Card>
+  <Card icon={<TriangleAlert />} title="المشكلات">
+    أبلغ عن الأخطاء وناقش الإصلاحات.
+  </Card>
+  <Card icon={<Users />} title="طلب المساعدة">
+    عالق؟ اسأل المجتمع.
+  </Card>
+</Cards>
+
+<Takeaway title="مساهمتك تبدأ بحوار.">
+  الأفكار تنمو أسرع معًا.
+</Takeaway>
+
+## 08 · ابدأ المساهمة [#08--start-contributing]
+
+هل أنت مستعد للبناء؟
+
+<Steps>
+  <Step>**ضع نجمة على المستودع** — أظهر دعمك، وساعدنا على النمو.</Step>
+  <Step>**انسخ المستودع** — أنشئ مساحة عملك الخاصة.</Step>
+  <Step>**انضم إلى Discord** — كن جزءًا من المجتمع.</Step>
+  <Step>**ابحث عن مشكلة** — ابحث عن `good first issue`.</Step>
+  <Step>**علّق أولًا** — أخبرنا أنك تعمل عليها.</Step>
+  <Step>**ابنِها** — اكتب، واختبر، وحافظ على التركيز.</Step>
+  <Step>**افتح pull request** — اشرح ما ولماذا.</Step>
+  <Step>**راجِع وادمِج** — عالج الملاحظات، ثم يُدمج الطلب.</Step>
+</Steps>
+
+<Takeaway title="مصدر مفتوح. مزيد من الناس.">مستقبل أكثر عالمية. ابنِ معنا.</Takeaway>

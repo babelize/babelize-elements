@@ -1,0 +1,433 @@
+---
+title: ナビゲーションバー
+description: 言語セレクター、モバイルメニュー、CTA ボタン、GitHub リンクを標準で備えた、高機能なナビゲーションバーです。
+---
+
+import { PreviewComponents } from "@/components/docs/preview-components";
+import { NavBarDemo } from "@/components/docs/navbar-demo";
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+<PreviewComponents registryName="navbar" fullBleed stageClassName="min-h-[26rem]">
+  <NavBarDemo />
+</PreviewComponents>
+
+## インストール [#installation]
+
+<Tabs
+  items={["shadcn", "Elements CLI"]}
+  defaultValue="shadcn"
+  className="bg-transparent border-none"
+>
+  <Tab value="shadcn" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="installation-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx shadcn@latest add @babelize/navbar
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx shadcn@latest add @babelize/navbar
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx shadcn@latest add @babelize/navbar
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx shadcn@latest add @babelize/navbar
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+  <Tab value="Elements CLI" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="elements-cli-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx @babelize/elements add navbar
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx @babelize/elements add navbar
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx @babelize/elements add navbar
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx @babelize/elements add navbar
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+</Tabs>
+
+## 使い方 [#usage]
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { NavBar } from "@/components/ui/navbar";
+
+const links = [
+  { label: "Home", href: "/" },
+  { label: "Docs", href: "/docs" },
+  { label: "Pricing", href: "/pricing" },
+];
+
+export function SiteNav() {
+  const [locale, setLocale] = useState("en");
+
+  return (
+    <NavBar
+      logo={<span className="text-lg font-bold">MyApp</span>}
+      links={links}
+      locales={[{ code: "en" }, { code: "fr" }, { code: "es" }]}
+      value={locale} // omit for uncontrolled, use defaultValue instead
+      onValueChange={setLocale}
+      cta={{ label: "Get Started", href: "/signup" }}
+      showGitHub
+      githubUrl="your-org/your-repo" // or a full URL
+    />
+  );
+}
+```
+
+## Props [#props]
+
+| Prop            | 型                              | 必須 | 説明                                                                   |
+| --------------- | --------------------------------- | -------- | ----------------------------------------------------------------------------- |
+| `logo`          | `React.ReactNode`                 | いいえ       | ロゴ要素（ナビゲーションリンクの前に表示されます）                                       |
+| `links`         | `NavLink[]`                       | いいえ       | ナビゲーションリンク                                                              |
+| `activeHref`    | `string`                          | いいえ       | 現在のページの `href` には `aria-current` が付き、ハイライト表示されます              |
+| `locales`       | `Locale[]`                        | いいえ       | 言語セレクターで利用可能なロケール                                       |
+| `value`         | `string`                          | いいえ       | 選択中のロケールコード。コンポーネントを制御するにはこの値を渡します                     |
+| `defaultValue`  | `string`                          | いいえ       | 非制御時の初期ロケールコード（デフォルト: 最初のロケール）                 |
+| `onValueChange` | `(code: string) => void`          | いいえ       | ロケールが変更されたときのコールバック                                                  |
+| `cta`           | `{ label: string; href: string }` | いいえ       | CTAボタン                                                                    |
+| `showGitHub`    | `boolean`                         | いいえ       | GitHubアイコンボタンを表示します。`githubUrl`が必要です。指定しない場合は何も表示されません |
+| `githubUrl`     | `string`                          | いいえ       | 完全なURL、または github.com の省略形としての `"owner"` / `"owner/repo"`              |
+| `sticky`        | `boolean`                         | いいえ       | ナビバーを上部に固定します（デフォルト: `true`）                                   |
+| `variant`       | `"default" \| "floating"`         | いいえ       | 全幅のバー、または内側に浮かぶカードのどちらにするか（デフォルト: `"default"`）                  |
+| `showFlags`     | `boolean`                         | いいえ       | 言語セレクターに国旗を表示します（デフォルト: `true`）                             |
+| `maxHeight`     | `number \| string`                | いいえ       | スクロールする言語メニューの最大の高さ（デフォルト: `"15rem"`）                |
+| `linkComponent` | `React.ElementType`               | いいえ       | 内部リンクに使用するコンポーネント（デフォルト: `"a"`）                            |
+| `labels`        | `Partial<NavBarLabels>`           | いいえ       | 組み込みの英語 UI テキストを上書きします（下記参照）                             |
+| `classNames`    | `NavBarClassNames`                | いいえ       | パーツごとのクラス上書き（後述）                                          |
+| `className`     | `string`                          | いいえ       | 追加の CSS クラス                                                        |
+
+その他のpropはすべて基盤となる `<nav>` 要素に展開され、 refは同要素に転送されます。
+
+### クライアントサイドのナビゲーション [#client-side-navigation]
+
+リンクは通常の `<a>` 要素として描画されるため、ルーターをインストールしていない React アプリでも `NavBar` はそのまま動作します。クライアントサイドのナビゲーションを有効にするには、使用しているルーターのリンクコンポーネントを渡してください:
+
+```tsx
+import Link from "next/link";
+
+<NavBar links={links} linkComponent={Link} />;
+```
+
+### パーツのスタイリング [#styling-parts]
+
+`classNames` は `cn` を使って各パーツに追加のクラスをマージするため、独自のクラスがデフォルトより優先されます:
+
+| キー               | パーツ                                                      |
+| ----------------- | --------------------------------------------------------- |
+| `root`            | `<nav>` 要素（`className` と同じ）                 |
+| `container`       | バー本体。全幅の行、またはフローティングカード |
+| `links`           | デスクトップ用のリンクグループ                                    |
+| `link`            | 各リンク（デスクトップおよびモバイルメニュー内）              |
+| `actions`         | 言語メニュー、GitHub、CTAを含むデスクトップ用のグループ  |
+| `cta`             | CTAボタン                                 |
+| `languageTrigger` | 言語メニューのトリガー                                |
+| `languageContent` | 言語メニューのパネル                                   |
+| `languageItem`    | 各言語オプション                                      |
+| `mobileMenu`      | モバイルメニューのパネル                                     |
+
+```tsx
+<NavBar
+  links={links}
+  classNames={{
+    container: "max-w-4xl",
+    cta: "rounded-full",
+    link: "text-base",
+  }}
+/>
+```
+
+### NavLink オブジェクト [#navlink-object]
+
+| プロパティ | 型     | 説明              |
+| -------- | -------- | ------------------------ |
+| `label`  | `string` | リンクテキスト — **必須** |
+| `href`   | `string` | リンクURL — **必須**  |
+
+### Locale オブジェクト [#locale-object]
+
+| プロパティ | 型     | 説明                                                     |
+| -------- | -------- | --------------------------------------------------------------- |
+| `code`   | `string` | ISO 639-1 / BCP 47 コード（例: `"en"`、`"fr-FR"`）— **必須** |
+| `label`  | `string` | 表示名の上書き（省略時は自動で解決されます）                |
+| `flag`   | `string` | 国旗絵文字の上書き（省略時は自動検出されます）                  |
+
+## 使用例 [#examples]
+
+### Babelize SDK を使う場合 [#with-babelize-sdk]
+
+自動的なロケールルーティングのために、NavBar を [Babelize SDK](https://docs.babelize.co/sdk) と組み合わせます:
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { NavBar } from "@/components/ui/navbar";
+import { useBabelize } from "@babelize/sdk/react";
+
+const links = [
+  { label: "Home", href: "/" },
+  { label: "Docs", href: "/docs" },
+  { label: "Pricing", href: "/pricing" },
+];
+
+const locales = [
+  { code: "en", label: "English", flag: "🇺🇸" },
+  { code: "fr", label: "Français", flag: "🇫🇷" },
+  { code: "es", label: "Español", flag: "🇪🇸" },
+  { code: "de", label: "Deutsch", flag: "🇩🇪" },
+  { code: "ja", label: "日本語", flag: "🇯🇵" },
+  { code: "ar", label: "العربية", flag: "🇸🇦" },
+];
+
+export default function App() {
+  const router = useRouter();
+  const { locale, setLocale } = useBabelize();
+
+  return (
+    <NavBar
+      logo={<span className="font-bold">MyApp</span>}
+      links={links}
+      locales={locales}
+      value={locale}
+      onValueChange={(code) => {
+        setLocale(code);
+        router.push(`/${code}`);
+      }}
+      cta={{ label: "Get Started", href: "/signup" }}
+      showGitHub
+      githubUrl="your-org/your-repo"
+    />
+  );
+}
+```
+
+### next-intl を使う場合 [#with-next-intl]
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { NavBar } from "@/components/ui/navbar";
+
+export function AppNavBar() {
+  const router = useRouter();
+  const [locale, setLocale] = useState("en");
+
+  return (
+    <NavBar
+      logo={<span className="font-bold">MyApp</span>}
+      links={[
+        { label: "Home", href: "/" },
+        { label: "About", href: "/about" },
+      ]}
+      locales={[{ code: "en" }, { code: "fr" }]}
+      value={locale}
+      onValueChange={(code) => {
+        setLocale(code);
+        router.push(`/${code}`);
+      }}
+    />
+  );
+}
+```
+
+### react-i18next を使う場合 [#with-react-i18next]
+
+```tsx
+"use client";
+
+import { useTranslation } from "react-i18next";
+import { NavBar } from "@/components/ui/navbar";
+
+export function AppNavBar() {
+  const { i18n } = useTranslation();
+
+  return (
+    <NavBar
+      logo={<span className="font-bold">MyApp</span>}
+      links={[{ label: "Home", href: "/" }]}
+      locales={[{ code: "en" }, { code: "fr" }]}
+      value={i18n.language}
+      onValueChange={(code) => i18n.changeLanguage(code)}
+    />
+  );
+}
+```
+
+### フローティング [#floating]
+
+ページの上に浮かぶ、角丸の内側バーです。現在のページをハイライトするには `activeHref` と組み合わせます:
+
+```tsx
+"use client";
+
+import { NavBar } from "@/components/ui/navbar";
+
+export default function App() {
+  return (
+    <NavBar
+      variant="floating"
+      logo={<span className="font-bold">MyApp</span>}
+      links={[
+        { label: "Home", href: "/" },
+        { label: "Docs", href: "/docs" },
+      ]}
+      activeHref="/docs"
+      cta={{ label: "Get Started", href: "/signup" }}
+    />
+  );
+}
+```
+
+### GitHubリンク [#github-link]
+
+`showGitHub` は `githubUrl` へのリンクを持つアイコンボタンを追加します。リポジトリには `"owner/repo"`、プロフィールや組織には `"owner"`、または任意の完全なURLを渡してください。
+
+```tsx
+<NavBar showGitHub githubUrl="acme/website" />
+<NavBar showGitHub githubUrl="https://github.com/acme" />
+```
+
+`githubUrl` を指定しない `showGitHub` はボタンを描画せず、警告をログに出力します。
+
+### 固定しない [#non-sticky]
+
+```tsx
+"use client";
+
+import { NavBar } from "@/components/ui/navbar";
+
+export default function App() {
+  return (
+    <NavBar
+      logo={<span className="font-bold">MyApp</span>}
+      links={[{ label: "Home", href: "/" }]}
+      sticky={false}
+    />
+  );
+}
+```
+
+### 翻訳された UI テキスト [#translated-ui-text]
+
+言語メニュー、モバイルメニューボタン、GitHubリンクには、デフォルトで英語のアクセシブルラベルが設定されています。翻訳するには `labels` を渡してください。省略したキーは英語のデフォルトのままになります。
+
+```tsx
+"use client";
+
+import { NavBar } from "@/components/ui/navbar";
+
+export default function App() {
+  return (
+    <NavBar
+      logo={<span className="font-bold">MyApp</span>}
+      locales={[{ code: "en" }, { code: "fr" }]}
+      defaultValue="fr"
+      labels={{
+        listbox: "Choisir la langue",
+        current: (name) => `Langue actuelle : ${name}`,
+        toggleMenu: "Ouvrir le menu",
+      }}
+    />
+  );
+}
+```
+
+| キー          | デフォルト                                 | 用途                          |
+| ------------ | --------------------------------------- | --------------------------------- |
+| `listbox`    | `"Select language"`                     | 言語メニューのアクセシブルラベル    |
+| `current`    | `(name) => "Current language: " + name` | 言語トリガーのアクセシブルラベル |
+| `toggleMenu` | `"Toggle menu"`                         | モバイルメニューボタンのラベル          |
+| `github`     | `"GitHub"`                              | GitHubアイコンリンクのラベル            |
+
+## キーボード操作 [#keyboard-support]
+
+言語メニューは WAI-ARIA の listbox パターンに従います。メニュー内にテキストフィールドがないため、矢印キーは検索ボックスからのハイライトを追跡するのではなく、オプション間で実際の DOM フォーカスを移動させます。同じキーがデスクトップとモバイルのバーの両方で動作します。
+
+| キー                              | 操作                                                               |
+| -------------------------------- | -------------------------------------------------------------------- |
+| `Enter`、`Space`、またはクリック       | 言語トリガーからメニューを開く                              |
+| `ArrowDown` / `ArrowUp`（閉じている状態） | 最初または最後のロケールにフォーカスした状態で開く                            |
+| `ArrowDown` / `ArrowUp`          | ロケール間でフォーカスを移動します（両端で循環）                    |
+| `Home` / `End`                   | 最初または最後のロケールにフォーカスする                                        |
+| `Enter`                          | フォーカス中のロケールを選択し、フォーカスをトリガーに戻す            |
+| `Escape`                         | メニュー（およびモバイルメニュー）を閉じ、フォーカスをトリガーに戻す |
+
+リストが下でスクロールしてもハイライトは該当の行に留まります。長いリストでもページ全体がスクロールされることはありません。メニューの高さを設定するには `maxHeight` を渡してください。
+
+## 機能 [#features]
+
+- **レスポンシブ対応** — モバイルではハンバーガーメニュー、デスクトップでは完全なレイアウト
+- **内蔵の言語セレクター** — LanguageSwitcher と同じドロップダウンコンポーネント
+- **RTL対応** — RTL のロケールを自動検出し、レイアウトを調整します
+- **CTAボタン** — テキストとhrefをカスタマイズできる任意のコールトゥアクション
+- **GitHubリンク** — リポジトリへのリンクを持つ任意のアイコンボタン
+- **固定/非固定** — ページ上部での固定表示を切り替えます
+- **キーボードでの操作に対応** — 矢印キー、Home / End、Enter、Escape で操作可能
+- **ARIA ラベル** — `aria-expanded`、`aria-haspopup`、`aria-selected`、およびオプション間のローミングフォーカス
+- **テーマ対応** — shadcn/ui のトークンでスタイルされており、お使いのテーマやダークモードに追従します
+- **2つのバリアント** — 全幅のバー、またはフローティングの内側カード
+- **アニメーション** — リンク間を滑らかに移動するホバーハイライト、アニメーションするモバイルメニューと言語メニュー。`prefers-reduced-motion` に対応
+- **ルーター非依存** — `next/link`（または任意のリンク）を `linkComponent` 経由で渡します
+
+## 依存関係 [#dependencies]
+
+- `motion` — アニメーション
+- `lucide-react` — アイコン
+
+peerDependencies:
+
+- `react` >= 18
+- `react-dom` >= 18
+- `tailwindcss` >= 3
+
+## クレジット [#credits]
+
+作成者: [sapatmohit](https://github.com/sapatmohit)。

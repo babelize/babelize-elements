@@ -2,6 +2,7 @@
   "sourceLocale": "en",
   "targetLocales": ["es", "ja", "ar"],
   "include": ["src/app/page.tsx", "src/components/landing/**"],
+  "docs": { "include": ["content/docs/**"] },
   "glossary": {
     "neverTranslate": [
       "Babelize",
