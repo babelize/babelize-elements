@@ -1,0 +1,220 @@
+---
+title: Instalación
+description: Instala @babelize/elements en tu proyecto con tu gestor de paquetes preferido.
+icon: Download
+---
+
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+Babelize Elements encaja en cualquier proyecto de React + Tailwind CSS: Next.js, Vite, Remix o cualquier otra herramienta que empaquete React. El paquete incluye tipos de TypeScript y compilaciones ESM y CJS. Las dependencias en tiempo de ejecución son pocas y estándar en el ecosistema de shadcn: `motion` para animaciones y `lucide-react` para iconos.
+
+## Gestor de paquetes [#package-manager]
+
+Instala la biblioteca completa con tu gestor de paquetes preferido:
+
+<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
+  <Tab value="npm">
+
+```bash
+npm install @babelize/elements
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm add @babelize/elements
+```
+
+  </Tab>
+  <Tab value="yarn">
+
+```bash
+yarn add @babelize/elements
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bun add @babelize/elements
+```
+
+  </Tab>
+</Tabs>
+
+## Indícale a Tailwind el paquete [#tell-tailwind-about-the-package]
+
+Tailwind solo genera las clases que encuentra en tus archivos fuente, y no analiza `node_modules`. Sin este paso, los componentes se muestran **sin estilos**.
+
+Indica a Tailwind el paquete una sola vez:
+
+<Tabs items={["Tailwind v4", "Tailwind v3"]}>
+  <Tab value="Tailwind v4">
+
+Añade una línea `@source` al archivo CSS que importa Tailwind, con la ruta relativa a ese archivo:
+
+```css title="app/globals.css"
+@import "tailwindcss";
+@source "../node_modules/@babelize/elements/dist";
+```
+
+  </Tab>
+  <Tab value="Tailwind v3">
+
+Añade el paquete a `content` en tu configuración de Tailwind:
+
+```js title="tailwind.config.js"
+module.exports = {
+  content: ["./src/**/*.{ts,tsx}", "./node_modules/@babelize/elements/dist/**/*.js"],
+};
+```
+
+  </Tab>
+</Tabs>
+
+Este paso solo es necesario para el paquete npm. Los componentes instalados con la [CLI de shadcn](/docs/getting-started/shadcn-cli) viven en tu propio árbol de código fuente, que Tailwind ya analiza.
+
+## Tokens de tema [#theme-tokens]
+
+Los componentes se estilizan con tokens semánticos de [shadcn/ui](https://ui.shadcn.com/docs/theming), como `bg-popover`, `text-muted-foreground`, `ring-ring` y demás, para que adopten automáticamente el tema, el radio y el modo oscuro de tu aplicación.
+
+**¿Ya usas shadcn/ui?** No hay nada que hacer: `shadcn init` ya definió los tokens.
+
+**¿No usas shadcn/ui?** Añade los tokens una sola vez al archivo CSS que importa Tailwind. Este es el tema neutro de shadcn; cambia cualquier valor para que coincida con tu marca.
+
+```css title="app/globals.css"
+/* Make `dark:` follow the `.dark` class, as the tokens below do. */
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+```
+
+En Tailwind v3, asigna las mismas variables bajo `theme.extend.colors` en `tailwind.config.js`, como en la [guía de shadcn para v3](https://v3.shadcn.com/docs/theming). Los componentes están diseñados para Tailwind v4; en v3 funcionan, pero algunas utilidades exclusivas de v4 (como `shadow-xs`) no tienen ningún efecto.
+
+Todos los componentes también aceptan una prop `classNames` para sobrescribir estilos por parte, así puedes cambiar el estilo de cualquier parte sin bifurcar el código fuente.
+
+## Instala componentes individuales [#install-individual-components]
+
+¿Prefieres instalar componentes uno a uno, directamente en tu código? Usa la [CLI de shadcn](/docs/getting-started/shadcn-cli):
+
+```bash
+npx shadcn@latest add @babelize/language-switcher
+```
+
+O usa la CLI que viene incluida en el paquete:
+
+```bash
+npx @babelize/elements add language-switcher
+```
+
+En cualquier caso, el componente (junto con su utilidad `cn` y sus dependencias) se escribe en tu directorio `components/ui/`, y a partir de ese momento el código es tuyo.
+
+## Requisitos previos [#prerequisites]
+
+| Dependencia  | Versión mínima |
+| ------------ | -------------- |
+| React        | `>=18`         |
+| React DOM    | `>=18`         |
+| Tailwind CSS | `>=3`          |
+| Node.js      | `>=20`         |
+
+## Verifica la instalación [#verify-installation]
+
+Importa un componente para confirmar que todo está bien conectado:
+
+```tsx
+import { LanguageSwitcher } from "@babelize/elements";
+
+export function App() {
+  return (
+    <LanguageSwitcher
+      locales={[{ code: "en" }, { code: "fr" }, { code: "es" }]}
+      defaultValue="en"
+      onValueChange={(code) => console.log("changed to", code)}
+    />
+  );
+}
+```
+
+Todos los componentes priorizan TypeScript, exportan su propia interfaz de props y funcionan con tu configuración existente de `next-intl`, `react-i18next` o i18n personalizada.
+
+## Próximos pasos [#next-steps]
+
+<Cards>
+  <Card title="Componentes" href="/docs/components">
+    Explora todos los componentes disponibles y su documentación.
+  </Card>
+  <Card title="ShadCN CLI" href="/docs/getting-started/shadcn-cli">
+    Instala componentes de forma individual con la CLI de shadcn.
+  </Card>
+  <Card title="Contribuir" href="/docs/getting-started/contributing">
+    ¿Falta un componente? Crea tú mismo la primera versión.
+  </Card>
+</Cards>

@@ -1,0 +1,284 @@
+---
+title: 言語スイッチャー Pill
+description: キーボード操作と RTL サポートに対応した、React 向けのアニメーション付きピル型言語スイッチャーです。
+---
+
+import { PreviewComponents } from "@/components/docs/preview-components";
+import { LanguageSwitcherPillDemo } from "@/components/docs/language-switcher-pill-demo";
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+<PreviewComponents registryName="language-switcher-pill">
+  <LanguageSwitcherPillDemo />
+</PreviewComponents>
+
+## インストール [#installation]
+
+<Tabs
+  items={["shadcn", "Elements CLI"]}
+  defaultValue="shadcn"
+  className="bg-transparent border-none"
+>
+  <Tab value="shadcn" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="installation-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx shadcn@latest add @babelize/language-switcher-pill
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+        ```bash
+        pnpm dlx shadcn@latest add @babelize/language-switcher-pill
+        ```
+
+      </Tab>
+      <Tab value="yarn">
+
+        ```bash
+        yarn dlx shadcn@latest add @babelize/language-switcher-pill
+        ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx shadcn@latest add @babelize/language-switcher-pill
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+  <Tab value="Elements CLI" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="elements-cli-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx @babelize/elements add language-switcher-pill
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx @babelize/elements add language-switcher-pill
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx @babelize/elements add language-switcher-pill
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx @babelize/elements add language-switcher-pill
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+</Tabs>
+
+## 使い方 [#usage]
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { LanguageSwitcherPill } from "@/components/ui/language-switcher-pill";
+
+const locales = [
+  { code: "en", label: "English" },
+  { code: "fr", label: "Français" },
+  { code: "ar", label: "العربية", rtl: true }, // rtl auto-detected, override optional
+];
+
+export function LocalePill() {
+  const [locale, setLocale] = useState("en");
+
+  return (
+    <LanguageSwitcherPill
+      locales={locales}
+      locale={locale} // omit for uncontrolled, use defaultLocale instead
+      onLocaleChange={setLocale}
+    />
+  );
+}
+```
+
+## Props [#props]
+
+| Prop             | 型                               | 必須   | 説明                                                                        |
+| ---------------- | -------------------------------- | ------ | --------------------------------------------------------------------------- |
+| `locales`        | `Locale[]`                       | はい   | 利用可能なロケールの配列です。必須なのは `code` のみです                    |
+| `locale`         | `string`                         | いいえ | 選択中のロケールコード。コンポーネントを制御するにはこの値を渡します        |
+| `defaultLocale`  | `string`                         | いいえ | 非制御時の初期選択ロケールコード（デフォルト: 最初のロケールのコード）      |
+| `onLocaleChange` | `(code: string) => void`         | いいえ | 選択中のロケールが変更されたときのコールバック                              |
+| `variant`        | `"default" \| "outline"`         | いいえ | 控えめなセグメント型トラックまたは枠付きトラック（デフォルト: `"default"`） |
+| `size`           | `"sm" \| "default" \| "lg"`      | いいえ | Pill のサイズ（デフォルト: `"default"`）                                    |
+| `showFlags`      | `boolean`                        | いいえ | 各ロケールのラベルの前に国旗の絵文字を表示します（デフォルト: `false`）     |
+| `disabled`       | `boolean`                        | いいえ | すべての Pill を無効にします                                                |
+| `aria-label`     | `string`                         | いいえ | ラジオグループのアクセシブルなラベル（デフォルト: `"Select language"`）     |
+| `classNames`     | `LanguageSwitcherPillClassNames` | いいえ | パーツごとのクラス上書き。詳しくは下記を参照してください                    |
+| `className`      | `string`                         | いいえ | Pill コンテナーに追加する CSS クラス                                        |
+
+残りの `div` props はルート要素に転送されます。
+
+### クラス名 [#class-names]
+
+各パーツは独自のクラスを指定でき、デフォルトのクラスの後にマージされます。 そのため、コンポーネントをフォークしなくても、一部分だけスタイルを変更できます:
+
+| スロット     | 要素                                                      |
+| ------------ | --------------------------------------------------------- |
+| `root`       | すべての Pill を保持するトラック                          |
+| `item`       | 各ロケールの Pill                                         |
+| `activeItem` | 選択中の Pill のみ                                        |
+| `indicator`  | Pill の背後にあるスプリングアニメーションのインジケーター |
+| `flag`       | `showFlags` が設定されているときに表示される国旗          |
+
+```tsx
+<LanguageSwitcherPill
+  locales={locales}
+  classNames={{
+    indicator: "bg-primary",
+    activeItem: "text-primary-foreground",
+  }}
+/>
+```
+
+このコンポーネントは shadcn/ui のテーマトークン（`bg-muted`、`bg-background`、`text-muted-foreground`、`ring-ring`）でスタイル設定されているため、お使いのテーマが自動的に反映されます。
+
+### Locale オブジェクト [#locale-object]
+
+| プロパティ | 型        | 説明                                                                     |
+| ---------- | --------- | ------------------------------------------------------------------------ |
+| `code`     | `string`  | ISO 639-1 / BCP 47 コード（例: `"en"`、`"fr"`、`"ar"`）— **必須**        |
+| `label`    | `string`  | 言語 Pill の表示名                                                       |
+| `flag`     | `string`  | `showFlags` と併せて表示される国旗の絵文字（省略時は自動で解決されます） |
+| `rtl`      | `boolean` | テキストの組版に使う RTL 方向を上書きします（省略時は自動検出されます）  |
+
+## 使用例 [#examples]
+
+### Babelize SDK を使う場合 [#with-babelize-sdk]
+
+自動翻訳のために、言語スイッチャー Pill を [Babelize SDK](https://docs.babelize.co/sdk) と組み合わせます:
+
+```tsx
+"use client";
+
+import { useRouter } from "next/navigation";
+import { LanguageSwitcherPill } from "@/components/ui/language-switcher-pill";
+import { useBabelize } from "@babelize/sdk/react";
+
+const locales = [
+  { code: "en", label: "English" },
+  { code: "fr", label: "Français" },
+  { code: "es", label: "Español" },
+  { code: "de", label: "Deutsch" },
+  { code: "ar", label: "العربية" },
+];
+
+export function LocaleSwitcher() {
+  const router = useRouter();
+  const { locale, setLocale } = useBabelize();
+
+  return (
+    <LanguageSwitcherPill
+      locales={locales}
+      locale={locale}
+      onLocaleChange={(code) => {
+        setLocale(code);
+        router.push(`/${code}`);
+      }}
+    />
+  );
+}
+```
+
+### next-intl を使う場合 [#with-next-intl]
+
+```tsx
+"use client";
+
+import { useRouter } from "next/navigation";
+import { LanguageSwitcherPill } from "@/components/ui/language-switcher-pill";
+
+export function LocaleSwitcher() {
+  const router = useRouter();
+
+  return (
+    <LanguageSwitcherPill
+      locales={[
+        { code: "en", label: "EN" },
+        { code: "fr", label: "FR" },
+        { code: "de", label: "DE" },
+      ]}
+      defaultLocale="en"
+      onLocaleChange={(code) => router.push(`/${code}`)}
+    />
+  );
+}
+```
+
+### react-i18next を使う場合 [#with-react-i18next]
+
+```tsx
+"use client";
+
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcherPill } from "@/components/ui/language-switcher-pill";
+
+export function LocaleSwitcher() {
+  const { i18n } = useTranslation();
+
+  return (
+    <LanguageSwitcherPill
+      locales={[
+        { code: "en", label: "English" },
+        { code: "fr", label: "Français" },
+        { code: "es", label: "Español" },
+      ]}
+      locale={i18n.language}
+      onLocaleChange={(code) => i18n.changeLanguage(code)}
+    />
+  );
+}
+```
+
+### バリアントとサイズ [#variants-and-sizes]
+
+```tsx
+<LanguageSwitcherPill locales={locales} variant="outline" size="sm" showFlags />
+<LanguageSwitcherPill locales={locales} size="lg" />
+```
+
+## キーボード操作 [#keyboard-navigation]
+
+- **右矢印** — 次の言語に移動します（RTL レイアウトでは前の言語）。
+- **左矢印** — 前の言語に移動します（RTL レイアウトでは次の言語）。
+- **Home** — 最初の言語に移動します。
+- **End** — 最後の言語に移動します。
+- **Enter / Space** — フォーカスされている言語を選択します。
+
+## RTL サポート [#rtl-support]
+
+このコンポーネントは、アラビア語、ヘブライ語、ペルシア語、ウルドゥー語、パシュトー語、シンド語、イディッシュ語など、右から左に書く言語に対応しています。
+
+テキストを正しく組版するために、ロケールごとの方向は個々の Pill に適用されます。一方、全体のレイアウトと矢印キーによる操作は、ドキュメントまたはコンテナーの `dir` に従います。
+
+```tsx
+const locales = [
+  { code: "en", label: "English" },
+  { code: "ar", label: "العربية", rtl: true },
+  { code: "he", label: "עברית", rtl: true },
+];
+
+<LanguageSwitcherPill locales={locales} defaultLocale="en" />;
+```

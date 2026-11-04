@@ -1,0 +1,433 @@
+---
+title: شريط التنقل
+description: شريط تنقل متكامل الميزات مع محدّد لغة مدمج وقائمة للجوال وزر دعوة لاتخاذ إجراء ورابط GitHub.
+---
+
+import { PreviewComponents } from "@/components/docs/preview-components";
+import { NavBarDemo } from "@/components/docs/navbar-demo";
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+<PreviewComponents registryName="navbar" fullBleed stageClassName="min-h-[26rem]">
+  <NavBarDemo />
+</PreviewComponents>
+
+## التثبيت [#installation]
+
+<Tabs
+  items={["shadcn", "Elements CLI"]}
+  defaultValue="shadcn"
+  className="bg-transparent border-none"
+>
+  <Tab value="shadcn" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="installation-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx shadcn@latest add @babelize/navbar
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx shadcn@latest add @babelize/navbar
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx shadcn@latest add @babelize/navbar
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx shadcn@latest add @babelize/navbar
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+  <Tab value="Elements CLI" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="elements-cli-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx @babelize/elements add navbar
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx @babelize/elements add navbar
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx @babelize/elements add navbar
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx @babelize/elements add navbar
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+</Tabs>
+
+## الاستخدام [#usage]
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { NavBar } from "@/components/ui/navbar";
+
+const links = [
+  { label: "Home", href: "/" },
+  { label: "Docs", href: "/docs" },
+  { label: "Pricing", href: "/pricing" },
+];
+
+export function SiteNav() {
+  const [locale, setLocale] = useState("en");
+
+  return (
+    <NavBar
+      logo={<span className="text-lg font-bold">MyApp</span>}
+      links={links}
+      locales={[{ code: "en" }, { code: "fr" }, { code: "es" }]}
+      value={locale} // omit for uncontrolled, use defaultValue instead
+      onValueChange={setLocale}
+      cta={{ label: "Get Started", href: "/signup" }}
+      showGitHub
+      githubUrl="your-org/your-repo" // or a full URL
+    />
+  );
+}
+```
+
+## الخصائص [#props]
+
+| الخاصية         | النوع                             | مطلوب | الوصف                                                                      |
+| --------------- | --------------------------------- | ----- | -------------------------------------------------------------------------- |
+| `logo`          | `React.ReactNode`                 | لا    | عنصر الشعار (يُعرض قبل روابط التنقل)                                       |
+| `links`         | `NavLink[]`                       | لا    | روابط التنقل                                                               |
+| `activeHref`    | `string`                          | لا    | `href` للصفحة الحالية — يحصل على `aria-current` وتمييز                     |
+| `locales`       | `Locale[]`                        | لا    | الإعدادات المحلية المتاحة لمحدّد اللغة                                     |
+| `value`         | `string`                          | لا    | رمز الإعدادات المحلية المحدد — مرّره للتحكم في المكوّن                     |
+| `defaultValue`  | `string`                          | لا    | رمز الإعدادات المحلية الأولي عند عدم التحكم (الافتراضي: أول إعدادات محلية) |
+| `onValueChange` | `(code: string) => void`          | لا    | دالة استدعاء عند تغيّر الإعدادات المحلية                                   |
+| `cta`           | `{ label: string; href: string }` | لا    | زر الإجراء الرئيسي                                                         |
+| `showGitHub`    | `boolean`                         | لا    | يعرض زر أيقونة GitHub. يحتاج إلى `githubUrl`، وبدونه لا يُعرض شيء          |
+| `githubUrl`     | `string`                          | لا    | عنوان URL كامل، أو اختصار `"owner"` / `"owner/repo"` لـ github.com         |
+| `sticky`        | `boolean`                         | لا    | يجعل شريط التنقل ثابتًا في أعلى الصفحة (القيمة الافتراضية: `true`)         |
+| `variant`       | `"default" \| "floating"`         | لا    | شريط بعرض كامل أو بطاقة عائمة داخلية (القيمة الافتراضية: `"default"`)      |
+| `showFlags`     | `boolean`                         | لا    | يعرض الأعلام في مبدّل اللغة (القيمة الافتراضية: `true`)                    |
+| `maxHeight`     | `number \| string`                | لا    | أقصى ارتفاع لقائمة اللغات القابلة للتمرير (القيمة الافتراضية: `"15rem"`)   |
+| `linkComponent` | `React.ElementType`               | لا    | المكوّن المستخدم للروابط الداخلية (القيمة الافتراضية: `"a"`)               |
+| `labels`        | `Partial<NavBarLabels>`           | لا    | تجاوز نصوص الواجهة الإنجليزية المدمجة (انظر أدناه)                         |
+| `classNames`    | `NavBarClassNames`                | لا    | تجاوزات الأصناف لكل جزء (انظر أدناه)                                       |
+| `className`     | `string`                          | لا    | أصناف CSS إضافية                                                           |
+
+أي خاصية أخرى تُمرَّر إلى عنصر `<nav>` الأساسي، ويُعاد توجيه المرجع (ref) إليه.
+
+### التنقل من جانب العميل [#client-side-navigation]
+
+تُعرض الروابط كعناصر `<a>` عادية، لذا يعمل `NavBar` في أي تطبيق React دون الحاجة إلى تثبيت أي موجِّه. مرّر مكوّن الرابط في موجِّهك لتفعيل التنقل من جانب العميل:
+
+```tsx
+import Link from "next/link";
+
+<NavBar links={links} linkComponent={Link} />;
+```
+
+### تخصيص أجزاء التنسيق [#styling-parts]
+
+يضيف `classNames` أصنافًا إضافية إلى كل جزء عبر `cn`، فتتغلّب أصنافك على الإعدادات الافتراضية:
+
+| المفتاح           | الجزء                                                       |
+| ----------------- | ----------------------------------------------------------- |
+| `root`            | عنصر `<nav>` (وهو نفسه `className`)                         |
+| `container`       | الشريط نفسه — الصف الكامل بعرض الشاشة، أو البطاقة العائمة   |
+| `links`           | مجموعة الروابط على سطح المكتب                               |
+| `link`            | كل رابط، على سطح المكتب وفي قائمة الجوال                    |
+| `actions`         | مجموعة سطح المكتب التي تضم قائمة اللغات وGitHub وزر الإجراء |
+| `cta`             | زر الإجراء الرئيسي                                          |
+| `languageTrigger` | محفّزات قائمة اللغات                                        |
+| `languageContent` | لوحة قائمة اللغات                                           |
+| `languageItem`    | كل خيار لغة                                                 |
+| `mobileMenu`      | لوحة قائمة الجوال                                           |
+
+```tsx
+<NavBar
+  links={links}
+  classNames={{
+    container: "max-w-4xl",
+    cta: "rounded-full",
+    link: "text-base",
+  }}
+/>
+```
+
+### كائن NavLink [#navlink-object]
+
+| الخاصية | النوع    | الوصف                        |
+| ------- | -------- | ---------------------------- |
+| `label` | `string` | نص الرابط — **مطلوب**        |
+| `href`  | `string` | عنوان URL للرابط — **مطلوب** |
+
+### كائن الإعدادات المحلية [#locale-object]
+
+| الخاصية | النوع    | الوصف                                                        |
+| ------- | -------- | ------------------------------------------------------------ |
+| `code`  | `string` | رمز ISO 639-1 / BCP 47 (مثل `"en"`، `"fr-FR"`) — **مطلوب**   |
+| `label` | `string` | اسم العرض المخصّص (يُحدَّد تلقائيًا إذا تُرك فارغًا)         |
+| `flag`  | `string` | رمز العلم التعبيري المخصّص (يُكتشف تلقائيًا إذا تُرك فارغًا) |
+
+## أمثلة [#examples]
+
+### مع Babelize SDK [#with-babelize-sdk]
+
+اقرن NavBar مع [Babelize SDK](https://docs.babelize.co/sdk) للتوجيه التلقائي حسب اللغة المحلية:
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { NavBar } from "@/components/ui/navbar";
+import { useBabelize } from "@babelize/sdk/react";
+
+const links = [
+  { label: "Home", href: "/" },
+  { label: "Docs", href: "/docs" },
+  { label: "Pricing", href: "/pricing" },
+];
+
+const locales = [
+  { code: "en", label: "English", flag: "🇺🇸" },
+  { code: "fr", label: "Français", flag: "🇫🇷" },
+  { code: "es", label: "Español", flag: "🇪🇸" },
+  { code: "de", label: "Deutsch", flag: "🇩🇪" },
+  { code: "ja", label: "日本語", flag: "🇯🇵" },
+  { code: "ar", label: "العربية", flag: "🇸🇦" },
+];
+
+export default function App() {
+  const router = useRouter();
+  const { locale, setLocale } = useBabelize();
+
+  return (
+    <NavBar
+      logo={<span className="font-bold">MyApp</span>}
+      links={links}
+      locales={locales}
+      value={locale}
+      onValueChange={(code) => {
+        setLocale(code);
+        router.push(`/${code}`);
+      }}
+      cta={{ label: "Get Started", href: "/signup" }}
+      showGitHub
+      githubUrl="your-org/your-repo"
+    />
+  );
+}
+```
+
+### مع next-intl [#with-next-intl]
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { NavBar } from "@/components/ui/navbar";
+
+export function AppNavBar() {
+  const router = useRouter();
+  const [locale, setLocale] = useState("en");
+
+  return (
+    <NavBar
+      logo={<span className="font-bold">MyApp</span>}
+      links={[
+        { label: "Home", href: "/" },
+        { label: "About", href: "/about" },
+      ]}
+      locales={[{ code: "en" }, { code: "fr" }]}
+      value={locale}
+      onValueChange={(code) => {
+        setLocale(code);
+        router.push(`/${code}`);
+      }}
+    />
+  );
+}
+```
+
+### مع react-i18next [#with-react-i18next]
+
+```tsx
+"use client";
+
+import { useTranslation } from "react-i18next";
+import { NavBar } from "@/components/ui/navbar";
+
+export function AppNavBar() {
+  const { i18n } = useTranslation();
+
+  return (
+    <NavBar
+      logo={<span className="font-bold">MyApp</span>}
+      links={[{ label: "Home", href: "/" }]}
+      locales={[{ code: "en" }, { code: "fr" }]}
+      value={i18n.language}
+      onValueChange={(code) => i18n.changeLanguage(code)}
+    />
+  );
+}
+```
+
+### عائم [#floating]
+
+شريط داخلي مستدير يطفو فوق الصفحة، اقرنه بـ`activeHref` لإبراز الصفحة الحالية:
+
+```tsx
+"use client";
+
+import { NavBar } from "@/components/ui/navbar";
+
+export default function App() {
+  return (
+    <NavBar
+      variant="floating"
+      logo={<span className="font-bold">MyApp</span>}
+      links={[
+        { label: "Home", href: "/" },
+        { label: "Docs", href: "/docs" },
+      ]}
+      activeHref="/docs"
+      cta={{ label: "Get Started", href: "/signup" }}
+    />
+  );
+}
+```
+
+### رابط GitHub [#github-link]
+
+يضيف `showGitHub` زر أيقونة يقود إلى `githubUrl`. مرّر `"owner/repo"` لمستودع، `"owner"` لملف شخصي أو مؤسسة، أو أي عنوان URL كامل.
+
+```tsx
+<NavBar showGitHub githubUrl="acme/website" />
+<NavBar showGitHub githubUrl="https://github.com/acme" />
+```
+
+يؤدي `showGitHub` دون `githubUrl` إلى عدم عرض الزر وتسجيل تحذير.
+
+### غير ثابت [#non-sticky]
+
+```tsx
+"use client";
+
+import { NavBar } from "@/components/ui/navbar";
+
+export default function App() {
+  return (
+    <NavBar
+      logo={<span className="font-bold">MyApp</span>}
+      links={[{ label: "Home", href: "/" }]}
+      sticky={false}
+    />
+  );
+}
+```
+
+### نصوص الواجهة المترجمة [#translated-ui-text]
+
+تحمل قائمة اللغات وزر قائمة الجوال ورابط GitHub تسميات إمكانية وصول إنجليزية افتراضية. مرّر `labels` لترجمتها — أي مفتاح تتركه يحتفظ بقيمته الإنجليزية الافتراضية.
+
+```tsx
+"use client";
+
+import { NavBar } from "@/components/ui/navbar";
+
+export default function App() {
+  return (
+    <NavBar
+      logo={<span className="font-bold">MyApp</span>}
+      locales={[{ code: "en" }, { code: "fr" }]}
+      defaultValue="fr"
+      labels={{
+        listbox: "Choisir la langue",
+        current: (name) => `Langue actuelle : ${name}`,
+        toggleMenu: "Ouvrir le menu",
+      }}
+    />
+  );
+}
+```
+
+| المفتاح      | الافتراضي                               | يُستخدم في                         |
+| ------------ | --------------------------------------- | ---------------------------------- |
+| `listbox`    | `"Select language"`                     | تسمية إمكانية الوصول لقائمة اللغات |
+| `current`    | `(name) => "Current language: " + name` | تسمية إمكانية الوصول لمحفّز اللغة  |
+| `toggleMenu` | `"Toggle menu"`                         | تسمية زر قائمة الجوال              |
+| `github`     | `"GitHub"`                              | تسمية رابط أيقونة GitHub           |
+
+## دعم لوحة المفاتيح [#keyboard-support]
+
+تتبع قائمة اللغات نمط WAI-ARIA listbox. ولأن القائمة لا تحتوي على حقل نص، تنقل مفاتيح الأسهم التركيز الفعلي في DOM بين الخيارات بدلًا من تتبع تمييز من مربع بحث. تعمل المفاتيح نفسها من شريط سطح المكتب وشريط الجوال.
+
+| المفتاح                         | الإجراء                                                  |
+| ------------------------------- | -------------------------------------------------------- |
+| `Enter`، `Space`، أو النقر      | افتح القائمة من محفّز اللغة                              |
+| `ArrowDown` / `ArrowUp` (مغلقة) | افتح مع تركيز أول / آخر لغة محلية                        |
+| `ArrowDown` / `ArrowUp`         | انقل التركيز بين اللغات المحلية، مع الالتفاف عند الطرفين |
+| `Home` / `End`                  | ركّز على أول / آخر لغة محلية                             |
+| `Enter`                         | حدّد اللغة المركّز عليها وأعد التركيز إلى المحفّز        |
+| `Escape`                        | أغلق القائمة (وقائمة الجوال) وأعد التركيز إلى المحفّز    |
+
+يبقى التمييز في صفّه أثناء تمرير القائمة من تحته، فالقائمة الطويلة لا تُمرّر الصفحة أبدًا. مرّر `maxHeight` لتحديد ارتفاع القائمة.
+
+## الميزات [#features]
+
+- **متجاوب** — قائمة هامبرغر على الجوال، وتخطيط كامل على سطح المكتب
+- **مبدّل لغة مدمج** — المكوّن المنسدل نفسه المستخدم في LanguageSwitcher
+- **مدرك لـ RTL** — يكتشف اللغات المحلية من اليمين إلى اليسار ويعدّل التخطيط
+- **زر الإجراء الرئيسي** — زر اختياري لدعوة لاتخاذ إجراء، بنص ورابط href قابلين للتخصيص
+- **رابط GitHub** — زر أيقونة اختياري يقود إلى مستودعك
+- **ثابت / غير ثابت** — التبديل بين التثبيت في أعلى الصفحة وعدمه
+- **متاح عبر لوحة المفاتيح** — التنقل بمفاتيح الأسهم وHome / End وEnter وEscape
+- **تسميات ARIA** — `aria-expanded`، `aria-haspopup`، `aria-selected`، والتركيز المتدرّج على الخيارات
+- **قابل للتنسيق** — يُنسَّق برموز shadcn/ui، فيتبع سمة موقعك والوضع الداكن
+- **نسختان** — شريط بعرض كامل أو بطاقة عائمة داخلية
+- **متحرّك** — تمييز عند المرور ينزلق بين الروابط، وقائمة جوال متحركة وقائمة لغات؛ يحترم `prefers-reduced-motion`
+- **مستقل عن الموجِّه** — مرّر `next/link` (أو أي رابط) عبر `linkComponent`
+
+## الاعتماديات [#dependencies]
+
+- `motion` — الحركات
+- `lucide-react` — الأيقونات
+
+الاعتماديات النظيرة:
+
+- `react` >= 18
+- `react-dom` >= 18
+- `tailwindcss` >= 3
+
+## الإسناد [#credits]
+
+من إنشاء [sapatmohit](https://github.com/sapatmohit).

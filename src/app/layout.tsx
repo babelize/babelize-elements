@@ -4,7 +4,10 @@ import { RootProvider } from "fumadocs-ui/provider/next";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import { NextIntlClientProvider, useLocale } from "next-intl";
+import { getLocale, getTranslations } from "next-intl/server";
 import { localeDirection } from "../i18n/locales";
+import { baseOpenGraph } from "@/lib/locale-path";
+import { docsUI } from "../i18n/fumadocs-ui";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,42 +19,41 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://elements.babelize.co/"),
-  title: {
-    default: "Babelize Elements - Open Source Localization UI Components",
-    template: "%s | Babelize Elements",
-  },
-  description:
-    "Open-source Localization UI components for React and Tailwind CSS. Language switchers, locale pickers, translation widgets, and more — built by the community.",
-  keywords: [
-    "localization",
-    "i18n",
-    "internationalization",
-    "UI components",
-    "React components",
-    "Tailwind CSS",
-    "language switcher",
-    "locale picker",
-    "Babelize",
-    "open source",
-  ],
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://elements.babelize.co",
-    siteName: "Babelize Elements",
-    title: "Babelize Elements - Open Source Localization UI Components",
-    description:
-      "Open-source Localization UI components for React and Tailwind CSS. Built by the community.",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Babelize Elements - Open Source Localization UI Components",
-    description:
-      "Open-source Localization UI components for React and Tailwind CSS. Built by the community.",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const t = await getTranslations("meta");
+  return {
+    metadataBase: new URL("https://elements.babelize.co/"),
+    title: {
+      default: t("title"),
+      template: "%s | Babelize Elements",
+    },
+    description: t("description"),
+    keywords: [
+      "localization",
+      "i18n",
+      "internationalization",
+      "UI components",
+      "React components",
+      "Tailwind CSS",
+      "language switcher",
+      "locale picker",
+      "Babelize",
+      "open source",
+    ],
+    // Pages set og:url (and docs their own title); a page's openGraph replaces this one.
+    openGraph: {
+      ...baseOpenGraph(locale),
+      title: t("title"),
+      description: t("ogDescription"),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("ogDescription"),
+    },
+  };
+}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const locale = useLocale();
@@ -67,7 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="min-h-full flex flex-col">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          <RootProvider theme={{ enabled: false }}>
+          <RootProvider theme={{ enabled: false }} i18n={docsUI.provider(locale)}>
             <NextIntlClientProvider>{children}</NextIntlClientProvider>
           </RootProvider>
         </ThemeProvider>

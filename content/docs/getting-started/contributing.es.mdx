@@ -1,0 +1,93 @@
+---
+title: Contribuciones y código abierto
+description: Cómo contribuir con un componente a Babelize Elements, desde abrir un issue hasta enviar un pull request.
+icon: HeartHandshake
+---
+
+## Contribuir [#contributing]
+
+Babelize Elements es una biblioteca de código abierto impulsada por la comunidad. Los componentes que ves aquí los crearon colaboradores, y el siguiente podría ser el tuyo.
+
+Antes de empezar, lee el [manual del colaborador](/docs/getting-started/rulebook).
+
+## Cómo funciona [#how-it-works]
+
+1. **Elige un issue** — explora los [issues de GitHub](https://github.com/babelize/babelize-elements/issues) en busca de una solicitud de componente marcada como `good first issue` o `help wanted`.
+2. **Crea el componente** — implementalo en `src/registry/components/` siguiendo la [plantilla de componente](#component-template) de abajo.
+3. **Abre un pull request** — nuestros mantenedores lo revisan, piden cambios si hace falta y lo fusionan.
+4. **Se publica** — los componentes fusionados se documentan en este sitio y están disponibles para todos los usuarios de Babelize Elements.
+
+¿Todavía no existe ningún componente? Abre un issue proponiendo uno. Buenos candidatos: selectores de idioma, selectores de configuración regional, widgets de traducción, utilidades RTL, ayudantes de pluralización y formateadores con reconocimiento de configuración regional.
+
+## Plantilla de componente [#component-template]
+
+```tsx
+"use client";
+
+import * as React from "react";
+import { cn } from "@/lib/utils";
+import { useControllableState } from "@/lib/use-controllable-state";
+import type { Locale } from "./types";
+
+export interface LanguageSelectProps extends Omit<
+  React.ComponentPropsWithoutRef<"select">,
+  "value" | "defaultValue" | "onChange"
+> {
+  /** Available locales — only `code` is required */
+  locales: Locale[];
+  /** Selected locale code. Provide this to control the component. */
+  value?: string;
+  /** Initial locale code when uncontrolled */
+  defaultValue?: string;
+  /** Fired once per selection */
+  onValueChange?: (code: string) => void;
+}
+
+export const LanguageSelect = React.forwardRef<HTMLSelectElement, LanguageSelectProps>(
+  function LanguageSelect(
+    { locales, value, defaultValue, onValueChange, className, ...rest },
+    ref,
+  ) {
+    const [locale, setLocale] = useControllableState(
+      value,
+      defaultValue ?? locales[0]?.code ?? "",
+      onValueChange,
+    );
+
+    return (
+      <select
+        ref={ref}
+        value={locale}
+        onChange={(e) => setLocale(e.target.value)}
+        className={cn(
+          "h-10 rounded-md border border-zinc-200 bg-white px-3 text-sm outline-none transition-colors focus:border-emerald-500 dark:border-zinc-800 dark:bg-zinc-900",
+          className,
+        )}
+        {...rest}
+      >
+        {locales.map((l) => (
+          <option key={l.code} value={l.code}>
+            {l.label ?? l.code}
+          </option>
+        ))}
+      </select>
+    );
+  },
+);
+```
+
+Ten en cuenta las cuatro convenciones que sigue cada componente: un trío `value` / `defaultValue` / `onValueChange` mediante `useControllableState`, una ref reenviada, `...rest` propagado al elemento raíz, y el tipo compartido `Locale` de `./types` en lugar de una copia local.
+
+Un componente que renderiza un popup `role="listbox"` (un menú de idiomas, un selector de país) comparte su gestión del teclado a través de `useListboxNavigation` de `@/lib/use-listbox-navigation`, en lugar de implementar por sí mismo las teclas de flecha, `Home` / `End`, `Enter` y `Escape`. Consulta `LanguageSwitcher` (campo de búsqueda más `aria-activedescendant`) y `NavBar` (foco roving) para las dos estrategias de foco.
+
+## Lista de verificación para contribuir [#contribution-checklist]
+
+- [ ] Prioriza TypeScript, con interfaces exportadas para todas las props
+- [ ] Consciente de la localización: gestiona los códigos de configuración regional, la pluralización o RTL según corresponda
+- [ ] Accesible: soporte de teclado, etiquetas ARIA, estados de foco
+- [ ] Con estilos de Tailwind CSS
+- [ ] Una demo breve o un ejemplo de uso para la documentación
+
+## ¿Necesitas ayuda? [#need-help]
+
+Abre una discusión en GitHub o únete a la [comunidad de Babelize](https://discord.gg/Qqzr2g4KGx). Somos un grupo amable.

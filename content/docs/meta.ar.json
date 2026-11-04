@@ -1,0 +1,20 @@
+{
+  "pages": [
+    "---ابدأ الآن---",
+    "getting-started/index",
+    "getting-started/install",
+    "getting-started/shadcn-cli",
+    "---المكوّنات---",
+    "[LayoutGrid][نظرة عامة](/docs/components)",
+    "components/language-switchers",
+    "components/locale-pickers",
+    "components/navigation",
+    "components/inputs",
+    "components/translation",
+    "---التخصيص---",
+    "customization/interfaces",
+    "---المساهمة---",
+    "getting-started/contributing",
+    "getting-started/rulebook"
+  ]
+}

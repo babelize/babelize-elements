@@ -1,0 +1,93 @@
+---
+title: المساهمة والمصدر المفتوح
+description: كيفية المساهمة بمكوّن في Babelize Elements، من فتح مشكلة حتى إرسال pull request.
+icon: HeartHandshake
+---
+
+## المساهمة [#contributing]
+
+Babelize Elements مكتبة مفتوحة المصدر يقودها المجتمع. المكوّنات التي تراها هنا بناها مساهمون، والمكوّن التالي قد يكون لك.
+
+قبل أن تبدأ، اقرأ [دليل المساهم](/docs/getting-started/rulebook).
+
+## كيف تعمل العملية [#how-it-works]
+
+1. **اختر مشكلة** — تصفّح [مشكلات GitHub](https://github.com/babelize/babelize-elements/issues) بحثًا عن طلب مكوّن موسوم بـ `good first issue` أو `help wanted`.
+2. **ابنِ المكوّن** — نفّذه في `src/registry/components/` وفق [قالب المكوّن](#component-template) أدناه.
+3. **افتح pull request** — يراجعه المشرفون، ويطلبون التعديلات عند الحاجة، ثم يدمجونه.
+4. **يُنشر** — تُوثَّق المكوّنات المدمجة في هذا الموقع، وتصبح متاحة لكل مستخدمي Babelize Elements.
+
+لا يوجد مكوّن بعد؟ افتح مشكلة تقترحه. من أفضل الأفكار: مبدّلات اللغة، ومنتقيات الإعدادات المحلية، وأدوات الترجمة، وأدوات RTL، ومساعدات الجمع، ومنسّقات الأرقام والتواريخ المدركة للغة المحلية.
+
+## قالب المكوّن [#component-template]
+
+```tsx
+"use client";
+
+import * as React from "react";
+import { cn } from "@/lib/utils";
+import { useControllableState } from "@/lib/use-controllable-state";
+import type { Locale } from "./types";
+
+export interface LanguageSelectProps extends Omit<
+  React.ComponentPropsWithoutRef<"select">,
+  "value" | "defaultValue" | "onChange"
+> {
+  /** Available locales — only `code` is required */
+  locales: Locale[];
+  /** Selected locale code. Provide this to control the component. */
+  value?: string;
+  /** Initial locale code when uncontrolled */
+  defaultValue?: string;
+  /** Fired once per selection */
+  onValueChange?: (code: string) => void;
+}
+
+export const LanguageSelect = React.forwardRef<HTMLSelectElement, LanguageSelectProps>(
+  function LanguageSelect(
+    { locales, value, defaultValue, onValueChange, className, ...rest },
+    ref,
+  ) {
+    const [locale, setLocale] = useControllableState(
+      value,
+      defaultValue ?? locales[0]?.code ?? "",
+      onValueChange,
+    );
+
+    return (
+      <select
+        ref={ref}
+        value={locale}
+        onChange={(e) => setLocale(e.target.value)}
+        className={cn(
+          "h-10 rounded-md border border-zinc-200 bg-white px-3 text-sm outline-none transition-colors focus:border-emerald-500 dark:border-zinc-800 dark:bg-zinc-900",
+          className,
+        )}
+        {...rest}
+      >
+        {locales.map((l) => (
+          <option key={l.code} value={l.code}>
+            {l.label ?? l.code}
+          </option>
+        ))}
+      </select>
+    );
+  },
+);
+```
+
+لاحظ القواعد الأربع التي يتبعها كل مكوّن: ثلاثية `value` / `defaultValue` / `onValueChange` عبر `useControllableState`، ومرجع يُعاد توجيهه، و`...rest` يُمرَّر إلى العنصر الجذري، والنوع المشترك `Locale` من `./types` بدلًا من نسخة محلية.
+
+المكوّن الذي يعرض نافذة `role="listbox"` منبثقة، مثل قائمة لغات أو منتقي دولة، يشارك معالجة لوحة المفاتيح عبر `useListboxNavigation` من `@/lib/use-listbox-navigation` بدلًا من ربط مفاتيح الأسهم و`Home` / `End` و `Enter` و`Escape` بنفسه. راجع `LanguageSwitcher` (حقل بحث مع `aria-activedescendant`) و`NavBar` (التركيز المتدرج) للاستراتيجيتين في التركيز.
+
+## قائمة التحقق للمساهمة [#contribution-checklist]
+
+- [ ] TypeScript أولًا، مع واجهات مُصدَّرة لكل الخصائص
+- [ ] مدرك للتوطين: يتعامل مع رموز اللغات المحلية وصيغ الجمع واتجاه RTL حسب الحاجة
+- [ ] قابل للوصول: دعم لوحة المفاتيح، وتسميات ARIA، وحالات التركيز
+- [ ] مُنسَّق بـ Tailwind CSS
+- [ ] عرض توضيحي قصير أو مثال استخدام للتوثيق
+
+## تحتاج مساعدة؟ [#need-help]
+
+افتح نقاشًا على GitHub أو انضم إلى [مجتمع Babelize](https://discord.gg/Qqzr2g4KGx). نحن ودودون.

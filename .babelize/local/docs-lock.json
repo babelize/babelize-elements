@@ -1,0 +1,3715 @@
+{
+  "version": 1,
+  "segments": {
+    "a150ce2216025931": {
+      "es": "Componentes",
+      "ja": "コンポーネント",
+      "ar": "المكوّنات"
+    },
+    "7ac41d34cfa18ea6": {
+      "es": "Colección completa de componentes de interfaz de localización para React. Explora selectores de idioma, selectores de configuración regional y diseños RTL listos para producción.",
+      "ja": "React 向けのローカライゼーション UI コンポーネントを網羅したコレクションです。本番環境で使える言語スイッチャー、ロケールピッカー、RTL レイアウトをご覧ください。",
+      "ar": "مجموعة شاملة من مكوّنات واجهة التوطين لـ React. تصفّح مبدّلات اللغة ومنتقيات الإعدادات المحلية وتخطيطات RTL الجاهزة للإنتاج."
+    },
+    "180170814869950e": {
+      "es": "Selectores de idioma",
+      "ja": "言語スイッチャー",
+      "ar": "مبدّلات اللغة"
+    },
+    "67d44f4a8112c923": {
+      "es": "Componentes profesionales de selector de idioma, diseñados para una selección de configuración regional fluida en toda tu aplicación.",
+      "ja": "アプリケーション全体でシームレスにロケールを選択できるように設計された、本格的な言語スイッチャーコンポーネントです。",
+      "ar": "مكوّنات احترافية لمبدّل اللغة مصممة لتحديد الإعدادات المحلية بسلاسة في جميع أجزاء تطبيقك."
+    },
+    "ce54f0e22dbb39de": {
+      "es": "Componente",
+      "ja": "コンポーネント",
+      "ar": "المكوّن"
+    },
+    "526e0087cc3f254d": {
+      "es": "Descripción",
+      "ja": "説明",
+      "ar": "الوصف"
+    },
+    "9d081e15d6863c16": {
+      "es": "<1><2>Selector de idioma</2></1>",
+      "ja": "<1><2>言語スイッチャー</2></1>",
+      "ar": "<1><2>مبدّل اللغة</2></1>"
+    },
+    "738aea9fa1c7b699": {
+      "es": "Desplegable completo con búsqueda, banderas y compatibilidad con RTL",
+      "ja": "検索、国旗、RTL サポートを備えた高機能なドロップダウン",
+      "ar": "قائمة منسدلة متكاملة الميزات مع البحث والأعلام ودعم RTL"
+    },
+    "48e6c17bc38f2db1": {
+      "es": "<1><2>Selector de idioma en píldora</2></1>",
+      "ja": "<1><2>言語スイッチャー Pill</2></1>",
+      "ar": "<1><2>كبسولة مبدّل اللغة</2></1>"
+    },
+    "c3594e6625a9310d": {
+      "es": "Selector animado en estilo píldora con navegación por teclado y compatibilidad con RTL",
+      "ja": "キーボード操作と RTL サポートに対応した、アニメーション付きのピル型セレクターです",
+      "ar": "أداة اختيار متحركة بأسلوب الكبسولة مع التنقل بلوحة المفاتيح ودعم RTL"
+    },
+    "02bb6c0717101091": {
+      "es": "Selectores de configuración regional",
+      "ja": "ロケールピッカー",
+      "ar": "منتقيات الإعدادات المحلية"
+    },
+    "49186ecbea19ee19": {
+      "es": "Elige una región y consulta los valores predeterminados de configuración regional que la acompañan, para páginas de ajustes y flujos de incorporación.",
+      "ja": "地域を選択すると、それに対応するロケールのデフォルト値を取得できます。設定ページやオンボーディングの流れに使用できます。",
+      "ar": "اختر منطقة واطّلع على القيم الافتراضية للإعدادات المحلية المرتبطة بها، لصفحات الإعدادات وتدفقات الإعداد الأولي."
+    },
+    "1216676cd788237a": {
+      "es": "<1><2>Selector de configuración regional</2></1>",
+      "ja": "<1><2>ロケールピッカー</2></1>",
+      "ar": "<1><2>منتقي الإعدادات المحلية</2></1>"
+    },
+    "a614b401fa7cf35a": {
+      "es": "Selector de región con moneda, fecha, número y primer día de la semana derivados, además de búsqueda",
+      "ja": "通貨、日付、数値、週の開始曜日のデフォルト値を地域から導出する、検索付きの地域ピッカー",
+      "ar": "منتقي المناطق مع القيم الافتراضية المشتقة للعملة والتاريخ والأرقام وبداية الأسبوع، مع البحث"
+    },
+    "f3e69a7481a93dec": {
+      "es": "Entrada de teléfono",
+      "ja": "Phone Input",
+      "ar": "حقل إدخال الهاتف"
+    },
+    "b274b2ec51d93647": {
+      "es": "Campo internacional para números de teléfono con selector de país y búsqueda de prefijos telefónicos.",
+      "ja": "国コードセレクターと国番号検索を備えた、国際電話番号の入力コンポーネントです。",
+      "ar": "حقل إدخال أرقام الهواتف الدولية مع محدّد الدولة والبحث عن رمز الاتصال."
+    },
+    "bfb042881d6fe309": {
+      "es": "<1><2>Entrada de teléfono</2></1>",
+      "ja": "<1><2>Phone Input</2></1>",
+      "ar": "<1><2>حقل إدخال الهاتف</2></1>"
+    },
+    "70a1641d9ff47601": {
+      "es": "Selector de país con banderas, prefijos telefónicos y búsqueda para 50 países",
+      "ja": "50 か国に対応した、国旗・国番号・検索付きの国セレクター",
+      "ar": "محدّد الدولة مع الأعلام ورموز الاتصال والبحث في 50 دولة"
+    },
+    "3db65f8c2a7d1861": {
+      "es": "Navegación",
+      "ja": "ナビゲーション",
+      "ar": "التنقل"
+    },
+    "3a4614f408362261": {
+      "es": "Barra de navegación completa con soporte de localización integrado.",
+      "ja": "ローカライゼーションに標準で対応した、高機能なナビゲーションバーです。",
+      "ar": "شريط تنقل متكامل الميزات مع دعم مدمج للتوطين."
+    },
+    "2538d337eb1d26b8": {
+      "es": "<1><2>NavBar</2></1>",
+      "ja": "<1><2>NavBar</2></1>",
+      "ar": "<1><2>NavBar</2></1>"
+    },
+    "27a132402e5f4641": {
+      "es": "Navegación adaptable con selector de idioma, menú móvil, botón CTA y enlace a GitHub",
+      "ja": "言語セレクター、モバイルメニュー、CTA、GitHub リンクを備えたレスポンシブなナビゲーション",
+      "ar": "شريط تنقل متجاوب مع محدّد اللغة وقائمة الجوال وزر دعوة لاتخاذ إجراء ورابط GitHub"
+    },
+    "6fbd766b1a71cc4d": {
+      "es": "Traducción",
+      "ja": "翻訳",
+      "ar": "الترجمة"
+    },
+    "3850de91726344c5": {
+      "es": "Vistas de traducción lado a lado para comparar y editar el texto de origen y de destino.",
+      "ja": "原文と訳文を並べて比較・編集できる翻訳ビューです。",
+      "ar": "عروض ترجمة جنبًا إلى جنب لمقارنة النص المصدر والنص الهدف وتحريرهما."
+    },
+    "e4975aa793f4788e": {
+      "es": "<1><2>Widget de traducción</2></1>",
+      "ja": "<1><2>翻訳ウィジェット</2></1>",
+      "ar": "<1><2>أداة الترجمة</2></1>"
+    },
+    "d57184aa337b2286": {
+      "es": "Panel de destino editable, diseño compatible con RTL y estilo claymorphism",
+      "ja": "編集可能な訳文パネル、RTL に対応したレイアウト、クレイモーフィズムのスタイル",
+      "ar": "لوحة هدف قابلة للتحرير، وتخطيط يراعي RTL، وتنسيق claymorphism"
+    },
+    "5e26d86f59570c86": {
+      "es": "Especificaciones técnicas",
+      "ja": "技術仕様",
+      "ar": "المواصفات التقنية"
+    },
+    "97bc92416c2ee484": {
+      "es": "Características principales",
+      "ja": "主な機能",
+      "ar": "الميزات الأساسية"
+    },
+    "208275d327ec10ff": {
+      "es": "<1>Soporte completo de TypeScript</1> - Seguridad de tipos completa con IntelliSense",
+      "ja": "<1>TypeScript の完全サポート</1> - IntelliSense による完全な型安全性",
+      "ar": "<1>دعم TypeScript كامل</1> - أمان أنواع شامل مع IntelliSense"
+    },
+    "61c8b74e09aae61c": {
+      "es": "<1>Diseño adaptable</1> - Enfoque mobile-first con optimización por breakpoints",
+      "ja": "<1>レスポンシブデザイン</1> - ブレークポイントを最適化したモバイルファーストの設計",
+      "ar": "<1>تصميم متجاوب</1> - نهج يبدأ بالجوال مع تحسين نقاط الكسر"
+    },
+    "8d0289f86bf7b3a8": {
+      "es": "<1>Cumplimiento de accesibilidad</1> - Estándares WCAG 2.1 AA con soporte para lectores de pantalla",
+      "ja": "<1>アクセシビリティ準拠</1> - スクリーンリーダー対応を含む WCAG 2.1 AA 基準",
+      "ar": "<1>الامتثال لإمكانية الوصول</1> - معايير WCAG 2.1 AA مع دعم قارئات الشاشة"
+    },
+    "5402baffa9f2cbc5": {
+      "es": "<1>Documentación completa</1> - Ejemplos de uso, referencia de la API y buenas prácticas",
+      "ja": "<1>充実したドキュメント</1> - 使用例、API リファレンス、ベストプラクティス",
+      "ar": "<1>توثيق شامل</1> - أمثلة الاستخدام ومرجع API وأفضل الممارسات"
+    },
+    "c3abb4a4004f0f38": {
+      "es": "Integración y compatibilidad",
+      "ja": "連携と互換性",
+      "ar": "التكامل والتوافق"
+    },
+    "75d1c97b71059c7c": {
+      "es": "<1>React 18+</1> con soporte para hooks",
+      "ja": "Hooks に対応した <1>React 18 以降</1>",
+      "ar": "<1>React 18+</1> مع دعم hooks"
+    },
+    "eaa381ba00733ff9": {
+      "es": "Compatibilidad con App Router de <1>Next.js 13+</1>",
+      "ja": "<1>Next.js 13 以降</1> の App Router に対応",
+      "ar": "<1>Next.js 13+</1> مع توافق App Router"
+    },
+    "2292ab8cf5136b6e": {
+      "es": "Integración con el sistema de diseño <1>shadcn/ui</1>",
+      "ja": "<1>shadcn/ui</1> デザインシステムとの連携",
+      "ar": "تكامل نظام التصميم <1>shadcn/ui</1>"
+    },
+    "d106f18fa0a62377": {
+      "es": "Estilos <1>Tailwind CSS</1> basados en utilidades",
+      "ja": "<1>Tailwind CSS</1> によるユーティリティファーストのスタイリング",
+      "ar": "تنسيق <1>Tailwind CSS</1> القائم على الأدوات المساعدة"
+    },
+    "8c788a99e959fe90": {
+      "es": "Compatibilidad con gestores de paquetes <1>npm/pnpm/yarn</1>",
+      "ja": "<1>npm/pnpm/yarn</1> パッケージマネージャーに対応",
+      "ar": "دعم مدير الحزم <1>npm/pnpm/yarn</1>"
+    },
+    "e89b30aa1dc30a6a": {
+      "es": "Recursos",
+      "ja": "リソース",
+      "ar": "المصادر"
+    },
+    "b6ae52a6dfcd4791": {
+      "es": "<1><2>Guía de inicio rápido</2></1> - Instalación y configuración inicial",
+      "ja": "<1><2>クイックスタートガイド</2></1> - インストールと初期設定",
+      "ar": "<1><2>دليل البدء السريع</2></1> - التثبيت والإعداد الأولي"
+    },
+    "62110a3c0461a077": {
+      "es": "<1><2>Referencia de la API</2></1> - Props del componente y configuración",
+      "ja": "<1><2>API リファレンス</2></1> - コンポーネントの props と設定",
+      "ar": "<1><2>مرجع API</2></1> - خصائص المكوّن وإعداداته"
+    },
+    "2c6541b802467574": {
+      "es": "<1><2>Guía de contribución</2></1> - Directrices de desarrollo y contribución",
+      "ja": "<1><2>コントリビューションガイド</2></1> - 開発とコントリビュートのガイドライン",
+      "ar": "<1><2>دليل المساهمة</2></1> - إرشادات التطوير والمساهمة"
+    },
+    "7abc49dfa87bc183": {
+      "es": "Campos de entrada",
+      "ja": "入力",
+      "ar": "حقول الإدخال"
+    },
+    "7c23ceaf26b4e4dc": {
+      "es": "Campo internacional para números de teléfono con selector de país, emojis de bandera y búsqueda de prefijos telefónicos. Admite 50 países con formato y validación integrados.",
+      "ja": "国コードセレクター、国旗の絵文字、国番号検索を備えた、国際電話番号の入力コンポーネントです。50 か国に対応し、フォーマットとバリデーションを内蔵しています。",
+      "ar": "حقل إدخال أرقام الهواتف الدولية مع محدّد الدولة وأعلام الدول الرمزية والبحث عن رمز الاتصال. يدعم 50 دولة مع تنسيق وتحقق مدمجين."
+    },
+    "c3fc54aa5390dc2c": {
+      "es": "Instalación",
+      "ja": "インストール",
+      "ar": "التثبيت"
+    },
+    "8d59829c1e15afe1": {
+      "es": "Uso",
+      "ja": "使い方",
+      "ar": "الاستخدام"
+    },
+    "ad8aeb268cadacb8": {
+      "es": "Control del país",
+      "ja": "国の制御",
+      "ar": "التحكم في الدولة"
+    },
+    "4ee7cc50fc314a51": {
+      "es": "El país sigue la misma convención controlada/no controlada que el número:\npasa {p0} + {p1} para controlarlo, o {p2} para definir\nel valor predeterminado no controlado. Cuando {p3} es controlado, el padre tiene la última\npalabra; usa {p4} si quieres que la detección del prefijo (abajo) cambie de país.",
+      "ja": "国の指定も、電話番号と同じ制御／非制御の仕組みに従います。\n制御するには {p0} + {p1} を渡し、非制御時の初期値には {p2} を指定します。\n{p3} が制御されている場合は、親コンポーネントが最終的な決定権を持ちます。\n下記の国番号による自動検出で国を切り替えたい場合は {p4} を尊重してください。",
+      "ar": "تتبع الدولة نفس اصطلاح التحكم وعدم التحكم المستخدم للرقم:\nمرّر {p0} + {p1} للتحكم بها، أو {p2} لتحديد\nالقيمة الافتراضية غير المتحكَّم بها. عندما يكون {p3} متحكَّمًا به، يكون للمكوّن الأب\nالكلمة الأخيرة — فاحترم {p4} إذا أردت أن يبدّل اكتشاف رمز الاتصال (أدناه)\nالدولَ."
+    },
+    "b0e4c26422817728": {
+      "es": "Detección del prefijo telefónico",
+      "ja": "国番号による自動検出",
+      "ar": "اكتشاف رمز الاتصال"
+    },
+    "629c191bfdd47daa": {
+      "es": "Escribe o pega un número que empiece por {p0} y el componente cambiará\nel país para que coincida, eliminando del campo el prefijo y el separador que lo sigue. El prefijo que declara {p1} tiene prioridad sobre un país seleccionado manualmente:",
+      "ja": "{p0} で始まる番号を入力または貼り付けると、コンポーネントは一致する国に切り替え、国番号とその直後の区切り文字をフィールドから取り除きます。\n{p1} で指定されたプレフィックスは、手動で選んだ国よりも優先されます:",
+      "ar": "اكتب أو الصق رقمًا يبدأ بـ {p0} فيبدّل المكوّن\nالدولة لتطابقه، ويحذف رمز الاتصال والفاصل الذي يليه\nمن الحقل — فالبادئة التي يعلنها {p1} تتقدّم على الدولة المختارة يدويًا:"
+    },
+    "507cdc706e3f28b9": {
+      "es": "Al pegar {p0} se selecciona GB y {p1} se mantiene en el campo.",
+      "ja": "{p0} を貼り付けると GB が選択され、フィールドには {p1} が残ります。",
+      "ar": "لصق {p0} يحدّد GB ويترك {p1} في الحقل."
+    },
+    "77e68e2c260fd870": {
+      "es": "Un {p0} escrito delante de dígitos que <1>ya están en el campo</1> nunca los elimina:\n  el prefijo solo se consume cuando sus dígitos se introdujeron después del\n  {p1}. Escribe {p2} delante de un número existente y el país cambiará a US\n  cuando aparezca el {p3}, y el número conservará todos los dígitos que tenía.",
+      "ja": "<1>すでにフィールドに入力されている</1>数字の前に入力した {p0} は、それらの数字を取り除きません。\n国番号が取り除かれるのは、{p1} の後に入力された数字だった場合のみです。\n既存の番号の前に {p2} を入力すると、{p3} が入力された時点で国が US に切り替わり、番号のすべての数字は保持されます。",
+      "ar": "كتابة {p0} قبل أرقام <1>موجودة أصلًا في الحقل</1> لا تحذفها أبدًا:\n  لا يُستهلك رمز الاتصال إلا إذا أُدخلت أرقامه بعد\n  {p1}. اكتب {p2} قبل رقم موجود، فتتبدّل الدولة إلى US\n  بمجرد ظهور {p3} — ويحتفظ الرقم بكل أرقامه التي كانت فيه."
+    },
+    "7a210f4ed9c51f88": {
+      "es": "Gana el prefijo <1>más largo</1> que coincida,\n  así que {p0} selecciona Bangladés aunque un prefijo más corto también coincida.",
+      "ja": "一致する国番号が複数ある場合は、<1>最も長い</1>ものが優先されます。\nそのため、より短い番号も一致する場合でも、{p0} は Bangladesh を選択します。",
+      "ar": "يفوز <1>أطول</1> رمز اتصال مطابق، لذا يختار {p0} بنغلاديش حتى لو تطابق رمز أقصر أيضًا."
+    },
+    "265cb4efe8fd8bc4": {
+      "es": "Los <1>prefijos compartidos</1> mantienen el país seleccionado actualmente cuando es uno de los países que comparten el prefijo coincidente; de lo contrario, eligen el primero de la lista ofrecida, así que {p0} nunca salta lejos de US o CA mientras escribes.\n  La misma regla se aplica a cualquier prefijo compartido en una lista personalizada de {p1}, como {p2} si ofreces tanto RU como KZ.",
+      "ja": "<1>共有の国番号</1>は、一致した番号を共有する国のひとつが現在選択されている場合はその国を維持します。\nそれ以外の場合は、提供されている一覧の最初の国を選択します。\nそのため、入力の途中で {p0} が US や CA から別の国に移ることはありません。\n同じルールは、カスタムの {p1} 一覧にある共有番号にも適用されます。\nたとえば RU と KZ の両方を提供している場合の {p2} も同様です。",
+      "ar": "<1>رموز الاتصال المشتركة</1> تُبقي الدولة المحددة حاليًا إذا كانت إحدى الدول\n  التي تشترك في الرمز المطابق، وإلا تختار الأولى في\n  القائمة المعروضة — فلا يقفز {p0} أبدًا بعيدًا عن US أو CA أثناء الكتابة. تنطبق\n  القاعدة نفسها على أي رمز مشترك في قائمة {p1} مخصصة، مثل {p2} إذا\n  عرضت RU وKZ معًا."
+    },
+    "fe8620b6a2b8f482": {
+      "es": "Un prefijo que no está en tu lista de {p0} se ignora: el país\n  solo cambia a un país que realmente ofreces.",
+      "ja": "{p0} 一覧にない国番号は無視されます。\n国が切り替わるのは、実際に提供している国に限られます。",
+      "ar": "رمز الاتصال الذي لا يوجد في قائمة {p0} الخاصة بك يُترك كما هو — فالدولة\n  لا تتبدّل إلا إلى دولة تعرضها فعليًا."
+    },
+    "27de1f592e5f9fed": {
+      "es": "Tras un cambio, el menú de países sigue funcionando con normalidad: elegir un país\n  sustituye al detectado, y no se vuelve a detectar nada hasta la próxima vez que el valor empiece por {p0}.",
+      "ja": "切り替え後も国メニューは通常どおり動作します。\n国を選択すると検出された国は上書きされ、値が再び {p0} で始まるまで再検出は行われません。",
+      "ar": "بعد التبديل، تعمل قائمة الدول كالمعتاد: اختيار دولة يتجاوز الدولة المكتشفة، ولا يُعاد الاكتشاف\n  حتى المرة التالية التي تبدأ فيها القيمة بـ {p0}."
+    },
+    "cb7141a20db92af8": {
+      "es": "Props",
+      "ja": "Props",
+      "ar": "الخصائص"
+    },
+    "57d968860fabe100": {
+      "es": "Prop",
+      "ja": "Prop",
+      "ar": "الخاصية"
+    },
+    "baaddf70fb5d432b": {
+      "es": "Tipo",
+      "ja": "型",
+      "ar": "النوع"
+    },
+    "4850b174b713d88c": {
+      "es": "Obligatorio",
+      "ja": "必須",
+      "ar": "مطلوب"
+    },
+    "1ea442a134b2a184": {
+      "es": "No",
+      "ja": "いいえ",
+      "ar": "لا"
+    },
+    "5cefe179ba6872f2": {
+      "es": "Número de teléfono: pásalo para controlar el componente",
+      "ja": "電話番号。コンポーネントを制御するにはこの値を渡します",
+      "ar": "رقم الهاتف — مرّره للتحكم في المكوّن"
+    },
+    "6baef0b33aa2bcc3": {
+      "es": "Número de teléfono inicial cuando no está controlado",
+      "ja": "非制御時の初期電話番号",
+      "ar": "رقم الهاتف الأولي عند عدم التحكم"
+    },
+    "e568e51a428ba776": {
+      "es": "Callback que se ejecuta cuando cambia el número de teléfono o el país",
+      "ja": "電話番号または国が変更されたときのコールバック",
+      "ar": "دالة استدعاء عند تغيّر رقم الهاتف أو الدولة"
+    },
+    "9a4b1c2af8cf0998": {
+      "es": "Código de país seleccionado (ISO 3166-1 alpha-2): pásalo para controlar el país",
+      "ja": "選択中の国コード（ISO 3166-1 alpha-2）。国を制御するにはこの値を渡します",
+      "ar": "رمز الدولة المحدد (ISO 3166-1 alpha-2) — مرّره للتحكم في الدولة"
+    },
+    "d3d6881f3743ef08": {
+      "es": "Callback que se ejecuta cuando cambia el país seleccionado, ya sea desde el menú o por la detección del prefijo",
+      "ja": "選択中の国が変更されたときのコールバック（メニューからの選択と国番号による自動検出の両方を含みます）",
+      "ar": "دالة استدعاء عند تغيّر الدولة المحددة — من القائمة أو من اكتشاف رمز الاتصال"
+    },
+    "e5f5dc0f0232b9b7": {
+      "es": "Código de país inicial cuando no está controlado (ISO 3166-1 alpha-2, p. ej. {p0}, {p1}, {p2}; predeterminado: {p3})",
+      "ja": "非制御時の初期国コード（ISO 3166-1 alpha-2。例: {p0}、{p1}、{p2}。デフォルト: {p3}）",
+      "ar": "رمز الدولة الأولي عند عدم التحكم (ISO 3166-1 alpha-2، مثل {p0}، {p1}، {p2}؛ الافتراضي: {p3})"
+    },
+    "2cf3821bab5f23f2": {
+      "es": "Países ofrecidos, en orden de visualización (predeterminado: {p0})",
+      "ja": "提供する国を表示順で指定します（デフォルト: {p0}）",
+      "ar": "الدول المعروضة، بترتيب العرض (الافتراضي: {p0})"
+    },
+    "c85c14d89fa51279": {
+      "es": "Texto de marcador de posición",
+      "ja": "プレースホルダーテキスト",
+      "ar": "النص النائب"
+    },
+    "b88a5bbf05213113": {
+      "es": "Desactiva el campo",
+      "ja": "入力を無効にします",
+      "ar": "تعطيل حقل الإدخال"
+    },
+    "2ad7139348cd4039": {
+      "es": "Muestra la bandera del país junto al prefijo telefónico (predeterminado: {p0})",
+      "ja": "国番号の横に国旗を表示します（デフォルト: {p0}）",
+      "ar": "إظهار علم الدولة بجانب رمز الاتصال (الافتراضي: {p0})"
+    },
+    "f5afe7a133e08004": {
+      "es": "Altura del campo (predeterminado: {p0})",
+      "ja": "フィールドの高さ（デフォルト: {p0}）",
+      "ar": "ارتفاع الحقل (الافتراضي: {p0})"
+    },
+    "4397681f8ea2e73c": {
+      "es": "Borde del campo con el que se alinea el menú (predeterminado: {p0})",
+      "ja": "メニューを揃えるフィールドの辺（デフォルト: {p0}）",
+      "ar": "الحافة التي تصطف القائمة معها في الحقل (الافتراضي: {p0})"
+    },
+    "95a89b614a34fdd5": {
+      "es": "Lado preferido del menú; cambia de lado si no hay espacio (predeterminado: {p0})",
+      "ja": "優先するメニューの表示側。スペースがない場合は反転します（デフォルト: {p0}）",
+      "ar": "الجانب المفضل للقائمة؛ يتبدّل عند عدم وجود مساحة (الافتراضي: {p0})"
+    },
+    "269ebb428dbde2b3": {
+      "es": "Marcador de posición para la búsqueda de países (predeterminado: {p0})",
+      "ja": "国の検索欄のプレースホルダー（デフォルト: {p0}）",
+      "ar": "النص النائب لبحث الدول (الافتراضي: {p0})"
+    },
+    "4c0a1f00fafa4bfe": {
+      "es": "Se muestra cuando la búsqueda no coincide con nada (predeterminado: {p0})",
+      "ja": "検索に一致する項目がない場合に表示されます（デフォルト: {p0}）",
+      "ar": "يُعرض عندما لا يطابق البحث أي نتيجة (الافتراضي: {p0})"
+    },
+    "53f93cb8c6263082": {
+      "es": "Sustituye el texto de interfaz en inglés integrado (consulta más abajo)",
+      "ja": "組み込みの英語 UI テキストを上書きします（下記参照）",
+      "ar": "تجاوز نصوص الواجهة الإنجليزية المدمجة (انظر أدناه)"
+    },
+    "d381815d1a7fc2bf": {
+      "es": "Configuración regional para los nombres de países, p. ej. {p0} (predeterminado: nombres en inglés)",
+      "ja": "国名のロケール。例: {p0}（デフォルト: 英語名）",
+      "ar": "الإعدادات المحلية لأسماء الدول، مثل {p0} (الافتراضي: الأسماء الإنجليزية)"
+    },
+    "7aefc758ec5d7926": {
+      "es": "Altura máxima de la lista de países con desplazamiento (predeterminado: {p0})",
+      "ja": "スクロールする国一覧の最大の高さ（デフォルト: {p0}）",
+      "ar": "أقصى ارتفاع لقائمة الدول القابلة للتمرير (الافتراضي: {p0})"
+    },
+    "28fef9021dde994f": {
+      "es": "Etiqueta accesible para el campo",
+      "ja": "入力欄のアクセシブルなラベル",
+      "ar": "تسمية إمكانية الوصول للحقل"
+    },
+    "5ff965eb4df447ff": {
+      "es": "Clases para el contenedor raíz",
+      "ja": "ルートラッパーのクラス",
+      "ar": "الأصناف الخاصة بالغلاف الجذري"
+    },
+    "12c08b7ed8a2120f": {
+      "es": "Clases por parte: {p0}, {p1}, {p2}, {p3}, {p4}, {p5}, {p6}, {p7}, {p8}",
+      "ja": "パーツごとのクラス: {p0}、{p1}、{p2}、{p3}、{p4}、{p5}、{p6}、{p7}、{p8}",
+      "ar": "أصناف لكل جزء: {p0}، {p1}، {p2}، {p3}، {p4}، {p5}، {p6}، {p7}، {p8}"
+    },
+    "7909eba7897131f5": {
+      "es": "Cualquier otra prop — {p0}, {p1}, {p2}, {p3}, {p4} — se pasa\nal {p5} subyacente, y la ref se reenvía a él, así que el\ncomponente funciona dentro de un formulario HTML normal. Si estableces {p6}, todo el\ncampo se vuelve rojo, igual que {p7} de shadcn.",
+      "ja": "それ以外の prop（{p0}、{p1}、{p2}、{p3}、{p4}）は、内部の {p5} にスプレッドされ、ref も転送されます。\nそのため、プレーンな HTML フォーム内でも動作します。\n{p6} を設定するとフィールド全体が赤くなり、shadcn の {p7} と同じ挙動になります。",
+      "ar": "أي خاصية أخرى — {p0}، {p1}، {p2}، {p3}، {p4} — تُمرَّر\nإلى العنصر الأساسي {p5}، ويُعاد توجيه المرجع إليه، فيعمل المكوّن\nداخل نموذج HTML عادي. ضبط {p6} يجعل الحقل كله أحمر،\nمطابقًا لـ {p7} في shadcn."
+    },
+    "1efe7a2674cd10bb": {
+      "es": "Objeto de país",
+      "ja": "Country オブジェクト",
+      "ar": "كائن الدولة"
+    },
+    "40040cb181f7f0ee": {
+      "es": "Propiedad",
+      "ja": "プロパティ",
+      "ar": "الخاصية"
+    },
+    "43f0f35c2cb6d0fa": {
+      "es": "Código ISO 3166-1 alpha-2 (p. ej. {p0}, {p1}, {p2})",
+      "ja": "ISO 3166-1 alpha-2 コード（例: {p0}、{p1}、{p2}）",
+      "ar": "رمز ISO 3166-1 alpha-2 (مثل {p0}، {p1}، {p2})"
+    },
+    "7c0a38637e2e4889": {
+      "es": "Prefijo telefónico (p. ej. {p0}, {p1}, {p2})",
+      "ja": "国番号（例: {p0}、{p1}、{p2}）",
+      "ar": "رمز الاتصال (مثل {p0}، {p1}، {p2})"
+    },
+    "48c90de389a6a85e": {
+      "es": "Nombre del país",
+      "ja": "国名",
+      "ar": "اسم الدولة"
+    },
+    "b994372d5f4f9727": {
+      "es": "Emoji de bandera",
+      "ja": "国旗の絵文字",
+      "ar": "علم الدولة (emoji)"
+    },
+    "e68ee04dff59551b": {
+      "es": "Ejemplos",
+      "ja": "使用例",
+      "ar": "أمثلة"
+    },
+    "403dc38e2433c7ef": {
+      "es": "Con el SDK de Babelize",
+      "ja": "Babelize SDK を使う場合",
+      "ar": "مع Babelize SDK"
+    },
+    "9d86dbe32946a737": {
+      "es": "Combina la entrada de teléfono con el <1>SDK de Babelize</1> para validar según la configuración regional:",
+      "ja": "ロケールに応じたバリデーションのために、Phone Input を <1>Babelize SDK</1> と組み合わせます:",
+      "ar": "اقرن حقل إدخال الهاتف مع <1>Babelize SDK</1> للتحقق المراعي للإعدادات المحلية:"
+    },
+    "b57fde3ef13d9761": {
+      "es": "Con validación de formularios",
+      "ja": "フォームバリデーションを使う場合",
+      "ar": "مع التحقق من النموذج"
+    },
+    "f352195a8071db65": {
+      "es": "Con filtro de países",
+      "ja": "国のフィルターを使う場合",
+      "ar": "مع فلتر الدول"
+    },
+    "ff1546461087fc43": {
+      "es": "Personalizar partes",
+      "ja": "パーツのカスタマイズ",
+      "ar": "تخصيص الأجزاء"
+    },
+    "e86a1629cac3b929": {
+      "es": "Cada parte admite sus propias clases mediante {p0}, que se combinan después de los valores predeterminados:",
+      "ja": "各パーツは {p0} を通じて個別のクラスを指定でき、デフォルトのクラスの後にマージされます:",
+      "ar": "يأخذ كل جزء أصنافه الخاصة عبر {p0}، وتُدمج بعد القيم الافتراضية:"
+    },
+    "f4b7b6c8eeb05ae7": {
+      "es": "Texto de interfaz traducido",
+      "ja": "翻訳された UI テキスト",
+      "ar": "نصوص الواجهة المترجمة"
+    },
+    "ee8f0b573b12bde7": {
+      "es": "Pasa {p0} para traducir el texto del menú de países, y {p1} para mostrar\nlos nombres de países en otro idioma. Los nombres proceden de <1>{p2}</1> del navegador,\npor lo que su redacción exacta puede variar ligeramente entre navegadores. La búsqueda coincide con el\nnombre traducido, mientras que {p3} sigue devolviendo el {p4} en inglés del país.\nLas props {p5} y {p6} siguen funcionando, y tienen prioridad sobre {p7}\ncuando se definen ambas.",
+      "ja": "国メニューのテキストを翻訳するには {p0} を、国名を別の言語で表示するには {p1} を渡します。\n国名はブラウザーの <1>{p2}</1> から取得されるため、表記はブラウザーによってわずかに異なる場合があります。\n検索は翻訳された名前に一致しますが、{p3} は引き続き国の英語の {p4} を返します。\n{p5} と {p6} の props も引き続き使用でき、両方が設定されている場合は {p7} より優先されます。",
+      "ar": "مرّر {p0} لترجمة نص قائمة الدول، و{p1} لعرض\nأسماء الدول بلغة أخرى. تأتي الأسماء من <1>{p2}</1> في المتصفح،\nلذا قد تختلف صياغتها قليلًا بين المتصفحات. يطابق البحث الاسم\nالمترجم، بينما يظل {p3} يُبلغ عن الاسم الإنجليزي للدولة {p4}.\nتظل الخاصيتان {p5} و{p6} تعملان، وتتغلبان على {p7}\nعند ضبطهما معًا."
+    },
+    "99a52df3ff3d4994": {
+      "es": "Clave",
+      "ja": "キー",
+      "ar": "المفتاح"
+    },
+    "21b111cbfe6e8fca": {
+      "es": "Predeterminado",
+      "ja": "デフォルト",
+      "ar": "الافتراضي"
+    },
+    "9cd881a5aac2fa5d": {
+      "es": "Se usa para",
+      "ja": "用途",
+      "ar": "يُستخدم في"
+    },
+    "eb3f44be5f8ea239": {
+      "es": "Etiqueta del disparador de país",
+      "ja": "国のトリガーラベル",
+      "ar": "تسمية زر فتح قائمة الدول"
+    },
+    "c613b8fc13f18768": {
+      "es": "Marcador de posición del campo de búsqueda",
+      "ja": "検索欄のプレースホルダー",
+      "ar": "النص النائب لحقل البحث"
+    },
+    "055558e859229d16": {
+      "es": "Etiqueta accesible del campo de búsqueda",
+      "ja": "検索欄のアクセシブルなラベル",
+      "ar": "تسمية إمكانية الوصول لحقل البحث"
+    },
+    "b3adc1ecd545707e": {
+      "es": "Etiqueta accesible del botón de borrar",
+      "ja": "クリアボタンのアクセシブルなラベル",
+      "ar": "تسمية إمكانية الوصول لزر المسح"
+    },
+    "773937946ca9616b": {
+      "es": "Se muestra cuando nada coincide",
+      "ja": "一致する項目がない場合に表示",
+      "ar": "يُعرض عند عدم وجود تطابق"
+    },
+    "3f08d26646d292e1": {
+      "es": "Etiqueta accesible de la lista de países",
+      "ja": "国一覧のアクセシブルなラベル",
+      "ar": "تسمية إمكانية الوصول لقائمة الدول"
+    },
+    "4204cfa201a69154": {
+      "es": "Soporte de teclado",
+      "ja": "キーボード操作",
+      "ar": "دعم لوحة المفاتيح"
+    },
+    "f42a5a6e35669243": {
+      "es": "El menú de países sigue el patrón combobox de WAI-ARIA: el foco permanece en el campo\nde búsqueda, que se expone como {p0}, y el país resaltado\nse anuncia mediante {p1}.",
+      "ja": "国メニューは WAI-ARIA のコンボボックスパターンに従います。\nフォーカスは検索欄に留まり、検索欄は {p0} として公開されます。\nハイライトされた国は {p1} を通じて読み上げられます。",
+      "ar": "تتبع قائمة الدول نمط combobox في WAI-ARIA: يبقى التركيز في حقل البحث،\nالذي يُعرض كـ {p0}، ويُعلَن عن الدولة المميّزة\nعبر {p1}."
+    },
+    "64cff1319d2fd2cb": {
+      "es": "Acción",
+      "ja": "操作",
+      "ar": "الإجراء"
+    },
+    "826b30020faff853": {
+      "es": "{p0}, {p1} o clic",
+      "ja": "{p0}、{p1}、またはクリック",
+      "ar": "{p0}، {p1}، أو النقر"
+    },
+    "7c33204cdc8081ef": {
+      "es": "Abre el menú de países desde el disparador de bandera",
+      "ja": "国旗のトリガーから国メニューを開きます",
+      "ar": "افتح قائمة الدول من زر العلم"
+    },
+    "da766082e5fc56f7": {
+      "es": "{p0} / {p1} (cerrado)",
+      "ja": "{p0} / {p1}（閉じている状態）",
+      "ar": "{p0} / {p1} (مغلقة)"
+    },
+    "ee4109d219ed0d2b": {
+      "es": "Abre con el primer / último país resaltado",
+      "ja": "最初または最後の国がハイライトされた状態で開きます",
+      "ar": "افتح مع تمييز أول دولة / آخر دولة"
+    },
+    "0f937829d3caaa53": {
+      "es": "Mueve el resaltado, dando la vuelta en ambos extremos",
+      "ja": "ハイライトを移動します。両端で循環します",
+      "ar": "انقل التمييز، مع الالتفاف عند الطرفين"
+    },
+    "ecda1d289af09a3b": {
+      "es": "Resalta el primer / último país",
+      "ja": "最初または最後の国をハイライトします",
+      "ar": "مميّز أول دولة / آخر دولة"
+    },
+    "9f6650f91aa1c0c3": {
+      "es": "Selecciona el país resaltado; el foco pasa al campo de número",
+      "ja": "ハイライトされた国を選択します。フォーカスは番号欄に移動します",
+      "ar": "اختر الدولة المميّزة؛ ينتقل التركيز إلى حقل الرقم"
+    },
+    "edddb45ffd01903f": {
+      "es": "Cierra el menú y devuelve el foco al disparador de bandera",
+      "ja": "メニューを閉じ、フォーカスを国旗のトリガーに戻します",
+      "ar": "أغلق القائمة وأعد التركيز إلى زر العلم"
+    },
+    "25dfb9b4b32f9ad6": {
+      "es": "Escritura",
+      "ja": "入力",
+      "ar": "الكتابة"
+    },
+    "173ecc1cf1986697": {
+      "es": "Filtra por nombre, código o prefijo telefónico; el resaltado vuelve al principio",
+      "ja": "名前、コード、国番号で絞り込みます。ハイライトは先頭に戻ります",
+      "ar": "صفِّ حسب الاسم أو الرمز أو رمز الاتصال؛ يبدأ التمييز من الأعلى مجددًا"
+    },
+    "f45321291f235532": {
+      "es": "El resaltado se mantiene en la fila en la que apareció al abrir el menú: la\nlista se desplaza por debajo, como un menú nativo, y la página nunca\nse desplaza. Pasa {p0} para cambiar la altura de la lista de países antes de que empiece a desplazarse.",
+      "ja": "ハイライトは、メニューを開いたときに表示されていた行に留まります。\nネイティブのメニューのように、一覧はその下でスクロールします。\nページ自体はスクロールしません。\n{p0} を渡すと、スクロールが始まるまでの国一覧の高さを変更できます。",
+      "ar": "يبقى التمييز على الصف الذي ظهر فيه عند فتح القائمة — وتتمرر القائمة\nأسفله، كالقائمة الأصلية — ولا تتمرر الصفحة نفسها أبدًا. مرّر {p0} لتغيير\nارتفاع قائمة الدول قبل أن تبدأ بالتمرير."
+    },
+    "5697d03daef4de9c": {
+      "es": "Características",
+      "ja": "機能",
+      "ar": "الميزات"
+    },
+    "1a51c42c3dcd4ada": {
+      "es": "<1>50 países</1> — precargados con prefijos, banderas y nombres",
+      "ja": "<1>50 か国</1> — 国番号、国旗、国名をあらかじめ読み込み済み",
+      "ar": "<1>50 دولة</1> — محمّلة مسبقًا برموز الاتصال والأعلام والأسماء"
+    },
+    "d783eabaeebf9793": {
+      "es": "<1>Búsqueda en el desplegable</1> — filtra países por nombre o prefijo telefónico",
+      "ja": "<1>ドロップダウン検索</1> — 国名または国番号で絞り込み",
+      "ar": "<1>بحث في القائمة</1> — صفِّ الدول حسب الاسم أو رمز الاتصال"
+    },
+    "fb273e3199c1812c": {
+      "es": "<1>Emojis de bandera</1> — detectados automáticamente a partir del código de país, con un interruptor {p0}",
+      "ja": "<1>国旗の絵文字</1> — 国コードから自動検出されます。{p0} で切り替え可能",
+      "ar": "<1>أعلام emoji</1> — تُكتشف تلقائيًا من رمز الدولة، مع مفتاح {p0}"
+    },
+    "0bc218795a0234c5": {
+      "es": "<1>Accesible con teclado</1> — navegación con flechas, Inicio / Fin, Intro y Escape",
+      "ja": "<1>キーボードでの操作に対応</1> — 矢印キー、Home / End、Enter、Escape で操作可能",
+      "ar": "<1>متاح عبر لوحة المفاتيح</1> — التنقل بمفاتيح الأسهم وHome / End وEnter وEscape"
+    },
+    "ace3a43d4b2c72b4": {
+      "es": "<1>Etiquetas ARIA</1> — campo de búsqueda {p0} con {p1}, además de {p2}, {p3} y {p4}",
+      "ja": "<1>ARIA ラベル</1> — {p1} を持つ {p0} 検索欄に加え、{p2}、{p3}、{p4}",
+      "ar": "<1>تسميات ARIA</1> — حقل البحث {p0} مع {p1}، إضافةً إلى {p2} و{p3} و{p4}"
+    },
+    "52a2600d97268380": {
+      "es": "<1>Personalizable con temas</1> — con estilos basados en los tokens de shadcn/ui ({p0}, {p1}, {p2}), así que sigue tu tema y el modo oscuro",
+      "ja": "<1>テーマ変更に対応</1> — shadcn/ui のトークン（{p0}、{p1}、{p2}）でスタイル設定されているため、テーマとダークモードに追従します",
+      "ar": "<1>قابل للتخصيص بالسمات</1> — منسّق برموز shadcn/ui ({p0}، {p1}، {p2})، فيتبع سمتك ووضع الداكن"
+    },
+    "00b2f325b935359e": {
+      "es": "<1>Menú animado</1> — aparece y desaparece con {p0}, respeta la configuración de movimiento reducido y cambia hacia arriba cuando no hay espacio debajo",
+      "ja": "<1>アニメーション付きメニュー</1> — {p0} でフェードイン・フェードアウトし、モーション軽減設定を尊重します。下にスペースがない場合は上方向に反転します",
+      "ar": "<1>قائمة متحركة</1> — تتلاشى ظهورًا واختفاءً عبر {p0}، مع احترام إعدادات تقليل الحركة، وتتجه للأعلى عند عدم وجود مساحة أسفلها"
+    },
+    "9ed5cf839abe95f9": {
+      "es": "<1>Controlado/no controlado</1> — funciona con o sin {p0} y {p1}",
+      "ja": "<1>制御／非制御の両方に対応</1> — {p0} と {p1} の有無に関わらず動作します",
+      "ar": "<1>متحكَّم به / غير متحكَّم به</1> — يعمل مع {p0} و{p1} أو بدونهما"
+    },
+    "0464e1e0d38e333a": {
+      "es": "<1>Detección del prefijo telefónico</1> — al escribir o pegar {p0} el país cambia a GB y se elimina el prefijo; los prefijos compartidos ({p1}, {p2}) mantienen la selección actual",
+      "ja": "<1>国番号による自動検出</1> — {p0} を入力または貼り付けると国が GB に切り替わり、プレフィックスは取り除かれます。共有の国番号（{p1}、{p2}）の場合は現在の選択を維持します",
+      "ar": "<1>اكتشاف رمز الاتصال</1> — كتابة {p0} أو لصقه يبدّل الدولة إلى GB ويحذف البادئة؛ والرموز المشتركة ({p1}، {p2}) تُبقي التحديد الحالي"
+    },
+    "7db0f7fb7c77f814": {
+      "es": "Países compatibles",
+      "ja": "対応している国",
+      "ar": "الدول المدعومة"
+    },
+    "422073b98004ae38": {
+      "es": "El campo incluye 50 países precargados. Usa la búsqueda del desplegable para encontrar cualquier país por nombre o prefijo telefónico. La lista completa incluye:",
+      "ja": "この入力欄には 50 か国があらかじめ読み込まれています。ドロップダウン検索を使うと、国名または国番号で任意の国を探せます。対象の国は次のとおりです:",
+      "ar": "يأتي الحقل مع 50 دولة محمّلة مسبقًا. استخدم بحث القائمة المنسدلة للعثور على أي دولة بالاسم أو رمز الاتصال. تشمل القائمة الكاملة:"
+    },
+    "701d021d08c54579": {
+      "es": "País",
+      "ja": "国",
+      "ar": "الدولة"
+    },
+    "340f463033e0fd5d": {
+      "es": "Código",
+      "ja": "コード",
+      "ar": "الرمز"
+    },
+    "d14e072e6a6d5353": {
+      "es": "Prefijo telefónico",
+      "ja": "国番号",
+      "ar": "رمز الاتصال"
+    },
+    "552127973f8424e1": {
+      "es": "Bandera",
+      "ja": "国旗",
+      "ar": "العلم"
+    },
+    "49dca65f362fee40": {
+      "es": "Estados Unidos",
+      "ja": "アメリカ合衆国",
+      "ar": "الولايات المتحدة"
+    },
+    "8d23a6e37e0a6431": {
+      "es": "Reino Unido",
+      "ja": "イギリス",
+      "ar": "المملكة المتحدة"
+    },
+    "be55ef3f4c4e6c2d": {
+      "es": "Canadá",
+      "ja": "カナダ",
+      "ar": "كندا"
+    },
+    "c1ef40ce0484c698": {
+      "es": "Australia",
+      "ja": "オーストラリア",
+      "ar": "أستراليا"
+    },
+    "abd149214539d9f2": {
+      "es": "India",
+      "ja": "インド",
+      "ar": "الهند"
+    },
+    "80db4ccdca106d37": {
+      "es": "Alemania",
+      "ja": "ドイツ",
+      "ar": "ألمانيا"
+    },
+    "7a1ca4ef7515f727": {
+      "es": "Francia",
+      "ja": "フランス",
+      "ar": "فرنسا"
+    },
+    "647294383b2cbc24": {
+      "es": "Japón",
+      "ja": "日本",
+      "ar": "اليابان"
+    },
+    "07f62b021771d3cf": {
+      "es": "Brasil",
+      "ja": "ブラジル",
+      "ar": "البرازيل"
+    },
+    "c85329e3779e4096": {
+      "es": "Corea del Sur",
+      "ja": "韓国",
+      "ar": "كوريا الجنوبية"
+    },
+    "d901eddebde18e69": {
+      "es": "...y 40 más mediante la búsqueda del desplegable",
+      "ja": "……ほか 40 か国はドロップダウン検索からご覧いただけます",
+      "ar": "...و40 دولة أخرى عبر بحث القائمة المنسدلة"
+    },
+    "2e41b118eb209c13": {
+      "es": "Dependencias",
+      "ja": "依存関係",
+      "ar": "الاعتماديات"
+    },
+    "3c7c7b791dae259d": {
+      "es": "Este componente usa:",
+      "ja": "このコンポーネントは次を使用しています:",
+      "ar": "يستخدم هذا المكوّن:"
+    },
+    "13b71eb82d8dad5f": {
+      "es": "{p0} y {p1} (incluidos como dependencias)",
+      "ja": "{p0} と {p1}（dependencies としてバンドル）",
+      "ar": "{p0} و{p1} (مُضمّنة كاعتماديات)"
+    },
+    "6a923e148279c4e3": {
+      "es": "{p0} para los iconos y {p1} para la animación del menú",
+      "ja": "アイコンには {p0}、メニューのアニメーションには {p1} を使用",
+      "ar": "{p0} للأيقونات و{p1} لحركة القائمة"
+    },
+    "ee5cf1429e414d71": {
+      "es": "Dependencias de pares:",
+      "ja": "peerDependencies:",
+      "ar": "الاعتماديات النظيرة:"
+    },
+    "2a6b24ad28722034": {
+      "es": "Créditos",
+      "ja": "クレジット",
+      "ar": "الإسناد"
+    },
+    "a2004bf344d93e04": {
+      "es": "Creado por <1>sapatmohit</1>.",
+      "ja": "作成者: <1>sapatmohit</1>。",
+      "ar": "من إنشاء <1>sapatmohit</1>."
+    },
+    "c9e30d51fc110b88": {
+      "es": "Selector de idioma en píldora",
+      "ja": "言語スイッチャー Pill",
+      "ar": "كبسولة مبدّل اللغة"
+    },
+    "727fa7dab3a551f2": {
+      "es": "Selector de idioma animado en estilo píldora para React, con navegación por teclado y compatibilidad con RTL.",
+      "ja": "キーボード操作と RTL サポートに対応した、React 向けのアニメーション付きピル型言語スイッチャーです。",
+      "ar": "مبدّل لغة متحرك بأسلوب الكبسولة لـ React مع التنقل بلوحة المفاتيح ودعم RTL."
+    },
+    "85a39ab345d672ff": {
+      "es": "Sí",
+      "ja": "はい",
+      "ar": "نعم"
+    },
+    "4bab028d1454fa33": {
+      "es": "Array de configuraciones regionales disponibles; solo {p0} es obligatorio",
+      "ja": "利用可能なロケールの配列です。必須なのは {p0} のみです",
+      "ar": "مصفوفة الإعدادات المحلية المتاحة — {p0} فقط مطلوب"
+    },
+    "61253fdc69da01f1": {
+      "es": "Código de configuración regional seleccionado: pásalo para controlar el componente",
+      "ja": "選択中のロケールコード。コンポーネントを制御するにはこの値を渡します",
+      "ar": "رمز الإعدادات المحلية المحدد — مرّره للتحكم في المكوّن"
+    },
+    "625d7a078de814c1": {
+      "es": "Código de configuración regional inicial cuando no está controlado (predeterminado: código de la primera configuración regional)",
+      "ja": "非制御時の初期選択ロケールコード（デフォルト: 最初のロケールのコード）",
+      "ar": "رمز الإعدادات المحلية المحدد الأولي عند عدم التحكم (الافتراضي: رمز أول إعدادات محلية)"
+    },
+    "94f4b99d1752ca9a": {
+      "es": "Callback que se ejecuta cuando cambia la configuración regional seleccionada",
+      "ja": "選択中のロケールが変更されたときのコールバック",
+      "ar": "دالة استدعاء عند تغيّر الإعدادات المحلية المحددة"
+    },
+    "563f207515c96b68": {
+      "es": "Riel segmentado sin borde o con borde (predeterminado: {p0})",
+      "ja": "控えめなセグメント型トラックまたは枠付きトラック（デフォルト: {p0}）",
+      "ar": "مسار مقسّم خافت أو مسار بإطار (الافتراضي: {p0})"
+    },
+    "c5577e3b52d1c8e1": {
+      "es": "Tamaño de la píldora (predeterminado: {p0})",
+      "ja": "Pill のサイズ（デフォルト: {p0}）",
+      "ar": "حجم الكبسولة (الافتراضي: {p0})"
+    },
+    "b266618292e9f6b4": {
+      "es": "Muestra el emoji de bandera de cada configuración regional antes de su etiqueta (predeterminado: {p0})",
+      "ja": "各ロケールのラベルの前に国旗の絵文字を表示します（デフォルト: {p0}）",
+      "ar": "إظهار علم emoji لكل إعدادات محلية قبل تسميتها (الافتراضي: {p0})"
+    },
+    "69f820050cc50c63": {
+      "es": "Desactiva todas las píldoras",
+      "ja": "すべての Pill を無効にします",
+      "ar": "تعطيل كل الكبسولات"
+    },
+    "33d081a74a39ebe3": {
+      "es": "Etiqueta accesible del grupo de radio (predeterminado: {p0})",
+      "ja": "ラジオグループのアクセシブルなラベル（デフォルト: {p0}）",
+      "ar": "تسمية إمكانية الوصول لمجموعة الأزرار (الافتراضي: {p0})"
+    },
+    "1d9df3140e2f95bc": {
+      "es": "Sustituciones de clases por parte; consulta más abajo",
+      "ja": "パーツごとのクラス上書き。詳しくは下記を参照してください",
+      "ar": "تجاوزات الأصناف لكل جزء — انظر أدناه"
+    },
+    "84972ad52d6ecb84": {
+      "es": "Clases CSS adicionales para el contenedor de píldoras",
+      "ja": "Pill コンテナーに追加する CSS クラス",
+      "ar": "أصناف CSS إضافية لحاوية الكبسولات"
+    },
+    "172b01c2bf42c96d": {
+      "es": "El resto de las props de {p0} se reenvían al elemento raíz.",
+      "ja": "残りの {p0} props はルート要素に転送されます。",
+      "ar": "تُمرَّر خصائص {p0} المتبقية إلى العنصر الجذري."
+    },
+    "79052560310cdbf1": {
+      "es": "Nombres de clase",
+      "ja": "クラス名",
+      "ar": "أسماء الأصناف"
+    },
+    "7079cd23c1763f2c": {
+      "es": "Cada parte admite sus propias clases, que se combinan después de los valores predeterminados, para que puedas cambiar el estilo de una pieza\nsin bifurcar el componente:",
+      "ja": "各パーツは独自のクラスを指定でき、デフォルトのクラスの後にマージされます。\nそのため、コンポーネントをフォークしなくても、一部分だけスタイルを変更できます:",
+      "ar": "يأخذ كل جزء أصنافه الخاصة، وتُدمج بعد القيم الافتراضية، فتستطيع إعادة تنسيق جزء واحد\nدون تعديل المكوّن نفسه:"
+    },
+    "79689782061dec13": {
+      "es": "Slot",
+      "ja": "スロット",
+      "ar": "الفتحة"
+    },
+    "4e5b548d6d61f000": {
+      "es": "Elemento",
+      "ja": "要素",
+      "ar": "العنصر"
+    },
+    "0481b639cb6fb865": {
+      "es": "El riel que contiene todas las píldoras",
+      "ja": "すべての Pill を保持するトラック",
+      "ar": "المسار الذي يحوي كل الكبسولات"
+    },
+    "08e5450400470ab7": {
+      "es": "Cada píldora de configuración regional",
+      "ja": "各ロケールの Pill",
+      "ar": "كل كبسولة إعدادات محلية"
+    },
+    "c5aa7f06af0af190": {
+      "es": "Solo la píldora seleccionada",
+      "ja": "選択中の Pill のみ",
+      "ar": "الكبسولة المحددة فقط"
+    },
+    "0e948bc67ec3bef9": {
+      "es": "El indicador con animación de resorte detrás de la píldora",
+      "ja": "Pill の背後にあるスプリングアニメーションのインジケーター",
+      "ar": "المؤشر المتحرك بنظام الزنبرك خلف الكبسولة"
+    },
+    "980dd59fadd5e333": {
+      "es": "La bandera que se muestra cuando {p0} está definido",
+      "ja": "{p0} が設定されているときに表示される国旗",
+      "ar": "العلم المعروض عند ضبط {p0}"
+    },
+    "fc1754e4e8687365": {
+      "es": "El componente usa los tokens de tema de shadcn/ui ({p0}, {p1},\n{p2}, {p3}), así que adopta tu tema automáticamente.",
+      "ja": "このコンポーネントは shadcn/ui のテーマトークン（{p0}、{p1}、{p2}、{p3}）でスタイル設定されているため、お使いのテーマが自動的に反映されます。",
+      "ar": "يُنسَّق المكوّن برموز سمة shadcn/ui ({p0}، {p1}،\n{p2}، {p3})، فيأخذ سمتك تلقائيًا."
+    },
+    "7e708a18215433bf": {
+      "es": "Objeto de configuración regional",
+      "ja": "Locale オブジェクト",
+      "ar": "كائن الإعدادات المحلية"
+    },
+    "0d93e635f46eaeff": {
+      "es": "Código ISO 639-1 / BCP 47 (p. ej. {p0}, {p1}, {p2}) — <1>obligatorio</1>",
+      "ja": "ISO 639-1 / BCP 47 コード（例: {p0}、{p1}、{p2}）— <1>必須</1>",
+      "ar": "رمز ISO 639-1 / BCP 47 (مثل {p0}، {p1}، {p2}) — <1>مطلوب</1>"
+    },
+    "f6096e96caf41f13": {
+      "es": "Nombre visible para la píldora de idioma",
+      "ja": "言語 Pill の表示名",
+      "ar": "اسم العرض لكبسولة اللغة"
+    },
+    "0a4ffecad9f64174": {
+      "es": "Emoji de bandera que se muestra con {p0} (se resuelve automáticamente si se omite)",
+      "ja": "{p0} と併せて表示される国旗の絵文字（省略時は自動で解決されます）",
+      "ar": "علم emoji يُعرض مع {p0} (يُحدَّد تلقائيًا عند الحذف)"
+    },
+    "c7b9719a67cc46bc": {
+      "es": "Sustituye la dirección RTL para el formateo de texto (se detecta automáticamente si se omite)",
+      "ja": "テキストの組版に使う RTL 方向を上書きします（省略時は自動検出されます）",
+      "ar": "تجاوز اتجاه RTL لتشكيل النص (يُكتشف تلقائيًا عند الحذف)"
+    },
+    "01fee9768a0e989b": {
+      "es": "Combina el selector de idioma en píldora con el <1>SDK de Babelize</1> para traducciones automáticas:",
+      "ja": "自動翻訳のために、言語スイッチャー Pill を <1>Babelize SDK</1> と組み合わせます:",
+      "ar": "اقرن كبسولة مبدّل اللغة مع <1>Babelize SDK</1> للترجمة التلقائية:"
+    },
+    "98b87368e54089a1": {
+      "es": "Con next-intl",
+      "ja": "next-intl を使う場合",
+      "ar": "مع next-intl"
+    },
+    "79a7fd1cce624933": {
+      "es": "Con react-i18next",
+      "ja": "react-i18next を使う場合",
+      "ar": "مع react-i18next"
+    },
+    "b41f5486122aee1f": {
+      "es": "Variantes y tamaños",
+      "ja": "バリアントとサイズ",
+      "ar": "المتغيرات والأحجام"
+    },
+    "bf4e7f6b3fe16370": {
+      "es": "Navegación por teclado",
+      "ja": "キーボード操作",
+      "ar": "التنقل بلوحة المفاتيح"
+    },
+    "79446b3205117685": {
+      "es": "<1>Flecha derecha</1> — Pasa al siguiente idioma (el anterior en diseños RTL).",
+      "ja": "<1>右矢印</1> — 次の言語に移動します（RTL レイアウトでは前の言語）。",
+      "ar": "<1>سهم لليمين</1> — الانتقال إلى اللغة التالية (أو السابقة في تخطيطات RTL)."
+    },
+    "1f5489e33d4872b2": {
+      "es": "<1>Flecha izquierda</1> — Pasa al idioma anterior (el siguiente en diseños RTL).",
+      "ja": "<1>左矢印</1> — 前の言語に移動します（RTL レイアウトでは次の言語）。",
+      "ar": "<1>سهم لليسار</1> — الانتقال إلى اللغة السابقة (أو التالية في تخطيطات RTL)."
+    },
+    "3cf49e571ab8e4b7": {
+      "es": "<1>Inicio</1> — Pasa al primer idioma.",
+      "ja": "<1>Home</1> — 最初の言語に移動します。",
+      "ar": "<1>Home</1> — الانتقال إلى أول لغة."
+    },
+    "e412231ea3467707": {
+      "es": "<1>Fin</1> — Pasa al último idioma.",
+      "ja": "<1>End</1> — 最後の言語に移動します。",
+      "ar": "<1>End</1> — الانتقال إلى آخر لغة."
+    },
+    "2b74e386a5f867f7": {
+      "es": "<1>Intro / Espacio</1> — Selecciona el idioma enfocado.",
+      "ja": "<1>Enter / Space</1> — フォーカスされている言語を選択します。",
+      "ar": "<1>Enter / Space</1> — اختيار اللغة المركّزة."
+    },
+    "f37529c003219f34": {
+      "es": "Soporte de RTL",
+      "ja": "RTL サポート",
+      "ar": "دعم RTL"
+    },
+    "7f6cc042ce9f6750": {
+      "es": "El componente admite idiomas que se escriben de derecha a izquierda, como árabe, hebreo, persa, urdu, pastún, sindhi y yidis.",
+      "ja": "このコンポーネントは、アラビア語、ヘブライ語、ペルシア語、ウルドゥー語、パシュトー語、シンド語、イディッシュ語など、右から左に書く言語に対応しています。",
+      "ar": "يدعم المكوّن اللغات التي تُكتب من اليمين إلى اليسار، مثل العربية والعبرية والفارسية والأردية والباشتو والسندية واليديشية."
+    },
+    "d05ba98226911534": {
+      "es": "La dirección de cada configuración regional se aplica a cada píldora para un formateo de texto correcto, mientras que el diseño general y la navegación con flechas respetan el {p0} del documento o del contenedor.",
+      "ja": "テキストを正しく組版するために、ロケールごとの方向は個々の Pill に適用されます。一方、全体のレイアウトと矢印キーによる操作は、ドキュメントまたはコンテナーの {p0} に従います。",
+      "ar": "يُطبَّق اتجاه كل إعدادات محلية على كبسولاتها الفردية لتشكيل النص بشكل صحيح، بينما يحترم التخطيط العام والتنقل بالأسهم اتجاه المستند أو الحاوية {p0}."
+    },
+    "a792a8f380224802": {
+      "es": "Selector de idioma",
+      "ja": "言語スイッチャー",
+      "ar": "مبدّل اللغة"
+    },
+    "cd20d08cc7a7c4ea": {
+      "es": "Selector de idioma para React listo para copiar y pegar, con desplegable, búsqueda, compatibilidad con RTL y accesibilidad completa. Funciona con next-intl, react-i18next y cualquier configuración de i18n.",
+      "ja": "ドロップダウン、検索、RTL サポート、完全なアクセシビリティを備えた、コピー＆ペーストで使える React 向けの言語スイッチャーです。next-intl、react-i18next、その他の i18n 設定で動作します。",
+      "ar": "مبدّل لغة لـ React جاهز للنسخ واللصق، مع قائمة منسدلة وبحث ودعم RTL وإمكانية وصول كاملة. يعمل مع next-intl وreact-i18next وأي إعداد i18n."
+    },
+    "67970186e12bf5a1": {
+      "es": "Código de idioma seleccionado inicialmente (predeterminado: código del primer idioma)",
+      "ja": "初期選択ロケールコード（デフォルト: 最初のロケールのコード）",
+      "ar": "رمز الإعدادات المحلية المحدد الأولي (الافتراضي: رمز أول إعدادات محلية)"
+    },
+    "1e058f93e92bf4d4": {
+      "es": "Callback que se ejecuta cuando cambia la configuración regional",
+      "ja": "ロケールが変更されたときのコールバック",
+      "ar": "دالة استدعاء عند تغيّر الإعدادات المحلية"
+    },
+    "b2fad9289cb6d1c9": {
+      "es": "Etiquetas visibles en el idioma nativo o en inglés (predeterminado: {p0})",
+      "ja": "表示ラベルをネイティブ言語または英語で表示します（デフォルト: {p0}）",
+      "ar": "عرض التسميات باللغة الأصلية أو الإنجليزية (الافتراضي: {p0})"
+    },
+    "10849df7d515bede": {
+      "es": "Muestra los emojis de bandera (predeterminado: {p0})",
+      "ja": "国旗の絵文字を表示します（デフォルト: {p0}）",
+      "ar": "إظهار أعلام emoji (الافتراضي: {p0})"
+    },
+    "9df74fada751b5f4": {
+      "es": "Altura máxima de la lista de opciones con desplazamiento (predeterminado: {p0})",
+      "ja": "スクロールする選択肢一覧の最大の高さ（デフォルト: {p0}）",
+      "ar": "أقصى ارتفاع لقائمة الخيارات القابلة للتمرير (الافتراضي: {p0})"
+    },
+    "eef5b0fad41d8aff": {
+      "es": "Muestra el código de configuración regional junto a cada opción (predeterminado: {p0})",
+      "ja": "各選択肢の横にロケールコードを表示します（デフォルト: {p0}）",
+      "ar": "إظهار رمز الإعدادات المحلية بجانب كل خيار (الافتراضي: {p0})"
+    },
+    "a41584eacb07c99c": {
+      "es": "Estilo del disparador (predeterminado: {p0})",
+      "ja": "トリガーのスタイル（デフォルト: {p0}）",
+      "ar": "نمط الزر المُشغّل (الافتراضي: {p0})"
+    },
+    "6980fb862af1facc": {
+      "es": "Tamaño del disparador (predeterminado: {p0})",
+      "ja": "トリガーのサイズ（デフォルト: {p0}）",
+      "ar": "حجم الزر المُشغّل (الافتراضي: {p0})"
+    },
+    "588927c22439dafe": {
+      "es": "Borde del disparador con el que se alinea el menú (predeterminado: {p0})",
+      "ja": "メニューを揃えるトリガーの辺（デフォルト: {p0}）",
+      "ar": "الحافة التي تصطف القائمة معها في الزر المُشغّل (الافتراضي: {p0})"
+    },
+    "67b49ccc8a6cbbc5": {
+      "es": "Muestra el campo de búsqueda (predeterminado: {p0})",
+      "ja": "検索欄を表示します（デフォルト: {p0}）",
+      "ar": "إظهار حقل البحث (الافتراضي: {p0})"
+    },
+    "f0a3aa097c8fa9c8": {
+      "es": "Marcador de posición de la búsqueda (predeterminado: {p0})",
+      "ja": "検索欄のプレースホルダー（デフォルト: {p0}）",
+      "ar": "النص النائب للبحث (الافتراضي: {p0})"
+    },
+    "6d416516a2670733": {
+      "es": "Desactiva el disparador",
+      "ja": "トリガーを無効にします",
+      "ar": "تعطيل الزر المُشغّل"
+    },
+    "200eb7beaf56a0a1": {
+      "es": "Sustituye el contenido de cada fila de opción; {p0} tiene {p1}, {p2}, {p3}, {p4}",
+      "ja": "各選択肢の行の内容を置き換えます。{p0} には {p1}、{p2}、{p3}、{p4} があります",
+      "ar": "استبدال محتوى كل صف خيار؛ يحوي {p0} على {p1} و{p2} و{p3} و{p4}"
+    },
+    "390dad70a63fc790": {
+      "es": "Clases por parte: {p0}, {p1}, {p2}, {p3}, {p4}, {p5}",
+      "ja": "パーツごとのクラス: {p0}、{p1}、{p2}、{p3}、{p4}、{p5}",
+      "ar": "أصناف لكل جزء: {p0}، {p1}، {p2}، {p3}، {p4}، {p5}"
+    },
+    "4902189e96cf6fb9": {
+      "es": "Clases CSS adicionales en la raíz",
+      "ja": "ルートに追加する CSS クラス",
+      "ar": "أصناف CSS إضافية على الجذر"
+    },
+    "63af21e5f0c7d98d": {
+      "es": "Nombre visible personalizado (se resuelve automáticamente desde la asignación integrada si se omite)",
+      "ja": "表示名を上書きします（省略時は組み込みのマッピングから自動で解決されます）",
+      "ar": "تجاوز اسم العرض (يُحدَّد تلقائيًا من الجدول المدمج عند الحذف)"
+    },
+    "2396c84b901f2997": {
+      "es": "Emoji de bandera personalizado (se detecta automáticamente desde el código si se omite)",
+      "ja": "国旗の絵文字を上書きします（省略時はコードから自動検出されます）",
+      "ar": "تجاوز علم emoji (يُكتشف تلقائيًا من الرمز عند الحذف)"
+    },
+    "7b7e9014e884312e": {
+      "es": "Sustitución de RTL (se detecta automáticamente desde el código si se omite)",
+      "ja": "RTL を上書きします（省略時はコードから自動検出されます）",
+      "ar": "تجاوز RTL (يُكتشف تلقائيًا من الرمز عند الحذف)"
+    },
+    "56dd7eecda17dc6d": {
+      "es": "Combina el selector de idioma con el <1>SDK de Babelize</1> para traducciones automáticas:",
+      "ja": "自動翻訳のために、言語スイッチャーを <1>Babelize SDK</1> と組み合わせます:",
+      "ar": "اقرن مبدّل اللغة مع <1>Babelize SDK</1> للترجمة التلقائية:"
+    },
+    "c3aa338d4e973940": {
+      "es": "Etiquetas nativas + banderas",
+      "ja": "ネイティブラベル＋国旗",
+      "ar": "التسميات الأصلية + الأعلام"
+    },
+    "d8de9e5476bf2f67": {
+      "es": "El selector usa tokens de tema de shadcn, así que sigue tu tema. Usa\n{p0} para cambiar el estilo de cualquier parte, o {p1} para cambiar lo que muestra cada fila:",
+      "ja": "このスイッチャーは shadcn のテーマトークンでスタイル設定されているため、お使いのテーマに追従します。\n任意のパーツのスタイルを変更するには {p0} を、各行に表示する内容を変更するには {p1} を使用します:",
+      "ar": "يُنسَّق المبدّل برموز سمة shadcn، فيتبع سمتك. استخدم\n{p0} لإعادة تنسيق أي جزء، أو {p1} لتغيير ما يعرضه كل صف:"
+    },
+    "cda0d561bb7754f7": {
+      "es": "El marcador de posición de búsqueda, el estado vacío y las etiquetas accesibles usan inglés de forma predeterminada. Pasa\n{p0} para traducirlos: cualquier clave que omitas conserva su valor en inglés. Las props {p1} y {p2} siguen funcionando y tienen prioridad sobre {p3} cuando\nambas están definidas.",
+      "ja": "検索欄のプレースホルダー、空の状態、アクセシブルなラベルは、デフォルトで英語です。\n翻訳するには {p0} を渡します。\n省略したキーは英語のデフォルトのままになります。\n{p1} と {p2} の props も引き続き使用でき、両方が設定されている場合は {p3} より優先されます。",
+      "ar": "تكون النصوص النائبة للبحث وحالة الفراغ وتسميات إمكانية الوصول بالإنجليزية افتراضيًا. مرّر\n{p0} لترجمتها — وأي مفتاح تتركه يحتفظ بقيمته الإنجليزية الافتراضية. وتظل\nالخاصيتان {p1} و{p2} تعملان، وتتغلبان على {p3}\nعند ضبطهما معًا."
+    },
+    "6b5a8f5e1800d053": {
+      "es": "Etiqueta accesible de la lista de opciones",
+      "ja": "選択肢一覧のアクセシブルなラベル",
+      "ar": "تسمية إمكانية الوصول لقائمة الخيارات"
+    },
+    "d3481c3387a9d190": {
+      "es": "Etiqueta accesible del disparador",
+      "ja": "トリガーのアクセシブルなラベル",
+      "ar": "تسمية إمكانية الوصول للزر المُشغّل"
+    },
+    "b211cda2ca2f538a": {
+      "es": "El popup sigue el patrón combobox de WAI-ARIA: el foco permanece en el campo de búsqueda,\nque se expone como {p0}, y la opción resaltada se anuncia\nmediante {p1}.",
+      "ja": "ポップアップは WAI-ARIA のコンボボックスパターンに従います。\nフォーカスは検索欄に留まり、検索欄は {p0} として公開されます。\nハイライトされた選択肢は {p1} を通じて読み上げられます。",
+      "ar": "تتبع النافذة المنبثقة نمط combobox في WAI-ARIA: يبقى التركيز في حقل البحث،\nالذي يُعرض كـ {p0}، ويُعلَن عن الخيار المميّز\nعبر {p1}."
+    },
+    "97714bec8811c556": {
+      "es": "Abre el popup desde el disparador",
+      "ja": "トリガーからポップアップを開きます",
+      "ar": "افتح النافذة المنبثقة من الزر المُشغّل"
+    },
+    "36c79279948228f1": {
+      "es": "Abre con la primera / última configuración regional resaltada",
+      "ja": "最初または最後のロケールがハイライトされた状態で開きます",
+      "ar": "افتح مع تمييز أول إعدادات محلية / آخرها"
+    },
+    "0c77a32c398ec736": {
+      "es": "Resalta la primera / última configuración regional",
+      "ja": "最初または最後のロケールをハイライトします",
+      "ar": "مميّز أول إعدادات محلية / آخرها"
+    },
+    "759f8c4ed16a104a": {
+      "es": "Selecciona la configuración regional resaltada y devuelve el foco al disparador",
+      "ja": "ハイライトされたロケールを選択し、フォーカスをトリガーに戻します",
+      "ar": "اختر الإعدادات المحلية المميّزة وأعد التركيز إلى الزر المُشغّل"
+    },
+    "2adbef388a892377": {
+      "es": "Cierra el popup y devuelve el foco al disparador",
+      "ja": "ポップアップを閉じ、フォーカスをトリガーに戻します",
+      "ar": "أغلق النافذة المنبثقة وأعد التركيز إلى الزر المُشغّل"
+    },
+    "87e2b83840562d9e": {
+      "es": "Filtra por nombre o código; el resaltado vuelve al principio",
+      "ja": "名前またはコードで絞り込みます。ハイライトは先頭に戻ります",
+      "ar": "صفِّ حسب الاسم أو الرمز؛ يبدأ التمييز من الأعلى مجددًا"
+    },
+    "0a3f8f94900a2a59": {
+      "es": "El resaltado se mantiene en la fila en la que apareció al abrir el menú: la\nlista se desplaza por debajo, como un menú nativo, y la página nunca\nse desplaza. Pasa {p0} para cambiar la altura de la lista antes de que empiece a desplazarse.",
+      "ja": "ハイライトは、メニューを開いたときに表示されていた行に留まります。\nネイティブのメニューのように、一覧はその下でスクロールします。\nページ自体はスクロールしません。{p0} を渡すと、スクロールが始まるまでの一覧の高さを変更できます。",
+      "ar": "يبقى التمييز على الصف الذي ظهر فيه عند فتح القائمة — وتتمرر القائمة\nأسفله، كالقائمة الأصلية — ولا تتمرر الصفحة نفسها أبدًا. مرّر {p0} لتغيير\nارتفاع القائمة قبل أن تبدأ بالتمرير."
+    },
+    "ae7ab856b839b816": {
+      "es": "<1>Sin configuración</1> — basta con pasar los códigos; las etiquetas y banderas se resuelven automáticamente",
+      "ja": "<1>設定不要</1> — コードを渡すだけで、ラベルと国旗は自動的に解決されます",
+      "ar": "<1>بلا إعداد</1> — مرّر الرموز فقط، وتُحدَّد التسميات والأعلام تلقائيًا"
+    },
+    "9de3ae849fa9a8c0": {
+      "es": "<1>Desplegable con búsqueda</1> — filtra configuraciones regionales por nombre o código",
+      "ja": "<1>検索付きドロップダウン</1> — 名前またはコードでロケールを絞り込み",
+      "ar": "<1>قائمة منسدلة مع بحث</1> — صفِّ الإعدادات المحلية حسب الاسم أو الرمز"
+    },
+    "321af0d1bc3f806e": {
+      "es": "<1>Compatible con RTL</1> — detecta automáticamente las configuraciones regionales RTL (ar, he, fa, ur) y ajusta el diseño",
+      "ja": "<1>RTL 対応</1> — RTL のロケール（ar、he、fa、ur）を自動検出し、レイアウトを調整します",
+      "ar": "<1>يراعي RTL</1> — يكتشف الإعدادات المحلية من نوع RTL (ar وhe وfa وur) ويعدّل التخطيط"
+    },
+    "f24ab1c35e99a543": {
+      "es": "<1>Modo oscuro</1> — creado con Tailwind CSS, compatible con el modo oscuro",
+      "ja": "<1>ダークモード</1> — Tailwind CSS で構築されており、ダークモードに対応しています",
+      "ar": "<1>الوضع الداكن</1> — مبني بـ Tailwind CSS ومتوافق مع الوضع الداكن"
+    },
+    "f61076e5791f1d53": {
+      "es": "<1>Independiente de la biblioteca</1> — funciona con cualquier configuración de i18n mediante callback",
+      "ja": "<1>ライブラリ非依存</1> — コールバックを通じて、任意の i18n 設定で動作します",
+      "ar": "<1>مستقل عن المكتبات</1> — يعمل مع أي إعداد i18n عبر دالة الاستدعاء"
+    },
+    "6b3a4be9e7e41ea0": {
+      "es": "Idiomas compatibles",
+      "ja": "対応している言語",
+      "ar": "اللغات المدعومة"
+    },
+    "c3ba15f912ef8238": {
+      "es": "Las etiquetas y banderas se detectan automáticamente a partir del código de idioma. Pasa solo el código:",
+      "ja": "ラベルと国旗は言語コードから自動検出されます。コードだけを渡してください:",
+      "ar": "تُكتشف التسميات والأعلام تلقائيًا من رمز اللغة. مرّر الرمز فقط:"
+    },
+    "a4fe65264ef7dbb3": {
+      "es": "Idioma",
+      "ja": "言語",
+      "ar": "اللغة"
+    },
+    "74ca1d86590db7fd": {
+      "es": "RTL",
+      "ja": "RTL",
+      "ar": "RTL"
+    },
+    "ba118bf7fc9c1aed": {
+      "es": "English",
+      "ja": "English",
+      "ar": "English"
+    },
+    "e495d53b967a7b04": {
+      "es": "Français",
+      "ja": "Français",
+      "ar": "Français"
+    },
+    "94b382b61b9dde0f": {
+      "es": "Español",
+      "ja": "Español",
+      "ar": "Español"
+    },
+    "801cfe0fa1182664": {
+      "es": "Deutsch",
+      "ja": "Deutsch",
+      "ar": "Deutsch"
+    },
+    "77710aedc74ecfa3": {
+      "es": "日本語",
+      "ja": "日本語",
+      "ar": "日本語"
+    },
+    "ea3252281bc3bcec": {
+      "es": "한국어",
+      "ja": "한국어",
+      "ar": "한국어"
+    },
+    "72726d8818f69306": {
+      "es": "中文",
+      "ja": "中文",
+      "ar": "中文"
+    },
+    "d274159863057eb5": {
+      "es": "العربية",
+      "ja": "العربية",
+      "ar": "العربية"
+    },
+    "d4ada8ec276411a1": {
+      "es": "Português",
+      "ja": "Português",
+      "ar": "Português"
+    },
+    "432a99a172ddd26e": {
+      "es": "Italiano",
+      "ja": "Italiano",
+      "ar": "Italiano"
+    },
+    "8d5ee19ed8553675": {
+      "es": "Nederlands",
+      "ja": "Nederlands",
+      "ar": "Nederlands"
+    },
+    "6da140fdd4be0189": {
+      "es": "Русский",
+      "ja": "Русский",
+      "ar": "Русский"
+    },
+    "a5989ca14f3485cc": {
+      "es": "Polski",
+      "ja": "Polski",
+      "ar": "Polski"
+    },
+    "0f8b5cb2e84b210d": {
+      "es": "Türkçe",
+      "ja": "Türkçe",
+      "ar": "Türkçe"
+    },
+    "690829f87a103acd": {
+      "es": "Tiếng Việt",
+      "ja": "Tiếng Việt",
+      "ar": "Tiếng Việt"
+    },
+    "6d420ffde81c1303": {
+      "es": "ไทย",
+      "ja": "ไทย",
+      "ar": "ไทย"
+    },
+    "11b8712670ffce5a": {
+      "es": "Bahasa Indonesia",
+      "ja": "Bahasa Indonesia",
+      "ar": "Bahasa Indonesia"
+    },
+    "9ddb12af8457d635": {
+      "es": "हिन्दी",
+      "ja": "हिन्दी",
+      "ar": "हिन्दी"
+    },
+    "3bdfce0a268d1548": {
+      "es": "বাংলা",
+      "ja": "বাংলা",
+      "ar": "বাংলা"
+    },
+    "5d7a83db1991ff96": {
+      "es": "Українська",
+      "ja": "Українська",
+      "ar": "Українська"
+    },
+    "f09dc57494e7881d": {
+      "es": "Čeština",
+      "ja": "Čeština",
+      "ar": "Čeština"
+    },
+    "48c85ec49f33e938": {
+      "es": "Svenska",
+      "ja": "Svenska",
+      "ar": "Svenska"
+    },
+    "a52aee835255ca37": {
+      "es": "Dansk",
+      "ja": "Dansk",
+      "ar": "Dansk"
+    },
+    "5b852d8be540bd90": {
+      "es": "Suomi",
+      "ja": "Suomi",
+      "ar": "Suomi"
+    },
+    "444fffc2fede9495": {
+      "es": "Norsk",
+      "ja": "Norsk",
+      "ar": "Norsk"
+    },
+    "25d77ab928cd7341": {
+      "es": "Ελληνικά",
+      "ja": "Ελληνικά",
+      "ar": "Ελληνικά"
+    },
+    "9b1919717ec3013e": {
+      "es": "עברית",
+      "ja": "עברית",
+      "ar": "עברית"
+    },
+    "ec5614b9994fe338": {
+      "es": "فارسی",
+      "ja": "فارسی",
+      "ar": "فارسی"
+    },
+    "8e1f046acce225f3": {
+      "es": "Română",
+      "ja": "Română",
+      "ar": "Română"
+    },
+    "aece6c7370fe9fc2": {
+      "es": "Magyar",
+      "ja": "Magyar",
+      "ar": "Magyar"
+    },
+    "7a509d73b6787826": {
+      "es": "Slovenčina",
+      "ja": "Slovenčina",
+      "ar": "Slovenčina"
+    },
+    "777885685155aba3": {
+      "es": "Български",
+      "ja": "Български",
+      "ar": "Български"
+    },
+    "bb92ffa334ba625e": {
+      "es": "Hrvatski",
+      "ja": "Hrvatski",
+      "ar": "Hrvatski"
+    },
+    "22128702cb0e9441": {
+      "es": "Српски",
+      "ja": "Српски",
+      "ar": "Српски"
+    },
+    "a0524864aee3cf4e": {
+      "es": "Slovenščina",
+      "ja": "Slovenščina",
+      "ar": "Slovenščina"
+    },
+    "5722b05599ebd55e": {
+      "es": "Lietuvių",
+      "ja": "Lietuvių",
+      "ar": "Lietuvių"
+    },
+    "2e2dc32e40a66e76": {
+      "es": "Latviešu",
+      "ja": "Latviešu",
+      "ar": "Latviešu"
+    },
+    "ed7477d6100948d0": {
+      "es": "Eesti",
+      "ja": "Eesti",
+      "ar": "Eesti"
+    },
+    "979769e2ead596ca": {
+      "es": "Gaeilge",
+      "ja": "Gaeilge",
+      "ar": "Gaeilge"
+    },
+    "d4e0c7159a572c8b": {
+      "es": "Català",
+      "ja": "Català",
+      "ar": "Català"
+    },
+    "14d182878f252109": {
+      "es": "Íslenska",
+      "ja": "Íslenska",
+      "ar": "Íslenska"
+    },
+    "a7a38d435359ec05": {
+      "es": "Kiswahili",
+      "ja": "Kiswahili",
+      "ar": "Kiswahili"
+    },
+    "2289bdda9e4b4afd": {
+      "es": "አማርኛ",
+      "ja": "አማርኛ",
+      "ar": "አማርኛ"
+    },
+    "fe78a6217c74eb06": {
+      "es": "नेपाली",
+      "ja": "नेपाली",
+      "ar": "नेपाली"
+    },
+    "cc722ad49e488313": {
+      "es": "සිංහල",
+      "ja": "සිංහල",
+      "ar": "සිංහල"
+    },
+    "b26f431128903449": {
+      "es": "မြန်မာ",
+      "ja": "မြန်မာ",
+      "ar": "မြန်မာ"
+    },
+    "61fb004cdb5732d8": {
+      "es": "ខ្មែរ",
+      "ja": "ខ្មែរ",
+      "ar": "ខ្មែរ"
+    },
+    "ffd2a77372285b18": {
+      "es": "ລາວ",
+      "ja": "ລາວ",
+      "ar": "ລາວ"
+    },
+    "1913de9e5857a2bb": {
+      "es": "ქართული",
+      "ja": "ქართული",
+      "ar": "ქართული"
+    },
+    "2c6a7a6c5c3b7f19": {
+      "es": "Հայերեն",
+      "ja": "Հայերեն",
+      "ar": "Հայերեն"
+    },
+    "e5ffd13913e0e865": {
+      "es": "Қазақ",
+      "ja": "Қазақ",
+      "ar": "Қазақ"
+    },
+    "395b2d95dcef2b26": {
+      "es": "Oʻzbek",
+      "ja": "Oʻzbek",
+      "ar": "Oʻzbek"
+    },
+    "7312619b8d168a51": {
+      "es": "Монгол",
+      "ja": "Монгол",
+      "ar": "Монгол"
+    },
+    "234d81e4dcbe229b": {
+      "es": "اردو",
+      "ja": "اردو",
+      "ar": "اردو"
+    },
+    "3080efdb77efa241": {
+      "es": "മലയാളം",
+      "ja": "മലയാളം",
+      "ar": "മലയാളം"
+    },
+    "540a59cf6fd8508b": {
+      "es": "தமிழ்",
+      "ja": "தமிழ்",
+      "ar": "தமிழ்"
+    },
+    "887a3c7b8f2a012a": {
+      "es": "తెలుగు",
+      "ja": "తెలుగు",
+      "ar": "తెలుగు"
+    },
+    "93cce92606560be2": {
+      "es": "ಕನ್ನಡ",
+      "ja": "ಕನ್ನಡ",
+      "ar": "ಕನ್ನಡ"
+    },
+    "4b76a6025425f06b": {
+      "es": "मराठी",
+      "ja": "मराठी",
+      "ar": "मराठी"
+    },
+    "93febe6cac08ea94": {
+      "es": "ગુજરાતી",
+      "ja": "ગુજરાતી",
+      "ar": "ગુજરાતી"
+    },
+    "16f3b30f9e6f805d": {
+      "es": "ਪੰਜਾਬੀ",
+      "ja": "ਪੰਜਾਬੀ",
+      "ar": "ਪੰਜਾਬੀ"
+    },
+    "f667720fba58233f": {
+      "es": "Yorùbá",
+      "ja": "Yorùbá",
+      "ar": "Yorùbá"
+    },
+    "f5d590be06b297c3": {
+      "es": "Igbo",
+      "ja": "Igbo",
+      "ar": "Igbo"
+    },
+    "56063629f95f6775": {
+      "es": "isiZulu",
+      "ja": "isiZulu",
+      "ar": "isiZulu"
+    },
+    "6884e4dc730055b5": {
+      "es": "Afrikaans",
+      "ja": "Afrikaans",
+      "ar": "Afrikaans"
+    },
+    "ad9ffa0196ff9154": {
+      "es": "Hausa",
+      "ja": "Hausa",
+      "ar": "Hausa"
+    },
+    "e8a6062c5c37291e": {
+      "es": "Filipino",
+      "ja": "Filipino",
+      "ar": "Filipino"
+    },
+    "df817adfda61df29": {
+      "es": "Te Reo Māori",
+      "ja": "Te Reo Māori",
+      "ar": "Te Reo Māori"
+    },
+    "469e769b237deca8": {
+      "es": "Gagana Samoa",
+      "ja": "Gagana Samoa",
+      "ar": "Gagana Samoa"
+    },
+    "40dd5840940fcad0": {
+      "es": "Lea Faka-Tonga",
+      "ja": "Lea Faka-Tonga",
+      "ar": "Lea Faka-Tonga"
+    },
+    "95b5272c7aab24ef": {
+      "es": "Esperanto",
+      "ja": "Esperanto",
+      "ar": "Esperanto"
+    },
+    "7801956d9c1777c2": {
+      "es": "¿Necesitas un idioma que no aparece? Pasa un {p0} y un {p1} personalizados para sustituirlo:",
+      "ja": "一覧にない言語が必要ですか？ カスタムの {p0} と {p1} を渡して上書きします:",
+      "ar": "تحتاج لغة غير مدرجة؟ مرّر {p0} و{p1} مخصصين للتجاوز:"
+    },
+    "a40f2ebeeb5a0f14": {
+      "es": "Selector de configuración regional",
+      "ja": "ロケールピッカー",
+      "ar": "منتقي الإعدادات المحلية"
+    },
+    "028ccf978027e7b2": {
+      "es": "Selector de región con valores predeterminados derivados de la configuración regional: moneda, formatos de fecha y número, y primer día de la semana. Con búsqueda, accesible por teclado y compatible con RTL.",
+      "ja": "ロケールから導出されるデフォルト値（通貨、日付と数値の書式、週の開始曜日）を備えた地域ピッカーです。検索、キーボード操作、RTL に対応しています。",
+      "ar": "منتقي المناطق مع قيم افتراضية مشتقة من الإعدادات المحلية — العملة وتنسيقات التاريخ والأرقام وأول يوم في الأسبوع. قابل للبحث ومتاح عبر لوحة المفاتيح ويراعي RTL."
+    },
+    "ca8d37f07ab6df2e": {
+      "es": "Regiones entre las que elegir, en códigos ISO 3166-1 alpha-2",
+      "ja": "選択できる地域。ISO 3166-1 alpha-2 コードで指定します",
+      "ar": "المناطق المتاحة للاختيار، برموز ISO 3166-1 alpha-2"
+    },
+    "a440dc01a579ebbd": {
+      "es": "Configuración regional seleccionada (BCP 47): pásala para controlar el componente",
+      "ja": "選択中のロケール（BCP 47）。コンポーネントを制御するにはこの値を渡します",
+      "ar": "الإعدادات المحلية المحددة (BCP 47) — مرّرها للتحكم في المكوّن"
+    },
+    "46649e42f44dfd76": {
+      "es": "Configuración regional inicial cuando no está controlada",
+      "ja": "非制御時の初期選択ロケール",
+      "ar": "الإعدادات المحلية المحددة الأولية عند عدم التحكم"
+    },
+    "1eca8d679e7a56b8": {
+      "es": "Callback que se ejecuta cuando cambia la región; recibe la nueva etiqueta BCP 47",
+      "ja": "地域が変更されたときのコールバック。新しい BCP 47 タグを受け取ります",
+      "ar": "دالة استدعاء عند تغيّر المنطقة — تستقبل وسم BCP 47 الجديد"
+    },
+    "ac10261382c6deab": {
+      "es": "Nombres de región en inglés o localizados según la configuración regional seleccionada",
+      "ja": "地域名を英語で表示するか、選択中のロケールに合わせてローカライズして表示します",
+      "ar": "أسماء المناطق بالإنجليزية، أو مترجمة إلى الإعدادات المحلية المحددة"
+    },
+    "21840f2d6ef68237": {
+      "es": "Muestra el emoji de bandera de la región junto a su nombre",
+      "ja": "地域名の横に国旗の絵文字を表示します",
+      "ar": "إظهار علم emoji للمنطقة بجانب اسمها"
+    },
+    "5adf79d03158d5ca": {
+      "es": "Altura máxima de la lista de opciones antes de que aparezca el desplazamiento",
+      "ja": "スクロールが始まるまでの、スクロールする選択肢一覧の最大の高さ",
+      "ar": "أقصى ارتفاع لقائمة الخيارات القابلة للتمرير قبل أن تبدأ بالتمرير"
+    },
+    "3f5d6493cdf5957b": {
+      "es": "Estilo del disparador",
+      "ja": "トリガーのスタイル",
+      "ar": "نمط الزر المُشغّل"
+    },
+    "eda33ff5acbeaaae": {
+      "es": "Tamaño del disparador",
+      "ja": "トリガーのサイズ",
+      "ar": "حجم الزر المُشغّل"
+    },
+    "3ed90d70519c598d": {
+      "es": "Borde del disparador con el que se alinea el popup",
+      "ja": "ポップアップを揃えるトリガーの辺",
+      "ar": "الحافة التي تصطف النافذة المنبثقة معها في الزر المُشغّل"
+    },
+    "e107bc16eaf01864": {
+      "es": "Lado preferido del popup; cambia de lado si el viewport no tiene espacio",
+      "ja": "ポップアップの優先表示側。ビューポートに十分なスペースがない場合は反転します",
+      "ar": "الجانب المفضل للنافذة المنبثقة — يتبدّل عند عدم وجود مساحة في منفذ العرض"
+    },
+    "8943ee49b8ba8ae1": {
+      "es": "Muestra el campo de búsqueda",
+      "ja": "検索欄を表示します",
+      "ar": "إظهار حقل البحث"
+    },
+    "e19f282a4da4be28": {
+      "es": "Marcador de posición del campo de búsqueda",
+      "ja": "検索欄のプレースホルダー",
+      "ar": "النص النائب لحقل البحث"
+    },
+    "28458a2207195322": {
+      "es": "Contenido que se muestra cuando la búsqueda no coincide con nada",
+      "ja": "検索に一致する項目がない場合に表示される内容",
+      "ar": "المحتوى المعروض عندما لا يطابق البحث أي نتيجة"
+    },
+    "589f8a7edae77f4b": {
+      "es": "Muestra la tarjeta de resumen de los valores predeterminados derivados de la configuración regional",
+      "ja": "導出されたロケールのデフォルト値のサマリーカードを表示します",
+      "ar": "إظهار بطاقة ملخص القيم الافتراضية المشتقة للإعدادات المحلية"
+    },
+    "44b086ca80ec3ab2": {
+      "es": "Clases por parte: {p0}, {p1}, {p2}, {p3}, {p4}, {p5}, {p6}",
+      "ja": "パーツごとのクラス: {p0}、{p1}、{p2}、{p3}、{p4}、{p5}、{p6}",
+      "ar": "أصناف لكل جزء: {p0}، {p1}، {p2}، {p3}، {p4}، {p5}، {p6}"
+    },
+    "381298f467be9238": {
+      "es": "Clases CSS adicionales",
+      "ja": "追加の CSS クラス",
+      "ar": "أصناف CSS إضافية"
+    },
+    "d107b7721642332a": {
+      "es": "El valor seleccionado es una etiqueta BCP 47 completa: su subetiqueta <1>de región</1> es la región elegida,\ny su subetiqueta <2>de idioma</2> se mantiene al cambiar de región. Elegir Alemania\ndesde {p0} da como resultado {p1}; elegirla desde {p2} da como resultado {p3}.",
+      "ja": "選択された値は完全な BCP 47 タグです。\nその <1>地域</1> サブタグは選んだ地域になり、<2>言語</2> サブタグは地域を変更しても保持されます。\n{p0} からドイツを選ぶと {p1} になり、{p2} から選ぶと {p3} になります。",
+      "ar": "القيمة المحددة وسم BCP 47 كامل: جزء <1>المنطقة</1> فيه هو المنطقة المختارة،\nويبقى جزء <2>اللغة</2> سليمًا عند تغيير المنطقة. اختيار ألمانيا\nمن {p0} ينتج {p1}؛ واختيارها من {p2} ينتج {p3}."
+    },
+    "f0464af803ff2351": {
+      "es": "Valores predeterminados derivados",
+      "ja": "導出されるデフォルト値",
+      "ar": "القيم الافتراضية المشتقة"
+    },
+    "36d6d17662e23e76": {
+      "es": "La tarjeta de resumen deriva todo de la configuración regional seleccionada mediante {p0};\nno incluye más datos que una tabla de reserva de códigos ISO 4217 para el código de moneda:",
+      "ja": "サマリーカードは、選択中のロケールから {p0} を通じてすべての値を導出します。\n通貨コードには ISO 4217 のフォールバックテーブルのみを同梱しており、それ以外のデータは同梱していません:",
+      "ar": "تشتق بطاقة الملخص كل شيء من الإعدادات المحلية المحددة عبر {p0} —\nدون بيانات مضمّنة تتجاوز جدول ISO 4217 الاحتياطي لرمز العملة:"
+    },
+    "95110d74c4c00912": {
+      "es": "Fila",
+      "ja": "行",
+      "ar": "الصف"
+    },
+    "0e570ca6fabe24f9": {
+      "es": "Origen",
+      "ja": "取得元",
+      "ar": "المصدر"
+    },
+    "3ac1a9ec4fa7a9fa": {
+      "es": "Moneda",
+      "ja": "通貨",
+      "ar": "العملة"
+    },
+    "c93ab75df78557b3": {
+      "es": "Región → código ISO 4217, con vista previa mediante {p0} ({p1})",
+      "ja": "地域 → ISO 4217 コード。{p0}（{p1}）でプレビュー",
+      "ar": "المنطقة ← رمز ISO 4217، مع معاينة بـ {p0} ({p1})"
+    },
+    "43123f5ccaa8e956": {
+      "es": "Formato de fecha",
+      "ja": "日付の書式",
+      "ar": "تنسيق التاريخ"
+    },
+    "c1c3b402098d9190": {
+      "es": "{p0} ({p1}) con una fecha de ejemplo fija",
+      "ja": "固定のサンプル日付における {p0}（{p1}）",
+      "ar": "{p0} ({p1}) بتاريخ عيّنة ثابت"
+    },
+    "457421f8b5d4c967": {
+      "es": "Formato de número",
+      "ja": "数値の書式",
+      "ar": "تنسيق الأرقام"
+    },
+    "9e6ba662e29c100c": {
+      "es": "{p0} con un importe de ejemplo fijo",
+      "ja": "固定のサンプル金額における {p0}",
+      "ar": "{p0} بمبلغ عيّنة ثابت"
+    },
+    "bc5743ec584bd6e1": {
+      "es": "La semana empieza el",
+      "ja": "週の開始曜日",
+      "ar": "يبدأ الأسبوع يوم"
+    },
+    "6e3ef6c52edcb725": {
+      "es": "{p0} cuando está disponible, con un valor regional de reserva",
+      "ja": "利用可能な場合は {p0}、それ以外は地域のフォールバック",
+      "ar": "{p0} حيثما توفر، مع احتياط إقليمي"
+    },
+    "033af15804e504df": {
+      "es": "Las regiones sin asignación de moneda muestran un guion largo en lugar de una suposición.",
+      "ja": "通貨の対応付けがない地域では、推測せずにダッシュ（—）を表示します。",
+      "ar": "تعرض المناطق التي لا تملك ربطًا بعملة شرطةً طويلة بدلًا من التخمين."
+    },
+    "c28f68196743351d": {
+      "es": "El popup sigue el patrón combobox de WAI-ARIA: el foco permanece en el campo de búsqueda,\nque se expone como {p0}, y la opción resaltada se anuncia\nmediante {p1}.",
+      "ja": "ポップアップは WAI-ARIA のコンボボックスパターンに従います。\nフォーカスは検索欄に留まり、検索欄は {p0} として公開されます。\nハイライトされた選択肢は {p1} を通じて読み上げられます。",
+      "ar": "تتبع النافذة المنبثقة نمط combobox في WAI-ARIA: يبقى التركيز في حقل البحث،\nالذي يُعرض كـ {p0}، ويُعلَن عن الخيار المميّز\nعبر {p1}."
+    },
+    "d9bc4ea1fef464b0": {
+      "es": "Abre con la primera / última región resaltada",
+      "ja": "最初または最後の地域がハイライトされた状態で開きます",
+      "ar": "افتح مع تمييز أول منطقة / آخرها"
+    },
+    "cce95cdd96b8e312": {
+      "es": "Resalta la primera / última región",
+      "ja": "最初または最後の地域をハイライトします",
+      "ar": "مميّز أول منطقة / آخرها"
+    },
+    "f31b139a7273edba": {
+      "es": "Selecciona la región resaltada y devuelve el foco al disparador",
+      "ja": "ハイライトされた地域を選択し、フォーカスをトリガーに戻します",
+      "ar": "اختر المنطقة المميّزة وأعد التركيز إلى الزر المُشغّل"
+    },
+    "72f8028a0e6b5a61": {
+      "es": "<1>Valores predeterminados derivados</1> — moneda, formato de fecha, formato de número y primer día de la semana, resueltos en tiempo real mediante {p0}",
+      "ja": "<1>導出されるデフォルト値</1> — 通貨、日付の書式、数値の書式、週の開始曜日を {p0} を通じてリアルタイムに解決します",
+      "ar": "<1>القيم الافتراضية المشتقة</1> — العملة وتنسيق التاريخ وتنسيق الأرقام وأول يوم في الأسبوع، تُحسب مباشرة عبر {p0}"
+    },
+    "22a0fc3289733373": {
+      "es": "<1>Desplegable con búsqueda</1> — filtra regiones por nombre en inglés, nombre localizado o código de región, con un botón de borrado",
+      "ja": "<1>検索付きドロップダウン</1> — 英語名、ローカライズされた名前、地域コードで絞り込めます。クリアボタン付き",
+      "ar": "<1>قائمة منسدلة مع بحث</1> — صفِّ المناطق حسب الاسم الإنجليزي أو الاسم المترجم أو رمز المنطقة، مع زر مسح"
+    },
+    "144db2bf5fe78c2b": {
+      "es": "<1>Movimiento</1> — el popup aparece y se desliza mediante {p0}, respetando {p1}, y sale del árbol de accesibilidad al cerrarse",
+      "ja": "<1>モーション</1> — ポップアップは {p0} を介してフェードとスライドで表示され、{p1} を尊重します。閉じるときはアクセシビリティツリーから削除されます",
+      "ar": "<1>الحركة</1> — تتلاشى النافذة المنبثقة وتنزلق عبر {p0}، مع احترام {p1}، وتغادر شجرة إمكانية الوصول عند إغلاقها"
+    },
+    "9c8fdde453b8389e": {
+      "es": "<1>Compatible con RTL</1> — invierte la dirección para las configuraciones regionales RTL (ar, he, fa, ur) mediante {p0} en la raíz",
+      "ja": "<1>RTL 対応</1> — ルートの {p0} を通じて、RTL のロケール（ar、he、fa、ur）の方向を切り替えます",
+      "ar": "<1>يراعي RTL</1> — يعكس الاتجاه للإعدادات المحلية من نوع RTL (ar وhe وfa وur) عبر {p0} على الجذر"
+    },
+    "38206998930bcb07": {
+      "es": "<1>Con tema de tokens de shadcn</1> — {p0}, {p1}, {p2} y similares, así que hereda tu tema; el modo oscuro viene de los tokens",
+      "ja": "<1>shadcn のトークンでテーマ設定</1> — {p0}、{p1}、{p2} など。お使いのテーマを継承します。ダークモードはトークンから適用されます",
+      "ar": "<1>منسّق برموز shadcn</1> — {p0} و{p1} و{p2} وغيرها، فيرث سمتك؛ ويأتي الوضع الداكن من الرموز"
+    },
+    "d5d8721ac006bc1f": {
+      "es": "<1>Personalizable</1> — disparadores {p0} / {p1} más {p2} por parte ({p3} se exporta desde el barrel), con iconos {p4} en todo el componente",
+      "ja": "<1>カスタマイズ可能</1> — {p0} / {p1} のトリガーと、パーツごとの {p2}（{p3} はバレルファイルからエクスポートされています）。アイコンはすべて {p4} を使用します",
+      "ar": "<1>قابل للتخصيص</1> — أزرار {p0} / {p1} إضافةً إلى {p2} لكل جزء ({p3} مُصدَّر من ملف التصدير الرئيسي)، مع أيقونات {p4} في كل مكان"
+    },
+    "a050ec4131533714": {
+      "es": "<1>Controlado o no controlado</1> — {p0} / {p1} / {p2}",
+      "ja": "<1>制御または非制御</1> — {p0} / {p1} / {p2}",
+      "ar": "<1>متحكَّم به أو غير متحكَّم به</1> — {p0} / {p1} / {p2}"
+    },
+    "7d883fbb5eece2ef": {
+      "es": "Controlado",
+      "ja": "制御",
+      "ar": "متحكَّم به"
+    },
+    "1aa8633cb46833b5": {
+      "es": "Nombres de región nativos",
+      "ja": "ネイティブの地域名",
+      "ar": "أسماء المناطق الأصلية"
+    },
+    "1c2b88a9c4a3b1b4": {
+      "es": "Con {p0} seleccionado, el disparador muestra «Deutschland» y las opciones muestran\n«Vereinigte Staaten», «Vereinigtes Königreich», etc.",
+      "ja": "{p0} を選択すると、トリガーには「Deutschland」と表示され、選択肢には「Vereinigte Staaten」「Vereinigtes Königreich」などと表示されます。",
+      "ar": "عند تحديد {p0}، يقرأ الزر المُشغّل \"Deutschland\" وتقرأ الخيارات\n\"Vereinigte Staaten\" و\"Vereinigtes Königreich\"، وهكذا."
+    },
+    "255a22a8c68ef0b1": {
+      "es": "El marcador de posición de búsqueda, el estado vacío, las etiquetas accesibles y las etiquetas de la fila de resumen usan inglés de forma predeterminada. Pasa {p0} para traducirlos:\ncualquier clave que omitas conserva su valor en inglés. Las props {p1} y {p2} siguen funcionando y tienen prioridad sobre {p3} cuando ambas están definidas.",
+      "ja": "検索欄のプレースホルダー、空の状態、アクセシブルなラベル、サマリー行のラベルは、デフォルトで英語です。\n翻訳するには {p0} を渡します。\n省略したキーは英語のデフォルトのままになります。\n{p1} と {p2} の props も引き続き使用でき、両方が設定されている場合は {p3} より優先されます。",
+      "ar": "تكون النصوص النائبة للبحث وحالة الفراغ وتسميات إمكانية الوصول وتسميات صفوف الملخص\nبالإنجليزية افتراضيًا. مرّر {p0} لترجمتها — وأي مفتاح تتركه يحتفظ بقيمته الإنجليزية الافتراضية. وتظل\nالخاصيتان {p1} و{p2}\nتعملان، وتتغلبان على {p3} عند ضبطهما معًا."
+    },
+    "919c460d54083e28": {
+      "es": "{p0} (iconos)",
+      "ja": "{p0}（アイコン）",
+      "ar": "{p0} (الأيقونات)"
+    },
+    "ce0bfae3933391c9": {
+      "es": "{p0} (animación del popup)",
+      "ja": "{p0}（ポップアップのアニメーション）",
+      "ar": "{p0} (حركة النافذة المنبثقة)"
+    },
+    "c6557240f8cd6943": {
+      "es": "Creado por <1>ujwalbajaj</1>.",
+      "ja": "作成者: <1>ujwalbajaj</1>。",
+      "ar": "من إنشاء <1>ujwalbajaj</1>."
+    },
+    "ea22ed8d628dd906": {
+      "es": "Navbar",
+      "ja": "ナビゲーションバー",
+      "ar": "شريط التنقل"
+    },
+    "e2dea7c9bba0db96": {
+      "es": "Barra de navegación completa con selector de idioma integrado, menú móvil, botón CTA y enlace a GitHub.",
+      "ja": "言語セレクター、モバイルメニュー、CTA ボタン、GitHub リンクを標準で備えた、高機能なナビゲーションバーです。",
+      "ar": "شريط تنقل متكامل الميزات مع محدّد لغة مدمج وقائمة للجوال وزر دعوة لاتخاذ إجراء ورابط GitHub."
+    },
+    "5ba0ab6248031d3e": {
+      "es": "Elemento de logotipo (se renderiza antes de los enlaces de navegación)",
+      "ja": "ロゴ要素（ナビゲーションリンクの前に表示されます）",
+      "ar": "عنصر الشعار (يُعرض قبل روابط التنقل)"
+    },
+    "79e08ad1f33b92a3": {
+      "es": "Enlaces de navegación",
+      "ja": "ナビゲーションリンク",
+      "ar": "روابط التنقل"
+    },
+    "b73f564d39c1a825": {
+      "es": "{p0} de la página actual: recibe {p1} y un resaltado",
+      "ja": "現在のページの {p0} には {p1} が付き、ハイライト表示されます",
+      "ar": "{p0} للصفحة الحالية — يحصل على {p1} وتمييز"
+    },
+    "a901decaccb85cac": {
+      "es": "Configuraciones regionales disponibles para el selector de idioma",
+      "ja": "言語セレクターで利用可能なロケール",
+      "ar": "الإعدادات المحلية المتاحة لمحدّد اللغة"
+    },
+    "43a74be61275aeba": {
+      "es": "Código de configuración regional inicial cuando no está controlado (predeterminado: primera configuración regional)",
+      "ja": "非制御時の初期ロケールコード（デフォルト: 最初のロケール）",
+      "ar": "رمز الإعدادات المحلية الأولي عند عدم التحكم (الافتراضي: أول إعدادات محلية)"
+    },
+    "c44d75ec5aace113": {
+      "es": "Botón CTA",
+      "ja": "CTAボタン",
+      "ar": "زر الإجراء الرئيسي"
+    },
+    "25b8276e702683da": {
+      "es": "Muestra el botón de icono de GitHub. Necesita {p0}; sin él, no se renderiza nada",
+      "ja": "GitHubアイコンボタンを表示します。{p0}が必要です。指定しない場合は何も表示されません",
+      "ar": "يعرض زر أيقونة GitHub. يحتاج إلى {p0}، وبدونه لا يُعرض شيء"
+    },
+    "e40d81e2edf887b0": {
+      "es": "URL completa, o la forma abreviada {p0} / {p1} para github.com",
+      "ja": "完全なURL、または github.com の省略形としての {p0} / {p1}",
+      "ar": "عنوان URL كامل، أو اختصار {p0} / {p1} لـ github.com"
+    },
+    "0e4ddaa7e11bd0b4": {
+      "es": "Hace que la barra de navegación quede fija en la parte superior (por defecto: {p0})",
+      "ja": "ナビバーを上部に固定します（デフォルト: {p0}）",
+      "ar": "يجعل شريط التنقل ثابتًا في أعلى الصفحة (القيمة الافتراضية: {p0})"
+    },
+    "8821d1ac0f75b4db": {
+      "es": "Barra de ancho completo o tarjeta flotante insertada (por defecto: {p0})",
+      "ja": "全幅のバー、または内側に浮かぶカードのどちらにするか（デフォルト: {p0}）",
+      "ar": "شريط بعرض كامل أو بطاقة عائمة داخلية (القيمة الافتراضية: {p0})"
+    },
+    "5c0f557706863a00": {
+      "es": "Muestra banderas en el selector de idioma (por defecto: {p0})",
+      "ja": "言語セレクターに国旗を表示します（デフォルト: {p0}）",
+      "ar": "يعرض الأعلام في مبدّل اللغة (القيمة الافتراضية: {p0})"
+    },
+    "d7fd09357389e428": {
+      "es": "Altura máxima del menú de idiomas con desplazamiento (por defecto: {p0})",
+      "ja": "スクロールする言語メニューの最大の高さ（デフォルト: {p0}）",
+      "ar": "أقصى ارتفاع لقائمة اللغات القابلة للتمرير (القيمة الافتراضية: {p0})"
+    },
+    "c78f42e7a82d2e18": {
+      "es": "Componente usado para los enlaces internos (por defecto: {p0})",
+      "ja": "内部リンクに使用するコンポーネント（デフォルト: {p0}）",
+      "ar": "المكوّن المستخدم للروابط الداخلية (القيمة الافتراضية: {p0})"
+    },
+    "c6aff6a79abcf318": {
+      "es": "Sobrescrituras de clases por parte (ver abajo)",
+      "ja": "パーツごとのクラス上書き（後述）",
+      "ar": "تجاوزات الأصناف لكل جزء (انظر أدناه)"
+    },
+    "385f0d131a8ff2d5": {
+      "es": "Cualquier otra prop se propaga al elemento {p0} subyacente, y la ref\nse reenvía a él.",
+      "ja": "その他のpropはすべて基盤となる {p0} 要素に展開され、\nrefは同要素に転送されます。",
+      "ar": "أي خاصية أخرى تُمرَّر إلى عنصر {p0} الأساسي،\nويُعاد توجيه المرجع (ref) إليه."
+    },
+    "9ded257afe3aeef8": {
+      "es": "Navegación del lado del cliente",
+      "ja": "クライアントサイドのナビゲーション",
+      "ar": "التنقل من جانب العميل"
+    },
+    "0273eda7d715de04": {
+      "es": "Los enlaces se renderizan como elementos {p0} simples, así que {p1} funciona en cualquier aplicación React sin router instalado.\nPasa el componente de enlace de tu router para activar la navegación del lado del cliente:",
+      "ja": "リンクは通常の {p0} 要素として描画されるため、ルーターをインストールしていない React アプリでも {p1} はそのまま動作します。クライアントサイドのナビゲーションを有効にするには、使用しているルーターのリンクコンポーネントを渡してください:",
+      "ar": "تُعرض الروابط كعناصر {p0} عادية، لذا يعمل {p1} في أي تطبيق React دون الحاجة إلى تثبيت أي موجِّه.\nمرّر مكوّن الرابط في موجِّهك لتفعيل التنقل من جانب العميل:"
+    },
+    "2f162f9ac4bf430c": {
+      "es": "Estilizar las partes",
+      "ja": "パーツのスタイリング",
+      "ar": "تخصيص أجزاء التنسيق"
+    },
+    "fda85ac4e79bfe4b": {
+      "es": "{p0} combina clases adicionales en cada parte con {p1}, así que tus clases tienen prioridad\nsobre los valores por defecto:",
+      "ja": "{p0} は {p1} を使って各パーツに追加のクラスをマージするため、独自のクラスがデフォルトより優先されます:",
+      "ar": "يضيف {p0} أصنافًا إضافية إلى كل جزء عبر {p1}، فتتغلّب أصنافك\nعلى الإعدادات الافتراضية:"
+    },
+    "8570a2e1669ff057": {
+      "es": "Parte",
+      "ja": "パーツ",
+      "ar": "الجزء"
+    },
+    "533325aeed55325f": {
+      "es": "El elemento {p0} (igual que {p1})",
+      "ja": "{p0} 要素（{p1} と同じ）",
+      "ar": "عنصر {p0} (وهو نفسه {p1})"
+    },
+    "750b3d95ea4f37aa": {
+      "es": "La barra en sí: la fila de ancho completo o la tarjeta flotante",
+      "ja": "バー本体。全幅の行、またはフローティングカード",
+      "ar": "الشريط نفسه — الصف الكامل بعرض الشاشة، أو البطاقة العائمة"
+    },
+    "33ce7c743d4de544": {
+      "es": "El grupo de enlaces de escritorio",
+      "ja": "デスクトップ用のリンクグループ",
+      "ar": "مجموعة الروابط على سطح المكتب"
+    },
+    "b47e20a74a82eade": {
+      "es": "Cada enlace, en escritorio y en el menú móvil",
+      "ja": "各リンク（デスクトップおよびモバイルメニュー内）",
+      "ar": "كل رابط، على سطح المكتب وفي قائمة الجوال"
+    },
+    "f32d8b96d7440888": {
+      "es": "El grupo de escritorio con el menú de idiomas, GitHub y el CTA",
+      "ja": "言語メニュー、GitHub、CTAを含むデスクトップ用のグループ",
+      "ar": "مجموعة سطح المكتب التي تضم قائمة اللغات وGitHub وزر الإجراء"
+    },
+    "59a8f5ae2323859d": {
+      "es": "El botón de llamada a la acción",
+      "ja": "CTAボタン",
+      "ar": "زر الإجراء الرئيسي"
+    },
+    "cd54d405e318e838": {
+      "es": "Los disparadores del menú de idiomas",
+      "ja": "言語メニューのトリガー",
+      "ar": "محفّزات قائمة اللغات"
+    },
+    "bf197bffa9814d1a": {
+      "es": "El panel del menú de idiomas",
+      "ja": "言語メニューのパネル",
+      "ar": "لوحة قائمة اللغات"
+    },
+    "f29ba94d1e7db1e1": {
+      "es": "Cada opción de idioma",
+      "ja": "各言語オプション",
+      "ar": "كل خيار لغة"
+    },
+    "898da296dc8c78f9": {
+      "es": "El panel del menú móvil",
+      "ja": "モバイルメニューのパネル",
+      "ar": "لوحة قائمة الجوال"
+    },
+    "07d8c6379773d1a2": {
+      "es": "NavLink Object",
+      "ja": "NavLink オブジェクト",
+      "ar": "كائن NavLink"
+    },
+    "e02d9a8d84eef2a2": {
+      "es": "Texto del enlace — <1>obligatorio</1>",
+      "ja": "リンクテキスト — <1>必須</1>",
+      "ar": "نص الرابط — <1>مطلوب</1>"
+    },
+    "eaaddf353430b818": {
+      "es": "URL del enlace — <1>obligatorio</1>",
+      "ja": "リンクURL — <1>必須</1>",
+      "ar": "عنوان URL للرابط — <1>مطلوب</1>"
+    },
+    "cba11b5ad4276b9c": {
+      "es": "Código ISO 639-1 / BCP 47 (p. ej. {p0}, {p1}) — <1>obligatorio</1>",
+      "ja": "ISO 639-1 / BCP 47 コード（例: {p0}、{p1}）— <1>必須</1>",
+      "ar": "رمز ISO 639-1 / BCP 47 (مثل {p0}، {p1}) — <1>مطلوب</1>"
+    },
+    "b82e226c09479817": {
+      "es": "Sobrescribe el nombre para mostrar (se resuelve automáticamente si se omite)",
+      "ja": "表示名の上書き（省略時は自動で解決されます）",
+      "ar": "اسم العرض المخصّص (يُحدَّد تلقائيًا إذا تُرك فارغًا)"
+    },
+    "46673f08adcdf146": {
+      "es": "Sobrescribe el emoji de bandera (se detecta automáticamente si se omite)",
+      "ja": "国旗絵文字の上書き（省略時は自動検出されます）",
+      "ar": "رمز العلم التعبيري المخصّص (يُكتشف تلقائيًا إذا تُرك فارغًا)"
+    },
+    "8f5ea3f26de99d22": {
+      "es": "Combina NavBar con el <1>SDK de Babelize</1> para el enrutamiento automático por configuración regional:",
+      "ja": "自動的なロケールルーティングのために、NavBar を <1>Babelize SDK</1> と組み合わせます:",
+      "ar": "اقرن NavBar مع <1>Babelize SDK</1> للتوجيه التلقائي حسب اللغة المحلية:"
+    },
+    "56dd6d833c402fba": {
+      "es": "Flotante",
+      "ja": "フローティング",
+      "ar": "عائم"
+    },
+    "7d4d016cd22b8499": {
+      "es": "Una barra redondeada e insertada que flota sobre la página; combínala con {p0} para resaltar la página actual:",
+      "ja": "ページの上に浮かぶ、角丸の内側バーです。現在のページをハイライトするには {p0} と組み合わせます:",
+      "ar": "شريط داخلي مستدير يطفو فوق الصفحة، اقرنه بـ{p0} لإبراز الصفحة الحالية:"
+    },
+    "baf929a6643eb7b2": {
+      "es": "Enlace de GitHub",
+      "ja": "GitHubリンク",
+      "ar": "رابط GitHub"
+    },
+    "aafd052f1e944159": {
+      "es": "{p0} añade un botón de icono que enlaza a {p1}. Pasa {p2} para un\nrepositorio, {p3} para un perfil u organización, o cualquier URL completa.",
+      "ja": "{p0} は {p1} へのリンクを持つアイコンボタンを追加します。リポジトリには {p2}、プロフィールや組織には {p3}、または任意の完全なURLを渡してください。",
+      "ar": "يضيف {p0} زر أيقونة يقود إلى {p1}. مرّر {p2} لمستودع،\n{p3} لملف شخصي أو مؤسسة، أو أي عنوان URL كامل."
+    },
+    "12fbf46f84fe7e42": {
+      "es": "{p0} sin {p1} no renderiza ningún botón y registra una advertencia.",
+      "ja": "{p1} を指定しない {p0} はボタンを描画せず、警告をログに出力します。",
+      "ar": "يؤدي {p0} دون {p1} إلى عدم عرض الزر وتسجيل تحذير."
+    },
+    "cda46d5bd11658eb": {
+      "es": "No fijo",
+      "ja": "固定しない",
+      "ar": "غير ثابت"
+    },
+    "cf72feb7d5205edb": {
+      "es": "El menú de idiomas, el botón del menú móvil y el enlace de GitHub\ntienen por defecto etiquetas accesibles en inglés. Pasa {p0} para traducirlas; cualquier clave que omitas conserva su valor por defecto en inglés.",
+      "ja": "言語メニュー、モバイルメニューボタン、GitHubリンクには、デフォルトで英語のアクセシブルラベルが設定されています。翻訳するには {p0} を渡してください。省略したキーは英語のデフォルトのままになります。",
+      "ar": "تحمل قائمة اللغات وزر قائمة الجوال ورابط GitHub تسميات إمكانية وصول إنجليزية\nافتراضية. مرّر {p0} لترجمتها — أي مفتاح تتركه يحتفظ\nبقيمته الإنجليزية الافتراضية."
+    },
+    "2f556741ed840df1": {
+      "es": "Etiqueta accesible del menú de idiomas",
+      "ja": "言語メニューのアクセシブルラベル",
+      "ar": "تسمية إمكانية الوصول لقائمة اللغات"
+    },
+    "46c82bbe3644913f": {
+      "es": "Etiqueta accesible del disparador de idioma",
+      "ja": "言語トリガーのアクセシブルラベル",
+      "ar": "تسمية إمكانية الوصول لمحفّز اللغة"
+    },
+    "06f5210aa27b94ce": {
+      "es": "Etiqueta del botón del menú móvil",
+      "ja": "モバイルメニューボタンのラベル",
+      "ar": "تسمية زر قائمة الجوال"
+    },
+    "df480a105c2e2cd2": {
+      "es": "Etiqueta del enlace de icono de GitHub",
+      "ja": "GitHubアイコンリンクのラベル",
+      "ar": "تسمية رابط أيقونة GitHub"
+    },
+    "00d158c4d86bd472": {
+      "es": "El menú de idiomas sigue el patrón listbox de WAI-ARIA. Como no hay un campo de texto en el menú,\nlas teclas de flecha mueven el foco real del DOM entre las opciones en lugar de seguir un resaltado\ndesde un cuadro de búsqueda. Las mismas teclas funcionan en la barra de escritorio y en la móvil.",
+      "ja": "言語メニューは WAI-ARIA の listbox パターンに従います。メニュー内にテキストフィールドがないため、矢印キーは検索ボックスからのハイライトを追跡するのではなく、オプション間で実際の DOM フォーカスを移動させます。同じキーがデスクトップとモバイルのバーの両方で動作します。",
+      "ar": "تتبع قائمة اللغات نمط WAI-ARIA listbox. ولأن القائمة لا تحتوي على حقل نص،\nتنقل مفاتيح الأسهم التركيز الفعلي في DOM بين الخيارات بدلًا من تتبع تمييز من مربع بحث.\nتعمل المفاتيح نفسها من شريط سطح المكتب وشريط الجوال."
+    },
+    "297f8fa7109303a4": {
+      "es": "Abre el menú desde el disparador de idioma",
+      "ja": "言語トリガーからメニューを開く",
+      "ar": "افتح القائمة من محفّز اللغة"
+    },
+    "ac817ca6b8299eaa": {
+      "es": "Abre con la primera / última configuración regional enfocada",
+      "ja": "最初または最後のロケールにフォーカスした状態で開く",
+      "ar": "افتح مع تركيز أول / آخر لغة محلية"
+    },
+    "fe530b8fda32f723": {
+      "es": "Mueve el foco entre configuraciones regionales, dando la vuelta en ambos extremos",
+      "ja": "ロケール間でフォーカスを移動します（両端で循環）",
+      "ar": "انقل التركيز بين اللغات المحلية، مع الالتفاف عند الطرفين"
+    },
+    "21f571439fe803af": {
+      "es": "Enfoca la primera / última configuración regional",
+      "ja": "最初または最後のロケールにフォーカスする",
+      "ar": "ركّز على أول / آخر لغة محلية"
+    },
+    "fc45d7b3bc2875c1": {
+      "es": "Selecciona la configuración regional enfocada y devuelve el foco al disparador",
+      "ja": "フォーカス中のロケールを選択し、フォーカスをトリガーに戻す",
+      "ar": "حدّد اللغة المركّز عليها وأعد التركيز إلى المحفّز"
+    },
+    "9ec5083f1399b8b2": {
+      "es": "Cierra el menú (y el menú móvil) y devuelve el foco al disparador",
+      "ja": "メニュー（およびモバイルメニュー）を閉じ、フォーカスをトリガーに戻す",
+      "ar": "أغلق القائمة (وقائمة الجوال) وأعد التركيز إلى المحفّز"
+    },
+    "d4db0a6e9f13d4a5": {
+      "es": "El resaltado se mantiene en su fila mientras la lista se desplaza por debajo: una lista larga nunca desplaza la página.\nPasa {p0} para definir la altura máxima del menú.",
+      "ja": "リストが下でスクロールしてもハイライトは該当の行に留まります。長いリストでもページ全体がスクロールされることはありません。メニューの高さを設定するには {p0} を渡してください。",
+      "ar": "يبقى التمييز في صفّه أثناء تمرير القائمة من تحته، فالقائمة الطويلة\nلا تُمرّر الصفحة أبدًا. مرّر {p0} لتحديد ارتفاع القائمة."
+    },
+    "c9122e2a95d15943": {
+      "es": "<1>Adaptable</1> — menú hamburguesa en móvil, diseño completo en escritorio",
+      "ja": "<1>レスポンシブ対応</1> — モバイルではハンバーガーメニュー、デスクトップでは完全なレイアウト",
+      "ar": "<1>متجاوب</1> — قائمة هامبرغر على الجوال، وتخطيط كامل على سطح المكتب"
+    },
+    "b65f257d819d4444": {
+      "es": "<1>Selector de idioma integrado</1> — el mismo componente desplegable que LanguageSwitcher",
+      "ja": "<1>内蔵の言語セレクター</1> — LanguageSwitcher と同じドロップダウンコンポーネント",
+      "ar": "<1>مبدّل لغة مدمج</1> — المكوّن المنسدل نفسه المستخدم في LanguageSwitcher"
+    },
+    "fc30f3941d0bde63": {
+      "es": "<1>Compatible con RTL</1> — detecta automáticamente las configuraciones regionales RTL y ajusta el diseño",
+      "ja": "<1>RTL対応</1> — RTL のロケールを自動検出し、レイアウトを調整します",
+      "ar": "<1>مدرك لـ RTL</1> — يكتشف اللغات المحلية من اليمين إلى اليسار ويعدّل التخطيط"
+    },
+    "6af12676e2193e15": {
+      "es": "<1>Botón CTA</1> — llamada a la acción opcional con texto y href personalizables",
+      "ja": "<1>CTAボタン</1> — テキストとhrefをカスタマイズできる任意のコールトゥアクション",
+      "ar": "<1>زر الإجراء الرئيسي</1> — زر اختياري لدعوة لاتخاذ إجراء، بنص ورابط href قابلين للتخصيص"
+    },
+    "eb398a175416d62d": {
+      "es": "<1>Enlace de GitHub</1> — botón de icono opcional que enlaza a tu repositorio",
+      "ja": "<1>GitHubリンク</1> — リポジトリへのリンクを持つ任意のアイコンボタン",
+      "ar": "<1>رابط GitHub</1> — زر أيقونة اختياري يقود إلى مستودعك"
+    },
+    "3f6b8ebd1a8372b8": {
+      "es": "<1>Fijo / no fijo</1> — activa o desactiva que la barra se mantenga fija en la parte superior",
+      "ja": "<1>固定/非固定</1> — ページ上部での固定表示を切り替えます",
+      "ar": "<1>ثابت / غير ثابت</1> — التبديل بين التثبيت في أعلى الصفحة وعدمه"
+    },
+    "0b23205adcc0a0fb": {
+      "es": "<1>Etiquetas ARIA</1> — {p0}, {p1}, {p2}, y foco roving sobre las opciones",
+      "ja": "<1>ARIA ラベル</1> — {p0}、{p1}、{p2}、およびオプション間のローミングフォーカス",
+      "ar": "<1>تسميات ARIA</1> — {p0}، {p1}، {p2}، والتركيز المتدرّج على الخيارات"
+    },
+    "f14720e2a2fc3bdd": {
+      "es": "<1>Personalizable con temas</1> — estilizado con tokens de shadcn/ui, así que sigue tu tema y el modo oscuro",
+      "ja": "<1>テーマ対応</1> — shadcn/ui のトークンでスタイルされており、お使いのテーマやダークモードに追従します",
+      "ar": "<1>قابل للتنسيق</1> — يُنسَّق برموز shadcn/ui، فيتبع سمة موقعك والوضع الداكن"
+    },
+    "517d0796da13ec61": {
+      "es": "<1>Dos variantes</1> — barra de ancho completo o tarjeta flotante insertada",
+      "ja": "<1>2つのバリアント</1> — 全幅のバー、またはフローティングの内側カード",
+      "ar": "<1>نسختان</1> — شريط بعرض كامل أو بطاقة عائمة داخلية"
+    },
+    "eecc2cb3ed5701ee": {
+      "es": "<1>Animado</1> — el resaltado al pasar el cursor se desliza entre enlaces, con menú móvil y menú de idiomas animados; respeta {p0}",
+      "ja": "<1>アニメーション</1> — リンク間を滑らかに移動するホバーハイライト、アニメーションするモバイルメニューと言語メニュー。{p0} に対応",
+      "ar": "<1>متحرّك</1> — تمييز عند المرور ينزلق بين الروابط، وقائمة جوال متحركة وقائمة لغات؛ يحترم {p0}"
+    },
+    "598568ed3a7063ef": {
+      "es": "<1>Independiente del router</1> — pasa {p0} (o cualquier enlace) mediante {p1}",
+      "ja": "<1>ルーター非依存</1> — {p0}（または任意のリンク）を {p1} 経由で渡します",
+      "ar": "<1>مستقل عن الموجِّه</1> — مرّر {p0} (أو أي رابط) عبر {p1}"
+    },
+    "328846df9aeb0349": {
+      "es": "{p0} — animaciones",
+      "ja": "{p0} — アニメーション",
+      "ar": "{p0} — الحركات"
+    },
+    "9d3837d7654d9a66": {
+      "es": "{p0} — iconos",
+      "ja": "{p0} — アイコン",
+      "ar": "{p0} — الأيقونات"
+    },
+    "1fda79ffb6597357": {
+      "es": "Widgets",
+      "ja": "ウィジェット",
+      "ar": "الأدوات المصغّرة"
+    },
+    "2ae44885a5facfa9": {
+      "es": "Widget de traducción",
+      "ja": "翻訳ウィジェット",
+      "ar": "أداة الترجمة"
+    },
+    "11df2eb3f65b746c": {
+      "es": "Tarjeta de traducción lado a lado con selectores de idioma, intercambio, copia, recuento de caracteres y un estado de carga. Compatible con RTL y con temas mediante tokens de shadcn.",
+      "ja": "言語ピッカー、入れ替え、コピー、文字数カウント、ローディング状態を備えた並列表示の翻訳カードです。RTL に対応し、shadcn のトークンでテーマ設定されています。",
+      "ar": "بطاقة ترجمة جنبًا إلى جنب، مع محددات اللغة وزر التبديل والنسخ وعداد الأحرف وحالة التحميل. مدركة لـ RTL ومنسّقة برموز shadcn."
+    },
+    "9707adccb465474e": {
+      "es": "Con selectores de idioma y el botón de intercambio:",
+      "ja": "言語ピッカーと入れ替えボタンを使用する場合:",
+      "ar": "مع محددات اللغة وزر التبديل:"
+    },
+    "2062e21b42dfa666": {
+      "es": "Configuraciones regionales para los selectores de idioma de cada panel; omítelo para mostrar chips estáticos",
+      "ja": "各ペインの言語ピッカーで使用するロケール。省略すると静的なチップを表示します",
+      "ar": "اللغات المحلية لمحددات اللغة في كل لوحة؛ احذفها لعرض رقائق ثابتة"
+    },
+    "11b3a2d08b886d2d": {
+      "es": "Código BCP 47 de la configuración regional de origen (p. ej. {p0}); proporciónalo para controlarla",
+      "ja": "翻訳元ロケールの BCP 47 コード（例: {p0}）。制御する場合に指定します",
+      "ar": "رمز BCP 47 للغة المحلية المصدر (مثل {p0})؛ مرّره للتحكم بها"
+    },
+    "d9cbed406626f008": {
+      "es": "Configuración regional de origen inicial cuando no está controlada (por defecto: {p0}, si no {p1})",
+      "ja": "非制御時の初期翻訳元ロケール（デフォルト: {p0}、なければ {p1}）",
+      "ar": "اللغة المحلية المصدر الأولية عند عدم التحكم (القيمة الافتراضية: {p0}، وإلا {p1})"
+    },
+    "8e6d609e0516ee44": {
+      "es": "Callback que se ejecuta cuando cambia la configuración regional de origen",
+      "ja": "翻訳元ロケールが変更されたときのコールバック",
+      "ar": "دالة استدعاء عند تغيّر اللغة المحلية المصدر"
+    },
+    "6d4752c2c5e084e6": {
+      "es": "Código BCP 47 de la configuración regional de destino (p. ej. {p0}, {p1}); proporciónalo para controlarla",
+      "ja": "翻訳先ロケールの BCP 47 コード（例: {p0}、{p1}）。制御する場合に指定します",
+      "ar": "رمز BCP 47 للغة المحلية الهدف (مثل {p0}، {p1})؛ مرّره للتحكم بها"
+    },
+    "4fefb88034138b4a": {
+      "es": "Configuración regional de destino inicial cuando no está controlada (por defecto: {p0}, si no {p1})",
+      "ja": "非制御時の初期翻訳先ロケール（デフォルト: {p0}、なければ {p1}）",
+      "ar": "اللغة المحلية الهدف الأولية عند عدم التحكم (القيمة الافتراضية: {p0}، وإلا {p1})"
+    },
+    "b1b00e97e0e5955d": {
+      "es": "Callback que se ejecuta cuando cambia la configuración regional de destino",
+      "ja": "翻訳先ロケールが変更されたときのコールバック",
+      "ar": "دالة استدعاء عند تغيّر اللغة المحلية الهدف"
+    },
+    "61b861e3ebed15b3": {
+      "es": "Texto de origen; pásalo para controlar el panel de origen",
+      "ja": "翻訳元テキスト。翻訳元ペインを制御する場合に指定します",
+      "ar": "نص المصدر — مرّره للتحكم في لوحة المصدر"
+    },
+    "13a1f8c82954148a": {
+      "es": "Texto de origen inicial cuando no está controlado",
+      "ja": "非制御時の初期翻訳元テキスト",
+      "ar": "نص المصدر الأولي عند عدم التحكم"
+    },
+    "0fe734d71986eea9": {
+      "es": "Callback que se ejecuta cuando cambia el texto de origen; hace el panel editable",
+      "ja": "翻訳元テキストが変更されたときのコールバック。ペインを編集可能にします",
+      "ar": "دالة استدعاء عند تغيّر نص المصدر؛ تجعل اللوحة قابلة للتحرير"
+    },
+    "807400564f273e6b": {
+      "es": "Texto de destino; pásalo para controlar el panel de destino (solo lectura sin {p0})",
+      "ja": "翻訳先テキスト。翻訳先ペインを制御する場合に指定します（{p0} がない場合は読み取り専用）",
+      "ar": "نص الهدف — مرّره للتحكم في لوحة الهدف (للقراءة فقط بدون {p0})"
+    },
+    "fafc0366a65fc150": {
+      "es": "Texto de destino inicial cuando no está controlado",
+      "ja": "非制御時の初期翻訳先テキスト",
+      "ar": "نص الهدف الأولي عند عدم التحكم"
+    },
+    "43cb46c5c9f7b381": {
+      "es": "Callback que se ejecuta cuando cambia el texto de destino",
+      "ja": "翻訳先テキストが変更されたときのコールバック",
+      "ar": "دالة استدعاء عند تغيّر نص الهدف"
+    },
+    "d0e1ae77e79e2450": {
+      "es": "Se llama después de que el botón de intercambio intercambie configuraciones regionales y textos",
+      "ja": "入れ替えボタンがロケールとテキストを交換した後に呼び出されます",
+      "ar": "تُستدعى بعد أن يتبادل زر التبديل اللغات المحلية والنصوص"
+    },
+    "c41f143d897b0566": {
+      "es": "Placeholder del panel de origen",
+      "ja": "翻訳元ペインのプレースホルダー",
+      "ar": "نص توضيحي للوحة المصدر"
+    },
+    "6247171c15961778": {
+      "es": "Placeholder del panel de destino",
+      "ja": "翻訳先ペインのプレースホルダー",
+      "ar": "نص توضيحي للوحة الهدف"
+    },
+    "28cffdea5133e559": {
+      "es": "Etiqueta accesible del panel de origen (por defecto: {p0})",
+      "ja": "翻訳元ペインのアクセシブルラベル（デフォルト: {p0}）",
+      "ar": "تسمية إمكانية الوصول للوحة المصدر (القيمة الافتراضية: {p0})"
+    },
+    "21fb61e12ae24ca6": {
+      "es": "Etiqueta accesible del panel de destino (por defecto: {p0})",
+      "ja": "翻訳先ペインのアクセシブルラベル（デフォルト: {p0}）",
+      "ar": "تسمية إمكانية الوصول للوحة الهدف (القيمة الافتراضية: {p0})"
+    },
+    "956b6e4a89434d57": {
+      "es": "Mantiene el panel de origen en solo lectura incluso con {p0}",
+      "ja": "{p0} が指定されていても翻訳元ペインを読み取り専用のままにします",
+      "ar": "أبقِ لوحة المصدر للقراءة فقط حتى مع {p0}"
+    },
+    "6535b4d5263a8d64": {
+      "es": "Muestra el recuento de caracteres de origen (por defecto: {p0})",
+      "ja": "翻訳元の文字数を表示します（デフォルト: {p0}）",
+      "ar": "أظهر عداد أحرف المصدر (القيمة الافتراضية: {p0})"
+    },
+    "461aeb629ddf165c": {
+      "es": "Límite de caracteres para ambos paneles; el recuento muestra {p0}",
+      "ja": "両ペインの文字数上限。カウントには {p0} と表示されます",
+      "ar": "حد الأحرف للوحتين معًا؛ يعرض العداد {p0}"
+    },
+    "9e2ab2cc614ff0c2": {
+      "es": "Muestra un botón de borrar bajo un origen editable (por defecto: {p0})",
+      "ja": "編集可能な翻訳元の下にクリアボタンを表示します（デフォルト: {p0}）",
+      "ar": "أظهر زر مسح أسفل المصدر القابل للتحرير (القيمة الافتراضية: {p0})"
+    },
+    "861ec533c4b172e6": {
+      "es": "Muestra un botón de copiar al portapapeles bajo el destino (por defecto: {p0})",
+      "ja": "翻訳先の下にクリップボードへのコピーボタンを表示します（デフォルト: {p0}）",
+      "ar": "أظهر زر النسخ إلى الحافظة أسفل الهدف (القيمة الافتراضية: {p0})"
+    },
+    "9ccda3c698eefd35": {
+      "es": "Se llama con el texto de destino después de copiarlo",
+      "ja": "翻訳先テキストがコピーされた後に、そのテキストを引数として呼び出されます",
+      "ar": "تُستدعى بنص الهدف بعد نسخه"
+    },
+    "32da8cf6dc8d60cc": {
+      "es": "Muestra un esqueleto en el panel de destino y lo marca con {p0}",
+      "ja": "翻訳先ペインにスケルトンを表示し、{p0} を設定します",
+      "ar": "أظهر هيكل تحميل في لوحة الهدف وسمه بـ {p0}"
+    },
+    "5f60fb99e44e8a79": {
+      "es": "Sobrescrituras de clases por parte: {p0}, {p1}, {p2}, {p3}, {p4}, {p5}, {p6}",
+      "ja": "パーツごとのクラス上書き: {p0}、{p1}、{p2}、{p3}、{p4}、{p5}、{p6}",
+      "ar": "تجاوزات الأصناف لكل جزء: {p0}، {p1}، {p2}، {p3}، {p4}، {p5}، {p6}"
+    },
+    "47e32f1024245a3a": {
+      "es": "Sobrescribe la dirección de diseño detectada automáticamente",
+      "ja": "自動検出されたレイアウトの方向を上書きします",
+      "ar": "تجاوز اتجاه التخطيط المكتشف تلقائيًا"
+    },
+    "999561848f4258ef": {
+      "es": "Cualquier otra prop — {p0}, {p1}, {p2} — se propaga al elemento raíz, y la\nref se reenvía a él.",
+      "ja": "その他のprop（{p0}、{p1}、{p2}）はすべてルート要素に展開され、\nrefは同要素に転送されます。",
+      "ar": "أي خاصية أخرى — {p0}، {p1}، {p2} — تُمرَّر إلى العنصر الجذري،\nويُعاد توجيه المرجع (ref) إليه."
+    },
+    "529bf7c9784f0b81": {
+      "es": "Origen editable",
+      "ja": "編集可能な翻訳元",
+      "ar": "المصدر القابل للتحرير"
+    },
+    "0b4b48bb1f13f27c": {
+      "es": "El panel de origen es de solo lectura por defecto. Pasa {p0} para hacerlo editable,\no fuérzalo a solo lectura con {p1} aunque haya un manejador de cambios:",
+      "ja": "翻訳元ペインはデフォルトで読み取り専用です。編集可能にするには {p0} を渡してください。変更ハンドラーが存在する場合でも読み取り専用に固定するには {p1} を使用します:",
+      "ar": "لوحة المصدر للقراءة فقط افتراضيًا. مرّر {p0} لجعلها قابلة للتحرير،\nأو اجعلها للقراءة فقط بـ {p1} حتى مع وجود معالج تغيير:"
+    },
+    "3d0a4610aee659fd": {
+      "es": "Destino controlado",
+      "ja": "制御された翻訳先",
+      "ar": "الهدف الخاضع للتحكم"
+    },
+    "6aceb7ff77bbd0ad": {
+      "es": "El panel de destino es editable cuando no está controlado ({p0}) o cuando pasas\ntanto {p1} como {p2}. Un destino controlado sin manejador se renderiza\nen solo lectura, así que el texto escrito nunca se pierde en silencio:",
+      "ja": "翻訳先ペインは、非制御の場合（{p0}）、または {p1} と {p2} の両方を渡した場合に編集可能になります。ハンドラーのない制御された翻訳先は読み取り専用で描画されるため、入力されたテキストが黙って失われることはありません:",
+      "ar": "لوحة الهدف قابلة للتحرير عند عدم التحكم ({p0}) أو عند تمرير {p1} و{p2} معًا. الهدف\nالخاضع للتحكم دون معالج يُعرض للقراءة فقط، حتى لا يُفقد النص المكتوب بصمت:"
+    },
+    "5070efe9dc055346": {
+      "es": "Selectores de idioma",
+      "ja": "言語ピッカー",
+      "ar": "محددات اللغة"
+    },
+    "af6d227985163205": {
+      "es": "Pasa {p0} para renderizar un <1>Selector de idioma</1>\nen cada panel en lugar del chip de idioma estático. Cada selector actualiza la configuración regional de su panel:\nel {p1} y el {p2} del área de texto se actualizan, así que al cambiar el destino a árabe ese panel pasa a RTL:",
+      "ja": "静的な言語チップの代わりに、各ペインに <1>言語スイッチャー</1> を描画するには {p0} を渡します。各ピッカーはそのペインのロケールを更新し、テキストエリアの {p1} と {p2} もそれに追従します。そのため、翻訳先をアラビア語に切り替えると、そのペインは RTL に切り替わります:",
+      "ar": "مرّر {p0} لعرض <1>مبدّل اللغة</1> في كل لوحة بدلًا من رقاقة اللغة الثابتة. يحدّث كل محدد\nاللغة المحلية للوحته، ويتبعه {p1} و{p2} في منطقة النص، فتبديل الهدف\nإلى العربية يجعل تلك اللوحة من اليمين إلى اليسار:"
+    },
+    "416916b9e316758f": {
+      "es": "El estado de la configuración regional puede no estar controlado ({p0} / {p1})\no controlado ({p2} + {p3}, igual para el destino). Cuando se omite\n{p4}, el widget conserva los chips estáticos compactos.",
+      "ja": "ロケールの状態は非制御（{p0} / {p1}）または制御（{p2} + {p3}、翻訳先も同様）が可能です。{p4} を省略すると、ウィジェットはコンパクトな静的チップを維持します。",
+      "ar": "يمكن أن تكون حالة اللغة المحلية غير خاضعة للتحكم ({p0} / {p1})\nأو خاضعة للتحكم ({p2} + {p3}، وبالمثل للهدف). عند حذف\n{p4} تحتفظ الأداة برقائق ثابتة مدمجة."
+    },
+    "6ec282d40a8a71fe": {
+      "es": "Intercambiar",
+      "ja": "入れ替え",
+      "ar": "التبديل"
+    },
+    "90daecce7dc5addb": {
+      "es": "El botón de intercambio entre los paneles intercambia <1>ambos</1> la configuración regional y los textos —origen ↔ destino— y dispara {p0}.\nEstá en la barra de cabecera entre los dos selectores de idioma, y su icono gira media vuelta en cada intercambio.\nEl botón lleva un {p1} y se desactiva cuando algún valor intercambiado está controlado sin manejador de cambios,\nya que el intercambio no podría aplicarse:",
+      "ja": "ペイン間の入れ替えボタンは、ロケールとテキストの<1>両方</1>を交換します（翻訳元 ↔ 翻訳先）。そのうえで {p0} を発火します。ボタンは2つの言語ピッカーの間にあるヘッダーバーに配置され、入れ替えのたびにアイコンが半回転します。ボタンには {p1} が付与されており、交換される値のいずれかが変更ハンドラーなしで制御されている場合は、入れ替えを適用できないため無効になります:",
+      "ar": "يتبادل زر التبديل بين اللوحتين <1>اللغتين المحليتين</1> والنصين معًا —\nالمصدر ↔ الهدف — ويُطلق {p0}. يقع في شريط الرأس بين محددي اللغة،\nويدور أيقونته نصف دورة عند كل تبديل. يحمل الزر {p1} ويكون معطّلًا عندما تكون أي قيمة\nمتبادلة خاضعة للتحكم دون معالج تغيير، لأن التبديل لا يمكن تطبيقه:"
+    },
+    "451aa51a0fb5068d": {
+      "es": "Barra de herramientas",
+      "ja": "ツールバー",
+      "ar": "شريط الأدوات"
+    },
+    "23b4816087b2d8a8": {
+      "es": "Cada panel termina en una pequeña barra de herramientas. El origen muestra un recuento de caracteres en vivo\n—{p0} cuando pasas {p1}, que pasa a color destructivo al llegar al límite— y un botón de borrar cuando el panel es editable.\nEl destino tiene un botón de copiar que confirma con una marca de verificación y anuncia “Translation copied to clipboard” a los lectores de pantalla:",
+      "ja": "各ペインの下部には小さなツールバーがあります。翻訳元には、リアルタイムの文字数カウントが表示されます（{p1} を渡した場合は {p0}、上限に達すると警告色になります）。ペインが編集可能な場合はクリアボタンも表示されます。翻訳先にはコピーボタンがあり、チェックマークで完了を示し、スクリーンリーダーには「翻訳をクリップボードにコピーしました」と通知されます:",
+      "ar": "تنتهي كل لوحة بشريط أدوات صغير. يعرض المصدر عداد أحرف حي —\n{p0} عند تمرير {p1}، ويتحول إلى اللون المدمّر عند الحد — وزر مسح\nعندما تكون اللوحة قابلة للتحرير. يحتوي الهدف على زر نسخ يتأكد بعلامة\nصح ويعلن “تمت نسخ الترجمة إلى الحافظة” لقارئات الشاشة:"
+    },
+    "736efd7dc2ade4e8": {
+      "es": "Desactiva cualquiera de ellos con {p0}, {p1} o {p2}.",
+      "ja": "これらのいずれも {p0}、{p1}、または {p2} で無効にできます。",
+      "ar": "أوقف أيًّا منها باستخدام {p0} أو {p1} أو {p2}."
+    },
+    "9b7945595572258a": {
+      "es": "Estado de carga",
+      "ja": "ローディング状態",
+      "ar": "حالة التحميل"
+    },
+    "87f8735b4a942cc4": {
+      "es": "Mientras una traducción está en curso, pasa {p0} para reemplazar el texto de destino por un esqueleto pulsante. El área de texto se marca con {p1} y la copia se desactiva:",
+      "ja": "翻訳の処理中は、{p0} を渡すと翻訳先テキストを点滅するスケルトンに置き換えられます。テキストエリアには {p1} が設定され、コピーは無効になります:",
+      "ar": "أثناء تنفيذ الترجمة، مرّر {p0} لاستبدال نص الهدف بهيكل تحميل\nينبض. تُوسم منطقة النص بـ {p1} ويُعطَّل النسخ:"
+    },
+    "18d3440660a1b1b6": {
+      "es": "Los placeholders y etiquetas de los paneles tienen sus propias props ({p0},\n{p1} y demás). El resto del texto integrado —botones de la barra de herramientas, el anuncio de copia,\nla palabra que se lee tras el recuento de caracteres y los dos selectores de idioma— proviene de {p2}. Cualquier clave que omitas conserva su valor por defecto en inglés.",
+      "ja": "ペインのプレースホルダーとラベルには、それぞれ専用のprop（{p0}、\n{p1} など）があります。その他の組み込みテキスト（ツールバーのボタン、コピー時のアナウンス、文字数カウントの後に読み上げられる語、2つの言語ピッカー）は {p2} から取得されます。省略したキーは英語のデフォルトのままになります。",
+      "ar": "لعناصر النائبة وتسميات اللوحات خصائص خاصة بها ({p0}،\n{p1} وما شابه). أما بقية النصوص المدمجة — أزرار شريط الأدوات، وإعلان النسخ، والكلمة\nالتي تُقرأ بعد عداد الأحرف، ومحددا اللغة — فتأتي من {p2}. أي مفتاح تتركه يحتفظ\nبقيمته الإنجليزية الافتراضية."
+    },
+    "ad391b0d42c0ca12": {
+      "es": "Etiqueta accesible del botón de intercambio",
+      "ja": "入れ替えボタンのアクセシブルラベル",
+      "ar": "تسمية إمكانية الوصول لزر التبديل"
+    },
+    "919abbff03ab8cc1": {
+      "es": "Etiqueta accesible del botón de copiar",
+      "ja": "コピーボタンのアクセシブルラベル",
+      "ar": "تسمية إمكانية الوصول لزر النسخ"
+    },
+    "9cfdbad0b88a3b58": {
+      "es": "Etiqueta del botón de copiar justo después de copiar",
+      "ja": "コピー直後のコピーボタンのラベル",
+      "ar": "تسمية زر النسخ مباشرة بعد النسخ"
+    },
+    "2b68f7482326e90e": {
+      "es": "Anuncio para lectores de pantalla tras copiar",
+      "ja": "コピー後のスクリーンリーダーへの通知",
+      "ar": "إعلان قارئ الشاشة بعد النسخ"
+    },
+    "8943f313b6fd7f1a": {
+      "es": "Se lee tras el recuento de caracteres; recibe el recuento para la forma plural",
+      "ja": "文字数カウントの後に読み上げられる語（件数に応じて複数形になります）",
+      "ar": "ما يُقرأ بعد عداد الأحرف؛ يأخذ العدد صيغة الجمع"
+    },
+    "b4052658b85bfcdb": {
+      "es": "Valores por defecto de {p0}",
+      "ja": "{p0} のデフォルト",
+      "ar": "الإعدادات الافتراضية لـ {p0}"
+    },
+    "682cc0158bd3140d": {
+      "es": "Ambos selectores de idioma ({p0})",
+      "ja": "両方の言語ピッカー（{p0}）",
+      "ar": "محددا اللغة كلاهما ({p0})"
+    },
+    "db4fd57378909f3a": {
+      "es": "Personalización",
+      "ja": "カスタマイズ",
+      "ar": "التخصيص"
+    },
+    "551771268b43f140": {
+      "es": "Cada parte acepta clases adicionales mediante {p0}, combinadas tras los valores por defecto con\n{p1}, así que tus clases tienen prioridad:",
+      "ja": "各パーツは {p0} を通じて追加のクラスを受け取ります。これらは {p1} によってデフォルトの後にマージされるため、独自のクラスが優先されます:",
+      "ar": "يقبل كل جزء أصنافًا إضافية عبر {p0}، تُدمج بعد الإعدادات الافتراضية بواسطة\n{p1}، فتتغلب أصنافك:"
+    },
+    "17e414875eced158": {
+      "es": "Compatibilidad con RTL",
+      "ja": "RTL対応",
+      "ar": "دعم RTL"
+    },
+    "a7111f6a5bba04d2": {
+      "es": "Cuando la configuración regional de destino es un idioma RTL ({p0}, {p1}, {p2}, {p3}, …) o incluye una subetiqueta de escritura RTL ({p4}),\nel texto del panel de destino fluye de derecha a izquierda. El _orden_ de los paneles nunca cambia: el origen siempre va primero y el destino, segundo.\nCada panel tiene su propio {p5} y {p6}, así que un par mixto LTR→RTL se lee correctamente en ambos lados.\nPasa {p7} para establecer la dirección del widget de forma explícita.",
+      "ja": "翻訳先ロケールが RTL の言語（{p0}、{p1}、{p2}、{p3}、…）である場合、または RTL のスクリプトサブタグ（{p4}）を含む場合、翻訳先ペインのテキストは右から左へ流れます。ペインの_順序_は変わりません。翻訳元が先、翻訳先が後のままで、各ペインは独自の {p5} と {p6} を持つため、LTR→RTL の混在したペアでも両側で正しく読めます。ウィジェットの方向を明示的に設定するには {p7} を渡してください。",
+      "ar": "عندما تكون اللغة المحلية الهدف من اللغات التي تُكتب من اليمين إلى اليسار ({p0}، {p1}، {p2}، {p3}، …) أو تحمل\nوسم نص فرعيًا من نوع RTL ({p4})، يتدفق نص لوحة الهدف من اليمين إلى اليسار. ولا يتغيّر\n_ترتيب_ اللوحتين أبدًا، فالمصدر أولًا والهدف ثانيًا، ولكل لوحة\n{p5} و{p6} خاصان بها، فيُقرأ زوج مختلط من LTR إلى RTL بشكل صحيح على الجانبين.\nمرّر {p7} لتحديد اتجاه الأداة صراحةً."
+    },
+    "ac29e5f22da7215f": {
+      "es": "<1>Paneles lado a lado</1> — origen y destino en una sola tarjeta, apilados en pantallas estrechas",
+      "ja": "<1>並列のペイン</1> — 翻訳元と翻訳先を1つのカードに収め、狭い画面では縦に積み重ねます",
+      "ar": "<1>لوحتان جنبًا إلى جنب</1> — المصدر والهدف في بطاقة واحدة، وتتكدّسان على الشاشات الضيقة"
+    },
+    "31d2bca57ddf0ff6": {
+      "es": "<1>Selectores de idioma</1> — pasa {p0} para un selector de idioma por panel; si no, chips estáticos",
+      "ja": "<1>言語ピッカー</1> — ペインごとに言語スイッチャーを表示するには {p0} を渡します。それ以外の場合は静的なチップを表示します",
+      "ar": "<1>محددات اللغة</1> — مرّر {p0} لمبدّل لغة في كل لوحة؛ وإلا فرقائق ثابتة"
+    },
+    "46b6c7ac5e02ffc8": {
+      "es": "<1>Botón de intercambio</1> — intercambia configuraciones regionales y textos, con {p0} y una etiqueta accesible",
+      "ja": "<1>入れ替えボタン</1> — ロケールとテキストの両方を交換します。{p0} とアクセシブルラベルを備えています",
+      "ar": "<1>زر التبديل</1> — يتبادل اللغتين المحليتين والنصين، مع {p0} وتسمية إمكانية وصول"
+    },
+    "e4c20348a9c89043": {
+      "es": "<1>Destino editable</1> — sin control, o controlado con {p0} + {p1} (un destino controlado sin manejador se renderiza en solo lectura para que el texto escrito nunca se pierda en silencio)",
+      "ja": "<1>編集可能な翻訳先</1> — 非制御、または {p0} + {p1} による制御が可能です（ハンドラーのない制御された翻訳先は読み取り専用で描画されるため、入力されたテキストが黙って失われることはありません）",
+      "ar": "<1>هدف قابل للتحرير</1> — غير خاضع للتحكم، أو خاضع للتحكم مع {p0} + {p1} (الهدف الخاضع للتحكم دون معالج يُعرض للقراءة فقط حتى لا يُفقد النص المكتوب بصمت)"
+    },
+    "f7fc622c42b2682b": {
+      "es": "<1>Compatible con RTL</1> — {p0} y {p1} de cada panel siguen a cada configuración regional; el orden de los paneles no cambia",
+      "ja": "<1>RTL対応</1> — ペインごとの {p0} と {p1} は各ロケールに従います。ペインの順序は固定されたままです",
+      "ar": "<1>مدرك لـ RTL</1> — يتبع {p0} و{p1} لكل لوحة كل لغة محلية، ويبقى ترتيب اللوحات ثابتًا"
+    },
+    "ac8e59b9fad35c09": {
+      "es": "<1>Barra de herramientas</1> — recuento de caracteres con {p0}, borrar y copiar al portapapeles",
+      "ja": "<1>ツールバー</1> — {p0} を含む文字数カウント、クリア、クリップボードへのコピー",
+      "ar": "<1>شريط أدوات</1> — عداد أحرف مع {p0}، ومسح، ونسخ إلى الحافظة"
+    },
+    "aadb060817a71861": {
+      "es": "<1>Estado de carga</1> — panel de destino con esqueleto y {p0}",
+      "ja": "<1>ローディング状態</1> — {p0} を持つスケルトンの翻訳先ペイン",
+      "ar": "<1>حالة التحميل</1> — لوحة هدف بهيكل تحميل مع {p0}"
+    },
+    "4707d46c703ad66f": {
+      "es": "<1>Accesible</1> — textareas con etiqueta, atributos {p0}, anillos de foco visibles y anuncio de copia en vivo",
+      "ja": "<1>アクセシブル</1> — ラベル付きのテキストエリア、{p0} 属性、見えるフォーカスリング、コピー時のライブ通知",
+      "ar": "<1>قابل للوصول</1> — حقول نصية مسمّاة، وسمات {p0}، وحلقات تركيز مرئية، وإعلان نسخ حي"
+    },
+    "4cb2b18678cc0a3e": {
+      "es": "<1>Soporte de teclado</1> — Tab entre paneles, escribe para traducir",
+      "ja": "<1>キーボード対応</1> — Tab でペイン間を移動し、入力するだけで翻訳されます",
+      "ar": "<1>دعم لوحة المفاتيح</1> — Tab للتنقل بين اللوحتين، واكتب للترجمة"
+    },
+    "4bf8368c0fdacd14": {
+      "es": "<1>Personalizable con temas</1> — tokens de shadcn ({p0}, {p1}, {p2}, {p3}), así que sigue tu tema y el modo oscuro",
+      "ja": "<1>テーマ対応</1> — shadcn のトークン（{p0}、{p1}、{p2}、{p3}）を使用するため、お使いのテーマやダークモードに追従します",
+      "ar": "<1>قابل للتنسيق</1> — رموز shadcn ({p0}، {p1}، {p2}، {p3})، فيتبع سمة موقعك والوضع الداكن"
+    },
+    "3ab3154974478ec8": {
+      "es": "<1>Personalizable</1> — {p0} para cada parte",
+      "ja": "<1>カスタマイズ可能</1> — すべてのパーツに対して {p0} が使えます",
+      "ar": "<1>قابل للتخصيص</1> — {p0} لكل جزء"
+    },
+    "ef972d031fd3a9ee": {
+      "es": "<1>Movimiento</1> — icono de intercambio con muelle y confirmación de copia, respetando la configuración de movimiento reducido",
+      "ja": "<1>モーション</1> — バネ状の入れ替えアイコンとコピー確認。モーション低減の設定に対応しています",
+      "ar": "<1>حركة</1> — أيقونة تبديل بحركة نابضة وتأكيد للنسخ، مع احترام إعدادات تقليل الحركة"
+    },
+    "815bcc8c0da05545": {
+      "es": "<1>Controlado / no controlado</1> — funciona con o sin {p0}; igual para las configuraciones regionales",
+      "ja": "<1>制御/非制御</1> — {p0} の有無にかかわらず動作します。ロケールも同様です",
+      "ar": "<1>خاضع للتحكم / غير خاضع للتحكم</1> — يعمل مع {p0} أو بدونه، وكذلك اللغات المحلية"
+    },
+    "0072e6b934945d5b": {
+      "es": "Diseño",
+      "ja": "デザイン",
+      "ar": "التصميم"
+    },
+    "e2e6fa37d0c13227": {
+      "es": "Una sola tarjeta, dividida en un panel de origen y un panel de destino ligeramente tintado, con ambos selectores de idioma y el botón de intercambio en una barra de cabecera compartida:\nel diseño que la gente conoce de las herramientas de traducción. Los colores provienen de los tokens semánticos de shadcn,\nasí que el widget adopta tu tema, radio y modo oscuro sin configuración adicional.",
+      "ja": "1枚のカードが、翻訳元ペインと、わずかに色味のついた翻訳先ペインに分かれています。2つの言語ピッカーと入れ替えボタンは共通のヘッダーバーに配置されており、翻訳ツールでおなじみのレイアウトです。色は shadcn のセマンティックトークンから取得されるため、追加の設定なしでウィジェットがお使いのテーマ、角丸、ダークモードに適用されます。",
+      "ar": "بطاقة واحدة مقسّمة إلى لوحة مصدر ولوحة هدف بلون خفيف، مع محددي اللغة وزر\nالتبديل في شريط رأس مشترك، وهو التخطيط الذي يعرفه الناس من أدوات الترجمة. تأتي الألوان من\nرموز shadcn الدلالية، فتتبع الأداة سمة موقعك وزواياه والوضع الداكن دون إعداد إضافي."
+    },
+    "bfd354b2d93000c6": {
+      "es": "{p0} para los iconos y {p1} para las animaciones de intercambio y copia",
+      "ja": "アイコンには {p0}、入れ替えとコピーのアニメーションには {p1} を使用します",
+      "ar": "{p0} للأيقونات، و{p1} لحركات التبديل والنسخ"
+    },
+    "33433b7a9bcf1ca2": {
+      "es": "el componente <1>selector de idioma</1> (se incluye automáticamente mediante las dependencias del registro)",
+      "ja": "<1>言語スイッチャー</1> コンポーネント（レジストリの依存関係を通じて自動的に取り込まれます）",
+      "ar": "مكوّن <1>مبدّل اللغة</1> (يُضاف تلقائيًا عبر تبعيات السجل)"
+    },
+    "9eee16aa54811ae1": {
+      "es": "Interfaces de TypeScript",
+      "ja": "TypeScript インターフェース",
+      "ar": "واجهات TypeScript"
+    },
+    "bb1f6b79f54fd03c": {
+      "es": "Interfaces de TypeScript principales exportadas por los componentes de Babelize Elements: props, tipos de configuración regional y opciones de formateadores para tipar tus propios componentes React de i18n.",
+      "ja": "Babelize Elements コンポーネントがエクスポートする主要な TypeScript インターフェースです。独自の i18n React コンポーネントに型を付けるための props、ロケールの型、フォーマッターのオプションが含まれます。",
+      "ar": "واجهات TypeScript الأساسية التي تصدّرها مكوّنات Babelize Elements: الخصائص، وأنواع اللغات المحلية، وخيارات المنسّق، لكتابة مكوّنات i18n الخاصة بك في React."
+    },
+    "d4b1ea5708dd5329": {
+      "es": "Descripción general",
+      "ja": "概要",
+      "ar": "نظرة عامة"
+    },
+    "8bb5184938f8b8e2": {
+      "es": "Babelize Elements está construido con soporte completo de TypeScript. Cada componente exporta sus propias interfaces de props y de datos, así que obtienes seguridad de tipos completa e IntelliSense.",
+      "ja": "Babelize Elements は TypeScript を完全にサポートして構築されています。すべてのコンポーネントが独自の props とデータのインターフェースをエクスポートするため、完全な型安全性と IntelliSense が得られます。",
+      "ar": "صُنعت Babelize Elements بدعم كامل لـ TypeScript. يُصدّر كل مكوّن خصائصه وواجهات بياناته الخاصة، فتحصل على أمان أنواع كامل وIntelliSense."
+    },
+    "0aac5a0cb45be215": {
+      "es": "Instala la biblioteca o un componente y luego importa los tipos que necesites:",
+      "ja": "ライブラリまたはコンポーネントをインストールし、必要な型をインポートします:",
+      "ar": "ثبّت المكتبة أو مكوّنًا، ثم استورد الأنواع التي تحتاجها:"
+    },
+    "67ea3ff4e7e1eb7a": {
+      "es": "Desde el paquete de npm:",
+      "ja": "npm パッケージからの場合:",
+      "ar": "من حزمة npm:"
+    },
+    "ca2a61e7c281313c": {
+      "es": "O, si copiaste los componentes con la CLI:",
+      "ja": "または、CLI でコンポーネントをコピーした場合:",
+      "ar": "أو، إذا نسخت المكوّنات باستخدام CLI:"
+    },
+    "ca3dc612f47e3913": {
+      "es": "Configuración regional",
+      "ja": "ロケール",
+      "ar": "اللغة المحلية"
+    },
+    "1c446f10ecc6dbef": {
+      "es": "LanguageSwitcherProps",
+      "ja": "LanguageSwitcherProps",
+      "ar": "LanguageSwitcherProps"
+    },
+    "0b9deafd1f7a9f4c": {
+      "es": "LanguageSwitcherLabels",
+      "ja": "LanguageSwitcherLabels",
+      "ar": "LanguageSwitcherLabels"
+    },
+    "1c174e91d7e143e0": {
+      "es": "Pasa cualquier subconjunto como {p0}; las claves que omitas conservan su valor por defecto en inglés. Lo mismo\nvale para todas las interfaces {p1} de abajo.",
+      "ja": "任意のサブセットを {p0} として渡します。省略したキーは英語のデフォルトのままになります。同じことが以下のすべての {p1} インターフェースに当てはまります。",
+      "ar": "مرّر أي مجموعة جزئية كـ {p0}، فالمفاتيح التي تحذفها تحتفظ بقيمها الإنجليزية الافتراضية. وينطبق\nالأمر نفسه على كل واجهة {p1} أدناه."
+    },
+    "cca1ea59d29ee1ec": {
+      "es": "PhoneInputProps",
+      "ja": "PhoneInputProps",
+      "ar": "PhoneInputProps"
+    },
+    "faf79a773711a4c0": {
+      "es": "PhoneInputLabels",
+      "ja": "PhoneInputLabels",
+      "ar": "PhoneInputLabels"
+    },
+    "5cba18814cfe89f4": {
+      "es": "NavBar",
+      "ja": "NavBar",
+      "ar": "NavBar"
+    },
+    "d0a2bbdc9c87474e": {
+      "es": "NavLink",
+      "ja": "NavLink",
+      "ar": "NavLink"
+    },
+    "0dd83e0f9c5e6e45": {
+      "es": "{p0} usa la misma interfaz compartida {p1} que {p2}. La antigua",
+      "ja": "{p0} は {p2} と同じ共有の {p1} インターフェースを使用します。以前の",
+      "ar": "يستخدم {p0} واجهة {p1} المشتركة نفسها التي يستخدمها {p2}. الاسم القديم"
+    },
+    "f2fcc1b7779817f2": {
+      "es": "El alias {p0} se eliminó en {p1}; importa {p2} en su lugar.",
+      "ja": "{p0} のエイリアスは {p1} で削除されました。代わりに {p2} をインポートしてください。",
+      "ar": "تم حذف الاسم المستعار {p0} في {p1}، فاستورد {p2} بدلًا منه."
+    },
+    "e7d1509932a535a1": {
+      "es": "{p0}: {p1} / {p2} y {p3}: {p4} /",
+      "ja": "{p0} の {p1} / {p2} と {p3} の {p4} /",
+      "ar": "الاسمان {p1} / {p2} الخاصان بـ {p0}، و{p4} الخاص بـ {p3} /"
+    },
+    "dd5f6e9407ae973d": {
+      "es": "{p0} se eliminaron en {p1}. Usa {p2} / {p3} / {p4}.",
+      "ja": "{p0} は {p1} で削除されました。{p2} / {p3} / {p4} を使用してください。",
+      "ar": "أُزيلت أسماء {p0} في {p1}. استخدم {p2} / {p3} / {p4}."
+    },
+    "2d456a987a9d452a": {
+      "es": "NavBarProps",
+      "ja": "NavBarProps",
+      "ar": "NavBarProps"
+    },
+    "70568d70b4623bbf": {
+      "es": "NavBarLabels",
+      "ja": "NavBarLabels",
+      "ar": "NavBarLabels"
+    },
+    "b45bece882f64dfe": {
+      "es": "TranslationWidgetLabels",
+      "ja": "TranslationWidgetLabels",
+      "ar": "TranslationWidgetLabels"
+    },
+    "7671ff8cffa9b47b": {
+      "es": "Texto de la interfaz del <1>selector de configuración regional</1>.",
+      "ja": "<1>ロケールピッカー</1> のUIテキストです。",
+      "ar": "نص واجهة <1>منتقي الإعدادات المحلية</1>."
+    },
+    "0d28786b93a7c427": {
+      "es": "LocalePickerLabels",
+      "ja": "LocalePickerLabels",
+      "ar": "LocalePickerLabels"
+    },
+    "c5b4fa15c148d2b9": {
+      "es": "Extender interfaces",
+      "ja": "インターフェースの拡張",
+      "ar": "توسيع الواجهات"
+    },
+    "4576ae476744c86e": {
+      "es": "Como los componentes de Babelize Elements son totalmente tuyos una vez instalados, puedes extender estas interfaces directamente en los archivos de componentes. Por ejemplo, para añadir un campo {p0} personalizado a cada configuración regional, añádelo a la interfaz {p1} en tu copia local:",
+      "ja": "Babelize Elements のコンポーネントは、インストール後は完全にお客様の管理下に置かれるため、コンポーネントファイル内でこれらのインターフェースを直接拡張できます。たとえば、各ロケールにカスタムの {p0} フィールドを追加するには、ローカルのコピーの {p1} インターフェースに追加します:",
+      "ar": "لأن مكوّنات Babelize Elements تصبح ملكًا لك بالكامل بعد التثبيت، يمكنك توسيع هذه الواجهات مباشرةً في ملفات المكوّنات. مثلًا، لإضافة حقل مخصص {p0} إلى كل لغة محلية، أضفه إلى واجهة {p1} في نسختك المحلية:"
+    },
+    "6c8113cda0a06c4e": {
+      "es": "Contribuciones y código abierto",
+      "ja": "コントリビューションとオープンソース",
+      "ar": "المساهمة والمصدر المفتوح"
+    },
+    "a42987b0dcad8593": {
+      "es": "Cómo contribuir con un componente a Babelize Elements, desde abrir un issue hasta enviar un pull request.",
+      "ja": "Babelize Elements にコンポーネントを提供する方法です。Issue の作成から pull request の提出まで説明します。",
+      "ar": "كيفية المساهمة بمكوّن في Babelize Elements، من فتح مشكلة حتى إرسال pull request."
+    },
+    "2b18598c711f43c2": {
+      "es": "Contribuir",
+      "ja": "コントリビューション",
+      "ar": "المساهمة"
+    },
+    "36ca00153bc33e92": {
+      "es": "Babelize Elements es una biblioteca de código abierto impulsada por la comunidad. Los componentes que ves aquí los crearon colaboradores, y el siguiente podría ser el tuyo.",
+      "ja": "Babelize Elements はオープンソースでコミュニティ主導のライブラリです。ここで紹介しているコンポーネントは、コントリビューターの皆さまによって作られたものです。次のコンポーネントはあなたが作るかもしれません。",
+      "ar": "Babelize Elements مكتبة مفتوحة المصدر يقودها المجتمع. المكوّنات التي تراها هنا بناها مساهمون، والمكوّن التالي قد يكون لك."
+    },
+    "ba28e48d46869545": {
+      "es": "Antes de empezar, lee el <1>manual del colaborador</1>.",
+      "ja": "始める前に、<1>コントリビューター規約</1>をお読みください。",
+      "ar": "قبل أن تبدأ، اقرأ <1>دليل المساهم</1>."
+    },
+    "9c870aa6e5e93270": {
+      "es": "Cómo funciona",
+      "ja": "仕組み",
+      "ar": "كيف تعمل العملية"
+    },
+    "63748813434caf00": {
+      "es": "<1>Elige un issue</1> — explora los <2>issues de GitHub</2> en busca de una solicitud de componente marcada como {p0} o {p1}.",
+      "ja": "<1>Issue を選ぶ</1> — <2>GitHub の Issue</2> を確認し、{p0} または {p1} とマークされたコンポーネントのリクエストを探します。",
+      "ar": "<1>اختر مشكلة</1> — تصفّح <2>مشكلات GitHub</2> بحثًا عن طلب مكوّن موسوم بـ {p0} أو {p1}."
+    },
+    "6901d9911c493546": {
+      "es": "<1>Crea el componente</1> — implementalo en {p0} siguiendo la <2>plantilla de componente</2> de abajo.",
+      "ja": "<1>コンポーネントを作成する</1> — <2>以下のコンポーネントテンプレート</2>に従って {p0} に実装します。",
+      "ar": "<1>ابنِ المكوّن</1> — نفّذه في {p0} وفق <2>قالب المكوّن</2> أدناه."
+    },
+    "3f062ee20e8ea629": {
+      "es": "<1>Abre un pull request</1> — nuestros mantenedores lo revisan, piden cambios si hace falta y lo fusionan.",
+      "ja": "<1>pull request を作成する</1> — メンテナーがレビューし、必要に応じて変更を依頼し、マージします。",
+      "ar": "<1>افتح pull request</1> — يراجعه المشرفون، ويطلبون التعديلات عند الحاجة، ثم يدمجونه."
+    },
+    "89ce42134c944905": {
+      "es": "<1>Se publica</1> — los componentes fusionados se documentan en este sitio y están disponibles para todos los usuarios de Babelize Elements.",
+      "ja": "<1>リリースされます</1> — マージされたコンポーネントはこのサイトに掲載され、すべての Babelize Elements ユーザーが利用できるようになります。",
+      "ar": "<1>يُنشر</1> — تُوثَّق المكوّنات المدمجة في هذا الموقع، وتصبح متاحة لكل مستخدمي Babelize Elements."
+    },
+    "f6fabbf33eb67a41": {
+      "es": "¿Todavía no existe ningún componente? Abre un issue proponiendo uno. Buenos candidatos: selectores de idioma, selectores de configuración regional, widgets de traducción, utilidades RTL, ayudantes de pluralización y formateadores con reconocimiento de configuración regional.",
+      "ja": "まだ該当するコンポーネントがありませんか？ 提案用の Issue を作成してください。候補として最適なのは、言語スイッチャー、ロケールピッカー、翻訳ウィジェット、RTL ユーティリティ、複数形のヘルパー、ロケール対応のフォーマッターです。",
+      "ar": "لا يوجد مكوّن بعد؟ افتح مشكلة تقترحه. من أفضل الأفكار: مبدّلات اللغة، ومنتقيات الإعدادات المحلية، وأدوات الترجمة، وأدوات RTL، ومساعدات الجمع، ومنسّقات الأرقام والتواريخ المدركة للغة المحلية."
+    },
+    "2e4194ebc2b1025d": {
+      "es": "Plantilla de componente",
+      "ja": "コンポーネントテンプレート",
+      "ar": "قالب المكوّن"
+    },
+    "3d9936e6f471b9db": {
+      "es": "Ten en cuenta las cuatro convenciones que sigue cada componente: un trío {p0} / {p1} /\n{p2} mediante {p3}, una ref reenviada, {p4} propagado\nal elemento raíz, y el tipo compartido {p5} de {p6} en lugar de una\ncopia local.",
+      "ja": "すべてのコンポーネントが従う4つの規約に注意してください。{p3} を介した {p0} / {p1} /\n{p2} のセット、転送される ref、ルート要素への {p4} の展開、そして {p6} から取得した共有の {p5} 型を使用すること（ローカルのコピーは使用しません）。",
+      "ar": "لاحظ القواعد الأربع التي يتبعها كل مكوّن: ثلاثية {p0} / {p1} /\n{p2} عبر {p3}، ومرجع يُعاد توجيهه، و{p4} يُمرَّر\nإلى العنصر الجذري، والنوع المشترك {p5} من {p6} بدلًا من\nنسخة محلية."
+    },
+    "040f39aff24fb5ca": {
+      "es": "Un componente que renderiza un popup {p0} (un menú de idiomas, un selector de país) comparte su gestión\ndel teclado a través de {p1} de {p2}, en lugar de implementar por sí mismo las teclas de flecha,\n{p3} / {p4}, {p5} y {p6}. Consulta {p7} (campo de búsqueda más\n{p8}) y {p9} (foco roving) para las dos estrategias\nde foco.",
+      "ja": "{p0} ポップアップ（言語メニュー、国ピッカーなど）を描画するコンポーネントは、矢印キー、{p3} / {p4}、{p5}、{p6} を個別に実装する代わりに、{p2} の {p1} を通じてキーボード操作を共有します。2つのフォーカス戦略については、{p7}（検索フィールドと {p8} の組み合わせ）と {p9}（ローミングフォーカス）を参照してください。",
+      "ar": "المكوّن الذي يعرض نافذة {p0} منبثقة، مثل قائمة لغات أو منتقي دولة، يشارك معالجة لوحة المفاتيح عبر {p1} من\n{p2} بدلًا من ربط مفاتيح الأسهم و{p3} / {p4} و\n{p5} و{p6} بنفسه. راجع {p7} (حقل بحث مع\n{p8}) و{p9} (التركيز المتدرج) للاستراتيجيتين في التركيز."
+    },
+    "c57eb91ed2057448": {
+      "es": "Lista de verificación para contribuir",
+      "ja": "コントリビューションのチェックリスト",
+      "ar": "قائمة التحقق للمساهمة"
+    },
+    "d1730b9a58b6c145": {
+      "es": "Prioriza TypeScript, con interfaces exportadas para todas las props",
+      "ja": "TypeScript を優先し、すべての props のインターフェースをエクスポートする",
+      "ar": "TypeScript أولًا، مع واجهات مُصدَّرة لكل الخصائص"
+    },
+    "d98e3f6f389df23e": {
+      "es": "Consciente de la localización: gestiona los códigos de configuración regional, la pluralización o RTL según corresponda",
+      "ja": "ローカライゼーションに対応: 該当する場合はロケールコード、複数形、RTL を処理する",
+      "ar": "مدرك للتوطين: يتعامل مع رموز اللغات المحلية وصيغ الجمع واتجاه RTL حسب الحاجة"
+    },
+    "519ea554e9338e60": {
+      "es": "Accesible: soporte de teclado, etiquetas ARIA, estados de foco",
+      "ja": "アクセシブル: キーボード対応、ARIA ラベル、フォーカス状態",
+      "ar": "قابل للوصول: دعم لوحة المفاتيح، وتسميات ARIA، وحالات التركيز"
+    },
+    "b33cb977f65752c7": {
+      "es": "Con estilos de Tailwind CSS",
+      "ja": "Tailwind CSS でスタイルされている",
+      "ar": "مُنسَّق بـ Tailwind CSS"
+    },
+    "4fe3862829152b43": {
+      "es": "Una demo breve o un ejemplo de uso para la documentación",
+      "ja": "ドキュメント用の簡単なデモまたは使用例",
+      "ar": "عرض توضيحي قصير أو مثال استخدام للتوثيق"
+    },
+    "c225cdfb755fdf38": {
+      "es": "¿Necesitas ayuda?",
+      "ja": "ヘルプが必要ですか？",
+      "ar": "تحتاج مساعدة؟"
+    },
+    "e42fc2637040146a": {
+      "es": "Abre una discusión en GitHub o únete a la <1>comunidad de Babelize</1>. Somos un grupo amable.",
+      "ja": "GitHub で Discussion を開くか、<1>Babelize コミュニティ</1>に参加してください。みなさん親切です。",
+      "ar": "افتح نقاشًا على GitHub أو انضم إلى <1>مجتمع Babelize</1>. نحن ودودون."
+    },
+    "b605350bc0020952": {
+      "es": "Introducción",
+      "ja": "はじめに",
+      "ar": "مقدّمة"
+    },
+    "65b67b66dc38550d": {
+      "es": "Babelize Elements es una biblioteca de código abierto de componentes de interfaz de localización para React y Tailwind CSS.",
+      "ja": "Babelize Elements は、React および Tailwind CSS 向けのローカライゼーション UI コンポーネントのオープンソースライブラリです。",
+      "ar": "Babelize Elements مكتبة مفتوحة المصدر من مكوّنات واجهات التوطين لـ React وTailwind CSS."
+    },
+    "3a26f9edd5805875": {
+      "es": "Babelize Elements",
+      "ja": "Babelize Elements",
+      "ar": "Babelize Elements"
+    },
+    "b07ffd7e77cbeb02": {
+      "es": "Babelize Elements es una <1>biblioteca de código abierto</1> de <2>componentes de interfaz de localización</2> para React y Tailwind CSS.",
+      "ja": "Babelize Elements は React および Tailwind CSS 向けの<2>ローカライゼーション UI コンポーネント</2>を集めた<1>オープンソース</1>ライブラリです。",
+      "ar": "Babelize Elements هي <1>مكتبة مفتوحة المصدر</1> من <2>مكوّنات واجهات التوطين</2> لـ React وTailwind CSS."
+    },
+    "bcf5c0665e2fe328": {
+      "es": "Es el hogar comunitario de los bloques básicos que toda aplicación localizada necesita: selectores de idioma, selectores de configuración regional, widgets de traducción, diseños compatibles con RTL y mucho más. Creado por la comunidad de Babelize, para la comunidad de Babelize.",
+      "ja": "ローカライズされたアプリに必要な基本部品（言語スイッチャー、ロケールピッカー、翻訳ウィジェット、RTL に対応したレイアウトなど）を集めた、コミュニティの拠点です。Babelize コミュニティによって、Babelize コミュニティのために作られています。",
+      "ar": "إنها المنزل المجتمعي للبنى الأساسية التي يحتاجها كل تطبيق مُعرّب، مثل مبدّلات اللغة، ومنتقيات الإعدادات المحلية، وأدوات الترجمة، والتخطيطات المدركة لـ RTL، وغيرها. بناها مجتمع Babelize، من أجل مجتمع Babelize."
+    },
+    "78a74dc25735548f": {
+      "es": "¿Por qué Elements?",
+      "ja": "Elements を選ぶ理由",
+      "ar": "لماذا Elements؟"
+    },
+    "ef5d14824a5a67ca": {
+      "es": "Crear una aplicación localizada implica repetir el mismo trabajo de interfaz en cada proyecto: un desplegable de idiomas aquí, una fecha adaptada a la configuración regional allí, una navegación segura para RTL en todas partes. Elements convierte ese trabajo en una caja de herramientas compartida y de código abierto.",
+      "ja": "ローカライズされたアプリを作るとは、どのプロジェクトでも同じ UI の作業を繰り返すことです。言語のドロップダウン、ロケールに応じた日付表示、RTL に安全なナビゲーションなどです。Elements は、こうした作業を共有可能なオープンソースのツールボックスにまとめます。",
+      "ar": "بناء تطبيق مُعرّب يعني تكرار العمل نفسه في كل مشروع: قائمة لغات هنا، وتاريخ يراعي اللغة المحلية هناك، وتنقل آمن لـ RTL في كل مكان. تحوّل Elements هذا العمل إلى صندوق أدوات مشترك ومفتوح المصدر."
+    },
+    "eeae44f950308a5b": {
+      "es": "<1>Fácil de instalar</1> — {p0} para la biblioteca completa, o instala componentes uno a uno con {p1}.",
+      "ja": "<1>簡単なインストール</1> — ライブラリ全体は {p0}、コンポーネントは {p1} を使って1つずつインストールできます。",
+      "ar": "<1>سهلة التثبيت</1> — {p0} للمكتبة الكاملة، أو ثبّت المكوّنات واحدًا تلو الآخر عبر {p1}."
+    },
+    "b192b70d99dab1e2": {
+      "es": "<1>Localización primero</1> — cada componente incluye de serie soporte para pluralización, RTL y datos de configuración regional.",
+      "ja": "<1>ローカライゼーション優先</1> — すべてのコンポーネントに、複数形、RTL、ロケールデータのサポートが組み込まれています。",
+      "ar": "<1>التوطين أولًا</1> — كل مكوّن يأتي مع دعم مدمج للجمع وRTL وبيانات اللغات المحلية."
+    },
+    "86400c5bd3998c05": {
+      "es": "<1>Accesible</1> — soporte de teclado, etiquetas ARIA y marcado compatible con WCAG desde el primer momento.",
+      "ja": "<1>アクセシブル</1> — キーボード対応、ARIA ラベル、WCAG を考慮したマークアップを標準で備えています。",
+      "ar": "<1>قابلة للوصول</1> — دعم لوحة المفاتيح، وتسميات ARIA، وتنسيق يراعي WCAG جاهز من البداية."
+    },
+    "a94c201303ac7ad6": {
+      "es": "<1>Código abierto</1> — con licencia MIT, gratuito para siempre y creado por colaboradores como tú.",
+      "ja": "<1>オープンソース</1> — MIT ライセンスで、永久に無料です。あなたのようなコントリビューターによって作られています。",
+      "ar": "<1>مفتوحة المصدر</1> — برخصة MIT، ومجانية دائمًا، ويبنيها مساهمون مثلك."
+    },
+    "819481abf1dd47f2": {
+      "es": "Qué incluye",
+      "ja": "内容",
+      "ar": "ما الذي يتضمنه؟"
+    },
+    "3e376c533fb4b672": {
+      "es": "Este sitio incluye actualmente la guía de primeros pasos. Los componentes individuales son <1>aportados por la comunidad</1> a través de issues de GitHub: elige un issue abierto, construye el componente y abre un pull request para verlo publicado aquí.",
+      "ja": "現在このサイトでは、はじめにガイドを公開しています。個々のコンポーネントは、GitHub の Issue を通じて<1>コミュニティから提供されています</1>。未解決のIssueを選び、コンポーネントを作成し、pull request を作成すると、ここで公開されます。",
+      "ar": "يقدّم هذا الموقع حاليًا دليل البدء. أما المكوّنات الفردية فيساهم بها <1>المجتمع</1> عبر مشكلات GitHub. اختر مشكلة مفتوحة، وابنِ المكوّن، وافتح pull request لتراه مباشرةً هنا."
+    },
+    "dd00d3d3e9f73d27": {
+      "es": "Próximos pasos",
+      "ja": "次のステップ",
+      "ar": "الخطوات التالية"
+    },
+    "d00eca1bae674280": {
+      "es": "Primeros pasos",
+      "ja": "はじめに",
+      "ar": "ابدأ الآن"
+    },
+    "47647e07f2edb7b0": {
+      "es": "Configura Babelize Elements en tu proyecto.",
+      "ja": "プロジェクトに Babelize Elements をセットアップします。",
+      "ar": "ثبّت Babelize Elements في مشروعك."
+    },
+    "b69ef1f503fb4005": {
+      "es": "Contribuye con un componente",
+      "ja": "コンポーネントを提供する",
+      "ar": "ساهم بمكوّن"
+    },
+    "5b2c90726e4f300d": {
+      "es": "Crea un componente, consigue que se fusione y publícalo para la comunidad.",
+      "ja": "コンポーネントを作成し、マージして、コミュニティに公開します。",
+      "ar": "ابنِ مكوّنًا، واجعله مدمجًا، وأطلقه للمجتمع."
+    },
+    "f911e414cf6bdfc5": {
+      "es": "GitHub",
+      "ja": "GitHub",
+      "ar": "GitHub"
+    },
+    "ff3cad8a1cffc760": {
+      "es": "Dale una estrella al repo, abre un issue o únete a la discusión.",
+      "ja": "リポジトリにスターを付けたり、Issue を作成したり、Discussion に参加したりしてください。",
+      "ar": "ضع نجمة على المستودع، أو افتح مشكلة، أو انضم إلى النقاش."
+    },
+    "ad343b831280aa55": {
+      "es": "Instala @babelize/elements en tu proyecto con tu gestor de paquetes preferido.",
+      "ja": "お好みのパッケージマネージャーを使って、プロジェクトに @babelize/elements をインストールします。",
+      "ar": "ثبّت @babelize/elements في مشروعك باستخدام مدير الحزم المفضل لديك."
+    },
+    "bd14312b16c0ed5f": {
+      "es": "Babelize Elements encaja en cualquier proyecto de React + Tailwind CSS: Next.js, Vite, Remix o cualquier otra herramienta que empaquete React. El paquete incluye tipos de TypeScript y compilaciones ESM y\nCJS. Las dependencias en tiempo de ejecución son pocas y estándar en el ecosistema de shadcn:\n{p0} para animaciones y {p1} para iconos.",
+      "ja": "Babelize Elements は、React + Tailwind CSS のあらゆるプロジェクトにそのまま組み込めます。Next.js、Vite、Remix、その他 React をバンドルする環境が対象です。パッケージには TypeScript の型定義と、ESM および CJS のビルドが含まれています。ランタイムの依存関係は少なく、shadcn のエコシステムでは標準的なものです。アニメーションには {p0}、アイコンには {p1} を使用します。",
+      "ar": "تعمل Babelize Elements في أي مشروع React + Tailwind CSS، مثل Next.js أو Vite أو Remix،\nأو أي أداة تجميع أخرى لـ React. تأتي الحزمة مع أنواع TypeScript، وبإصداري ESM وCJS.\nوتبعيات التشغيل قليلة وقياسية في منظومة shadcn:\n{p0} للحركة و{p1} للأيقونات."
+    },
+    "9dddd0e9ddd47724": {
+      "es": "Gestor de paquetes",
+      "ja": "パッケージマネージャー",
+      "ar": "مدير الحزم"
+    },
+    "10ccf5bac5ddab7f": {
+      "es": "Instala la biblioteca completa con tu gestor de paquetes preferido:",
+      "ja": "お好みのパッケージマネージャーでライブラリ全体をインストールします:",
+      "ar": "ثبّت المكتبة كاملةً بمدير الحزم المفضل لديك:"
+    },
+    "f37f0089325ea2a7": {
+      "es": "Indícale a Tailwind el paquete",
+      "ja": "Tailwind にパッケージを認識させる",
+      "ar": "أخبر Tailwind بالحزمة"
+    },
+    "d885cb6c1d37e0df": {
+      "es": "Tailwind solo genera las clases que encuentra en tus archivos fuente, y no analiza {p0}. Sin este paso, los componentes se muestran <1>sin estilos</1>.",
+      "ja": "Tailwind は、ソースファイル内で見つけたクラスのみを生成し、{p0} はスキャンしません。この手順を行わないと、コンポーネントは<1>スタイルなし</1>で描画されます。",
+      "ar": "لا يولّد Tailwind إلا الأصناف الموجودة في ملفات مصدرك، ولا يفحص\n{p0}. من دون هذه الخطوة ستُعرض المكوّنات <1>بدون تنسيق</1>."
+    },
+    "8935ca770bec8df0": {
+      "es": "Indica a Tailwind el paquete una sola vez:",
+      "ja": "インストールしたパッケージを Tailwind に一度指定します:",
+      "ar": "وجّه Tailwind إلى الحزمة المثبتة مرة واحدة:"
+    },
+    "0f481400dd1fde59": {
+      "es": "Añade una línea {p0} al archivo CSS que importa Tailwind, con la ruta relativa\na ese archivo:",
+      "ja": "Tailwind をインポートしている CSS ファイルに {p0} の行を追加します。パスはそのファイルからの相対パスです:",
+      "ar": "أضف سطر {p0} إلى ملف CSS الذي يستورد Tailwind، مع المسار النسبي\nإلى ذلك الملف:"
+    },
+    "8858c7486cfd8f06": {
+      "es": "Añade el paquete a {p0} en tu configuración de Tailwind:",
+      "ja": "Tailwind の設定ファイルの {p0} にパッケージを追加します:",
+      "ar": "أضف الحزمة إلى {p0} في إعدادات Tailwind:"
+    },
+    "ac10cd75a44e6628": {
+      "es": "Este paso solo es necesario para el paquete npm. Los componentes instalados con la <1>CLI de shadcn</1> viven en tu propio árbol de código fuente, que\nTailwind ya analiza.",
+      "ja": "この手順は npm パッケージの場合のみ必要です。<1>shadcn CLI</1> でインストールしたコンポーネントは、Tailwind がすでにスキャンしているお使いのソースツリー内に配置されます。",
+      "ar": "هذه الخطوة خاصة بحزمة npm فقط. أما المكوّنات المثبتة عبر\n<1>CLI الخاص بـ shadcn</1> فتعيش في شجرة مصدرك الخاصة، وTailwind يفحصها أصلًا."
+    },
+    "6ee21d40086b5061": {
+      "es": "Tokens de tema",
+      "ja": "テーマのトークン",
+      "ar": "رموز السمات"
+    },
+    "f20feba25de6bdf4": {
+      "es": "Los componentes se estilizan con tokens semánticos de <1>shadcn/ui</1>, como {p0}, {p1}, {p2} y demás, para que\nadopten automáticamente el tema, el radio y el modo oscuro de tu aplicación.",
+      "ja": "コンポーネントは <1>shadcn/ui</1> のセマンティックトークン（{p0}、{p1}、{p2} など）でスタイルされるため、アプリのテーマ、角丸、ダークモードが自動的に反映されます。",
+      "ar": "تُنسَّق المكوّنات برموز <1>shadcn/ui</1> الدلالية، مثل {p0} و{p1} و{p2} وغيرها، فتتبع سمة تطبيقك\nونصف قطر الزوايا والوضع الداكن تلقائيًا."
+    },
+    "93bcee53f99961b6": {
+      "es": "<1>¿Ya usas shadcn/ui?</1> No hay nada que hacer: {p0} ya definió los tokens.",
+      "ja": "<1>すでに shadcn/ui を使用していますか？</1> 特別な作業は不要です。{p0} でトークンがすでに定義されています。",
+      "ar": "<1>تستخدم shadcn/ui بالفعل؟</1> لا شيء تفعله، فـ {p0} عرّف الرموز."
+    },
+    "0c5cc8dfea814555": {
+      "es": "<1>¿No usas shadcn/ui?</1> Añade los tokens una sola vez al archivo CSS que importa Tailwind.\nEste es el tema neutro de shadcn; cambia cualquier valor para que coincida con tu marca.",
+      "ja": "<1>shadcn/ui を使用していませんか？</1> Tailwind をインポートしている CSS ファイルに、トークンを一度追加してください。これは shadcn のニュートラルテーマです。ブランドに合わせて任意の値を変更できます。",
+      "ar": "<1>لا تستخدم shadcn/ui؟</1> أضف الرموز مرة واحدة إلى ملف CSS الذي يستورد Tailwind.\nهذه سمة shadcn المحايدة، فغيّر أي قيمة لتناسب علامتك التجارية."
+    },
+    "c3963c884218b09b": {
+      "es": "En Tailwind v3, asigna las mismas variables bajo {p0} en\n{p1}, como en la <1>guía de shadcn para v3</1>. Los componentes están diseñados para\nTailwind v4; en v3 funcionan, pero algunas utilidades exclusivas de v4 (como {p2}) no\ntienen ningún efecto.",
+      "ja": "Tailwind v3 の場合は、<1>shadcn v3 ガイド</1>のとおり、同じ変数を {p1} 内の {p0} に対応付けてください。コンポーネントは Tailwind v4 向けに設計されています。v3 でも動作しますが、v4 のみのユーティリティ（{p2} など）は効果がなくなります。",
+      "ar": "في Tailwind v3، اربط المتغيرات نفسها ضمن {p0} في\n{p1}، كما في <1>دليل shadcn v3</1>. صُممت المكوّنات لـ\nTailwind v4، وتعمل على v3 لكن بعض الأدوات الخاصة بـ v4 (مثل {p2}) لا\nتُحدث أثرًا."
+    },
+    "3cca74d830928be4": {
+      "es": "Todos los componentes también aceptan una prop {p0} para sobrescribir estilos por parte, así puedes cambiar el estilo de cualquier parte sin bifurcar el código fuente.",
+      "ja": "すべてのコンポーネントは、パーツごとの上書き用に {p0} prop も受け取るため、ソースをフォークしなくても任意のスロットのスタイルを変更できます。",
+      "ar": "كل مكوّن يقبل أيضًا خاصية {p0} لتجاوزات كل جزء، فيمكنك إعادة تنسيق أي فتحة\nدون نسخ المصدر."
+    },
+    "394f4f20195983f9": {
+      "es": "Instala componentes individuales",
+      "ja": "コンポーネントを個別にインストールする",
+      "ar": "تثبيت المكوّنات فرديًا"
+    },
+    "0e0cbf3fb2422c0a": {
+      "es": "¿Prefieres instalar componentes uno a uno, directamente en tu código? Usa la <1>CLI de shadcn</1>:",
+      "ja": "コンポーネントを1つずつ、コードベースに直接インストールしたい場合は、<1>shadcn CLI</1> を使用してください:",
+      "ar": "تفضّل تثبيت المكوّنات واحدًا تلو الآخر مباشرةً في قاعدة كودك؟ استخدم <1>CLI الخاص بـ shadcn</1>:"
+    },
+    "3de7eeb801e04af5": {
+      "es": "O usa la CLI que viene incluida en el paquete:",
+      "ja": "または、パッケージに含まれる CLI を使用してください:",
+      "ar": "أو استخدم CLI المرفق داخل الحزمة:"
+    },
+    "d286f244f846c846": {
+      "es": "En cualquier caso, el componente (junto con su utilidad {p0} y sus dependencias) se escribe en tu directorio {p1}, y a partir de ese momento el código es tuyo.",
+      "ja": "いずれの方法でも、コンポーネント（およびその {p0} ユーティリティと依存関係）が {p1} ディレクトリに書き込まれ、それ以降のコードはお客様の管理下になります。",
+      "ar": "في الحالتين، يُكتب المكوّن (مع أداة {p0} وتبعياته) داخل\nمجلد {p1} لديك، وتملك الكود منذ ذلك الحين."
+    },
+    "865514682d0132ab": {
+      "es": "Requisitos previos",
+      "ja": "前提条件",
+      "ar": "المتطلبات الأساسية"
+    },
+    "711595f184a741e1": {
+      "es": "Dependencia",
+      "ja": "依存関係",
+      "ar": "التبعية"
+    },
+    "f336c2851bebe572": {
+      "es": "Versión mínima",
+      "ja": "最小バージョン",
+      "ar": "أدنى إصدار"
+    },
+    "01fad993ff61aca9": {
+      "es": "React",
+      "ja": "React",
+      "ar": "React"
+    },
+    "e67bdaa5f7c6858c": {
+      "es": "React DOM",
+      "ja": "React DOM",
+      "ar": "React DOM"
+    },
+    "6fec5b215920e00b": {
+      "es": "Tailwind CSS",
+      "ja": "Tailwind CSS",
+      "ar": "Tailwind CSS"
+    },
+    "1fc0c785332e80fb": {
+      "es": "Node.js",
+      "ja": "Node.js",
+      "ar": "Node.js"
+    },
+    "b9b1d2aaf131f6ae": {
+      "es": "Verifica la instalación",
+      "ja": "インストールの確認",
+      "ar": "تحقّق من التثبيت"
+    },
+    "d90986aff7059ef5": {
+      "es": "Importa un componente para confirmar que todo está bien conectado:",
+      "ja": "コンポーネントをインポートして、すべてが正しく接続されていることを確認します:",
+      "ar": "استورد مكوّنًا للتأكد من أن كل شيء مُهيّأ بشكل صحيح:"
+    },
+    "09dddd15805bb248": {
+      "es": "Todos los componentes priorizan TypeScript, exportan su propia interfaz de props y funcionan con tu configuración existente de {p0}, {p1} o i18n personalizada.",
+      "ja": "すべてのコンポーネントは TypeScript を優先して設計されており、独自の props インターフェースをエクスポートし、既存の {p0}、{p1}、またはカスタムの i18n セットアップと連携して動作します。",
+      "ar": "كل مكوّن مكتوب بـ TypeScript أولًا، ويُصدّر واجهة خصائصه الخاصة، ويعمل مع\n{p0} أو {p1} أو إعداد i18n المخصص لديك."
+    },
+    "759f4c0213571add": {
+      "es": "Próximos pasos",
+      "ja": "次のステップ",
+      "ar": "الخطوات التالية"
+    },
+    "24fdc05c10f3ee1d": {
+      "es": "Explora todos los componentes disponibles y su documentación.",
+      "ja": "利用可能なすべてのコンポーネントとそのドキュメントを参照します。",
+      "ar": "تصفّح جميع المكوّنات المتاحة ووثائقها."
+    },
+    "3c7d10b1f91a4a7b": {
+      "es": "ShadCN CLI",
+      "ja": "ShadCN CLI",
+      "ar": "ShadCN CLI"
+    },
+    "7a353fb37aea9067": {
+      "es": "Instala componentes de forma individual con la CLI de shadcn.",
+      "ja": "shadcn CLI を使用してコンポーネントを個別にインストールします。",
+      "ar": "ثبّت المكوّنات واحدًا تلو الآخر باستخدام CLI الخاص بـ shadcn."
+    },
+    "97b0c61b99f65f9e": {
+      "es": "Contribuir",
+      "ja": "コントリビュート",
+      "ar": "المساهمة"
+    },
+    "05c4414cd6306e76": {
+      "es": "¿Falta un componente? Crea tú mismo la primera versión.",
+      "ja": "コンポーネントが見つかりませんか？ 最初のバージョンをご自身で作成してください。",
+      "ar": "مكوّن ناقص؟ ابنِ النسخة الأولى بنفسك."
+    },
+    "983f311018642b0a": {
+      "es": "Empezar",
+      "ja": "はじめる",
+      "ar": "ابدأ الآن"
+    },
+    "3a81d52e6d79f07b": {
+      "es": "Manual del colaborador",
+      "ja": "コントリビューター規約",
+      "ar": "دليل المساهم"
+    },
+    "1e6a4992c43ab0d1": {
+      "es": "Antes de programar, lee las reglas. Así trabajamos juntos en Babelize Elements.",
+      "ja": "コードを書く前に、ルールをお読みください。Babelize Elements における協働の方法です。",
+      "ar": "قبل أن تكتب الكود، اقرأ القواعد. هكذا نعمل معًا على Babelize Elements."
+    },
+    "74d1d8bea9bb4167": {
+      "es": "01 · Habla antes de programar",
+      "ja": "01 · コードを書く前に相談する",
+      "ar": "01 · تحدّث قبل أن تكتب الكود"
+    },
+    "8a48c1bebd5718b8": {
+      "es": "¿Encontraste un error? ¿Tienes una idea? ¿Quieres crear una función? Todavía no empieces a programar.",
+      "ja": "バグを見つけましたか？ アイデアがありますか？ 機能を作りたいですか？ まだコーディングは始めないでください。",
+      "ar": "وجدت خللًا؟ لديك فكرة؟ تريد بناء ميزة؟ لا تبدأ بكتابة الكود بعد."
+    },
+    "51eec39562b7e2b7": {
+      "es": "Revisa los <1>issues existentes</1>.",
+      "ja": "<1>既存の Issue</1> を確認してください。",
+      "ar": "راجع <1>المشكلات الحالية</1>."
+    },
+    "79ff46a8d2a539a3": {
+      "es": "Busca o crea el issue relevante.",
+      "ja": "関連する Issue を探すか、作成してください。",
+      "ar": "ابحث عن المشكلة ذات الصلة أو أنشئها."
+    },
+    "54eb8ced300249f8": {
+      "es": "Comenta en qué planeas trabajar.",
+      "ja": "取り組む予定の内容をコメントしてください。",
+      "ar": "علّق بما تنوي العمل عليه."
+    },
+    "afa37cadfdf15e59": {
+      "es": "Espera a que un mantenedor lo confirme.",
+      "ja": "メンテナーの確認を待ってください。",
+      "ar": "انتظر تأكيد أحد المشرفين."
+    },
+    "64773fcb0c148efc": {
+      "es": "Entonces empieza a programar.",
+      "ja": "その後、コーディングを始めてください。",
+      "ar": "ثم ابدأ الكتابة."
+    },
+    "0b2c27434522c1e1": {
+      "es": "Evita trabajo duplicado.",
+      "ja": "作業の重複を避けます。",
+      "ar": "تجنّب تكرار العمل."
+    },
+    "c7ef8d38b032b15c": {
+      "es": "Mantén las contribuciones coordinadas.",
+      "ja": "コントリビューションを調整された状態に保ちます。",
+      "ar": "حافظ على تنسيق المساهمات."
+    },
+    "16b28ce27371e7a5": {
+      "es": "02 · Abre un PR",
+      "ja": "02 · PR を作成する",
+      "ar": "02 · افتح pull request"
+    },
+    "8c628acbbee0bbb3": {
+      "es": "Un PR. Un cambio claro. Mantén tu PR:",
+      "ja": "1つの PR に、1つの明確な変更を。PR は次の状態を保ってください:",
+      "ar": "طلب واحد. تغيير واحد واضح. اجعل طلبك:"
+    },
+    "4f9a966fb271c31a": {
+      "es": "Enfocado",
+      "ja": "集中している",
+      "ar": "مركّزًا"
+    },
+    "ffa76b4dc270b36c": {
+      "es": "Resuelve un solo problema. Limita tus cambios a un único issue o función.",
+      "ja": "1つの問題を解決します。変更範囲は1つの Issue または機能に絞ってください。",
+      "ar": "حُل مشكلة واحدة. اقصر تغييراتك على مشكلة أو ميزة واحدة."
+    },
+    "83b12c2216efb4fd": {
+      "es": "Claro",
+      "ja": "明確である",
+      "ar": "واضحًا"
+    },
+    "1a4bf062f6333c20": {
+      "es": "Explica qué cambió y por qué. Añade contexto, capturas de pantalla si hace falta, y enlaza el issue.",
+      "ja": "何がなぜ変わったのかを説明してください。必要に応じて背景情報やスクリーンショットを追加し、Issue をリンクしてください。",
+      "ar": "اشرح ما الذي تغيّر ولماذا. أضف السياق، ولقطات الشاشة عند الحاجة، واربط المشكلة."
+    },
+    "acf9e3728459848f": {
+      "es": "Probado",
+      "ja": "テスト済みである",
+      "ar": "مُختبرًا"
+    },
+    "3406a26880204f73": {
+      "es": "Asegúrate de que tu código funciona como se espera y no rompe la funcionalidad existente.",
+      "ja": "コードが期待どおりに動作し、既存の機能を壊さないことを確認してください。",
+      "ar": "تأكد من أن كودك يعمل كما هو متوقع ولا يكسر الوظائف القائمة."
+    },
+    "f71c08f8afb8ca7c": {
+      "es": "Revisable",
+      "ja": "レビューしやすい",
+      "ar": "قابلًا للمراجعة"
+    },
+    "df16e402cfbcba9d": {
+      "es": "Mantenlo pequeño y limpio. Sin cambios de formato ni refactorizaciones no relacionadas.",
+      "ja": "小さく、きれいな状態に保ってください。フォーマットの変更や無関係なリファクタリングは含めないでください。",
+      "ar": "اجعله صغيرًا ونظيفًا. بلا تغييرات في التنسيق ولا إعادة هيكلة غير ذات صلة."
+    },
+    "3d2afd061374a4d4": {
+      "es": "Los PR pequeños y enfocados son más fáciles de revisar.",
+      "ja": "小さく焦点を絞った PR は、レビューしやすくなります。",
+      "ar": "الطلبات الصغيرة والمركزة أسهل في المراجعة."
+    },
+    "7153c1f328c8733f": {
+      "es": "Mantienen el historial limpio y se fusionan más rápido.",
+      "ja": "履歴をすっきり保ち、より早くマージされます。",
+      "ar": "إنها تحافظ على سجل نظيف وتُدمج أسرع."
+    },
+    "b5cf223da7e13fb8": {
+      "es": "03 · Calidad del código",
+      "ja": "03 · コードの品質",
+      "ar": "03 · جودة الكود"
+    },
+    "2ac9f4f85c645c0a": {
+      "es": "Escribe código que podamos mantener. Antes de abrir tu PR:",
+      "ja": "保守しやすいコードを書いてください。PR を作成する前に:",
+      "ar": "اكتب كودًا يمكن صيانته. قبل فتح طلبك:"
+    },
+    "1f2bdc850107df4a": {
+      "es": "Sigue los patrones existentes",
+      "ja": "既存のパターンに従う",
+      "ar": "اتبع الأنماط القائمة"
+    },
+    "59a817597fe4733c": {
+      "es": "Mantén el código coherente con el proyecto.",
+      "ja": "プロジェクトとの一貫性を保ちます。",
+      "ar": "حافظ على اتساق الكود مع المشروع."
+    },
+    "518ee73cd11747f4": {
+      "es": "Mantén los componentes reutilizables",
+      "ja": "コンポーネントを再利用可能に保つ",
+      "ar": "اجعل المكوّنات قابلة لإعادة الاستخدام"
+    },
+    "0ee01151e65051eb": {
+      "es": "Construye piezas flexibles y componibles.",
+      "ja": "柔軟で組み合わせ可能なパーツを作成します。",
+      "ar": "ابنِ أجزاء مرنة وقابلة للتركيب."
+    },
+    "d30dbf5c413ab660": {
+      "es": "Usa nombres consistentes",
+      "ja": "命名を統一する",
+      "ar": "استخدم تسمية متسقة"
+    },
+    "1a65b757832d593a": {
+      "es": "Sigue las convenciones de nombres.",
+      "ja": "命名規則に従ってください。",
+      "ar": "اتبع اصطلاحات التسمية."
+    },
+    "0ef492dd73a9d9eb": {
+      "es": "Evita dependencias adicionales",
+      "ja": "余分な依存関係を避ける",
+      "ar": "تجنّب التبعيات الإضافية"
+    },
+    "93940b3c3400bef3": {
+      "es": "Mantén el proyecto ligero.",
+      "ja": "プロジェクトを軽量に保ちます。",
+      "ar": "حافظ على خفة المشروع."
+    },
+    "7d5adca1b614b59a": {
+      "es": "Gestiona los casos límite",
+      "ja": "エッジケースを処理する",
+      "ar": "عالج الحالات الحدّية"
+    },
+    "f255bf560e710a7a": {
+      "es": "Piensa en los estados de error y en los escenarios.",
+      "ja": "エラー状態やさまざまなシナリオを考慮してください。",
+      "ar": "فكّر في حالات الخطأ والسيناريوهات."
+    },
+    "acb594ffb7ba39e5": {
+      "es": "Elimina el código no utilizado",
+      "ja": "未使用のコードを削除する",
+      "ar": "أزل الكود غير المستخدم"
+    },
+    "9aa791e1d64a9d9c": {
+      "es": "Mantén la base de código limpia y mínima.",
+      "ja": "コードベースをクリーンかつ最小限に保ちます。",
+      "ar": "حافظ على نظافة الكود وبساطته."
+    },
+    "50f9838c00620800": {
+      "es": "Prueba tus cambios",
+      "ja": "変更をテストする",
+      "ar": "اختبر تغييراتك"
+    },
+    "753f711484c22f2e": {
+      "es": "Asegúrate de que todo funciona.",
+      "ja": "すべてが動作することを確認してください。",
+      "ar": "تأكد من أن كل شيء يعمل."
+    },
+    "07f3e7093917c5f2": {
+      "es": "Actualiza la documentación cuando sea necesario",
+      "ja": "必要に応じてドキュメントを更新する",
+      "ar": "حدّث الوثائق عند الحاجة"
+    },
+    "7ccc981ee99f1eaa": {
+      "es": "Ayuda a otros a entender tus cambios.",
+      "ja": "変更内容を他の人が理解できるようにしてください。",
+      "ar": "ساعد الآخرين على فهم تغييراتك."
+    },
+    "b10444da3beca5f6": {
+      "es": "¿Nuevo componente? Parte de la <1>plantilla de componente</1>.",
+      "ja": "新しいコンポーネントですか？ <1>コンポーネントテンプレート</1>から始めてください。",
+      "ar": "مكوّن جديد؟ ابدأ من <1>قالب المكوّن</1>."
+    },
+    "c499eda773f28ac1": {
+      "es": "Legible {p0} ingenioso.",
+      "ja": "読みやすさ {p0} 賢さ。",
+      "ar": "الوضوح {p0} الذكاء."
+    },
+    "d3bb0c4e9a071811": {
+      "es": "Escribe código para personas, no solo para máquinas.",
+      "ja": "コードは機械だけでなく、人のために書いてください。",
+      "ar": "اكتب الكود للبشر، لا للآلات فقط."
+    },
+    "ed358143dba0c525": {
+      "es": "04 · Revisión de PR",
+      "ja": "04 · PR レビュー",
+      "ar": "04 · مراجعة الطلب"
+    },
+    "fee3560058969381": {
+      "es": "Un PR no es la meta final.",
+      "ja": "PR を出したら終わりではありません。",
+      "ar": "الطلب ليس خط النهاية."
+    },
+    "0d5abb463f45a510": {
+      "es": "Los revisores pueden pedir:",
+      "ja": "レビュアーから次のような依頼があることがあります:",
+      "ar": "قد يطلب المراجعون:"
+    },
+    "160f046330f224e7": {
+      "es": "Cambios en el código",
+      "ja": "コードの変更",
+      "ar": "تغييرات في الكود"
+    },
+    "2d0ca0d6befe6c04": {
+      "es": "Refina la implementación o corrige problemas.",
+      "ja": "実装を改善するか、問題を修正します。",
+      "ar": "تحسين التنفيذ أو إصلاح المشكلات."
+    },
+    "73d58430f8ba3257": {
+      "es": "Pruebas adicionales",
+      "ja": "テストの追加",
+      "ar": "اختبارات إضافية"
+    },
+    "6ecc0a46ce4fe345": {
+      "es": "Añade o mejora la cobertura de pruebas.",
+      "ja": "テストカバレッジを追加または改善します。",
+      "ar": "أضف تغطية الاختبار أو حسّنها."
+    },
+    "fe4b8232d0e40a66": {
+      "es": "Actualizaciones de la documentación",
+      "ja": "ドキュメントの更新",
+      "ar": "تحديثات الوثائق"
+    },
+    "7eb0a8a4cd16ab55": {
+      "es": "Actualiza la documentación, los comentarios o los README.",
+      "ja": "ドキュメント、コメント、README を更新します。",
+      "ar": "حدّث الوثائق أو التعليقات أو ملفات README."
+    },
+    "69efa4a77f7b0bf8": {
+      "es": "Aclaración",
+      "ja": "説明の補足",
+      "ar": "توضيح"
+    },
+    "76d06f6d81effe24": {
+      "es": "Aporta más contexto o explicación.",
+      "ja": "より詳しい背景や説明を提供します。",
+      "ar": "قدّم سياقًا أو شرحًا أوضح."
+    },
+    "bf58f2d35172c4aa": {
+      "es": "Enfoques diferentes",
+      "ja": "別のアプローチ",
+      "ar": "مقاربات مختلفة"
+    },
+    "6d37bc7fe0896034": {
+      "es": "Debate soluciones alternativas.",
+      "ja": "代替案について話し合います。",
+      "ar": "ناقش حلولًا بديلة."
+    },
+    "8923c14ef0126281": {
+      "es": "Los comentarios forman parte de contribuir.",
+      "ja": "フィードバックもコントリビューションの一部です。",
+      "ar": "التغذية الراجعة جزء من المساهمة."
+    },
+    "2f0a862a0277639d": {
+      "es": "Sé abierto, responde a tiempo y mantén un tono constructivo.",
+      "ja": "オープンな姿勢で臨み、迅速に応答し、建設的なやり取りを心がけてください。",
+      "ar": "كن منفتحًا ومتجاوبًا، وحافظ على البناء."
+    },
+    "48059308595ea8fa": {
+      "es": "05 · Normas de la comunidad",
+      "ja": "05 · コミュニティガイドライン",
+      "ar": "05 · إرشادات المجتمع"
+    },
+    "a4370152b234aa0e": {
+      "es": "Construye con personas, no solo con código.",
+      "ja": "コードだけでなく、人とともに作ってください。",
+      "ar": "ابنِ مع الناس، لا مع الكود فقط."
+    },
+    "8f309550c642315a": {
+      "es": "Sé respetuoso",
+      "ja": "敬意を持つ",
+      "ar": "كن محترمًا"
+    },
+    "f484c9a6c77769f5": {
+      "es": "Trata con respeto a los colaboradores y mantenedores.",
+      "ja": "コントリビューターとメンテナーに敬意をもって接してください。",
+      "ar": "عامِل المساهمين والمشرفين باحترام."
+    },
+    "9b83e776fae1cae6": {
+      "es": "Sé constructivo",
+      "ja": "建設的であること",
+      "ar": "كن بنّاءً"
+    },
+    "eced785084126114": {
+      "es": "Señala problemas y ayuda a encontrar soluciones.",
+      "ja": "問題を指摘し、解決策を一緒に見つけてください。",
+      "ar": "أشِر إلى المشكلات وساعد في إيجاد الحلول."
+    },
+    "cdfb79ce8de20e8a": {
+      "es": "Aporta contexto",
+      "ja": "背景を伝える",
+      "ar": "قدّم السياق"
+    },
+    "3f5c368d9c7277e3": {
+      "es": "Explica tu razonamiento.",
+      "ja": "判断の理由を説明してください。",
+      "ar": "اشرح تفكيرك."
+    },
+    "42515476472919b8": {
+      "es": "Ayuda a otros",
+      "ja": "他の人を助ける",
+      "ar": "ساعد الآخرين"
+    },
+    "1f14cac3f05449d3": {
+      "es": "Comparte lo que sabes.",
+      "ja": "知っていることを共有してください。",
+      "ar": "شارك ما تعرفه."
+    },
+    "1920a647a5ea0b29": {
+      "es": "Mantén el foco",
+      "ja": "焦点を絞る",
+      "ar": "ركّز النقاش"
+    },
+    "1318c25cb340a736": {
+      "es": "Mantén las discusiones relevantes.",
+      "ja": "議論は関連する内容に留めてください。",
+      "ar": "اجعل النقاشات ذات صلة."
+    },
+    "1c24c53a24a8f536": {
+      "es": "Consulta también nuestro <1>Código de conducta</1>.",
+      "ja": "あわせて <1>行動規範</1> もご覧ください。",
+      "ar": "راجع أيضًا <1>مدونة السلوك</1>."
+    },
+    "30e41c72c301a967": {
+      "es": "El buen código importa.",
+      "ja": "良いコードは大切です。",
+      "ar": "الكود الجيد مهم."
+    },
+    "38be6aeffab73f6a": {
+      "es": "La buena colaboración también importa.",
+      "ja": "良い協働も同じくらい大切です。",
+      "ar": "والتعاون الجيد مهم أيضًا."
+    },
+    "676129265dfea449": {
+      "es": "06 · Estrella y fork",
+      "ja": "06 · スターとフォーク",
+      "ar": "06 · النجمة والنسخ (Fork)"
+    },
+    "d52d956646637e33": {
+      "es": "Apoya el proyecto.",
+      "ja": "プロジェクトを応援してください。",
+      "ar": "ادعم المشروع."
+    },
+    "b6f09096281dca14": {
+      "es": "Dale una estrella al repo",
+      "ja": "リポジトリにスターを付ける",
+      "ar": "ضع نجمة على المستودع"
+    },
+    "a055d992c20cf8b1": {
+      "es": "Una estrella muestra tu apoyo y ayuda a más desarrolladores a descubrir Babelize Elements.",
+      "ja": "スターはあなたの応援の証となり、より多くの開発者が Babelize Elements を見つけるきっかけになります。",
+      "ar": "النجمة تُظهر دعمك وتساعد المزيد من المطوّرين على اكتشاف Babelize Elements."
+    },
+    "256a0e55ddb1da92": {
+      "es": "Haz fork del repo",
+      "ja": "リポジトリをフォークする",
+      "ar": "انسخ المستودع (Fork)"
+    },
+    "1bcdd9ccd9d28bd2": {
+      "es": "Tu propia copia para experimentar, hacer cambios y abrir PR.",
+      "ja": "自分のコピーで試したり、変更を加えたり、PR を作成したりできます。",
+      "ar": "نسختك الخاصة للتجربة وإجراء التغييرات وفتح pull request."
+    },
+    "9c8a05720a2aa72e": {
+      "es": "Pequeñas acciones. Gran impacto.",
+      "ja": "小さな行動が、大きな効果を生みます。",
+      "ar": "إجراءات صغيرة. أثر كبير."
+    },
+    "f0a8e6c4fe3c6bc1": {
+      "es": "Construyamos juntos una internet más inclusiva.",
+      "ja": "より包摂的なインターネットを、ともに作っていきましょう。",
+      "ar": "لنبنِ معًا إنترنتًا أكثر شمولًا."
+    },
+    "9e8d0f2ae538e2d2": {
+      "es": "07 · Únete a la comunidad",
+      "ja": "07 · コミュニティに参加する",
+      "ar": "07 · انضم إلى المجتمع"
+    },
+    "e3eb6eff500c4b5d": {
+      "es": "No construyas solo. Únete al <1>Discord de Babelize</1> y dirígete\nal canal <2>#elements</2> para:",
+      "ja": "1人で作る必要はありません。<1>Babelize Discord</1> に参加して、次の目的で <2>#elements</2> チャンネルへ行ってください:",
+      "ar": "لا تبنِ وحدك. انضم إلى <1>Discord الخاص بـ Babelize</1> وتوجّه\nإلى قناة <2>#elements</2> لـ:"
+    },
+    "9a72221a27476f3e": {
+      "es": "Preguntas",
+      "ja": "質問",
+      "ar": "الأسئلة"
+    },
+    "7f0e877e30cf025f": {
+      "es": "Haz preguntas y pide ayuda a otros.",
+      "ja": "他の人に質問して助けを得ます。",
+      "ar": "اطرح سؤالًا واحصل على المساعدة من الآخرين."
+    },
+    "1c403a939dd46fcb": {
+      "es": "Ideas",
+      "ja": "アイデア",
+      "ar": "الأفكار"
+    },
+    "589b70b983406e8c": {
+      "es": "Comparte ideas y sugerencias.",
+      "ja": "アイデアや提案を共有します。",
+      "ar": "شارك الأفكار والمقترحات."
+    },
+    "7219a0256285ca25": {
+      "es": "Contribuciones",
+      "ja": "コントリビューション",
+      "ar": "المساهمات"
+    },
+    "f7b8647e811d0b8c": {
+      "es": "Toma issues y contribuye.",
+      "ja": "Issue を引き受けて、コントリビュートします。",
+      "ar": "تبنَّ المشكلات وساهم فيها."
+    },
+    "aac77df347205252": {
+      "es": "Retroalimentación",
+      "ja": "フィードバック",
+      "ar": "التغذية الراجعة"
+    },
+    "1c7514f9649e7f2c": {
+      "es": "Ayúdanos a crecer.",
+      "ja": "私たちの成長を手伝ってください。",
+      "ar": "ساعدنا على النمو."
+    },
+    "666067dd376e5d45": {
+      "es": "Issues",
+      "ja": "Issue",
+      "ar": "المشكلات"
+    },
+    "4d382240aee64361": {
+      "es": "Reporta errores y debate soluciones.",
+      "ja": "バグを報告し、修正について話し合います。",
+      "ar": "أبلغ عن الأخطاء وناقش الإصلاحات."
+    },
+    "418313b75b185ab8": {
+      "es": "Obtener ayuda",
+      "ja": "ヘルプを得る",
+      "ar": "طلب المساعدة"
+    },
+    "1fbc30a7a8a6dd51": {
+      "es": "¿Atascado? Pregunta a la comunidad.",
+      "ja": "行き詰まったら、コミュニティに聞いてください。",
+      "ar": "عالق؟ اسأل المجتمع."
+    },
+    "69744a3d2c22eda4": {
+      "es": "Tu contribución empieza con una conversación.",
+      "ja": "コントリビューションは対話から始まります。",
+      "ar": "مساهمتك تبدأ بحوار."
+    },
+    "b7fe611bab728e24": {
+      "es": "Las ideas crecen más rápido juntas.",
+      "ja": "アイデアは一緒に育てる方が速く成長します。",
+      "ar": "الأفكار تنمو أسرع معًا."
+    },
+    "ac0ff30f50f1d62f": {
+      "es": "08 · Empieza a contribuir",
+      "ja": "08 · コントリビュートを始める",
+      "ar": "08 · ابدأ المساهمة"
+    },
+    "496b30a796f134b6": {
+      "es": "¿Listo para construir?",
+      "ja": "作る準備はできましたか？",
+      "ar": "هل أنت مستعد للبناء؟"
+    },
+    "75d6338e4c77d045": {
+      "es": "<1>Dale una estrella al repo</1> — muestra tu apoyo, ayúdanos a crecer.",
+      "ja": "<1>リポジトリにスターを付ける</1> — 応援の気持ちを示し、私たちの成長を助けてください。",
+      "ar": "<1>ضع نجمة على المستودع</1> — أظهر دعمك، وساعدنا على النمو."
+    },
+    "85a5132a0794d9ec": {
+      "es": "<1>Haz fork del repo</1> — crea tu propio espacio de trabajo.",
+      "ja": "<1>リポジトリをフォークする</1> — 自分専用の作業環境を作成します。",
+      "ar": "<1>انسخ المستودع</1> — أنشئ مساحة عملك الخاصة."
+    },
+    "d343d21853fcb94f": {
+      "es": "<1>Únete a Discord</1> — forma parte de la comunidad.",
+      "ja": "<1>Discord に参加する</1> — コミュニティの一員になりましょう。",
+      "ar": "<1>انضم إلى Discord</1> — كن جزءًا من المجتمع."
+    },
+    "9ebf6c0eff4a36f0": {
+      "es": "<1>Busca un issue</1> — busca {p0}.",
+      "ja": "<1>Issue を探す</1> — {p0} を探してください。",
+      "ar": "<1>ابحث عن مشكلة</1> — ابحث عن {p0}."
+    },
+    "a33ca2da93e907a1": {
+      "es": "<1>Comenta primero</1> — avísanos de que lo estás haciendo.",
+      "ja": "<1>まずコメントする</1> — 取り組む旨を教えてください。",
+      "ar": "<1>علّق أولًا</1> — أخبرنا أنك تعمل عليها."
+    },
+    "09939e7168cbfa23": {
+      "es": "<1>Constrúyelo</1> — escribe, prueba y mantenlo enfocado.",
+      "ja": "<1>作成する</1> — 書いて、テストして、焦点を絞った内容に保ちます。",
+      "ar": "<1>ابنِها</1> — اكتب، واختبر، وحافظ على التركيز."
+    },
+    "486ffabe0d95585d": {
+      "es": "<1>Abre un PR</1> — explica qué y por qué.",
+      "ja": "<1>PR を作成する</1> — 何を、なぜ行ったかを説明します。",
+      "ar": "<1>افتح pull request</1> — اشرح ما ولماذا."
+    },
+    "7d107b91c4a527da": {
+      "es": "<1>Revisión y fusión</1> — atiende los comentarios y consigue que se fusione.",
+      "ja": "<1>レビューとマージ</1> — フィードバックに対応し、マージされます。",
+      "ar": "<1>راجِع وادمِج</1> — عالج الملاحظات، ثم يُدمج الطلب."
+    },
+    "d305a528ae776c67": {
+      "es": "Código abierto. Más personas.",
+      "ja": "オープンソース。より多くの人へ。",
+      "ar": "مصدر مفتوح. مزيد من الناس."
+    },
+    "112f1190b8c249ab": {
+      "es": "Un futuro más global. Construye con nosotros.",
+      "ja": "よりグローバルな未来を。私たちと一緒に作りましょう。",
+      "ar": "مستقبل أكثر عالمية. ابنِ معنا."
+    },
+    "16e278f97f412b73": {
+      "es": "Integración con la CLI de ShadCN",
+      "ja": "ShadCN CLI 連携",
+      "ar": "تكامل ShadCN CLI"
+    },
+    "861a493b106e3132": {
+      "es": "Instala Babelize Elements con la CLI de shadcn: añade el registro @babelize y luego incorpora a tu proyecto selectores de idioma, campos de entrada y widgets de traducción.",
+      "ja": "shadcn CLI で Babelize Elements をインストールします。@babelize レジストリを追加してから、言語スイッチャー、入力コンポーネント、翻訳ウィジェットをプロジェクトに取り込みます。",
+      "ar": "ثبّت Babelize Elements عبر CLI الخاص بـ shadcn: أضف سجل @babelize، ثم اسحب مبدّلات اللغة والحقول وأدوات الترجمة إلى مشروعك."
+    },
+    "1ee4bb26b5511277": {
+      "es": "Instala componentes individuales de Babelize Elements directamente en tu proyecto con la CLI de shadcn.",
+      "ja": "shadcn CLI を使って、個々の Babelize Elements コンポーネントをプロジェクトに直接インストールします。",
+      "ar": "ثبّت مكوّنات Babelize Elements الفردية مباشرةً في مشروعك باستخدام CLI الخاص بـ shadcn."
+    },
+    "880018ad587b7085": {
+      "es": "El registro {p0}",
+      "ja": "{p0} レジストリ",
+      "ar": "سجل {p0}"
+    },
+    "c4e76525cdce3187": {
+      "es": "Babelize Elements aparece en el <1>directorio de registros de shadcn</1> como {p0}, así que\nla CLI de shadcn lo resuelve sin configuración adicional.",
+      "ja": "Babelize Elements は <1>shadcn レジストリディレクトリ</1>に {p0} として掲載されているため、shadcn CLI は設定なしでこれを解決できます。",
+      "ar": "Babelize Elements مدرجة في\n<1>دليل سجلات shadcn</1> باسم {p0}، لذا\nيجدها CLI الخاص بـ shadcn دون أي إعداد."
+    },
+    "b1e7fdafc51f2b98": {
+      "es": "En una CLI más antigua, o para fijar el registro de forma explícita, añádelo al campo {p0} de\ntu {p1}:",
+      "ja": "古いバージョンの CLI を使用している場合、またはレジストリを明示的に固定したい場合は、{p1} の {p0} フィールドに追加してください:",
+      "ar": "على CLI أقدم، أو لتثبيت السجل صراحةً، أضفه إلى حقل {p0} في\n{p1} لديك:"
+    },
+    "96e7c55c1057646c": {
+      "es": "Instala un componente",
+      "ja": "コンポーネントをインストールする",
+      "ar": "تثبيت مكوّن"
+    },
+    "c6dae142d5d64b74": {
+      "es": "Instala cualquier componente:",
+      "ja": "任意のコンポーネントをインストールします:",
+      "ar": "ثبّت أي مكوّن:"
+    },
+    "d1dd0d71af6be344": {
+      "es": "Tu {p0} no se modifica",
+      "ja": "{p0} はそのまま残ります",
+      "ar": "ملف {p0} لا يُمسّ"
+    },
+    "83efde0c46276f2e": {
+      "es": "Los componentes importan {p0} a través de tu alias {p1} y esperan que ya esté\n  presente: la misma suposición que hacen los componentes de shadcn, ya que {p2}\n  lo crea. No se sobrescribe nada de tu versión, sin importar cómo la hayas personalizado.",
+      "ja": "コンポーネントは {p0} を {p1} エイリアス経由でインポートし、それがすでに存在することを前提とします。これは shadcn 自身のコンポーネントも同じ前提に立っており、{p2} が作成します。\n  カスタマイズの有無にかかわらず、お使いのバージョンが上書きされることはありません。",
+      "ar": "تستورد المكوّنات {p0} عبر الاسم المستعار {p1} الخاص بك، وتفترض أنه موجود\n  مسبقًا، وهو الافتراض نفسه الذي تفترضه مكوّنات shadcn، إذ إن {p2}\n  يُنشئه. لا يُكتب فوق نسختك أبدًا، مهما خصّصتها."
+    },
+    "e98f84d8e2cd9829": {
+      "es": "La CLI {p0} incluida además escribe {p1} por ti si el archivo\nrealmente falta, así que funciona en proyectos que nunca ejecutaron {p2}.",
+      "ja": "同梱の {p0} CLI は、ファイルが本当に存在しない場合に限り、{p1} も追加で作成します。そのため、{p2} を一度も実行したことがないプロジェクトでも動作します。",
+      "ar": "يكتب CLI {p0} المرفق أيضًا {p1} لك إذا كان الملف مفقودًا فعلًا،\nلذا يعمل في المشاريع التي لم تشغّل فيها {p2} قط."
+    },
+    "6a367b46ef8d345c": {
+      "es": "También puedes instalar mediante una URL directa:",
+      "ja": "直接の URL を指定してインストールすることもできます:",
+      "ar": "يمكنك أيضًا التثبيت عبر عنوان URL مباشر:"
+    },
+    "2cff9baabf56ca00": {
+      "es": "Importar",
+      "ja": "インポート",
+      "ar": "استيراد"
+    },
+    "dcb2d3b12ce26801": {
+      "es": "Usar la CLI de Babelize Elements",
+      "ja": "Babelize Elements CLI を使用する",
+      "ar": "استخدام CLI الخاص بـ Babelize Elements"
+    },
+    "a931184ac5b51a99": {
+      "es": "¿Prefieres una CLI específica? El paquete {p0} incluye una:",
+      "ja": "専用の CLI をお好みですか？ {p0} パッケージに含まれています:",
+      "ar": "تفضّل CLI مخصصًا؟ تأتي حزمة {p0} مع واحد:"
+    },
+    "414c090095ef3dec": {
+      "es": "Hace lo mismo: resuelve el elemento del registro, escribe el componente en {p0} e instala sus dependencias de npm.",
+      "ja": "同じ作業を行います。レジストリの項目を解決し、コンポーネントを {p0} に書き込み、その npm 依存関係をインストールします。",
+      "ar": "يؤدي المهمة نفسها: يحل عنصر السجل، ويكتب المكوّن إلى {p0}، ويثبّت تبعيات npm الخاصة به."
+    },
+    "83fe03166795afe6": {
+      "es": "La CLI resuelve las dependencias de cada componente y escribe cada archivo en el alias que corresponde a su tipo: los componentes en tu alias {p0}, y los hooks compartidos como {p1} y {p2} en {p3}.\nSi has reubicado {p4} en {p5}, los componentes lo seguirán.",
+      "ja": "CLI は各コンポーネントの依存関係を解決し、各ファイルをその種類に応じたエイリアスに書き込みます。コンポーネントは {p0} エイリアスに、{p1} や {p2} などの共有フックは {p3} に書き込まれます。{p5} で {p4} を移動している場合は、コンポーネントもそれに従います。",
+      "ar": "يحل CLI تبعيات كل مكوّن ويكتب كل ملف إلى الاسم المستعار الذي يحدده نوعه، فالمكوّنات تذهب إلى الاسم المستعار {p0} الخاص بك،\nوالخطافات المشتركة مثل {p1} و{p2} تذهب إلى {p3}.\nإذا نقلت {p4} في {p5}، تتبعه المكوّنات."
+    }
+  }
+}

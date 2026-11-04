@@ -1,6 +1,9 @@
 import type { ReactNode } from "react";
 import { DocsLayout } from "fumadocs-ui/layouts/docs";
+import { getLocale } from "next-intl/server";
 import { source } from "@/lib/source";
+import { localizeTree } from "@/lib/localized-href";
+import { SiteLanguageSwitcher } from "@/components/site-language-switcher";
 import { baseOptions } from "../layout.config";
 import { version as localVersion } from "../../../package.json";
 
@@ -42,33 +45,37 @@ async function getLatestVersion() {
 }
 
 export default async function Layout({ children }: { children: ReactNode }) {
-  const version = await getLatestVersion();
+  const [version, locale] = await Promise.all([getLatestVersion(), getLocale()]);
 
   return (
     <DocsLayout
-      tree={source.pageTree}
+      tree={localizeTree(source.getPageTree(locale), locale)}
       {...baseOptions}
       sidebar={{
         footer: (
-          <div
-            key="sidebar-footer"
-            className="flex items-center gap-1 border-t border-fd-border pt-3"
-          >
-            <IconLink href="https://discord.gg/Qqzr2g4KGx" label="Community" path={DISCORD_PATH} />
-            <IconLink
-              href="https://github.com/babelize/babelize-elements"
-              label="GitHub"
-              path={GITHUB_PATH}
-            />
-            <a
-              href="/llms-full.txt"
-              className="ml-1 rounded-md border border-fd-border px-2 py-1 font-mono text-[0.6875rem] text-fd-muted-foreground transition-colors hover:border-fd-primary/40 hover:text-fd-primary"
-            >
-              llms-full.txt
-            </a>
-            <span className="ml-auto font-mono text-[0.6875rem] text-fd-muted-foreground/60">
-              v{version}
-            </span>
+          <div key="sidebar-footer" className="flex flex-col gap-2 border-t border-fd-border pt-3">
+            <SiteLanguageSwitcher className="w-full justify-between" />
+            <div className="flex items-center gap-1">
+              <IconLink
+                href="https://discord.gg/Qqzr2g4KGx"
+                label="Community"
+                path={DISCORD_PATH}
+              />
+              <IconLink
+                href="https://github.com/babelize/babelize-elements"
+                label="GitHub"
+                path={GITHUB_PATH}
+              />
+              <a
+                href="/llms-full.txt"
+                className="ml-1 rounded-md border border-fd-border px-2 py-1 font-mono text-[0.6875rem] text-fd-muted-foreground transition-colors hover:border-fd-primary/40 hover:text-fd-primary"
+              >
+                llms-full.txt
+              </a>
+              <span className="ml-auto font-mono text-[0.6875rem] text-fd-muted-foreground/60">
+                v{version}
+              </span>
+            </div>
           </div>
         ),
       }}

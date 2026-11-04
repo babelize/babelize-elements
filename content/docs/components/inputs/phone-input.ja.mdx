@@ -1,0 +1,384 @@
+---
+title: Phone Input
+description: 国コードセレクター、国旗の絵文字、国番号検索を備えた、国際電話番号の入力コンポーネントです。50 か国に対応し、フォーマットとバリデーションを内蔵しています。
+---
+
+import { PreviewComponents } from "@/components/docs/preview-components";
+import { PhoneInputDemo } from "@/components/docs/phone-input-demo";
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+<PreviewComponents registryName="phone-input">
+  <PhoneInputDemo />
+</PreviewComponents>
+
+## インストール [#installation]
+
+<Tabs
+  items={["shadcn", "Elements CLI"]}
+  defaultValue="shadcn"
+  className="bg-transparent border-none"
+>
+  <Tab value="shadcn" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="installation-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx shadcn@latest add @babelize/phone-input
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx shadcn@latest add @babelize/phone-input
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx shadcn@latest add @babelize/phone-input
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx shadcn@latest add @babelize/phone-input
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+  <Tab value="Elements CLI" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="elements-cli-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx @babelize/elements add phone-input
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx @babelize/elements add phone-input
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx @babelize/elements add phone-input
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx @babelize/elements add phone-input
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+</Tabs>
+
+## 使い方 [#usage]
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { PhoneInput } from "@/components/ui/phone-input";
+
+export function PhoneField() {
+  const [phone, setPhone] = useState("");
+  const [countryCode, setCountryCode] = useState("US");
+
+  return (
+    <PhoneInput
+      value={phone} // omit for uncontrolled
+      country={countryCode} // omit for uncontrolled (or use defaultCountry)
+      onValueChange={(value, country) => {
+        setPhone(value);
+        console.log(country.dialCode);
+      }}
+      onCountryChange={(country) => setCountryCode(country.code)}
+      placeholder="Enter phone number"
+    />
+  );
+}
+```
+
+### 国の制御 [#country-control]
+
+国の指定も、電話番号と同じ制御／非制御の仕組みに従います。 制御するには `country` + `onCountryChange` を渡し、非制御時の初期値には `defaultCountry` を指定します。 `country` が制御されている場合は、親コンポーネントが最終的な決定権を持ちます。 下記の国番号による自動検出で国を切り替えたい場合は `onCountryChange` を尊重してください。
+
+### 国番号による自動検出 [#dial-code-detection]
+
+`+` で始まる番号を入力または貼り付けると、コンポーネントは一致する国に切り替え、国番号とその直後の区切り文字をフィールドから取り除きます。 `+` で指定されたプレフィックスは、手動で選んだ国よりも優先されます:
+
+- `+44 20 7946 0958` を貼り付けると GB が選択され、フィールドには `20 7946 0958` が残ります。
+- **すでにフィールドに入力されている**数字の前に入力した `+` は、それらの数字を取り除きません。 国番号が取り除かれるのは、`+` の後に入力された数字だった場合のみです。 既存の番号の前に `+1` を入力すると、`1` が入力された時点で国が US に切り替わり、番号のすべての数字は保持されます。
+- 一致する国番号が複数ある場合は、**最も長い**ものが優先されます。 そのため、より短い番号も一致する場合でも、`+880…` は Bangladesh を選択します。
+- **共有の国番号**は、一致した番号を共有する国のひとつが現在選択されている場合はその国を維持します。 それ以外の場合は、提供されている一覧の最初の国を選択します。 そのため、入力の途中で `+1` が US や CA から別の国に移ることはありません。 同じルールは、カスタムの `countries` 一覧にある共有番号にも適用されます。 たとえば RU と KZ の両方を提供している場合の `+7` も同様です。
+- `countries` 一覧にない国番号は無視されます。 国が切り替わるのは、実際に提供している国に限られます。
+- 切り替え後も国メニューは通常どおり動作します。 国を選択すると検出された国は上書きされ、値が再び `+` で始まるまで再検出は行われません。
+
+## Props [#props]
+
+| Prop                | 型                                          | 必須   | 説明                                                                                                  |
+| ------------------- | ------------------------------------------- | ------ | ----------------------------------------------------------------------------------------------------- |
+| `value`             | `string`                                    | いいえ | 電話番号。コンポーネントを制御するにはこの値を渡します                                                |
+| `defaultValue`      | `string`                                    | いいえ | 非制御時の初期電話番号                                                                                |
+| `onValueChange`     | `(phone: string, country: Country) => void` | いいえ | 電話番号または国が変更されたときのコールバック                                                        |
+| `country`           | `string`                                    | いいえ | 選択中の国コード（ISO 3166-1 alpha-2）。国を制御するにはこの値を渡します                              |
+| `onCountryChange`   | `(country: Country) => void`                | いいえ | 選択中の国が変更されたときのコールバック（メニューからの選択と国番号による自動検出の両方を含みます）  |
+| `defaultCountry`    | `string`                                    | いいえ | 非制御時の初期国コード（ISO 3166-1 alpha-2。例: `"US"`、`"GB"`、`"IN"`。デフォルト: `"US"`）          |
+| `countries`         | `Country[]`                                 | いいえ | 提供する国を表示順で指定します（デフォルト: `COUNTRIES`）                                             |
+| `placeholder`       | `string`                                    | いいえ | プレースホルダーテキスト                                                                              |
+| `disabled`          | `boolean`                                   | いいえ | 入力を無効にします                                                                                    |
+| `showFlags`         | `boolean`                                   | いいえ | 国番号の横に国旗を表示します（デフォルト: `true`）                                                    |
+| `size`              | `"sm" \| "default" \| "lg"`                 | いいえ | フィールドの高さ（デフォルト: `"default"`）                                                           |
+| `align`             | `"start" \| "end"`                          | いいえ | メニューを揃えるフィールドの辺（デフォルト: `"start"`）                                               |
+| `side`              | `"top" \| "bottom"`                         | いいえ | 優先するメニューの表示側。スペースがない場合は反転します（デフォルト: `"bottom"`）                    |
+| `searchPlaceholder` | `string`                                    | いいえ | 国の検索欄のプレースホルダー（デフォルト: `"Search countries..."`）                                   |
+| `emptyMessage`      | `ReactNode`                                 | いいえ | 検索に一致する項目がない場合に表示されます（デフォルト: `"No countries found."`）                     |
+| `labels`            | `Partial<PhoneInputLabels>`                 | いいえ | 組み込みの英語 UI テキストを上書きします（下記参照）                                                  |
+| `displayLocale`     | `string`                                    | いいえ | 国名のロケール。例: `"fr"`（デフォルト: 英語名）                                                      |
+| `maxHeight`         | `number \| string`                          | いいえ | スクロールする国一覧の最大の高さ（デフォルト: `"15rem"`）                                             |
+| `label`             | `string`                                    | いいえ | 入力欄のアクセシブルなラベル                                                                          |
+| `className`         | `string`                                    | いいえ | ルートラッパーのクラス                                                                                |
+| `classNames`        | `PhoneInputClassNames`                      | いいえ | パーツごとのクラス: `root`、`field`、`trigger`、`input`、`content`、`search`、`list`、`item`、`empty` |
+
+それ以外の prop（`name`、`required`、`autoComplete`、`aria-invalid`、`data-*`）は、内部の `<input>` にスプレッドされ、ref も転送されます。 そのため、プレーンな HTML フォーム内でも動作します。 `aria-invalid` を設定するとフィールド全体が赤くなり、shadcn の `Input` と同じ挙動になります。
+
+### Country オブジェクト [#country-object]
+
+| プロパティ | 型       | 説明                                                    |
+| ---------- | -------- | ------------------------------------------------------- |
+| `code`     | `string` | ISO 3166-1 alpha-2 コード（例: `"US"`、`"GB"`、`"IN"`） |
+| `dialCode` | `string` | 国番号（例: `"+1"`、`"+44"`、`"+91"`）                  |
+| `name`     | `string` | 国名                                                    |
+| `flag`     | `string` | 国旗の絵文字                                            |
+
+## 使用例 [#examples]
+
+### Babelize SDK を使う場合 [#with-babelize-sdk]
+
+ロケールに応じたバリデーションのために、Phone Input を [Babelize SDK](https://docs.babelize.co/sdk) と組み合わせます:
+
+```tsx
+"use client";
+
+import { useEffect, useState } from "react";
+import { PhoneInput } from "@/components/ui/phone-input";
+import { useBabelize } from "@babelize/sdk/react";
+
+export function ContactPhone() {
+  const { locale } = useBabelize();
+  const [phone, setPhone] = useState("");
+  const [countryCode, setCountryCode] = useState("US");
+
+  // The locale picks the country — until the user overrides it through the
+  // menu or by pasting a `+` number, which `onCountryChange` must honour.
+  useEffect(() => {
+    setCountryCode(locale === "en" ? "US" : locale === "de" ? "DE" : "GB");
+  }, [locale]);
+
+  return (
+    <PhoneInput
+      value={phone}
+      country={countryCode}
+      onCountryChange={(country) => setCountryCode(country.code)}
+      onValueChange={(value, country) => {
+        setPhone(value);
+        // Validate against locale-specific rules
+      }}
+      placeholder="Enter phone number"
+    />
+  );
+}
+```
+
+### フォームバリデーションを使う場合 [#with-form-validation]
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { PhoneInput } from "@/components/ui/phone-input";
+
+export default function CheckoutForm() {
+  const [phone, setPhone] = useState("");
+  const [error, setError] = useState("");
+
+  const validate = (value: string) => {
+    if (value.length < 10) {
+      setError("Phone number is too short");
+    } else {
+      setError("");
+    }
+  };
+
+  return (
+    <div>
+      <PhoneInput
+        value={phone}
+        onValueChange={(value) => {
+          setPhone(value);
+          validate(value);
+        }}
+        defaultCountry="US"
+        placeholder="Enter phone number"
+        aria-invalid={error ? true : undefined}
+      />
+      {error && <p className="mt-1 text-sm text-destructive">{error}</p>}
+    </div>
+  );
+}
+```
+
+### 国のフィルターを使う場合 [#with-country-filter]
+
+```tsx
+"use client";
+
+import { COUNTRIES, PhoneInput } from "@/components/ui/phone-input";
+
+// Only the markets you ship to, in the order you want them listed.
+const SUPPORTED = ["US", "GB", "CA", "AU"].map((code) =>
+  COUNTRIES.find((country) => country.code === code)!,
+);
+
+export default function App() {
+  return (
+    <PhoneInput
+      countries={SUPPORTED}
+      defaultCountry="US"
+      onValueChange={(phone, country) => console.log(phone, country)}
+    />
+  );
+}
+```
+
+### パーツのカスタマイズ [#customizing-parts]
+
+各パーツは `classNames` を通じて個別のクラスを指定でき、デフォルトのクラスの後にマージされます:
+
+```tsx
+<PhoneInput
+  size="lg"
+  align="end"
+  classNames={{
+    field: "rounded-full",
+    trigger: "ps-4",
+    content: "w-80",
+    item: "py-2",
+  }}
+/>
+```
+
+### 翻訳された UI テキスト [#translated-ui-text]
+
+国メニューのテキストを翻訳するには `labels` を、国名を別の言語で表示するには `displayLocale` を渡します。 国名はブラウザーの [`Intl.DisplayNames`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DisplayNames) から取得されるため、表記はブラウザーによってわずかに異なる場合があります。 検索は翻訳された名前に一致しますが、`onValueChange` は引き続き国の英語の `name` を返します。 `searchPlaceholder` と `emptyMessage` の props も引き続き使用でき、両方が設定されている場合は `labels` より優先されます。
+
+```tsx
+"use client";
+
+import { PhoneInput } from "@/components/ui/phone-input";
+
+export default function App() {
+  return (
+    <PhoneInput
+      defaultCountry="FR"
+      displayLocale="fr"
+      label="Numéro de téléphone"
+      placeholder="Numéro de téléphone"
+      labels={{
+        trigger: "Choisir un pays",
+        searchPlaceholder: "Rechercher un pays…",
+        searchLabel: "Rechercher un pays",
+        clearSearch: "Effacer la recherche",
+        emptyMessage: "Aucun pays trouvé.",
+        listbox: "Choisir un pays",
+      }}
+    />
+  );
+}
+```
+
+| キー                | デフォルト              | 用途                               |
+| ------------------- | ----------------------- | ---------------------------------- |
+| `trigger`           | `"Select country"`      | 国のトリガーラベル                 |
+| `searchPlaceholder` | `"Search countries..."` | 検索欄のプレースホルダー           |
+| `searchLabel`       | `"Search countries"`    | 検索欄のアクセシブルなラベル       |
+| `clearSearch`       | `"Clear search"`        | クリアボタンのアクセシブルなラベル |
+| `emptyMessage`      | `"No countries found."` | 一致する項目がない場合に表示       |
+| `listbox`           | `"Select country"`      | 国一覧のアクセシブルなラベル       |
+
+## キーボード操作 [#keyboard-support]
+
+国メニューは WAI-ARIA のコンボボックスパターンに従います。 フォーカスは検索欄に留まり、検索欄は `role="combobox"` として公開されます。 ハイライトされた国は `aria-activedescendant` を通じて読み上げられます。
+
+| キー                                      | 操作                                                           |
+| ----------------------------------------- | -------------------------------------------------------------- |
+| `Enter`、`Space`、またはクリック          | 国旗のトリガーから国メニューを開きます                         |
+| `ArrowDown` / `ArrowUp`（閉じている状態） | 最初または最後の国がハイライトされた状態で開きます             |
+| `ArrowDown` / `ArrowUp`                   | ハイライトを移動します。両端で循環します                       |
+| `Home` / `End`                            | 最初または最後の国をハイライトします                           |
+| `Enter`                                   | ハイライトされた国を選択します。フォーカスは番号欄に移動します |
+| `Escape`                                  | メニューを閉じ、フォーカスを国旗のトリガーに戻します           |
+| 入力                                      | 名前、コード、国番号で絞り込みます。ハイライトは先頭に戻ります |
+
+ハイライトは、メニューを開いたときに表示されていた行に留まります。 ネイティブのメニューのように、一覧はその下でスクロールします。 ページ自体はスクロールしません。 `maxHeight` を渡すと、スクロールが始まるまでの国一覧の高さを変更できます。
+
+## 機能 [#features]
+
+- **50 か国** — 国番号、国旗、国名をあらかじめ読み込み済み
+- **ドロップダウン検索** — 国名または国番号で絞り込み
+- **国旗の絵文字** — 国コードから自動検出されます。`showFlags` で切り替え可能
+- **キーボードでの操作に対応** — 矢印キー、Home / End、Enter、Escape で操作可能
+- **ARIA ラベル** — `aria-activedescendant` を持つ `role="combobox"` 検索欄に加え、`aria-expanded`、`aria-haspopup`、`aria-selected`
+- **テーマ変更に対応** — shadcn/ui のトークン（`border-input`、`bg-popover`、`ring-ring`）でスタイル設定されているため、テーマとダークモードに追従します
+- **アニメーション付きメニュー** — `motion` でフェードイン・フェードアウトし、モーション軽減設定を尊重します。下にスペースがない場合は上方向に反転します
+- **制御／非制御の両方に対応** — `value` と `country` の有無に関わらず動作します
+- **国番号による自動検出** — `+44…` を入力または貼り付けると国が GB に切り替わり、プレフィックスは取り除かれます。共有の国番号（`+1`、`+7`）の場合は現在の選択を維持します
+
+## 対応している国 [#supported-countries]
+
+この入力欄には 50 か国があらかじめ読み込まれています。ドロップダウン検索を使うと、国名または国番号で任意の国を探せます。対象の国は次のとおりです:
+
+| 国                                                     | コード | 国番号 | 国旗 |
+| ------------------------------------------------------ | ------ | ------ | ---- |
+| アメリカ合衆国                                         | `US`   | `+1`   | 🇺🇸   |
+| イギリス                                               | `GB`   | `+44`  | 🇬🇧   |
+| カナダ                                                 | `CA`   | `+1`   | 🇨🇦   |
+| オーストラリア                                         | `AU`   | `+61`  | 🇦🇺   |
+| インド                                                 | `IN`   | `+91`  | 🇮🇳   |
+| ドイツ                                                 | `DE`   | `+49`  | 🇩🇪   |
+| フランス                                               | `FR`   | `+33`  | 🇫🇷   |
+| 日本                                                   | `JP`   | `+81`  | 🇯🇵   |
+| ブラジル                                               | `BR`   | `+55`  | 🇧🇷   |
+| 韓国                                                   | `KR`   | `+82`  | 🇰🇷   |
+| ……ほか 40 か国はドロップダウン検索からご覧いただけます |
+
+## 依存関係 [#dependencies]
+
+このコンポーネントは次を使用しています:
+
+- `clsx` と `tailwind-merge`（dependencies としてバンドル）
+- アイコンには `lucide-react`、メニューのアニメーションには `motion` を使用
+
+peerDependencies:
+
+- `react` >= 18
+- `react-dom` >= 18
+- `tailwindcss` >= 3
+
+## クレジット [#credits]
+
+作成者: [sapatmohit](https://github.com/sapatmohit)。

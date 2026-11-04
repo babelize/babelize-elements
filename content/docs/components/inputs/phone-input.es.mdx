@@ -1,0 +1,384 @@
+---
+title: Entrada de teléfono
+description: Campo internacional para números de teléfono con selector de país, emojis de bandera y búsqueda de prefijos telefónicos. Admite 50 países con formato y validación integrados.
+---
+
+import { PreviewComponents } from "@/components/docs/preview-components";
+import { PhoneInputDemo } from "@/components/docs/phone-input-demo";
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+<PreviewComponents registryName="phone-input">
+  <PhoneInputDemo />
+</PreviewComponents>
+
+## Instalación [#installation]
+
+<Tabs
+  items={["shadcn", "Elements CLI"]}
+  defaultValue="shadcn"
+  className="bg-transparent border-none"
+>
+  <Tab value="shadcn" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="installation-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx shadcn@latest add @babelize/phone-input
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx shadcn@latest add @babelize/phone-input
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx shadcn@latest add @babelize/phone-input
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx shadcn@latest add @babelize/phone-input
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+  <Tab value="Elements CLI" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="elements-cli-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx @babelize/elements add phone-input
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx @babelize/elements add phone-input
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx @babelize/elements add phone-input
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx @babelize/elements add phone-input
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+</Tabs>
+
+## Uso [#usage]
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { PhoneInput } from "@/components/ui/phone-input";
+
+export function PhoneField() {
+  const [phone, setPhone] = useState("");
+  const [countryCode, setCountryCode] = useState("US");
+
+  return (
+    <PhoneInput
+      value={phone} // omit for uncontrolled
+      country={countryCode} // omit for uncontrolled (or use defaultCountry)
+      onValueChange={(value, country) => {
+        setPhone(value);
+        console.log(country.dialCode);
+      }}
+      onCountryChange={(country) => setCountryCode(country.code)}
+      placeholder="Enter phone number"
+    />
+  );
+}
+```
+
+### Control del país [#country-control]
+
+El país sigue la misma convención controlada/no controlada que el número: pasa `country` + `onCountryChange` para controlarlo, o `defaultCountry` para definir el valor predeterminado no controlado. Cuando `country` es controlado, el padre tiene la última palabra; usa `onCountryChange` si quieres que la detección del prefijo (abajo) cambie de país.
+
+### Detección del prefijo telefónico [#dial-code-detection]
+
+Escribe o pega un número que empiece por `+` y el componente cambiará el país para que coincida, eliminando del campo el prefijo y el separador que lo sigue. El prefijo que declara `+` tiene prioridad sobre un país seleccionado manualmente:
+
+- Al pegar `+44 20 7946 0958` se selecciona GB y `20 7946 0958` se mantiene en el campo.
+- Un `+` escrito delante de dígitos que **ya están en el campo** nunca los elimina: el prefijo solo se consume cuando sus dígitos se introdujeron después del `+`. Escribe `+1` delante de un número existente y el país cambiará a US cuando aparezca el `1`, y el número conservará todos los dígitos que tenía.
+- Gana el prefijo **más largo** que coincida, así que `+880…` selecciona Bangladés aunque un prefijo más corto también coincida.
+- Los **prefijos compartidos** mantienen el país seleccionado actualmente cuando es uno de los países que comparten el prefijo coincidente; de lo contrario, eligen el primero de la lista ofrecida, así que `+1` nunca salta lejos de US o CA mientras escribes. La misma regla se aplica a cualquier prefijo compartido en una lista personalizada de `countries`, como `+7` si ofreces tanto RU como KZ.
+- Un prefijo que no está en tu lista de `countries` se ignora: el país solo cambia a un país que realmente ofreces.
+- Tras un cambio, el menú de países sigue funcionando con normalidad: elegir un país sustituye al detectado, y no se vuelve a detectar nada hasta la próxima vez que el valor empiece por `+`.
+
+## Props [#props]
+
+| Prop                | Tipo                                        | Obligatorio | Descripción                                                                                                                  |
+| ------------------- | ------------------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `value`             | `string`                                    | No          | Número de teléfono: pásalo para controlar el componente                                                                      |
+| `defaultValue`      | `string`                                    | No          | Número de teléfono inicial cuando no está controlado                                                                         |
+| `onValueChange`     | `(phone: string, country: Country) => void` | No          | Callback que se ejecuta cuando cambia el número de teléfono o el país                                                        |
+| `country`           | `string`                                    | No          | Código de país seleccionado (ISO 3166-1 alpha-2): pásalo para controlar el país                                              |
+| `onCountryChange`   | `(country: Country) => void`                | No          | Callback que se ejecuta cuando cambia el país seleccionado, ya sea desde el menú o por la detección del prefijo              |
+| `defaultCountry`    | `string`                                    | No          | Código de país inicial cuando no está controlado (ISO 3166-1 alpha-2, p. ej. `"US"`, `"GB"`, `"IN"`; predeterminado: `"US"`) |
+| `countries`         | `Country[]`                                 | No          | Países ofrecidos, en orden de visualización (predeterminado: `COUNTRIES`)                                                    |
+| `placeholder`       | `string`                                    | No          | Texto de marcador de posición                                                                                                |
+| `disabled`          | `boolean`                                   | No          | Desactiva el campo                                                                                                           |
+| `showFlags`         | `boolean`                                   | No          | Muestra la bandera del país junto al prefijo telefónico (predeterminado: `true`)                                             |
+| `size`              | `"sm" \| "default" \| "lg"`                 | No          | Altura del campo (predeterminado: `"default"`)                                                                               |
+| `align`             | `"start" \| "end"`                          | No          | Borde del campo con el que se alinea el menú (predeterminado: `"start"`)                                                     |
+| `side`              | `"top" \| "bottom"`                         | No          | Lado preferido del menú; cambia de lado si no hay espacio (predeterminado: `"bottom"`)                                       |
+| `searchPlaceholder` | `string`                                    | No          | Marcador de posición para la búsqueda de países (predeterminado: `"Search countries..."`)                                    |
+| `emptyMessage`      | `ReactNode`                                 | No          | Se muestra cuando la búsqueda no coincide con nada (predeterminado: `"No countries found."`)                                 |
+| `labels`            | `Partial<PhoneInputLabels>`                 | No          | Sustituye el texto de interfaz en inglés integrado (consulta más abajo)                                                      |
+| `displayLocale`     | `string`                                    | No          | Configuración regional para los nombres de países, p. ej. `"fr"` (predeterminado: nombres en inglés)                         |
+| `maxHeight`         | `number \| string`                          | No          | Altura máxima de la lista de países con desplazamiento (predeterminado: `"15rem"`)                                           |
+| `label`             | `string`                                    | No          | Etiqueta accesible para el campo                                                                                             |
+| `className`         | `string`                                    | No          | Clases para el contenedor raíz                                                                                               |
+| `classNames`        | `PhoneInputClassNames`                      | No          | Clases por parte: `root`, `field`, `trigger`, `input`, `content`, `search`, `list`, `item`, `empty`                          |
+
+Cualquier otra prop — `name`, `required`, `autoComplete`, `aria-invalid`, `data-*` — se pasa al `<input>` subyacente, y la ref se reenvía a él, así que el componente funciona dentro de un formulario HTML normal. Si estableces `aria-invalid`, todo el campo se vuelve rojo, igual que `Input` de shadcn.
+
+### Objeto de país [#country-object]
+
+| Propiedad  | Tipo     | Descripción                                               |
+| ---------- | -------- | --------------------------------------------------------- |
+| `code`     | `string` | Código ISO 3166-1 alpha-2 (p. ej. `"US"`, `"GB"`, `"IN"`) |
+| `dialCode` | `string` | Prefijo telefónico (p. ej. `"+1"`, `"+44"`, `"+91"`)      |
+| `name`     | `string` | Nombre del país                                           |
+| `flag`     | `string` | Emoji de bandera                                          |
+
+## Ejemplos [#examples]
+
+### Con el SDK de Babelize [#with-babelize-sdk]
+
+Combina la entrada de teléfono con el [SDK de Babelize](https://docs.babelize.co/sdk) para validar según la configuración regional:
+
+```tsx
+"use client";
+
+import { useEffect, useState } from "react";
+import { PhoneInput } from "@/components/ui/phone-input";
+import { useBabelize } from "@babelize/sdk/react";
+
+export function ContactPhone() {
+  const { locale } = useBabelize();
+  const [phone, setPhone] = useState("");
+  const [countryCode, setCountryCode] = useState("US");
+
+  // The locale picks the country — until the user overrides it through the
+  // menu or by pasting a `+` number, which `onCountryChange` must honour.
+  useEffect(() => {
+    setCountryCode(locale === "en" ? "US" : locale === "de" ? "DE" : "GB");
+  }, [locale]);
+
+  return (
+    <PhoneInput
+      value={phone}
+      country={countryCode}
+      onCountryChange={(country) => setCountryCode(country.code)}
+      onValueChange={(value, country) => {
+        setPhone(value);
+        // Validate against locale-specific rules
+      }}
+      placeholder="Enter phone number"
+    />
+  );
+}
+```
+
+### Con validación de formularios [#with-form-validation]
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { PhoneInput } from "@/components/ui/phone-input";
+
+export default function CheckoutForm() {
+  const [phone, setPhone] = useState("");
+  const [error, setError] = useState("");
+
+  const validate = (value: string) => {
+    if (value.length < 10) {
+      setError("Phone number is too short");
+    } else {
+      setError("");
+    }
+  };
+
+  return (
+    <div>
+      <PhoneInput
+        value={phone}
+        onValueChange={(value) => {
+          setPhone(value);
+          validate(value);
+        }}
+        defaultCountry="US"
+        placeholder="Enter phone number"
+        aria-invalid={error ? true : undefined}
+      />
+      {error && <p className="mt-1 text-sm text-destructive">{error}</p>}
+    </div>
+  );
+}
+```
+
+### Con filtro de países [#with-country-filter]
+
+```tsx
+"use client";
+
+import { COUNTRIES, PhoneInput } from "@/components/ui/phone-input";
+
+// Only the markets you ship to, in the order you want them listed.
+const SUPPORTED = ["US", "GB", "CA", "AU"].map((code) =>
+  COUNTRIES.find((country) => country.code === code)!,
+);
+
+export default function App() {
+  return (
+    <PhoneInput
+      countries={SUPPORTED}
+      defaultCountry="US"
+      onValueChange={(phone, country) => console.log(phone, country)}
+    />
+  );
+}
+```
+
+### Personalizar partes [#customizing-parts]
+
+Cada parte admite sus propias clases mediante `classNames`, que se combinan después de los valores predeterminados:
+
+```tsx
+<PhoneInput
+  size="lg"
+  align="end"
+  classNames={{
+    field: "rounded-full",
+    trigger: "ps-4",
+    content: "w-80",
+    item: "py-2",
+  }}
+/>
+```
+
+### Texto de interfaz traducido [#translated-ui-text]
+
+Pasa `labels` para traducir el texto del menú de países, y `displayLocale` para mostrar los nombres de países en otro idioma. Los nombres proceden de [`Intl.DisplayNames`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DisplayNames) del navegador, por lo que su redacción exacta puede variar ligeramente entre navegadores. La búsqueda coincide con el nombre traducido, mientras que `onValueChange` sigue devolviendo el `name` en inglés del país. Las props `searchPlaceholder` y `emptyMessage` siguen funcionando, y tienen prioridad sobre `labels` cuando se definen ambas.
+
+```tsx
+"use client";
+
+import { PhoneInput } from "@/components/ui/phone-input";
+
+export default function App() {
+  return (
+    <PhoneInput
+      defaultCountry="FR"
+      displayLocale="fr"
+      label="Numéro de téléphone"
+      placeholder="Numéro de téléphone"
+      labels={{
+        trigger: "Choisir un pays",
+        searchPlaceholder: "Rechercher un pays…",
+        searchLabel: "Rechercher un pays",
+        clearSearch: "Effacer la recherche",
+        emptyMessage: "Aucun pays trouvé.",
+        listbox: "Choisir un pays",
+      }}
+    />
+  );
+}
+```
+
+| Clave               | Predeterminado          | Se usa para                                |
+| ------------------- | ----------------------- | ------------------------------------------ |
+| `trigger`           | `"Select country"`      | Etiqueta del disparador de país            |
+| `searchPlaceholder` | `"Search countries..."` | Marcador de posición del campo de búsqueda |
+| `searchLabel`       | `"Search countries"`    | Etiqueta accesible del campo de búsqueda   |
+| `clearSearch`       | `"Clear search"`        | Etiqueta accesible del botón de borrar     |
+| `emptyMessage`      | `"No countries found."` | Se muestra cuando nada coincide            |
+| `listbox`           | `"Select country"`      | Etiqueta accesible de la lista de países   |
+
+## Soporte de teclado [#keyboard-support]
+
+El menú de países sigue el patrón combobox de WAI-ARIA: el foco permanece en el campo de búsqueda, que se expone como `role="combobox"`, y el país resaltado se anuncia mediante `aria-activedescendant`.
+
+| Clave                             | Acción                                                                           |
+| --------------------------------- | -------------------------------------------------------------------------------- |
+| `Enter`, `Space` o clic           | Abre el menú de países desde el disparador de bandera                            |
+| `ArrowDown` / `ArrowUp` (cerrado) | Abre con el primer / último país resaltado                                       |
+| `ArrowDown` / `ArrowUp`           | Mueve el resaltado, dando la vuelta en ambos extremos                            |
+| `Home` / `End`                    | Resalta el primer / último país                                                  |
+| `Enter`                           | Selecciona el país resaltado; el foco pasa al campo de número                    |
+| `Escape`                          | Cierra el menú y devuelve el foco al disparador de bandera                       |
+| Escritura                         | Filtra por nombre, código o prefijo telefónico; el resaltado vuelve al principio |
+
+El resaltado se mantiene en la fila en la que apareció al abrir el menú: la lista se desplaza por debajo, como un menú nativo, y la página nunca se desplaza. Pasa `maxHeight` para cambiar la altura de la lista de países antes de que empiece a desplazarse.
+
+## Características [#features]
+
+- **50 países** — precargados con prefijos, banderas y nombres
+- **Búsqueda en el desplegable** — filtra países por nombre o prefijo telefónico
+- **Emojis de bandera** — detectados automáticamente a partir del código de país, con un interruptor `showFlags`
+- **Accesible con teclado** — navegación con flechas, Inicio / Fin, Intro y Escape
+- **Etiquetas ARIA** — campo de búsqueda `role="combobox"` con `aria-activedescendant`, además de `aria-expanded`, `aria-haspopup` y `aria-selected`
+- **Personalizable con temas** — con estilos basados en los tokens de shadcn/ui (`border-input`, `bg-popover`, `ring-ring`), así que sigue tu tema y el modo oscuro
+- **Menú animado** — aparece y desaparece con `motion`, respeta la configuración de movimiento reducido y cambia hacia arriba cuando no hay espacio debajo
+- **Controlado/no controlado** — funciona con o sin `value` y `country`
+- **Detección del prefijo telefónico** — al escribir o pegar `+44…` el país cambia a GB y se elimina el prefijo; los prefijos compartidos (`+1`, `+7`) mantienen la selección actual
+
+## Países compatibles [#supported-countries]
+
+El campo incluye 50 países precargados. Usa la búsqueda del desplegable para encontrar cualquier país por nombre o prefijo telefónico. La lista completa incluye:
+
+| País                                             | Código | Prefijo telefónico | Bandera |
+| ------------------------------------------------ | ------ | ------------------ | ------- |
+| Estados Unidos                                   | `US`   | `+1`               | 🇺🇸      |
+| Reino Unido                                      | `GB`   | `+44`              | 🇬🇧      |
+| Canadá                                           | `CA`   | `+1`               | 🇨🇦      |
+| Australia                                        | `AU`   | `+61`              | 🇦🇺      |
+| India                                            | `IN`   | `+91`              | 🇮🇳      |
+| Alemania                                         | `DE`   | `+49`              | 🇩🇪      |
+| Francia                                          | `FR`   | `+33`              | 🇫🇷      |
+| Japón                                            | `JP`   | `+81`              | 🇯🇵      |
+| Brasil                                           | `BR`   | `+55`              | 🇧🇷      |
+| Corea del Sur                                    | `KR`   | `+82`              | 🇰🇷      |
+| ...y 40 más mediante la búsqueda del desplegable |
+
+## Dependencias [#dependencies]
+
+Este componente usa:
+
+- `clsx` y `tailwind-merge` (incluidos como dependencias)
+- `lucide-react` para los iconos y `motion` para la animación del menú
+
+Dependencias de pares:
+
+- `react` >= 18
+- `react-dom` >= 18
+- `tailwindcss` >= 3
+
+## Créditos [#credits]
+
+Creado por [sapatmohit](https://github.com/sapatmohit).

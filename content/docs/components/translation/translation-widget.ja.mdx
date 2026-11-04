@@ -1,0 +1,373 @@
+---
+title: 翻訳ウィジェット
+description: 言語ピッカー、入れ替え、コピー、文字数カウント、ローディング状態を備えた並列表示の翻訳カードです。RTL に対応し、shadcn のトークンでテーマ設定されています。
+---
+
+import { PreviewComponents } from "@/components/docs/preview-components";
+import { TranslationWidgetDemo } from "@/components/docs/translation-widget-demo";
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+<PreviewComponents registryName="translation-widget">
+  <TranslationWidgetDemo />
+</PreviewComponents>
+
+## インストール [#installation]
+
+<Tabs
+  items={["shadcn", "Elements CLI"]}
+  defaultValue="shadcn"
+  className="bg-transparent border-none"
+>
+  <Tab value="shadcn" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="installation-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx shadcn@latest add @babelize/translation-widget
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx shadcn@latest add @babelize/translation-widget
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx shadcn@latest add @babelize/translation-widget
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx shadcn@latest add @babelize/translation-widget
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+  <Tab value="Elements CLI" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="elements-cli-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx @babelize/elements add translation-widget
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx @babelize/elements add translation-widget
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx @babelize/elements add translation-widget
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx @babelize/elements add translation-widget
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+</Tabs>
+
+## 使い方 [#usage]
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { TranslationWidget } from "@/components/ui/translation-widget";
+
+export function Translate() {
+  const [text, setText] = useState("");
+
+  return (
+    <TranslationWidget
+      sourceLocale="en"
+      targetLocale="fr"
+      sourceText="Hello, world!"
+      targetText={text} // omit for uncontrolled
+      onTargetChange={setText}
+    />
+  );
+}
+```
+
+言語ピッカーと入れ替えボタンを使用する場合:
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { TranslationWidget } from "@/components/ui/translation-widget";
+
+const locales = [{ code: "en" }, { code: "fr" }, { code: "ar" }];
+
+export function Translate() {
+  const [source, setSource] = useState("Hello, world!");
+  const [target, setTarget] = useState("Bonjour, le monde !");
+  const [sourceLocale, setSourceLocale] = useState("en");
+  const [targetLocale, setTargetLocale] = useState("fr");
+
+  return (
+    <TranslationWidget
+      locales={locales}
+      sourceLocale={sourceLocale}
+      targetLocale={targetLocale}
+      onSourceLocaleChange={setSourceLocale}
+      onTargetLocaleChange={setTargetLocale}
+      sourceText={source}
+      onSourceChange={setSource}
+      targetText={target}
+      onTargetChange={setTarget}
+      onSwap={() => console.log("swapped")}
+    />
+  );
+}
+```
+
+## Props [#props]
+
+| Prop                   | 型                                 | 必須   | 説明                                                                                                |
+| ---------------------- | ---------------------------------- | ------ | --------------------------------------------------------------------------------------------------- |
+| `locales`              | `Locale[]`                         | いいえ | 各ペインの言語ピッカーで使用するロケール。省略すると静的なチップを表示します                        |
+| `sourceLocale`         | `string`                           | いいえ | 翻訳元ロケールの BCP 47 コード（例: `"en"`）。制御する場合に指定します                              |
+| `defaultSourceLocale`  | `string`                           | いいえ | 非制御時の初期翻訳元ロケール（デフォルト: `locales[0]`、なければ `"en"`）                           |
+| `onSourceLocaleChange` | `(code: string) => void`           | いいえ | 翻訳元ロケールが変更されたときのコールバック                                                        |
+| `targetLocale`         | `string`                           | いいえ | 翻訳先ロケールの BCP 47 コード（例: `"fr"`、`"ar"`）。制御する場合に指定します                      |
+| `defaultTargetLocale`  | `string`                           | いいえ | 非制御時の初期翻訳先ロケール（デフォルト: `locales[1]`、なければ `"en"`）                           |
+| `onTargetLocaleChange` | `(code: string) => void`           | いいえ | 翻訳先ロケールが変更されたときのコールバック                                                        |
+| `sourceText`           | `string`                           | いいえ | 翻訳元テキスト。翻訳元ペインを制御する場合に指定します                                              |
+| `defaultSourceText`    | `string`                           | いいえ | 非制御時の初期翻訳元テキスト                                                                        |
+| `onSourceChange`       | `(text: string) => void`           | いいえ | 翻訳元テキストが変更されたときのコールバック。ペインを編集可能にします                              |
+| `targetText`           | `string`                           | いいえ | 翻訳先テキスト。翻訳先ペインを制御する場合に指定します（`onTargetChange` がない場合は読み取り専用） |
+| `defaultTargetText`    | `string`                           | いいえ | 非制御時の初期翻訳先テキスト                                                                        |
+| `onTargetChange`       | `(text: string) => void`           | いいえ | 翻訳先テキストが変更されたときのコールバック                                                        |
+| `onSwap`               | `() => void`                       | いいえ | 入れ替えボタンがロケールとテキストを交換した後に呼び出されます                                      |
+| `sourcePlaceholder`    | `string`                           | いいえ | 翻訳元ペインのプレースホルダー                                                                      |
+| `targetPlaceholder`    | `string`                           | いいえ | 翻訳先ペインのプレースホルダー                                                                      |
+| `sourceLabel`          | `string`                           | いいえ | 翻訳元ペインのアクセシブルラベル（デフォルト: `"Source text"`）                                     |
+| `targetLabel`          | `string`                           | いいえ | 翻訳先ペインのアクセシブルラベル（デフォルト: `"Target text"`）                                     |
+| `readOnlySource`       | `boolean`                          | いいえ | `onSourceChange` が指定されていても翻訳元ペインを読み取り専用のままにします                         |
+| `showCount`            | `boolean`                          | いいえ | 翻訳元の文字数を表示します（デフォルト: `true`）                                                    |
+| `maxLength`            | `number`                           | いいえ | 両ペインの文字数上限。カウントには `n / max` と表示されます                                         |
+| `showClear`            | `boolean`                          | いいえ | 編集可能な翻訳元の下にクリアボタンを表示します（デフォルト: `true`）                                |
+| `showCopy`             | `boolean`                          | いいえ | 翻訳先の下にクリップボードへのコピーボタンを表示します（デフォルト: `true`）                        |
+| `onTargetCopy`         | `(text: string) => void`           | いいえ | 翻訳先テキストがコピーされた後に、そのテキストを引数として呼び出されます                            |
+| `labels`               | `Partial<TranslationWidgetLabels>` | いいえ | 組み込みの英語 UI テキストを上書きします（下記参照）                                                |
+| `loading`              | `boolean`                          | いいえ | 翻訳先ペインにスケルトンを表示し、`aria-busy` を設定します                                          |
+| `classNames`           | `TranslationWidgetClassNames`      | いいえ | パーツごとのクラス上書き: `root`、`header`、`pane`、`textarea`、`footer`、`swap`、`chip`            |
+| `dir`                  | `"ltr" \| "rtl"`                   | いいえ | 自動検出されたレイアウトの方向を上書きします                                                        |
+| `className`            | `string`                           | いいえ | 追加の CSS クラス                                                                                   |
+
+その他のprop（`id`、`data-*`、`aria-*`）はすべてルート要素に展開され、 refは同要素に転送されます。
+
+## 編集可能な翻訳元 [#editable-source]
+
+翻訳元ペインはデフォルトで読み取り専用です。編集可能にするには `onSourceChange` を渡してください。変更ハンドラーが存在する場合でも読み取り専用に固定するには `readOnlySource` を使用します:
+
+```tsx
+<TranslationWidget
+  sourceLocale="en"
+  targetLocale="de"
+  sourceText={source}
+  onSourceChange={setSource}
+  readOnlySource
+/>
+```
+
+## 制御された翻訳先 [#controlled-target]
+
+翻訳先ペインは、非制御の場合（`defaultTargetText`）、または `targetText` と `onTargetChange` の両方を渡した場合に編集可能になります。ハンドラーのない制御された翻訳先は読み取り専用で描画されるため、入力されたテキストが黙って失われることはありません:
+
+```tsx
+// Read-only: controlled with no way to report edits
+<TranslationWidget sourceLocale="en" targetLocale="fr" targetText="Bonjour" />
+
+// Editable
+<TranslationWidget
+  sourceLocale="en"
+  targetLocale="fr"
+  targetText={text}
+  onTargetChange={setText}
+/>
+```
+
+## 言語ピッカー [#language-pickers]
+
+静的な言語チップの代わりに、各ペインに [言語スイッチャー](/docs/components/language-switchers/language-switcher) を描画するには `locales` を渡します。各ピッカーはそのペインのロケールを更新し、テキストエリアの `lang` と `dir` もそれに追従します。そのため、翻訳先をアラビア語に切り替えると、そのペインは RTL に切り替わります:
+
+```tsx
+<TranslationWidget
+  locales={[{ code: "en" }, { code: "fr" }, { code: "ar" }]}
+  defaultSourceLocale="en"
+  defaultTargetLocale="fr"
+  sourceText={source}
+  onSourceChange={setSource}
+/>
+```
+
+ロケールの状態は非制御（`defaultSourceLocale` / `defaultTargetLocale`）または制御（`sourceLocale` + `onSourceLocaleChange`、翻訳先も同様）が可能です。`locales` を省略すると、ウィジェットはコンパクトな静的チップを維持します。
+
+## 入れ替え [#swap]
+
+ペイン間の入れ替えボタンは、ロケールとテキストの**両方**を交換します（翻訳元 ↔ 翻訳先）。そのうえで `onSwap` を発火します。ボタンは2つの言語ピッカーの間にあるヘッダーバーに配置され、入れ替えのたびにアイコンが半回転します。ボタンには `aria-label="Swap languages"` が付与されており、交換される値のいずれかが変更ハンドラーなしで制御されている場合は、入れ替えを適用できないため無効になります:
+
+```tsx
+<TranslationWidget
+  locales={locales}
+  sourceLocale={sourceLocale}
+  targetLocale={targetLocale}
+  onSourceLocaleChange={setSourceLocale}
+  onTargetLocaleChange={setTargetLocale}
+  sourceText={source}
+  onSourceChange={setSource}
+  targetText={target}
+  onTargetChange={setTarget}
+  onSwap={() => analytics.track("languages-swapped")}
+/>
+```
+
+## ツールバー [#toolbar]
+
+各ペインの下部には小さなツールバーがあります。翻訳元には、リアルタイムの文字数カウントが表示されます（`maxLength` を渡した場合は `n / max`、上限に達すると警告色になります）。ペインが編集可能な場合はクリアボタンも表示されます。翻訳先にはコピーボタンがあり、チェックマークで完了を示し、スクリーンリーダーには「翻訳をクリップボードにコピーしました」と通知されます:
+
+```tsx
+<TranslationWidget
+  sourceLocale="en"
+  targetLocale="fr"
+  sourceText={source}
+  onSourceChange={setSource}
+  maxLength={500}
+  onTargetCopy={(text) => analytics.track("translation-copied", { length: text.length })}
+/>
+```
+
+これらのいずれも `showCount={false}`、`showClear={false}`、または `showCopy={false}` で無効にできます。
+
+## ローディング状態 [#loading-state]
+
+翻訳の処理中は、`loading` を渡すと翻訳先テキストを点滅するスケルトンに置き換えられます。テキストエリアには `aria-busy` が設定され、コピーは無効になります:
+
+```tsx
+const [loading, setLoading] = useState(false);
+
+async function translate(text: string) {
+  setLoading(true);
+  setTarget(await api.translate(text, targetLocale));
+  setLoading(false);
+}
+
+<TranslationWidget loading={loading} /* … */ />;
+```
+
+## 翻訳された UI テキスト [#translated-ui-text]
+
+ペインのプレースホルダーとラベルには、それぞれ専用のprop（`sourcePlaceholder`、 `sourceLabel` など）があります。その他の組み込みテキスト（ツールバーのボタン、コピー時のアナウンス、文字数カウントの後に読み上げられる語、2つの言語ピッカー）は `labels` から取得されます。省略したキーは英語のデフォルトのままになります。
+
+```tsx
+<TranslationWidget
+  locales={locales}
+  defaultSourceLocale="fr"
+  defaultTargetLocale="en"
+  onSourceChange={(text) => console.log(text)}
+  sourcePlaceholder="Texte source"
+  sourceLabel="Texte source"
+  labels={{
+    swap: "Inverser les langues",
+    copy: "Copier la traduction",
+    copied: "Copié",
+    copiedStatus: "Traduction copiée dans le presse-papiers",
+    clearSource: "Effacer le texte source",
+    characters: (count) => (count === 1 ? "caractère" : "caractères"),
+    languageSwitcher: {
+      current: (name) => `Langue actuelle : ${name}`,
+      searchPlaceholder: "Rechercher des langues…",
+      emptyMessage: "Aucune langue trouvée.",
+    },
+  }}
+/>
+```
+
+| キー               | デフォルト                          | 用途                                                                 |
+| ------------------ | ----------------------------------- | -------------------------------------------------------------------- |
+| `swap`             | `"Swap languages"`                  | 入れ替えボタンのアクセシブルラベル                                   |
+| `copy`             | `"Copy translation"`                | コピーボタンのアクセシブルラベル                                     |
+| `copied`           | `"Copied"`                          | コピー直後のコピーボタンのラベル                                     |
+| `copiedStatus`     | `"Translation copied to clipboard"` | コピー後のスクリーンリーダーへの通知                                 |
+| `clearSource`      | `"Clear source text"`               | クリアボタンのアクセシブルなラベル                                   |
+| `characters`       | `(count) => "characters"`           | 文字数カウントの後に読み上げられる語（件数に応じて複数形になります） |
+| `languageSwitcher` | `LanguageSwitcher` のデフォルト     | 両方の言語ピッカー（`Partial<LanguageSwitcherLabels>`）              |
+
+## カスタマイズ [#customization]
+
+各パーツは `classNames` を通じて追加のクラスを受け取ります。これらは `cn` によってデフォルトの後にマージされるため、独自のクラスが優先されます:
+
+```tsx
+<TranslationWidget
+  classNames={{
+    root: "rounded-2xl shadow-lg",
+    header: "bg-muted/50",
+    textarea: "font-serif text-lg",
+    swap: "bg-primary text-primary-foreground",
+  }}
+/>
+```
+
+## RTL対応 [#rtl-support]
+
+翻訳先ロケールが RTL の言語（`ar`、`he`、`fa`、`ur`、…）である場合、または RTL のスクリプトサブタグ（`az-Arab`）を含む場合、翻訳先ペインのテキストは右から左へ流れます。ペインの*順序*は変わりません。翻訳元が先、翻訳先が後のままで、各ペインは独自の `dir` と `lang` を持つため、LTR→RTL の混在したペアでも両側で正しく読めます。ウィジェットの方向を明示的に設定するには `dir` を渡してください。
+
+```tsx
+<TranslationWidget sourceLocale="en" targetLocale="ar" sourceText="Hello, world!" />
+```
+
+## 機能 [#features]
+
+- **並列のペイン** — 翻訳元と翻訳先を1つのカードに収め、狭い画面では縦に積み重ねます
+- **言語ピッカー** — ペインごとに言語スイッチャーを表示するには `locales` を渡します。それ以外の場合は静的なチップを表示します
+- **入れ替えボタン** — ロケールとテキストの両方を交換します。`onSwap` とアクセシブルラベルを備えています
+- **編集可能な翻訳先** — 非制御、または `targetText` + `onTargetChange` による制御が可能です（ハンドラーのない制御された翻訳先は読み取り専用で描画されるため、入力されたテキストが黙って失われることはありません）
+- **RTL対応** — ペインごとの `dir` と `lang` は各ロケールに従います。ペインの順序は固定されたままです
+- **ツールバー** — `maxLength` を含む文字数カウント、クリア、クリップボードへのコピー
+- **ローディング状態** — `aria-busy` を持つスケルトンの翻訳先ペイン
+- **アクセシブル** — ラベル付きのテキストエリア、`lang` 属性、見えるフォーカスリング、コピー時のライブ通知
+- **キーボード対応** — Tab でペイン間を移動し、入力するだけで翻訳されます
+- **テーマ対応** — shadcn のトークン（`bg-card`、`border`、`muted`、`ring`）を使用するため、お使いのテーマやダークモードに追従します
+- **カスタマイズ可能** — すべてのパーツに対して `classNames` が使えます
+- **モーション** — バネ状の入れ替えアイコンとコピー確認。モーション低減の設定に対応しています
+- **制御/非制御** — `targetText` の有無にかかわらず動作します。ロケールも同様です
+
+## デザイン [#design]
+
+1枚のカードが、翻訳元ペインと、わずかに色味のついた翻訳先ペインに分かれています。2つの言語ピッカーと入れ替えボタンは共通のヘッダーバーに配置されており、翻訳ツールでおなじみのレイアウトです。色は shadcn のセマンティックトークンから取得されるため、追加の設定なしでウィジェットがお使いのテーマ、角丸、ダークモードに適用されます。
+
+## 依存関係 [#dependencies]
+
+このコンポーネントは次を使用しています:
+
+- `clsx` と `tailwind-merge`（dependencies としてバンドル）
+- アイコンには `lucide-react`、入れ替えとコピーのアニメーションには `motion` を使用します
+- [言語スイッチャー](/docs/components/language-switchers/language-switcher) コンポーネント（レジストリの依存関係を通じて自動的に取り込まれます）
+
+peerDependencies:
+
+- `react` >= 18
+- `react-dom` >= 18
+- `tailwindcss` >= 3

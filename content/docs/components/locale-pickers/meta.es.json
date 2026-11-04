@@ -1,0 +1,6 @@
+{
+  "title": "Selectores de configuración regional",
+  "icon": "MapPin",
+  "pages": ["locale-picker"],
+  "collapsible": false
+}

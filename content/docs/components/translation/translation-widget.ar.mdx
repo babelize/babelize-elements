@@ -1,0 +1,373 @@
+---
+title: أداة الترجمة
+description: بطاقة ترجمة جنبًا إلى جنب، مع محددات اللغة وزر التبديل والنسخ وعداد الأحرف وحالة التحميل. مدركة لـ RTL ومنسّقة برموز shadcn.
+---
+
+import { PreviewComponents } from "@/components/docs/preview-components";
+import { TranslationWidgetDemo } from "@/components/docs/translation-widget-demo";
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+<PreviewComponents registryName="translation-widget">
+  <TranslationWidgetDemo />
+</PreviewComponents>
+
+## التثبيت [#installation]
+
+<Tabs
+  items={["shadcn", "Elements CLI"]}
+  defaultValue="shadcn"
+  className="bg-transparent border-none"
+>
+  <Tab value="shadcn" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="installation-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx shadcn@latest add @babelize/translation-widget
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx shadcn@latest add @babelize/translation-widget
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx shadcn@latest add @babelize/translation-widget
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx shadcn@latest add @babelize/translation-widget
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+  <Tab value="Elements CLI" className="border-none bg-transparent p-0 mt-3">
+    <Tabs items={["npx", "pnpm", "yarn", "bun"]} defaultValue="npx" groupId="elements-cli-tabs">
+      <Tab value="npx">
+
+      ```bash
+      npx @babelize/elements add translation-widget
+      ```
+
+      </Tab>
+      <Tab value="pnpm">
+
+      ```bash
+      pnpm dlx @babelize/elements add translation-widget
+      ```
+
+      </Tab>
+      <Tab value="yarn">
+
+      ```bash
+      yarn dlx @babelize/elements add translation-widget
+      ```
+
+      </Tab>
+      <Tab value="bun">
+
+      ```bash
+      bunx @babelize/elements add translation-widget
+      ```
+
+      </Tab>
+    </Tabs>
+
+  </Tab>
+</Tabs>
+
+## الاستخدام [#usage]
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { TranslationWidget } from "@/components/ui/translation-widget";
+
+export function Translate() {
+  const [text, setText] = useState("");
+
+  return (
+    <TranslationWidget
+      sourceLocale="en"
+      targetLocale="fr"
+      sourceText="Hello, world!"
+      targetText={text} // omit for uncontrolled
+      onTargetChange={setText}
+    />
+  );
+}
+```
+
+مع محددات اللغة وزر التبديل:
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { TranslationWidget } from "@/components/ui/translation-widget";
+
+const locales = [{ code: "en" }, { code: "fr" }, { code: "ar" }];
+
+export function Translate() {
+  const [source, setSource] = useState("Hello, world!");
+  const [target, setTarget] = useState("Bonjour, le monde !");
+  const [sourceLocale, setSourceLocale] = useState("en");
+  const [targetLocale, setTargetLocale] = useState("fr");
+
+  return (
+    <TranslationWidget
+      locales={locales}
+      sourceLocale={sourceLocale}
+      targetLocale={targetLocale}
+      onSourceLocaleChange={setSourceLocale}
+      onTargetLocaleChange={setTargetLocale}
+      sourceText={source}
+      onSourceChange={setSource}
+      targetText={target}
+      onTargetChange={setTarget}
+      onSwap={() => console.log("swapped")}
+    />
+  );
+}
+```
+
+## الخصائص [#props]
+
+| الخاصية                | النوع                              | مطلوب | الوصف                                                                                      |
+| ---------------------- | ---------------------------------- | ----- | ------------------------------------------------------------------------------------------ |
+| `locales`              | `Locale[]`                         | لا    | اللغات المحلية لمحددات اللغة في كل لوحة؛ احذفها لعرض رقائق ثابتة                           |
+| `sourceLocale`         | `string`                           | لا    | رمز BCP 47 للغة المحلية المصدر (مثل `"en"`)؛ مرّره للتحكم بها                              |
+| `defaultSourceLocale`  | `string`                           | لا    | اللغة المحلية المصدر الأولية عند عدم التحكم (القيمة الافتراضية: `locales[0]`، وإلا `"en"`) |
+| `onSourceLocaleChange` | `(code: string) => void`           | لا    | دالة استدعاء عند تغيّر اللغة المحلية المصدر                                                |
+| `targetLocale`         | `string`                           | لا    | رمز BCP 47 للغة المحلية الهدف (مثل `"fr"`، `"ar"`)؛ مرّره للتحكم بها                       |
+| `defaultTargetLocale`  | `string`                           | لا    | اللغة المحلية الهدف الأولية عند عدم التحكم (القيمة الافتراضية: `locales[1]`، وإلا `"en"`)  |
+| `onTargetLocaleChange` | `(code: string) => void`           | لا    | دالة استدعاء عند تغيّر اللغة المحلية الهدف                                                 |
+| `sourceText`           | `string`                           | لا    | نص المصدر — مرّره للتحكم في لوحة المصدر                                                    |
+| `defaultSourceText`    | `string`                           | لا    | نص المصدر الأولي عند عدم التحكم                                                            |
+| `onSourceChange`       | `(text: string) => void`           | لا    | دالة استدعاء عند تغيّر نص المصدر؛ تجعل اللوحة قابلة للتحرير                                |
+| `targetText`           | `string`                           | لا    | نص الهدف — مرّره للتحكم في لوحة الهدف (للقراءة فقط بدون `onTargetChange`)                  |
+| `defaultTargetText`    | `string`                           | لا    | نص الهدف الأولي عند عدم التحكم                                                             |
+| `onTargetChange`       | `(text: string) => void`           | لا    | دالة استدعاء عند تغيّر نص الهدف                                                            |
+| `onSwap`               | `() => void`                       | لا    | تُستدعى بعد أن يتبادل زر التبديل اللغات المحلية والنصوص                                    |
+| `sourcePlaceholder`    | `string`                           | لا    | نص توضيحي للوحة المصدر                                                                     |
+| `targetPlaceholder`    | `string`                           | لا    | نص توضيحي للوحة الهدف                                                                      |
+| `sourceLabel`          | `string`                           | لا    | تسمية إمكانية الوصول للوحة المصدر (القيمة الافتراضية: `"Source text"`)                     |
+| `targetLabel`          | `string`                           | لا    | تسمية إمكانية الوصول للوحة الهدف (القيمة الافتراضية: `"Target text"`)                      |
+| `readOnlySource`       | `boolean`                          | لا    | أبقِ لوحة المصدر للقراءة فقط حتى مع `onSourceChange`                                       |
+| `showCount`            | `boolean`                          | لا    | أظهر عداد أحرف المصدر (القيمة الافتراضية: `true`)                                          |
+| `maxLength`            | `number`                           | لا    | حد الأحرف للوحتين معًا؛ يعرض العداد `n / max`                                              |
+| `showClear`            | `boolean`                          | لا    | أظهر زر مسح أسفل المصدر القابل للتحرير (القيمة الافتراضية: `true`)                         |
+| `showCopy`             | `boolean`                          | لا    | أظهر زر النسخ إلى الحافظة أسفل الهدف (القيمة الافتراضية: `true`)                           |
+| `onTargetCopy`         | `(text: string) => void`           | لا    | تُستدعى بنص الهدف بعد نسخه                                                                 |
+| `labels`               | `Partial<TranslationWidgetLabels>` | لا    | تجاوز نصوص الواجهة الإنجليزية المدمجة (انظر أدناه)                                         |
+| `loading`              | `boolean`                          | لا    | أظهر هيكل تحميل في لوحة الهدف وسمه بـ `aria-busy`                                          |
+| `classNames`           | `TranslationWidgetClassNames`      | لا    | تجاوزات الأصناف لكل جزء: `root`، `header`، `pane`، `textarea`، `footer`، `swap`، `chip`    |
+| `dir`                  | `"ltr" \| "rtl"`                   | لا    | تجاوز اتجاه التخطيط المكتشف تلقائيًا                                                       |
+| `className`            | `string`                           | لا    | أصناف CSS إضافية                                                                           |
+
+أي خاصية أخرى — `id`، `data-*`، `aria-*` — تُمرَّر إلى العنصر الجذري، ويُعاد توجيه المرجع (ref) إليه.
+
+## المصدر القابل للتحرير [#editable-source]
+
+لوحة المصدر للقراءة فقط افتراضيًا. مرّر `onSourceChange` لجعلها قابلة للتحرير، أو اجعلها للقراءة فقط بـ `readOnlySource` حتى مع وجود معالج تغيير:
+
+```tsx
+<TranslationWidget
+  sourceLocale="en"
+  targetLocale="de"
+  sourceText={source}
+  onSourceChange={setSource}
+  readOnlySource
+/>
+```
+
+## الهدف الخاضع للتحكم [#controlled-target]
+
+لوحة الهدف قابلة للتحرير عند عدم التحكم (`defaultTargetText`) أو عند تمرير `targetText` و`onTargetChange` معًا. الهدف الخاضع للتحكم دون معالج يُعرض للقراءة فقط، حتى لا يُفقد النص المكتوب بصمت:
+
+```tsx
+// Read-only: controlled with no way to report edits
+<TranslationWidget sourceLocale="en" targetLocale="fr" targetText="Bonjour" />
+
+// Editable
+<TranslationWidget
+  sourceLocale="en"
+  targetLocale="fr"
+  targetText={text}
+  onTargetChange={setText}
+/>
+```
+
+## محددات اللغة [#language-pickers]
+
+مرّر `locales` لعرض [مبدّل اللغة](/docs/components/language-switchers/language-switcher) في كل لوحة بدلًا من رقاقة اللغة الثابتة. يحدّث كل محدد اللغة المحلية للوحته، ويتبعه `lang` و`dir` في منطقة النص، فتبديل الهدف إلى العربية يجعل تلك اللوحة من اليمين إلى اليسار:
+
+```tsx
+<TranslationWidget
+  locales={[{ code: "en" }, { code: "fr" }, { code: "ar" }]}
+  defaultSourceLocale="en"
+  defaultTargetLocale="fr"
+  sourceText={source}
+  onSourceChange={setSource}
+/>
+```
+
+يمكن أن تكون حالة اللغة المحلية غير خاضعة للتحكم (`defaultSourceLocale` / `defaultTargetLocale`) أو خاضعة للتحكم (`sourceLocale` + `onSourceLocaleChange`، وبالمثل للهدف). عند حذف `locales` تحتفظ الأداة برقائق ثابتة مدمجة.
+
+## التبديل [#swap]
+
+يتبادل زر التبديل بين اللوحتين **اللغتين المحليتين** والنصين معًا — المصدر ↔ الهدف — ويُطلق `onSwap`. يقع في شريط الرأس بين محددي اللغة، ويدور أيقونته نصف دورة عند كل تبديل. يحمل الزر `aria-label="Swap languages"` ويكون معطّلًا عندما تكون أي قيمة متبادلة خاضعة للتحكم دون معالج تغيير، لأن التبديل لا يمكن تطبيقه:
+
+```tsx
+<TranslationWidget
+  locales={locales}
+  sourceLocale={sourceLocale}
+  targetLocale={targetLocale}
+  onSourceLocaleChange={setSourceLocale}
+  onTargetLocaleChange={setTargetLocale}
+  sourceText={source}
+  onSourceChange={setSource}
+  targetText={target}
+  onTargetChange={setTarget}
+  onSwap={() => analytics.track("languages-swapped")}
+/>
+```
+
+## شريط الأدوات [#toolbar]
+
+تنتهي كل لوحة بشريط أدوات صغير. يعرض المصدر عداد أحرف حي — `n / max` عند تمرير `maxLength`، ويتحول إلى اللون المدمّر عند الحد — وزر مسح عندما تكون اللوحة قابلة للتحرير. يحتوي الهدف على زر نسخ يتأكد بعلامة صح ويعلن “تمت نسخ الترجمة إلى الحافظة” لقارئات الشاشة:
+
+```tsx
+<TranslationWidget
+  sourceLocale="en"
+  targetLocale="fr"
+  sourceText={source}
+  onSourceChange={setSource}
+  maxLength={500}
+  onTargetCopy={(text) => analytics.track("translation-copied", { length: text.length })}
+/>
+```
+
+أوقف أيًّا منها باستخدام `showCount={false}` أو `showClear={false}` أو `showCopy={false}`.
+
+## حالة التحميل [#loading-state]
+
+أثناء تنفيذ الترجمة، مرّر `loading` لاستبدال نص الهدف بهيكل تحميل ينبض. تُوسم منطقة النص بـ `aria-busy` ويُعطَّل النسخ:
+
+```tsx
+const [loading, setLoading] = useState(false);
+
+async function translate(text: string) {
+  setLoading(true);
+  setTarget(await api.translate(text, targetLocale));
+  setLoading(false);
+}
+
+<TranslationWidget loading={loading} /* … */ />;
+```
+
+## نصوص الواجهة المترجمة [#translated-ui-text]
+
+لعناصر النائبة وتسميات اللوحات خصائص خاصة بها (`sourcePlaceholder`، `sourceLabel` وما شابه). أما بقية النصوص المدمجة — أزرار شريط الأدوات، وإعلان النسخ، والكلمة التي تُقرأ بعد عداد الأحرف، ومحددا اللغة — فتأتي من `labels`. أي مفتاح تتركه يحتفظ بقيمته الإنجليزية الافتراضية.
+
+```tsx
+<TranslationWidget
+  locales={locales}
+  defaultSourceLocale="fr"
+  defaultTargetLocale="en"
+  onSourceChange={(text) => console.log(text)}
+  sourcePlaceholder="Texte source"
+  sourceLabel="Texte source"
+  labels={{
+    swap: "Inverser les langues",
+    copy: "Copier la traduction",
+    copied: "Copié",
+    copiedStatus: "Traduction copiée dans le presse-papiers",
+    clearSource: "Effacer le texte source",
+    characters: (count) => (count === 1 ? "caractère" : "caractères"),
+    languageSwitcher: {
+      current: (name) => `Langue actuelle : ${name}`,
+      searchPlaceholder: "Rechercher des langues…",
+      emptyMessage: "Aucune langue trouvée.",
+    },
+  }}
+/>
+```
+
+| المفتاح            | الافتراضي                                  | يُستخدم في                                             |
+| ------------------ | ------------------------------------------ | ------------------------------------------------------ |
+| `swap`             | `"Swap languages"`                         | تسمية إمكانية الوصول لزر التبديل                       |
+| `copy`             | `"Copy translation"`                       | تسمية إمكانية الوصول لزر النسخ                         |
+| `copied`           | `"Copied"`                                 | تسمية زر النسخ مباشرة بعد النسخ                        |
+| `copiedStatus`     | `"Translation copied to clipboard"`        | إعلان قارئ الشاشة بعد النسخ                            |
+| `clearSource`      | `"Clear source text"`                      | تسمية إمكانية الوصول لزر المسح                         |
+| `characters`       | `(count) => "characters"`                  | ما يُقرأ بعد عداد الأحرف؛ يأخذ العدد صيغة الجمع        |
+| `languageSwitcher` | الإعدادات الافتراضية لـ `LanguageSwitcher` | محددا اللغة كلاهما (`Partial<LanguageSwitcherLabels>`) |
+
+## التخصيص [#customization]
+
+يقبل كل جزء أصنافًا إضافية عبر `classNames`، تُدمج بعد الإعدادات الافتراضية بواسطة `cn`، فتتغلب أصنافك:
+
+```tsx
+<TranslationWidget
+  classNames={{
+    root: "rounded-2xl shadow-lg",
+    header: "bg-muted/50",
+    textarea: "font-serif text-lg",
+    swap: "bg-primary text-primary-foreground",
+  }}
+/>
+```
+
+## دعم RTL [#rtl-support]
+
+عندما تكون اللغة المحلية الهدف من اللغات التي تُكتب من اليمين إلى اليسار (`ar`، `he`، `fa`، `ur`، …) أو تحمل وسم نص فرعيًا من نوع RTL (`az-Arab`)، يتدفق نص لوحة الهدف من اليمين إلى اليسار. ولا يتغيّر _ترتيب_ اللوحتين أبدًا، فالمصدر أولًا والهدف ثانيًا، ولكل لوحة `dir` و`lang` خاصان بها، فيُقرأ زوج مختلط من LTR إلى RTL بشكل صحيح على الجانبين. مرّر `dir` لتحديد اتجاه الأداة صراحةً.
+
+```tsx
+<TranslationWidget sourceLocale="en" targetLocale="ar" sourceText="Hello, world!" />
+```
+
+## الميزات [#features]
+
+- **لوحتان جنبًا إلى جنب** — المصدر والهدف في بطاقة واحدة، وتتكدّسان على الشاشات الضيقة
+- **محددات اللغة** — مرّر `locales` لمبدّل لغة في كل لوحة؛ وإلا فرقائق ثابتة
+- **زر التبديل** — يتبادل اللغتين المحليتين والنصين، مع `onSwap` وتسمية إمكانية وصول
+- **هدف قابل للتحرير** — غير خاضع للتحكم، أو خاضع للتحكم مع `targetText` + `onTargetChange` (الهدف الخاضع للتحكم دون معالج يُعرض للقراءة فقط حتى لا يُفقد النص المكتوب بصمت)
+- **مدرك لـ RTL** — يتبع `dir` و`lang` لكل لوحة كل لغة محلية، ويبقى ترتيب اللوحات ثابتًا
+- **شريط أدوات** — عداد أحرف مع `maxLength`، ومسح، ونسخ إلى الحافظة
+- **حالة التحميل** — لوحة هدف بهيكل تحميل مع `aria-busy`
+- **قابل للوصول** — حقول نصية مسمّاة، وسمات `lang`، وحلقات تركيز مرئية، وإعلان نسخ حي
+- **دعم لوحة المفاتيح** — Tab للتنقل بين اللوحتين، واكتب للترجمة
+- **قابل للتنسيق** — رموز shadcn (`bg-card`، `border`، `muted`، `ring`)، فيتبع سمة موقعك والوضع الداكن
+- **قابل للتخصيص** — `classNames` لكل جزء
+- **حركة** — أيقونة تبديل بحركة نابضة وتأكيد للنسخ، مع احترام إعدادات تقليل الحركة
+- **خاضع للتحكم / غير خاضع للتحكم** — يعمل مع `targetText` أو بدونه، وكذلك اللغات المحلية
+
+## التصميم [#design]
+
+بطاقة واحدة مقسّمة إلى لوحة مصدر ولوحة هدف بلون خفيف، مع محددي اللغة وزر التبديل في شريط رأس مشترك، وهو التخطيط الذي يعرفه الناس من أدوات الترجمة. تأتي الألوان من رموز shadcn الدلالية، فتتبع الأداة سمة موقعك وزواياه والوضع الداكن دون إعداد إضافي.
+
+## الاعتماديات [#dependencies]
+
+يستخدم هذا المكوّن:
+
+- `clsx` و`tailwind-merge` (مُضمّنة كاعتماديات)
+- `lucide-react` للأيقونات، و`motion` لحركات التبديل والنسخ
+- مكوّن [مبدّل اللغة](/docs/components/language-switchers/language-switcher) (يُضاف تلقائيًا عبر تبعيات السجل)
+
+الاعتماديات النظيرة:
+
+- `react` >= 18
+- `react-dom` >= 18
+- `tailwindcss` >= 3

@@ -1,0 +1,5 @@
+{
+  "title": "Navegación",
+  "icon": "PanelTop",
+  "pages": ["navbar"]
+}

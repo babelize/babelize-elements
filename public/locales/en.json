@@ -153,6 +153,15 @@
     "openSourceMitLicensed": "Open Source • MIT Licensed",
     "openSourceReactComponentsForInternationalization": "Open-source React components for internationalization (i18n). Build language switchers, locale pickers, and RTL layouts in minutes — MIT licensed, community-driven."
   },
+  "languageSwitcher": {
+    "current": "Current language: {name}",
+    "listbox": "Select language"
+  },
+  "meta": {
+    "description": "Open-source Localization UI components for React and Tailwind CSS. Language switchers, locale pickers, translation widgets, and more — built by the community.",
+    "ogDescription": "Open-source Localization UI components for React and Tailwind CSS. Built by the community.",
+    "title": "Babelize Elements - Open Source Localization UI Components"
+  },
   "navbar": {
     "babelizeElements": "Babelize Elements",
     "components": "Components",

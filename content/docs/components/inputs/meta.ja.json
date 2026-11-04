@@ -1,0 +1,5 @@
+{
+  "title": "入力",
+  "icon": "TextCursorInput",
+  "pages": ["phone-input"]
+}
