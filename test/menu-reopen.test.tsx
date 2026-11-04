@@ -34,7 +34,9 @@ describe("menus reopened mid-exit stay clickable", () => {
     await userEvent.click(trigger);
     await userEvent.click(trigger);
     await userEvent.click(trigger);
-    await userEvent.click(screen.getByRole("option", { name: /India/ }));
+    // `\+\d` disambiguates India ("…India+91") from "British Indian Ocean
+    // Territory", whose name contains "India" inside "Indian".
+    await userEvent.click(screen.getByRole("option", { name: /India\+\d/ }));
     expect(trigger).toHaveTextContent("+91");
   });
 
