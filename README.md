@@ -36,6 +36,8 @@
 - **Accessible** — keyboard support, ARIA labels, and WCAG-aware markup.
 - **Open source** — MIT-licensed, free forever, built by contributors like you.
 
+> **Need the rest of your app translated too?** Elements gives you the language switcher; [Babelize](https://www.babelize.co/?utm_source=github&utm_medium=readme&utm_campaign=elements) does the rest. It finds the hardcoded text in your React or Next.js app, wraps it in i18n calls, translates it into 90+ languages and opens a pull request you review, then keeps new strings translated on every push. Free plan, or try it locally with `npx babelize`.
+
 ## Installation
 
 ### Full library
