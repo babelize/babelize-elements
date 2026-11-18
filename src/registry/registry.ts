@@ -57,7 +57,7 @@ const ITEMS: ItemDef[] = [
     name: "phone-input",
     title: "Phone Input",
     description:
-      "International phone number input with country selector, flag emojis, and dial code search for 50 countries.",
+      "International phone number input with country selector, flag emojis, and dial code search for every E.164 country (~244 entries), plus basic E.164 validation.",
     type: "registry:ui",
     source: "registry/components/phone-input",
     filePath: "ui/phone-input.tsx",

@@ -67,6 +67,8 @@ export interface PhoneInputClassNames {
   list?: string;
   /** Each country row */
   item?: string;
+  /** The divider between the preferred countries and the rest of the list */
+  preferredDivider?: string;
   /** The empty-state message */
   empty?: string;
 }
@@ -92,11 +94,33 @@ export interface PhoneInputProps extends Omit<
   defaultCountry?: string;
   /**
    * Countries offered in the menu, in display order (default: `COUNTRIES`).
-   * Pass a subset to restrict the list or reorder it to put common ones first.
+   * Each entry is a full `Country` object or a bare ISO code (`"IN"`); pass a
+   * subset to restrict the list or reorder it to put common ones first.
    */
-  countries?: Country[];
+  countries?: (Country | string)[];
+  /**
+   * Countries pinned above a divider at the top of the menu, in order. Entries
+   * are added to the menu even when they are not in `countries`, and are
+   * deduplicated against it. Accepts `Country` objects or bare ISO codes.
+   */
+  preferredCountries?: (Country | string)[];
   /** Show the flag emoji beside the dial code (default: true) */
   showFlags?: boolean;
+  /**
+   * Mark the input `aria-invalid` when a non-empty number is malformed
+   * (unexpected characters, or more than 15 digits including the country code).
+   * Off by default; an empty field is never marked invalid. See
+   * `onValidityChange` for the validity itself.
+   */
+  validate?: boolean;
+  /**
+   * Callback with the current basic E.164 validity and the normalized number
+   * (`"+"` plus every digit, country code included). Fires whenever the digits
+   * change — not on mount, and not for an edit that leaves the number untouched
+   * (formatting). A well-formed but possibly incomplete number is valid; this
+   * checks shape (digits-only, ≤ 15 digits), not per-country length rules.
+   */
+  onValidityChange?: (valid: boolean, e164: string) => void;
   /** Accessible label for the field (default: "Phone number") */
   label?: string;
   /** Max height of the scrolling country list, before it scrolls (default: "15rem") */
@@ -122,58 +146,289 @@ export interface PhoneInputProps extends Omit<
   classNames?: PhoneInputClassNames;
 }
 
-const COUNTRIES: Country[] = [
-  { code: "US", dialCode: "+1", name: "United States", flag: "\u{1F1FA}\u{1F1F8}" },
-  { code: "GB", dialCode: "+44", name: "United Kingdom", flag: "\u{1F1EC}\u{1F1E7}" },
-  { code: "IN", dialCode: "+91", name: "India", flag: "\u{1F1EE}\u{1F1F3}" },
-  { code: "CA", dialCode: "+1", name: "Canada", flag: "\u{1F1E8}\u{1F1E6}" },
-  { code: "AU", dialCode: "+61", name: "Australia", flag: "\u{1F1E6}\u{1F1FA}" },
-  { code: "DE", dialCode: "+49", name: "Germany", flag: "\u{1F1E9}\u{1F1EA}" },
-  { code: "FR", dialCode: "+33", name: "France", flag: "\u{1F1EB}\u{1F1F7}" },
-  { code: "JP", dialCode: "+81", name: "Japan", flag: "\u{1F1EF}\u{1F1F5}" },
-  { code: "BR", dialCode: "+55", name: "Brazil", flag: "\u{1F1E7}\u{1F1F7}" },
-  { code: "CN", dialCode: "+86", name: "China", flag: "\u{1F1E8}\u{1F1F3}" },
-  { code: "RU", dialCode: "+7", name: "Russia", flag: "\u{1F1F7}\u{1F1FA}" },
-  { code: "KR", dialCode: "+82", name: "South Korea", flag: "\u{1F1F0}\u{1F1F7}" },
-  { code: "IT", dialCode: "+39", name: "Italy", flag: "\u{1F1EE}\u{1F1F9}" },
-  { code: "ES", dialCode: "+34", name: "Spain", flag: "\u{1F1EA}\u{1F1F8}" },
-  { code: "MX", dialCode: "+52", name: "Mexico", flag: "\u{1F1F2}\u{1F1FD}" },
-  { code: "NL", dialCode: "+31", name: "Netherlands", flag: "\u{1F1F3}\u{1F1F1}" },
-  { code: "SE", dialCode: "+46", name: "Sweden", flag: "\u{1F1F8}\u{1F1EA}" },
-  { code: "CH", dialCode: "+41", name: "Switzerland", flag: "\u{1F1E8}\u{1F1ED}" },
-  { code: "PL", dialCode: "+48", name: "Poland", flag: "\u{1F1F5}\u{1F1F1}" },
-  { code: "AR", dialCode: "+54", name: "Argentina", flag: "\u{1F1E6}\u{1F1F7}" },
-  { code: "ZA", dialCode: "+27", name: "South Africa", flag: "\u{1F1FF}\u{1F1E6}" },
-  { code: "NG", dialCode: "+234", name: "Nigeria", flag: "\u{1F1F3}\u{1F1EC}" },
-  { code: "EG", dialCode: "+20", name: "Egypt", flag: "\u{1F1EA}\u{1F1EC}" },
-  { code: "SA", dialCode: "+966", name: "Saudi Arabia", flag: "\u{1F1F8}\u{1F1E6}" },
-  { code: "AE", dialCode: "+971", name: "United Arab Emirates", flag: "\u{1F1E6}\u{1F1EA}" },
-  { code: "SG", dialCode: "+65", name: "Singapore", flag: "\u{1F1F8}\u{1F1EC}" },
-  { code: "MY", dialCode: "+60", name: "Malaysia", flag: "\u{1F1F2}\u{1F1FE}" },
-  { code: "TH", dialCode: "+66", name: "Thailand", flag: "\u{1F1F9}\u{1F1ED}" },
-  { code: "PH", dialCode: "+63", name: "Philippines", flag: "\u{1F1F5}\u{1F1ED}" },
-  { code: "ID", dialCode: "+62", name: "Indonesia", flag: "\u{1F1EE}\u{1F1E9}" },
-  { code: "VN", dialCode: "+84", name: "Vietnam", flag: "\u{1F1FB}\u{1F1F3}" },
-  { code: "TR", dialCode: "+90", name: "Turkey", flag: "\u{1F1F9}\u{1F1F7}" },
-  { code: "PK", dialCode: "+92", name: "Pakistan", flag: "\u{1F1F5}\u{1F1F0}" },
-  { code: "BD", dialCode: "+880", name: "Bangladesh", flag: "\u{1F1E7}\u{1F1E9}" },
-  { code: "KE", dialCode: "+254", name: "Kenya", flag: "\u{1F1F0}\u{1F1EA}" },
-  { code: "GH", dialCode: "+233", name: "Ghana", flag: "\u{1F1EC}\u{1F1ED}" },
-  { code: "ET", dialCode: "+251", name: "Ethiopia", flag: "\u{1F1EA}\u{1F1F9}" },
-  { code: "TZ", dialCode: "+255", name: "Tanzania", flag: "\u{1F1F9}\u{1F1FF}" },
-  { code: "IL", dialCode: "+972", name: "Israel", flag: "\u{1F1EE}\u{1F1F1}" },
-  { code: "HK", dialCode: "+852", name: "Hong Kong", flag: "\u{1F1ED}\u{1F1F0}" },
-  { code: "NZ", dialCode: "+64", name: "New Zealand", flag: "\u{1F1F3}\u{1F1FF}" },
-  { code: "IE", dialCode: "+353", name: "Ireland", flag: "\u{1F1EE}\u{1F1EA}" },
-  { code: "PT", dialCode: "+351", name: "Portugal", flag: "\u{1F1F5}\u{1F1F9}" },
-  { code: "CL", dialCode: "+56", name: "Chile", flag: "\u{1F1E8}\u{1F1F1}" },
-  { code: "CO", dialCode: "+57", name: "Colombia", flag: "\u{1F1E8}\u{1F1F4}" },
-  { code: "FI", dialCode: "+358", name: "Finland", flag: "\u{1F1EB}\u{1F1EE}" },
-  { code: "NO", dialCode: "+47", name: "Norway", flag: "\u{1F1F3}\u{1F1F4}" },
-  { code: "DK", dialCode: "+45", name: "Denmark", flag: "\u{1F1E9}\u{1F1F0}" },
-  { code: "AT", dialCode: "+43", name: "Austria", flag: "\u{1F1E6}\u{1F1F9}" },
-  { code: "BE", dialCode: "+32", name: "Belgium", flag: "\u{1F1E7}\u{1F1EA}" },
+/**
+ * The full ITU-T E.164 assignment set as `[ISO code, country calling code]`
+ * pairs. The country's English name and flag are derived from the ISO code at
+ * runtime (`Intl.DisplayNames` and the regional-indicator symbols), which keeps
+ * ~244 stored strings out of the bundle. Order matters: the component's
+ * original 50 countries come first, the rest follow alphabetically.
+ */
+const DIAL_CODES: readonly (readonly [string, string])[] = [
+  ["US", "+1"],
+  ["GB", "+44"],
+  ["IN", "+91"],
+  ["CA", "+1"],
+  ["AU", "+61"],
+  ["DE", "+49"],
+  ["FR", "+33"],
+  ["JP", "+81"],
+  ["BR", "+55"],
+  ["CN", "+86"],
+  ["RU", "+7"],
+  ["KR", "+82"],
+  ["IT", "+39"],
+  ["ES", "+34"],
+  ["MX", "+52"],
+  ["NL", "+31"],
+  ["SE", "+46"],
+  ["CH", "+41"],
+  ["PL", "+48"],
+  ["AR", "+54"],
+  ["ZA", "+27"],
+  ["NG", "+234"],
+  ["EG", "+20"],
+  ["SA", "+966"],
+  ["AE", "+971"],
+  ["SG", "+65"],
+  ["MY", "+60"],
+  ["TH", "+66"],
+  ["PH", "+63"],
+  ["ID", "+62"],
+  ["VN", "+84"],
+  ["TR", "+90"],
+  ["PK", "+92"],
+  ["BD", "+880"],
+  ["KE", "+254"],
+  ["GH", "+233"],
+  ["ET", "+251"],
+  ["TZ", "+255"],
+  ["IL", "+972"],
+  ["HK", "+852"],
+  ["NZ", "+64"],
+  ["IE", "+353"],
+  ["PT", "+351"],
+  ["CL", "+56"],
+  ["CO", "+57"],
+  ["FI", "+358"],
+  ["NO", "+47"],
+  ["DK", "+45"],
+  ["AT", "+43"],
+  ["BE", "+32"],
+  ["AF", "+93"],
+  ["AX", "+358"],
+  ["AL", "+355"],
+  ["DZ", "+213"],
+  ["AS", "+1"],
+  ["AD", "+376"],
+  ["AO", "+244"],
+  ["AI", "+1"],
+  ["AG", "+1"],
+  ["AM", "+374"],
+  ["AW", "+297"],
+  ["AZ", "+994"],
+  ["BS", "+1"],
+  ["BH", "+973"],
+  ["BB", "+1"],
+  ["BY", "+375"],
+  ["BZ", "+501"],
+  ["BJ", "+229"],
+  ["BM", "+1"],
+  ["BT", "+975"],
+  ["BO", "+591"],
+  ["BA", "+387"],
+  ["BW", "+267"],
+  ["IO", "+246"],
+  ["VG", "+1"],
+  ["BN", "+673"],
+  ["BG", "+359"],
+  ["BF", "+226"],
+  ["BI", "+257"],
+  ["KH", "+855"],
+  ["CM", "+237"],
+  ["CV", "+238"],
+  ["BQ", "+599"],
+  ["KY", "+1"],
+  ["CF", "+236"],
+  ["TD", "+235"],
+  ["CX", "+61"],
+  ["CC", "+61"],
+  ["KM", "+269"],
+  ["CG", "+242"],
+  ["CD", "+243"],
+  ["CK", "+682"],
+  ["CR", "+506"],
+  ["CI", "+225"],
+  ["HR", "+385"],
+  ["CU", "+53"],
+  ["CW", "+599"],
+  ["CY", "+357"],
+  ["CZ", "+420"],
+  ["DJ", "+253"],
+  ["DM", "+1"],
+  ["DO", "+1"],
+  ["EC", "+593"],
+  ["SV", "+503"],
+  ["GQ", "+240"],
+  ["ER", "+291"],
+  ["EE", "+372"],
+  ["SZ", "+268"],
+  ["FK", "+500"],
+  ["FO", "+298"],
+  ["FJ", "+679"],
+  ["GF", "+594"],
+  ["PF", "+689"],
+  ["GA", "+241"],
+  ["GM", "+220"],
+  ["GE", "+995"],
+  ["GI", "+350"],
+  ["GR", "+30"],
+  ["GL", "+299"],
+  ["GD", "+1"],
+  ["GP", "+590"],
+  ["GU", "+1"],
+  ["GT", "+502"],
+  ["GG", "+44"],
+  ["GN", "+224"],
+  ["GW", "+245"],
+  ["GY", "+592"],
+  ["HT", "+509"],
+  ["HN", "+504"],
+  ["HU", "+36"],
+  ["IS", "+354"],
+  ["IR", "+98"],
+  ["IQ", "+964"],
+  ["IM", "+44"],
+  ["JM", "+1"],
+  ["JE", "+44"],
+  ["JO", "+962"],
+  ["KZ", "+7"],
+  ["KI", "+686"],
+  ["XK", "+383"],
+  ["KW", "+965"],
+  ["KG", "+996"],
+  ["LA", "+856"],
+  ["LV", "+371"],
+  ["LB", "+961"],
+  ["LS", "+266"],
+  ["LR", "+231"],
+  ["LY", "+218"],
+  ["LI", "+423"],
+  ["LT", "+370"],
+  ["LU", "+352"],
+  ["MO", "+853"],
+  ["MG", "+261"],
+  ["MW", "+265"],
+  ["MV", "+960"],
+  ["ML", "+223"],
+  ["MT", "+356"],
+  ["MH", "+692"],
+  ["MQ", "+596"],
+  ["MR", "+222"],
+  ["MU", "+230"],
+  ["YT", "+262"],
+  ["FM", "+691"],
+  ["MD", "+373"],
+  ["MC", "+377"],
+  ["MN", "+976"],
+  ["ME", "+382"],
+  ["MS", "+1"],
+  ["MA", "+212"],
+  ["MZ", "+258"],
+  ["MM", "+95"],
+  ["NA", "+264"],
+  ["NR", "+674"],
+  ["NP", "+977"],
+  ["NC", "+687"],
+  ["NI", "+505"],
+  ["NE", "+227"],
+  ["NU", "+683"],
+  ["NF", "+672"],
+  ["KP", "+850"],
+  ["MK", "+389"],
+  ["MP", "+1"],
+  ["OM", "+968"],
+  ["PW", "+680"],
+  ["PS", "+970"],
+  ["PA", "+507"],
+  ["PG", "+675"],
+  ["PY", "+595"],
+  ["PE", "+51"],
+  ["PN", "+64"],
+  ["PR", "+1"],
+  ["QA", "+974"],
+  ["RE", "+262"],
+  ["RO", "+40"],
+  ["RW", "+250"],
+  ["WS", "+685"],
+  ["SM", "+378"],
+  ["ST", "+239"],
+  ["SN", "+221"],
+  ["RS", "+381"],
+  ["SC", "+248"],
+  ["SL", "+232"],
+  ["SX", "+1"],
+  ["SK", "+421"],
+  ["SI", "+386"],
+  ["SB", "+677"],
+  ["SO", "+252"],
+  ["SS", "+211"],
+  ["LK", "+94"],
+  ["BL", "+590"],
+  ["SH", "+290"],
+  ["KN", "+1"],
+  ["LC", "+1"],
+  ["MF", "+590"],
+  ["PM", "+508"],
+  ["VC", "+1"],
+  ["SD", "+249"],
+  ["SR", "+597"],
+  ["SJ", "+47"],
+  ["SY", "+963"],
+  ["TW", "+886"],
+  ["TJ", "+992"],
+  ["TL", "+670"],
+  ["TG", "+228"],
+  ["TK", "+690"],
+  ["TO", "+676"],
+  ["TT", "+1"],
+  ["TN", "+216"],
+  ["TM", "+993"],
+  ["TC", "+1"],
+  ["TV", "+688"],
+  ["VI", "+1"],
+  ["UG", "+256"],
+  ["UA", "+380"],
+  ["UY", "+598"],
+  ["UZ", "+998"],
+  ["VU", "+678"],
+  ["VA", "+39"],
+  ["VE", "+58"],
+  ["WF", "+681"],
+  ["EH", "+212"],
+  ["YE", "+967"],
+  ["ZM", "+260"],
+  ["ZW", "+263"],
 ];
+
+/** English region names, resolved once and shared across every `Country`. */
+const ENGLISH_REGION_NAMES = (() => {
+  try {
+    return new Intl.DisplayNames(["en"], { type: "region" });
+  } catch {
+    return undefined;
+  }
+})();
+
+/** Flag emoji derived from an ISO 3166-1 alpha-2 code's regional indicators. */
+function flagOf(code: string): string {
+  return String.fromCodePoint(0x1f1e6 + code.charCodeAt(0) - 65, 0x1f1e6 + code.charCodeAt(1) - 65);
+}
+
+/** English country name for an ISO code, falling back to the code itself. */
+function nameOf(code: string): string {
+  try {
+    return ENGLISH_REGION_NAMES?.of(code) ?? code;
+  } catch {
+    return code;
+  }
+}
+
+const COUNTRIES: Country[] = DIAL_CODES.map(([code, dialCode]) => ({
+  code,
+  dialCode,
+  name: nameOf(code),
+  flag: flagOf(code),
+}));
 
 /**
  * The menu panel. While it plays its exit animation it is still mounted, so it
@@ -217,6 +472,56 @@ function getCountryByCode(code: string, list: Country[] = COUNTRIES): Country | 
   // Case-insensitive on both sides: the lookup arg arrives in any case
   // ("gb", "GB"), and a hand-written `countries` list may not be uppercase.
   return list.find((c) => c.code.toUpperCase() === code.toUpperCase());
+}
+
+/**
+ * Turn a mixed list of full `Country` objects and bare ISO codes into resolved
+ * `Country` entries. Bare codes are looked up in the built-in table, unknown
+ * codes are dropped, and duplicates (by code) collapse to the first occurrence.
+ */
+function resolveCountries(
+  input: readonly (Country | string)[] | undefined,
+  fallback: Country[],
+): Country[] {
+  const source = input ?? fallback;
+  const out: Country[] = [];
+  const seen = new Set<string>();
+  for (const entry of source) {
+    const resolved = typeof entry === "string" ? getCountryByCode(entry) : entry;
+    const key = resolved?.code.toUpperCase();
+    if (!resolved || !key || seen.has(key)) continue;
+    seen.add(key);
+    out.push(resolved);
+  }
+  return out;
+}
+
+// Characters a user may legitimately type as visual formatting are stripped
+// before the digits-only check; anything beyond those and a leading "+" makes
+// the number malformed. The leading "+" is removed first, so any "+" that
+// remains (e.g. "1+2") is unexpected.
+const FORMATTING = /[ \-().]/g;
+const UNEXPECTED = /[^0-9 ]/;
+
+/**
+ * Basic E.164 normalization. Formatting characters are stripped, the result
+ * must be digits-only, and the total (country code included) may not exceed 15
+ * digits. A leading `+` is treated as a self-declared country code, so the
+ * selected country's dial code is not prepended on top of it.
+ */
+function toE164(input: string, dialCode: string): { e164: string; valid: boolean } {
+  // A leading "+" declares its own country code; strip it (and the formatting
+  // characters) before the digits-only / unexpected-character checks.
+  const declaresOwn = input.trim().startsWith("+");
+  const stripped = input.replace(FORMATTING, "").replace(declaresOwn ? /^\+/ : /^$/, "");
+  const digits = stripped.replace(/\D/g, "");
+  const hasUnexpected = UNEXPECTED.test(stripped);
+  const all = (declaresOwn ? "" : dialCode.replace(/\D/g, "")) + digits;
+  // With no digits typed there is no number yet, whatever the dial code says.
+  return {
+    e164: digits ? `+${all}` : "",
+    valid: !hasUnexpected && digits.length > 0 && all.length <= 15,
+  };
 }
 
 /**
@@ -287,11 +592,14 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
     country,
     onCountryChange,
     defaultCountry = "US",
-    countries = COUNTRIES,
+    countries,
+    preferredCountries,
     placeholder = "Phone number",
     disabled = false,
     className,
     showFlags = true,
+    validate = false,
+    onValidityChange,
     label = "Phone number",
     maxHeight = "15rem",
     size = "default",
@@ -306,21 +614,40 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
   },
   forwardedRef,
 ) {
+  // The full list of countries the menu offers: `preferredCountries` pinned in
+  // front of `countries` (both resolved from bare ISO codes where given), with
+  // the preferred ones deduplicated out of the body.
+  const baseList = React.useMemo(() => resolveCountries(countries, COUNTRIES), [countries]);
+  const preferredList = React.useMemo(
+    () => resolveCountries(preferredCountries, []),
+    [preferredCountries],
+  );
+  // One normalized (uppercase) preferred-code set, so a hand-written lowercase
+  // `Country.code` still matches its `baseList` twin and is deduplicated out.
+  const preferredCodes = React.useMemo(
+    () => new Set(preferredList.map((c) => c.code.toUpperCase())),
+    [preferredList],
+  );
+  const offered = React.useMemo(
+    () => [...preferredList, ...baseList.filter((c) => !preferredCodes.has(c.code.toUpperCase()))],
+    [preferredList, preferredCodes, baseList],
+  );
+
   const [countryCode, setCountryCode] = useControllableState(country, defaultCountry, (code) => {
     // An unknown code resolves the same way the display does, so a callback
     // never reports a country the field is not showing.
-    onCountryChange?.(getCountryByCode(code, countries) ?? countries[0] ?? COUNTRIES[0]);
+    onCountryChange?.(getCountryByCode(code, offered) ?? offered[0] ?? COUNTRIES[0]);
   });
   const selectedCountry = React.useMemo(
-    () => getCountryByCode(countryCode, countries) ?? countries[0] ?? COUNTRIES[0],
-    [countryCode, countries],
+    () => getCountryByCode(countryCode, offered) ?? offered[0] ?? COUNTRIES[0],
+    [countryCode, offered],
   );
   // Report a country change only on a real transition: re-picking the current
   // country, or keeping it across a shared dial code, is not a change.
   const pickCountry = React.useCallback(
     (next: Country) => {
       // Compare against what is displayed, not the raw code: `country="gb"`
-      // resolves to GB, and an unknown code falls back to `countries[0]` —
+      // resolves to GB, and an unknown code falls back to `offered[0]` —
       // either way the visible country must match before we report a change.
       if (next.code !== selectedCountry.code) setCountryCode(next.code);
     },
@@ -333,7 +660,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
   const ref = React.useRef<HTMLDivElement>(null);
   const inputRef = React.useRef<HTMLInputElement>(null);
   // The country search box needs its own ref. Sharing `inputRef` meant the search
-  // field overwrote it whenever the dropdown opened, which pointed the forwarded
+  // field overwrote it whenever the dropdown opened, which points the forwarded
   // ref at the wrong element and sent focus to a node that was about to unmount.
   const searchRef = React.useRef<HTMLInputElement>(null);
   const triggerRef = React.useRef<HTMLButtonElement>(null);
@@ -379,7 +706,17 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
       return undefined;
     }
   }, [displayLocale]);
-  const getCountryName = (c: Country) => regionNames?.of(c.code) ?? c.name;
+  // Resolve every display name once per (locale, list) — one pass when the
+  // locale or the offered list changes — instead of once per row per keystroke.
+  const translatedNames = React.useMemo(() => {
+    const map = new Map<string, string>();
+    if (regionNames) {
+      for (const c of offered) map.set(c.code, regionNames.of(c.code) ?? c.name);
+    }
+    return map;
+  }, [regionNames, offered]);
+  const getCountryName = (c: Country) =>
+    regionNames ? (translatedNames.get(c.code) ?? c.name) : c.name;
 
   // Lowercase with the display locale's rules, so a Turkish "İsrail" matches "israil".
   // Without a display locale, keep plain lowercasing: the user's own locale could
@@ -389,12 +726,39 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
   const query = lower(search.trim());
   // ISO codes are ASCII, so match them without locale rules ("ID" must not become "ıd").
   const codeQuery = search.trim().toLowerCase();
-  const filtered = countries.filter(
+  const filtered = offered.filter(
     (c) =>
       lower(getCountryName(c)).includes(query) ||
       c.dialCode.includes(query) ||
       c.code.toLowerCase().includes(codeQuery),
   );
+  // How many of the filtered rows are preferred countries. They sit at the
+  // front of `offered`, and filtering keeps that order, so they are the leading
+  // run of the result — the divider goes right after them.
+  const preferredMatched = filtered.reduce((n, c) => (preferredCodes.has(c.code) ? n + 1 : n), 0);
+
+  // Basic E.164 validity, recomputed whenever the number or the country changes.
+  const { e164, valid } = React.useMemo(
+    () => toE164(inputValue, selectedCountry.dialCode),
+    [inputValue, selectedCountry.dialCode],
+  );
+  // Report validity whenever the digits actually change — not on mount, and
+  // not for an edit that leaves the normalized number untouched (formatting).
+  // The callback rides in a ref so an inline arrow from the consumer does not
+  // re-fire the effect on every render.
+  const onValidityChangeRef = React.useRef(onValidityChange);
+  onValidityChangeRef.current = onValidityChange;
+  const validityMountedRef = React.useRef(false);
+  React.useEffect(() => {
+    if (!validityMountedRef.current) {
+      validityMountedRef.current = true;
+      return;
+    }
+    onValidityChangeRef.current?.(valid, e164);
+  }, [valid, e164]);
+  // Only a non-empty, malformed number is marked invalid — an empty field is a
+  // form's "required" concern, not a malformed one.
+  const ariaInvalid = validate && inputValue !== "" && !valid ? true : undefined;
 
   const nav = useListboxNavigation({
     count: filtered.length,
@@ -503,7 +867,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
     }
     freshDigitsRef.current = fresh;
 
-    const match = detectCountryPrefix(next, countries, selectedCountry);
+    const match = detectCountryPrefix(next, offered, selectedCountry);
     if (!match) {
       setInputValue(next);
       onValueChange?.(next, selectedCountry);
@@ -551,6 +915,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
   };
 
   const offset = side === "bottom" ? -4 : 4;
+  const showDivider = preferredMatched > 0 && preferredMatched < filtered.length;
 
   return (
     <MotionConfig reducedMotion="user">
@@ -607,6 +972,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
             onChange={handleInputChange}
             placeholder={placeholder}
             disabled={disabled}
+            aria-invalid={ariaInvalid}
             {...rest}
             className={cn(
               "w-full min-w-0 flex-1 bg-transparent text-sm text-foreground tabular-nums outline-none placeholder:text-muted-foreground",
@@ -680,32 +1046,40 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(fu
                 {filtered.map((country, index) => {
                   const isCurrent = country.code === selectedCountry.code;
                   return (
-                    <button
-                      key={country.code}
-                      type="button"
-                      role="option"
-                      aria-selected={isCurrent}
-                      onClick={() => nav.select(index)}
-                      {...nav.optionProps(index)}
-                      className={cn(
-                        "relative flex w-full cursor-default items-center gap-2.5 rounded-sm px-2 py-1.5 text-start text-sm outline-none select-none",
-                        "data-[active=true]:bg-accent data-[active=true]:text-accent-foreground",
-                        classNames?.item,
+                    <React.Fragment key={country.code}>
+                      {showDivider && index === preferredMatched && (
+                        <div
+                          role="presentation"
+                          aria-hidden="true"
+                          className={cn("mx-2 my-1 border-t", classNames?.preferredDivider)}
+                        />
                       )}
-                    >
-                      <span className="text-base leading-none">{country.flag}</span>
-                      <span className="flex-1 truncate">{getCountryName(country)}</span>
-                      <span className="text-xs text-muted-foreground tabular-nums">
-                        {country.dialCode}
-                      </span>
-                      <CheckIcon
-                        aria-hidden="true"
+                      <button
+                        type="button"
+                        role="option"
+                        aria-selected={isCurrent}
+                        onClick={() => nav.select(index)}
+                        {...nav.optionProps(index)}
                         className={cn(
-                          "size-4 shrink-0 text-primary",
-                          isCurrent ? "opacity-100" : "opacity-0",
+                          "relative flex w-full cursor-default items-center gap-2.5 rounded-sm px-2 py-1.5 text-start text-sm outline-none select-none",
+                          "data-[active=true]:bg-accent data-[active=true]:text-accent-foreground",
+                          classNames?.item,
                         )}
-                      />
-                    </button>
+                      >
+                        <span className="text-base leading-none">{country.flag}</span>
+                        <span className="flex-1 truncate">{getCountryName(country)}</span>
+                        <span className="text-xs text-muted-foreground tabular-nums">
+                          {country.dialCode}
+                        </span>
+                        <CheckIcon
+                          aria-hidden="true"
+                          className={cn(
+                            "size-4 shrink-0 text-primary",
+                            isCurrent ? "opacity-100" : "opacity-0",
+                          )}
+                        />
+                      </button>
+                    </React.Fragment>
                   );
                 })}
                 {filtered.length === 0 && (
